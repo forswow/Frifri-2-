@@ -1,0 +1,28 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "service": "Service",
+  "airTickets": "Air tickets",
+  "insurance": "Insurance",
+  "rentACar": "Rent a car",
+  "excursions": "Excursions",
+  "sanatoriums": "Sanatoriums",
+  "simCards": "SIM cards",
+  "compensation": "Compensation",
+  "settings": "Settings",
+  "departureAirport": "Departure Airport",
+  "language": "Language",
+  "currency": "Currency",
+  "confidentiality": "Confidentiality",
+  "help": "Help",
+  "more": "MORE",
+  "pushNotification": "Push-notification",
+  "confirm": "Confirm",
+  "avia": "Avia",
+  "hotel": "More",
+  "moreFirstUpCase": "More",
+  "flightCost": "Flight cost",
+  "directFligthsFrom": "Direct flights from"
+}
