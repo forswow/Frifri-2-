@@ -63,27 +63,37 @@ class AviaTicketWidget extends StatelessWidget {
                   widthFactor: 1,
                   child: CustomPaint(
                     painter: DashedLinePainter(),
-                    size: const Size(200, 20),
+                    size: Size(
+                      MediaQuery.sizeOf(context).width,
+                      MediaQuery.sizeOf(context).height * 0.02,
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(AppLocalizations.of(context)!.flightCost,
-                            style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                            )),
-                        Text(
-                          '23 690 ₽',
-                          style: GoogleFonts.roboto(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: const Color.fromRGBO(75, 148, 247, 1)),
-                        )
-                      ]),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Opacity(
+                        opacity: 0.6,
+                        child: Text(
+                          AppLocalizations.of(context)!.flightCost,
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        '23 690 ₽',
+                        style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: const Color.fromRGBO(75, 148, 247, 1),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
