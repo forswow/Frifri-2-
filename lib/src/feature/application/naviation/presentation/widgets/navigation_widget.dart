@@ -40,7 +40,7 @@ class _NavigationWidgetScreenState extends State<NavigationWidgetScreen> {
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 20),
           child: SafeArea(
             child: Container(
-              height: MediaQuery.sizeOf(context).height * 0.08,
+              height: MediaQuery.sizeOf(context).height * 0.10,
               width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
@@ -75,7 +75,7 @@ class _NavigationWidgetScreenState extends State<NavigationWidgetScreen> {
                           currentIndex = 1;
                         });
                       }),
-                  const SizedBox(width: 60),
+                  Spacer(),
                   CustomNavigationBarItem(
                       title: AppLocalizations.of(context)!.service,
                       assetPath: 'assets/icons/fire.svg',
@@ -101,21 +101,17 @@ class _NavigationWidgetScreenState extends State<NavigationWidgetScreen> {
             ),
           ),
         ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: ClipOval(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.07,
-              width: MediaQuery.sizeOf(context).width * 0.15,
-              child: ColoredBox(
-                color: const Color.fromRGBO(227, 14, 5, 1),
-                child: FractionallySizedBox(
-                  widthFactor: 0.5,
-                  heightFactor: 0.5,
-                  child: SvgPicture.asset('assets/icons/Search.svg'),
-                ),
-              ),
-            ),
+        floatingActionButton: Container(
+          margin:
+              EdgeInsets.only(top: MediaQuery.sizeOf(context).height * 0.057),
+          width: MediaQuery.sizeOf(context).width * 0.135,
+          height: MediaQuery.sizeOf(context).height * 0.135,
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Color(0xFFE30D05),
+            child: SvgPicture.asset('assets/icons/Search.svg'),
+            shape: CircleBorder(),
+            elevation: 0,
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -144,6 +140,9 @@ class CustomNavigationBarItem extends StatelessWidget {
   final bool isActive;
   final VoidCallback onPressed;
 
+  static const double _SvgScaleFactor = 0.07;
+  static const double _fontScaleFactor = 5.5;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -152,19 +151,24 @@ class CustomNavigationBarItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(isActive ? activeAssetPath : assetPath),
+            SvgPicture.asset(
+              isActive ? activeAssetPath : assetPath,
+              width: MediaQuery.sizeOf(context).width * _SvgScaleFactor,
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 4),
               child: Text(
                 title,
                 style: isActive
                     ? GoogleFonts.inter(
-                        fontSize: 13,
+                        fontSize: MediaQuery.of(context).devicePixelRatio *
+                            _fontScaleFactor,
                         fontWeight: FontWeight.w600,
                         color: Color.fromRGBO(227, 14, 5, 1),
                       )
                     : GoogleFonts.inter(
-                        fontSize: 13,
+                        fontSize: MediaQuery.of(context).devicePixelRatio *
+                            _fontScaleFactor,
                         fontWeight: FontWeight.w600,
                         color: Colors.grey,
                       ),
