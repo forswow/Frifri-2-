@@ -25,6 +25,13 @@ const kBlueTextGradient = LinearGradient(
 const kPrimaryButtonEnabledColor = Color.fromRGBO(227, 13, 5, 1);
 const kPrimaryButtonDisabledColor = Color.fromRGBO(255, 211, 211, 1);
 
+const kCardShadow = BoxShadow(
+  color: const Color.fromRGBO(115, 135, 174, 0.12),
+  offset: const Offset(0, 4),
+  blurRadius: 12,
+  spreadRadius: 0,
+);
+
 // Rounded Icon
 const kRoundedButtonBackgroundColor = Color.fromRGBO(235, 243, 253, 1);
 const KRoundedButtonIconColor = Color.fromRGBO(91, 156, 236, 1);
