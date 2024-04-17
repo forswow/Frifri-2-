@@ -44,3 +44,4 @@ const KRoundedButtonIconColor = Color.fromRGBO(91, 156, 236, 1);
 
 // Borders
 const kBorderPrimaryColor = Color.fromRGBO(227, 227, 227, 1);
+const kDividerPrimaryColor = Color.fromRGBO(230, 232, 236, 1);
