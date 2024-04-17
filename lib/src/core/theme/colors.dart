@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
+// Application
 const kPrimaryAppColor = Color.fromRGBO(227, 13, 5, 1);
+const kPrimaryBackgroundColor = Colors.white;
 
 // Typography
 const kPrimaryTextColor = Color.fromRGBO(0, 0, 0, 0.9);
-const kSecondaryTextColor = Color.fromRGBO(0, 0, 0, 0.32);
+const kSecondaryTextColor = Color.fromRGBO(0, 0, 0, 0.5);
+const kFaqBodyTextColor = Color.fromRGBO(0, 0, 0, 0.6);
+
 const kPriceColor = Color.fromRGBO(2, 104, 197, 1);
+const kCheapestPriceTextColor = Color.fromRGBO(39, 174, 96, 1);
 
 const kBlueTextGradient = LinearGradient(
   begin: Alignment.topCenter,
