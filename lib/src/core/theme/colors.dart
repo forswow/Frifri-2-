@@ -21,16 +21,22 @@ const kBlueTextGradient = LinearGradient(
   ],
 );
 
-// UI Elements
+// Buttons
 const kPrimaryButtonEnabledColor = Color.fromRGBO(227, 13, 5, 1);
 const kPrimaryButtonDisabledColor = Color.fromRGBO(255, 211, 211, 1);
 
+// Card
+const kCardBackgroundColor = Colors.white;
 const kCardShadow = BoxShadow(
   color: const Color.fromRGBO(115, 135, 174, 0.12),
   offset: const Offset(0, 4),
   blurRadius: 12,
   spreadRadius: 0,
 );
+
+// Navigation Bar
+const kNavBarActiveColor = kPrimaryAppColor;
+const kNavBarInactiveColor = Colors.grey;
 
 // Rounded Icon
 const kRoundedButtonBackgroundColor = Color.fromRGBO(235, 243, 253, 1);
