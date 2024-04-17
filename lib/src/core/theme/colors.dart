@@ -9,7 +9,7 @@ const kPrimaryTextColor = Color.fromRGBO(0, 0, 0, 0.9);
 const kSecondaryTextColor = Color.fromRGBO(0, 0, 0, 0.5);
 const kFaqBodyTextColor = Color.fromRGBO(0, 0, 0, 0.6);
 
-const kPriceColor = Color.fromRGBO(2, 104, 197, 1);
+const kPriceColor = Color.fromRGBO(75, 148, 247, 1);
 const kCheapestPriceTextColor = Color.fromRGBO(39, 174, 96, 1);
 
 const kBlueTextGradient = LinearGradient(
@@ -44,3 +44,4 @@ const KRoundedButtonIconColor = Color.fromRGBO(91, 156, 236, 1);
 
 // Borders
 const kBorderPrimaryColor = Color.fromRGBO(227, 227, 227, 1);
+const kDividerPrimaryColor = Color.fromRGBO(230, 232, 236, 1);
