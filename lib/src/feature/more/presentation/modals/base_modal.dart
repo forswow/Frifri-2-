@@ -41,12 +41,14 @@ class BottomSheetModalBase extends StatelessWidget {
             ),
           ),
         ),
-        child: Column(
-          children: [
-            build_header(context),
-            _defaultDivider,
-            build_content(context),
-          ],
+        child: SafeArea(
+          child: Column(
+            children: [
+              build_header(context),
+              _defaultDivider,
+              build_content(context),
+            ],
+          ),
         ),
       ),
     );
