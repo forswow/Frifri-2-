@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 /// Это основа модального окна (BottomSheet)
 /// Чтобы сделать модалку на её основе надо
 /// 1. Унаследоваться от [BottomSheetModalBase]
-/// 2. Переопределить [_build_content] и [_build_header]
+/// 2. Переопределить [build_content] и [build_header]
 class BottomSheetModalBase extends StatelessWidget {
+  // Возможно в будущем сюда стоит добавить параметры
+  // по умолчанию для возможности переопределения
+  // свойств и внешнего вида модалки
   const BottomSheetModalBase({super.key});
 
   static const double _topBorderRadius = 20.0;
@@ -13,11 +16,11 @@ class BottomSheetModalBase extends StatelessWidget {
     thickness: 0.5,
   );
 
-  Widget _build_header(BuildContext context) {
+  Widget build_header(BuildContext context) {
     return Placeholder();
   }
 
-  Widget _build_content(BuildContext context) {
+  Widget build_content(BuildContext context) {
     return Placeholder();
   }
 
@@ -39,9 +42,9 @@ class BottomSheetModalBase extends StatelessWidget {
         ),
         child: Column(
           children: [
-            _build_header(context),
+            build_header(context),
             _defaultDivider,
-            _build_content(context),
+            build_content(context),
           ],
         ),
       ),
