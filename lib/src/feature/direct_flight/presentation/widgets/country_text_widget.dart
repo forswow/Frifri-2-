@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final countryTopTextStyle = GoogleFonts.poppins(
-    color: Colors.black, fontWeight: FontWeight.w600, fontSize: 22);
+  color: Colors.black,
+  fontWeight: FontWeight.w700,
+  fontSize: 22,
+);
+
 final countryBottomTextStyle = GoogleFonts.poppins(
-    color: Colors.black, fontWeight: FontWeight.w400, fontSize: 14);
+  color: Colors.black,
+  fontWeight: FontWeight.w600,
+  fontSize: 14,
+);
 
 /// {@template country_text_widget}
 /// CountryTextWidget widget.
@@ -28,13 +35,17 @@ class CountryTextWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: crossAxisAlignment,
         children: [
-          Text(
-            title,
-            style: countryTopTextStyle,
+          FittedBox(
+            child: Text(
+              title,
+              style: countryTopTextStyle,
+            ),
           ),
-          Text(
-            subTitle,
-            style: countryBottomTextStyle,
+          FittedBox(
+            child: Text(
+              subTitle,
+              style: countryBottomTextStyle,
+            ),
           )
         ],
       ),
