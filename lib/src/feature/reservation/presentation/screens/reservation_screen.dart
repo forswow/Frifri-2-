@@ -9,15 +9,15 @@ import 'package:google_fonts/google_fonts.dart';
 /// {@template reservation_screen}
 /// ReservationScreen widget.
 /// {@endtemplate}
-class ReservationScreen extends StatefulWidget {
+class ServicesScreen extends StatefulWidget {
   /// {@macro reservation_screen}
-  const ReservationScreen({super.key});
+  const ServicesScreen({super.key});
 
   @override
-  State<ReservationScreen> createState() => _ReservationScreenState();
+  State<ServicesScreen> createState() => _ServicesScreenState();
 }
 
-class _ReservationScreenState extends State<ReservationScreen> {
+class _ServicesScreenState extends State<ServicesScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(

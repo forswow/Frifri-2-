@@ -26,13 +26,15 @@ class RootApp extends StatelessWidget {
     return DependenciesScope(
       d: dependencies,
       child: LocaleWrapper(
-          locale: locale,
+        locale: locale,
+        sharedPreferences: dependencies.sharedPreferences,
+        child: AdditionalWrapper(
           sharedPreferences: dependencies.sharedPreferences,
-          child: AdditionalWrapper(
-              sharedPreferences: dependencies.sharedPreferences,
-              airport: airPort,
-              currency: airPort,
-              child: App())),
+          airport: airPort,
+          currency: airPort,
+          child: App(),
+        ),
+      ),
     );
   }
 }
