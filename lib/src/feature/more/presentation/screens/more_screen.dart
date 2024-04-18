@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
+import 'package:frifri/src/feature/more/presentation/modals/select_language_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -68,7 +68,7 @@ class _MoreScreenState extends State<MoreScreen> {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => SelectAirportModal(),
+                  builder: (context) => SelectLanguageModal(),
                 );
               },
               shape: RoundedRectangleBorder(
