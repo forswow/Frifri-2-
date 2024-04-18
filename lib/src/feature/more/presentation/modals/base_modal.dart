@@ -28,10 +28,10 @@ class BottomSheetModalBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.9,
-      width: MediaQuery.sizeOf(context).width,
+    return SafeArea(
       child: Container(
+        height: MediaQuery.sizeOf(context).height * 0.8,
+        width: MediaQuery.sizeOf(context).width,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(
@@ -42,18 +42,16 @@ class BottomSheetModalBase extends StatelessWidget {
             ),
           ),
         ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              build_header(context),
-              _defaultDivider,
-              build_content(context),
-              // Container(
-              //   height: MediaQuery.sizeOf(context).height * 0.815,
-              //   child: SingleChildScrollView(child: build_content(context)),
-              // ),
-            ],
-          ),
+        child: Column(
+          children: [
+            build_header(context),
+            _defaultDivider,
+            build_content(context),
+            // Container(
+            //   height: MediaQuery.sizeOf(context).height * 0.815,
+            //   child: SingleChildScrollView(child: build_content(context)),
+            // ),
+          ],
         ),
       ),
     );
