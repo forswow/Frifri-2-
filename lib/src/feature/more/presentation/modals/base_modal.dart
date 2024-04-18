@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 /// Это основа модального окна (BottomSheet)
@@ -47,6 +48,10 @@ class BottomSheetModalBase extends StatelessWidget {
               build_header(context),
               _defaultDivider,
               build_content(context),
+              // Container(
+              //   height: MediaQuery.sizeOf(context).height * 0.815,
+              //   child: SingleChildScrollView(child: build_content(context)),
+              // ),
             ],
           ),
         ),
