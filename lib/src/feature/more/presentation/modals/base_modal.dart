@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// Это основа модального окна (BottomSheet)
 /// Чтобы сделать модалку на её основе надо
@@ -12,7 +13,7 @@ class BottomSheetModalBase extends StatelessWidget {
 
   static const double _topBorderRadius = 20.0;
   static const Divider _defaultDivider = Divider(
-    height: 1,
+    height: 0,
     thickness: 0.5,
   );
 
@@ -47,6 +48,44 @@ class BottomSheetModalBase extends StatelessWidget {
             build_content(context),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DefaultModalHeader extends StatelessWidget {
+  const DefaultModalHeader({required this.centerText, super.key});
+
+  final String centerText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                context.pop();
+              },
+              child: Icon(
+                Icons.close,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              centerText,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
