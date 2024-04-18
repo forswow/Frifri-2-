@@ -10,7 +10,6 @@ abstract final class Runner {
   /// {@macro runner}
 
   static Future<void> startApplication() async {
-
     WidgetsFlutterBinding.ensureInitialized();
     final dependencies = Dependencies();
 
@@ -19,11 +18,15 @@ abstract final class Runner {
     final globalHelper =
         GlobalPrefHelper(sharedPreferences: dependencies.sharedPreferences);
 
-    runApp(RootApp(
-      dependencies: dependencies,
-      locale: Locale(globalHelper.language()),
-      airPort: globalHelper.airPort(),
-      currency: globalHelper.currency(),
-    ));
+    runApp(
+      RootApp(
+        dependencies: dependencies,
+        locale: Locale(
+          globalHelper.language(),
+        ),
+        airPort: globalHelper.airPort(),
+        currency: globalHelper.currency(),
+      ),
+    );
   }
 }
