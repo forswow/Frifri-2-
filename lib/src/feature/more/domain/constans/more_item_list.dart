@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/more/domain/entities/more_item_entity.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/more/presentation/modals/confidentiality_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/help_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/more_settings_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_currency_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_language_modal.dart';
-import 'package:frifri/src/feature/more/presentation/screens/choose_location_widget.dart';
 
 List<MoreItemEntity> moreItemList(BuildContext context) {
   return [
@@ -65,8 +65,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            // This is a placeholder yet
-            builder: (context) => HelpModal(),
+            builder: (context) => ConfidentialityModal(),
           );
         },
         name: AppLocalizations.of(context)!.confidentiality,
