@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/feature/more/presentation/modals/faq_modal.dart';
+import 'package:frifri/src/feature/more/presentation/modals/help_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -59,31 +59,25 @@ class _MoreScreenState extends State<MoreScreen> {
           padding: const EdgeInsets.only(
               left: _tileContentPadding, right: _tileContentPadding, top: 20),
           itemBuilder: (context, index) {
-            final data = moreItemList(context)[index];
+            final moreItemEntity = moreItemList(context)[index];
             return ListTile(
               contentPadding: EdgeInsets.symmetric(
                 horizontal: _tileContentPadding,
               ),
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => FaqHelpModal(),
-                );
-              },
+              onTap: moreItemEntity.onPreseed,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               horizontalTitleGap: 9.17,
               leading: SvgPicture.asset(
-                data.assetPath,
+                moreItemEntity.assetPath,
                 height: MediaQuery.sizeOf(context).height *
                     _moreMenuIconScaleFactor,
                 width:
                     MediaQuery.sizeOf(context).width * _moreMenuIconScaleFactor,
               ),
               title: Text(
-                data.name,
+                moreItemEntity.name,
                 style: GoogleFonts.poppins(
                   fontSize: _devicePixelRatio * _moreMenuTextScaleFactor,
                   fontWeight: FontWeight.w700,
