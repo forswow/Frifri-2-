@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
 
-class FaqHelpModal extends BottomSheetModalBase {
-  const FaqHelpModal({super.key});
+class FaqModal extends BottomSheetModalBase {
+  const FaqModal({super.key});
 
   static const TextStyle _headerTextStyle = TextStyle(
     fontSize: 16.0,
