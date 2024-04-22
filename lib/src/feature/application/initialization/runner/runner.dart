@@ -10,8 +10,8 @@ abstract final class Runner {
 
   static Future<void> startApplication() async {
     WidgetsFlutterBinding.ensureInitialized();
-    final dependencies = Dependencies();
 
+    final dependencies = Dependencies();
     await dependencies.initializationDependencies();
 
     runApp(
