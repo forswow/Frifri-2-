@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui-kit/buttons/selection_item.dart';
 
 import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
+import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 
 class SelectAirportModal extends BottomSheetModalBase {
@@ -22,7 +23,7 @@ class SelectAirportModal extends BottomSheetModalBase {
   }
 }
 
-class _AirportSelectionList extends StatelessWidget {
+class _AirportSelectionList extends StatefulWidget {
   const _AirportSelectionList({super.key});
 
   static const defaultListDivider = Divider(
@@ -32,13 +33,47 @@ class _AirportSelectionList extends StatelessWidget {
   );
 
   @override
+  State<_AirportSelectionList> createState() => _AirportSelectionListState();
+}
+
+class _AirportSelectionListState extends State<_AirportSelectionList> {
+  String selectedAirport = "Tbilisi";
+
+  @override
   Widget build(BuildContext context) {
     return RoundedListContainer(
-      separator: defaultListDivider,
+      separator: _AirportSelectionList.defaultListDivider,
       children: [
-        SelectionItemTile(title: "Тбилиси"),
-        SelectionItemTile(title: "Кутаиси"),
-        SelectionItemTile(title: "Батуми"),
+        CustomRadioListTile(
+          value: "Tbilisi",
+          title: Text("Тибилиси"),
+          groupValue: selectedAirport,
+          onChanged: (newValue) {
+            setState(() {
+              selectedAirport = newValue!;
+            });
+          },
+        ),
+        CustomRadioListTile(
+          value: "Kutaisi",
+          title: Text("Кутаиси"),
+          groupValue: selectedAirport,
+          onChanged: (newValue) {
+            setState(() {
+              selectedAirport = newValue!;
+            });
+          },
+        ),
+        CustomRadioListTile(
+          value: "Batumi",
+          title: Text("Батуми"),
+          groupValue: selectedAirport,
+          onChanged: (newValue) {
+            setState(() {
+              selectedAirport = newValue!;
+            });
+          },
+        )
       ],
     );
   }
