@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 /// Это основа модального окна (BottomSheet)
@@ -75,8 +76,10 @@ class DefaultModalHeader extends StatelessWidget {
               onTap: () {
                 context.pop();
               },
-              child: Icon(
-                Icons.close,
+              child: SvgPicture.asset(
+                "assets/icons/close.svg",
+                height: 21,
+                alignment: Alignment.centerRight,
               ),
             ),
           ),
