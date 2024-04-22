@@ -13,6 +13,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
     MoreItemEntity(
         onPreseed: () {
           showModalBottomSheet(
+            useRootNavigator: true,
             context: context,
             isScrollControlled: true,
             builder: (context) => SettingsModal(),
@@ -24,6 +25,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => SelectAirportModal(),
           );
@@ -34,6 +36,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => SelectLanguageModal(),
           );
@@ -44,6 +47,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => SelectCurrencyModal(),
           );
@@ -54,6 +58,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => HelpModal(),
           );
@@ -64,6 +69,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => ConfidentialityModal(),
           );

@@ -30,7 +30,7 @@ class BottomSheetModalBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        height: MediaQuery.sizeOf(context).height * 0.8,
+        height: MediaQuery.sizeOf(context).height * 0.9,
         width: MediaQuery.sizeOf(context).width,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
