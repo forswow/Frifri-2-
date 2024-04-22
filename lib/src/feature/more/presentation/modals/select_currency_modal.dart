@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:frifri/src/core/ui-kit/buttons/selection_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 
 import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
@@ -35,7 +38,13 @@ class _CurrencySelectionList extends StatefulWidget {
 }
 
 class _CurrencySelectionListState extends State<_CurrencySelectionList> {
-  String selectedCurrency = "USD";
+  late String selectedCurrency;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedCurrency = context.read<CurrencyCubit>().state;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +58,7 @@ class _CurrencySelectionListState extends State<_CurrencySelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedCurrency = newValue!;
+              context.read<CurrencyCubit>().selectCurrency(newValue);
             });
           },
         ),
@@ -59,6 +69,7 @@ class _CurrencySelectionListState extends State<_CurrencySelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedCurrency = newValue!;
+              context.read<CurrencyCubit>().selectCurrency(newValue);
             });
           },
         ),
@@ -69,6 +80,7 @@ class _CurrencySelectionListState extends State<_CurrencySelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedCurrency = newValue!;
+              context.read<CurrencyCubit>().selectCurrency(newValue);
             });
           },
         ),

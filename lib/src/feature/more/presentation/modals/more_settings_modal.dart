@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/theme/colors.dart';
+import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,10 +33,16 @@ class SettingsModal extends BottomSheetModalBase {
             ),
           ),
           SizedBox(
-            child: CupertinoSwitch(
-              value: true,
-              onChanged: (value) {},
-              activeColor: kPrimaryAppColor,
+            child: BlocBuilder<PushNotificationCubit, bool>(
+              builder: (context, state) {
+                return CupertinoSwitch(
+                  value: state,
+                  onChanged: (value) {
+                    context.read<PushNotificationCubit>().setPushEnabled(value);
+                  },
+                  activeColor: kPrimaryAppColor,
+                );
+              },
             ),
           )
         ],

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:frifri/src/core/ui-kit/buttons/selection_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 
 import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
@@ -40,6 +43,12 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
   String selectedAirport = "Tbilisi";
 
   @override
+  void initState() {
+    super.initState();
+    selectedAirport = context.read<AirportCubit>().state;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return RoundedListContainer(
       separator: _AirportSelectionList.defaultListDivider,
@@ -51,6 +60,7 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedAirport = newValue!;
+              context.read<AirportCubit>().selectAirport(selectedAirport);
             });
           },
         ),
@@ -61,6 +71,7 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedAirport = newValue!;
+              context.read<AirportCubit>().selectAirport(selectedAirport);
             });
           },
         ),
@@ -71,6 +82,7 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedAirport = newValue!;
+              context.read<AirportCubit>().selectAirport(selectedAirport);
             });
           },
         )

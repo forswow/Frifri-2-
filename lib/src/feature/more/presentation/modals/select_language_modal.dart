@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
@@ -34,11 +36,12 @@ class _LanguageSelectionList extends StatefulWidget {
 }
 
 class _LanguageSelectionListState extends State<_LanguageSelectionList> {
-  String currentLanguage = "English";
+  late String currentLanguage;
 
   @override
   void initState() {
     super.initState();
+    currentLanguage = context.read<AppLanguageCubit>().state;
   }
 
   @override
@@ -47,23 +50,31 @@ class _LanguageSelectionListState extends State<_LanguageSelectionList> {
       separator: _LanguageSelectionList._defaultListDivider,
       children: [
         CustomRadioListTile(
-          value: "English",
+          value: "ENG",
           title: Text("English"),
           groupValue: currentLanguage,
           onChanged: (newValue) {
             setState(() {
               currentLanguage = newValue!;
+              context
+                  .read<AppLanguageCubit>()
+                  .selectNewLanguage(currentLanguage);
             });
           },
         ),
         CustomRadioListTile(
-          value: "Georgian",
+          value: "GEO",
           title: Text("Georgian"),
           groupValue: currentLanguage,
           onChanged: (newValue) {
-            setState(() {
-              currentLanguage = newValue!;
-            });
+            setState(
+              () {
+                currentLanguage = newValue!;
+                context
+                    .read<AppLanguageCubit>()
+                    .selectNewLanguage(currentLanguage);
+              },
+            );
           },
         ),
       ],

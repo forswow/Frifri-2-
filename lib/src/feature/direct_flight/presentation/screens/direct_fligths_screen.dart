@@ -2,9 +2,12 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/feature/direct_flight/domain/entities/direct_flights_entity.dart';
 import 'package:frifri/src/feature/direct_flight/presentation/widgets/avia_ticket_widget.dart';
+import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
+import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -49,27 +52,37 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RichText(
-                text: TextSpan(
-                  text: AppLocalizations.of(context)!.directFligthsFrom,
-                  style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: '__АЭРОПОРТ__',
-                      style: GoogleFonts.poppins(
+              BlocBuilder<AirportCubit, String>(
+                builder: (context, currentAirport) => RichText(
+                  text: TextSpan(
+                    text: AppLocalizations.of(context)!.directFligthsFrom,
+                    style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
-                        color: const Color.fromRGBO(75, 148, 247, 1),
+                        color: Colors.black),
+                    children: [
+                      TextSpan(
+                        text: " " + currentAirport,
+                        style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: const Color.fromRGBO(75, 148, 247, 1),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    useRootNavigator: true,
+                    builder: (BuildContext context) {
+                      return const SelectAirportModal();
+                    },
+                  );
+                },
                 child: SvgPicture.asset(
                   'assets/icons/arrow 1.svg',
                   height: 23,
