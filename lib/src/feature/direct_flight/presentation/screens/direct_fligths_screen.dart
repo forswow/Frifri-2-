@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/feature/application/root_app/wrappers/additional_wrapper.dart';
 import 'package:frifri/src/feature/direct_flight/domain/entities/direct_flights_entity.dart';
 import 'package:frifri/src/feature/direct_flight/presentation/widgets/avia_ticket_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,11 +58,13 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
                       color: Colors.black),
                   children: [
                     TextSpan(
-                        text: ' ${AdditionalScope.of(context).airport}',
-                        style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: const Color.fromRGBO(75, 148, 247, 1))),
+                      text: '__АЭРОПОРТ__',
+                      style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: const Color.fromRGBO(75, 148, 247, 1),
+                      ),
+                    ),
                   ],
                 ),
               ),
