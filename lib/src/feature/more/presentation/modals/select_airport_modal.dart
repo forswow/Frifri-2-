@@ -19,7 +19,7 @@ class SelectAirportModal extends BottomSheetStatefulModalBase {
 }
 
 class SelectAirportModalState extends BottomSheetStatefulModalBaseState {
-  static const _contentPadding = 44.0;
+  static const _contentPadding = 22.0;
   static const _defaultListDivider = Divider(
     height: 1,
     thickness: 0.5,
@@ -94,6 +94,7 @@ class SelectAirportModalState extends BottomSheetStatefulModalBaseState {
         alignment: Alignment.bottomCenter,
         child: SizedBox(
           width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+          height: 48,
           child: ConfirmationButton(
             child: Text(
               AppLocalizations.of(context)!.confirm,

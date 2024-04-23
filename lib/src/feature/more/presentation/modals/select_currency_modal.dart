@@ -95,6 +95,7 @@ class SelectCurrencyModalState extends BottomSheetStatefulModalBaseState {
         alignment: Alignment.bottomCenter,
         child: SizedBox(
           width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+          height: 48,
           child: ConfirmationButton(
             child: Text(
               AppLocalizations.of(context)!.confirm,
