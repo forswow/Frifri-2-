@@ -26,6 +26,13 @@ class BottomSheetModalBase extends StatelessWidget {
     return Placeholder();
   }
 
+  /// Возвращает список [Widget] для отображения на модальном окне
+  /// каждый [Widget] в списке может быть обёрнут в In-Stack виджеты
+  /// например: [Align], [Positioned]
+  List<Widget> build_overlay(BuildContext context) {
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,16 +49,21 @@ class BottomSheetModalBase extends StatelessWidget {
             ),
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            build_header(context),
-            _defaultDivider,
-            Expanded(
-              child: SingleChildScrollView(
-                child: build_content(context),
-              ),
+        child: Stack(
+          children: <Widget>[
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                build_header(context),
+                _defaultDivider,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: build_content(context),
+                  ),
+                ),
+              ],
             ),
+            ...build_overlay(context)
           ],
         ),
       ),
