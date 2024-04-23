@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
+import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/presentation/modals/faq_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 
-class HelpModal extends BottomSheetModalBase {
+class HelpModal extends BottomSheetStatelessModalBase {
   const HelpModal({super.key});
 
   static const TextStyle _listTileTextStyle = TextStyle(

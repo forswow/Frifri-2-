@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
-import 'package:frifri/src/feature/more/presentation/modals/base_modal.dart';
+import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 
-class SelectLanguageModal extends BottomSheetModalBase {
+class SelectLanguageModal extends BottomSheetStatelessModalBase {
   const SelectLanguageModal({super.key});
 
   @override
