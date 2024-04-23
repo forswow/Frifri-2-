@@ -79,7 +79,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
                     context: context,
                     useRootNavigator: true,
                     builder: (BuildContext context) {
-                      return const SelectAirportModal();
+                      return SelectAirportModal();
                     },
                   );
                 },

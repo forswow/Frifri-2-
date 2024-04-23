@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:frifri/src/core/ui-kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
-
 import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class SelectAirportModal extends BottomSheetStatelessModalBase {
-  const SelectAirportModal({super.key});
+class SelectAirportModal extends BottomSheetStatefulModalBase {
+  @override
+  State<BottomSheetStatefulModalBase> createState() {
+    return SelectAirportModalState();
+  }
+}
+
+class SelectAirportModalState extends BottomSheetStatefulModalBaseState {
+  static const _contentPadding = 44.0;
+  static const _defaultListDivider = Divider(
+    height: 1,
+    thickness: 0.5,
+    indent: 44.0,
+  );
+
+  late String initialAirport;
+  late String selectedAirport;
+  bool isConfirmButtonEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    initialAirport = context.read<AirportCubit>().state;
+    selectedAirport = initialAirport;
+  }
 
   @override
   Widget build_header(BuildContext context) {
@@ -19,38 +47,8 @@ class SelectAirportModal extends BottomSheetStatelessModalBase {
 
   @override
   Widget build_content(BuildContext context) {
-    return Container(
-      child: _AirportSelectionList(),
-    );
-  }
-}
-
-class _AirportSelectionList extends StatefulWidget {
-  const _AirportSelectionList({super.key});
-
-  static const defaultListDivider = Divider(
-    height: 1,
-    thickness: 0.5,
-    indent: 44.0,
-  );
-
-  @override
-  State<_AirportSelectionList> createState() => _AirportSelectionListState();
-}
-
-class _AirportSelectionListState extends State<_AirportSelectionList> {
-  String selectedAirport = "Tbilisi";
-
-  @override
-  void initState() {
-    super.initState();
-    selectedAirport = context.read<AirportCubit>().state;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return RoundedListContainer(
-      separator: _AirportSelectionList.defaultListDivider,
+      separator: _defaultListDivider,
       children: [
         CustomRadioListTile(
           value: "Tbilisi",
@@ -59,7 +57,7 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedAirport = newValue!;
-              context.read<AirportCubit>().selectAirport(selectedAirport);
+              isConfirmButtonEnabled = selectedAirport != initialAirport;
             });
           },
         ),
@@ -70,7 +68,7 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedAirport = newValue!;
-              context.read<AirportCubit>().selectAirport(selectedAirport);
+              isConfirmButtonEnabled = selectedAirport != initialAirport;
             });
           },
         ),
@@ -81,11 +79,37 @@ class _AirportSelectionListState extends State<_AirportSelectionList> {
           onChanged: (newValue) {
             setState(() {
               selectedAirport = newValue!;
-              context.read<AirportCubit>().selectAirport(selectedAirport);
+              isConfirmButtonEnabled = selectedAirport != initialAirport;
             });
           },
         )
       ],
     );
+  }
+
+  @override
+  List<Widget> build_overlay(BuildContext context) {
+    return [
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: SizedBox(
+          width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+          child: ConfirmationButton(
+            child: Text(
+              AppLocalizations.of(context)!.confirm,
+              style: GoogleFonts.inter(
+                color: Colors.white,
+              ),
+            ),
+            onPressed: isConfirmButtonEnabled
+                ? () {
+                    context.read<AirportCubit>().selectAirport(selectedAirport);
+                    context.pop();
+                  }
+                : null,
+          ),
+        ),
+      ),
+    ];
   }
 }
