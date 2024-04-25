@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/direct_flight/presentation/screens/direct_fligths_screen.dart';
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/reservation/presentation/screens/reservation_screen.dart';
@@ -43,16 +44,12 @@ class _NavigationWidgetScreenState extends State<NavigationWidgetScreen> {
               height: MediaQuery.sizeOf(context).height * 0.10,
               width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF7387AE).withOpacity(0.12),
-                      offset: const Offset(0, 4),
-                      blurRadius: 12,
-                      spreadRadius: 0,
-                    )
-                  ]),
+                borderRadius: BorderRadius.circular(16),
+                color: kCardBackgroundColor,
+                boxShadow: [
+                  kCardShadow,
+                ],
+              ),
               child: Row(
                 children: [
                   CustomNavigationBarItem(
@@ -108,7 +105,7 @@ class _NavigationWidgetScreenState extends State<NavigationWidgetScreen> {
           height: MediaQuery.sizeOf(context).height * 0.135,
           child: FloatingActionButton(
             onPressed: () {},
-            backgroundColor: Color(0xFFE30D05),
+            backgroundColor: kPrimaryAppColor,
             child: SvgPicture.asset('assets/icons/Search.svg'),
             shape: CircleBorder(),
             elevation: 0,
@@ -164,13 +161,13 @@ class CustomNavigationBarItem extends StatelessWidget {
                         fontSize: MediaQuery.of(context).devicePixelRatio *
                             _fontScaleFactor,
                         fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(227, 14, 5, 1),
+                        color: kPrimaryAppColor,
                       )
                     : GoogleFonts.inter(
                         fontSize: MediaQuery.of(context).devicePixelRatio *
                             _fontScaleFactor,
                         fontWeight: FontWeight.w600,
-                        color: Colors.grey,
+                        color: kNavBarInactiveColor,
                       ),
               ),
             )
