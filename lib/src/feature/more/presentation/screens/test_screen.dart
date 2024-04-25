@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frifri/src/feature/application/root_app/wrappers/locale_wrapper.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -123,10 +122,10 @@ class _TestScreenState extends State<TestScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(AppLocalizations.of(context)!.airTickets),
-            Text(LocaleWrapper.maybeOf(context)!.currentLocale),
+            // Text(LocaleWrapper.maybeOf(context)!.currentLocale),
             ElevatedButton(
                 onPressed: () {
-                  LocaleWrapper.maybeOf(context)!.changeLangauge('ru');
+                  // LocaleWrapper.maybeOf(context)!.changeLangauge('ru');
                 },
                 child: const Text('hello world ')),
             SizedBox(

@@ -1,4 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/helpers/global_pref_helper.dart';
+import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template dependencies}
@@ -11,9 +18,32 @@ base class Dependencies {
       context.getInheritedWidgetOfExactType<DependenciesScope>()!.d;
 
   late SharedPreferences sharedPreferences;
+  late PushNotificationCubit pushNotificationCubit;
+  late AirportCubit airportCubit;
+  late AppLanguageCubit languageCubit;
+  late CurrencyCubit currencyCubit;
+
+  late GlobalPrefHelper globalPrefHelper;
 
   Future<void> initializationDependencies() async {
+    log("Start dependencies initialization");
+
     sharedPreferences = await SharedPreferences.getInstance();
+    globalPrefHelper = GlobalPrefHelper(sharedPreferences: sharedPreferences);
+
+    pushNotificationCubit = PushNotificationCubit(prefHelper: globalPrefHelper);
+    log("pushEnabled: ${pushNotificationCubit.state}");
+
+    airportCubit = AirportCubit(prefHelper: globalPrefHelper);
+    log("airport: ${airportCubit.state}");
+
+    languageCubit = AppLanguageCubit(prefHelper: globalPrefHelper);
+    log("language: ${languageCubit.state}");
+
+    currencyCubit = CurrencyCubit(prefHelper: globalPrefHelper);
+    log("currency: ${currencyCubit.state}");
+
+    log("Dependencies initialized");
   }
 }
 

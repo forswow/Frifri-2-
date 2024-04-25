@@ -4,7 +4,6 @@ import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
 import 'package:frifri/src/feature/application/naviation/navigation_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frifri/src/feature/application/root_app/wrappers/locale_wrapper.dart';
 
 /// {@template app}
 /// App widget.
@@ -22,7 +21,7 @@ class App extends StatelessWidget {
       child: MaterialApp.router(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: LocaleScope.of(context).locale,
+        // locale:
         debugShowCheckedModeBanner: false,
         theme: theme,
         routerConfig: NavigationManager.router,
