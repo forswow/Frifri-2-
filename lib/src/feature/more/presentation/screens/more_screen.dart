@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/core/theme/colors.dart';
-import 'package:frifri/src/feature/more/domain/constans/more_item_list.dart';
-import 'package:frifri/src/feature/more/presentation/modals/more_settings_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:frifri/src/core/theme/colors.dart';
+import 'package:frifri/src/feature/more/domain/constans/more_item_list.dart';
 
 /// {@template more_screen}
 /// MoreScreen widget.
@@ -59,28 +58,25 @@ class _MoreScreenState extends State<MoreScreen> {
           padding: const EdgeInsets.only(
               left: _tileContentPadding, right: _tileContentPadding, top: 20),
           itemBuilder: (context, index) {
-            final data = moreItemList(context)[index];
+            final moreItemEntity = moreItemList(context)[index];
             return ListTile(
               contentPadding: EdgeInsets.symmetric(
                 horizontal: _tileContentPadding,
               ),
-              onTap: () {
-                // Для тесто на тап по лист тайлу
-                showPushNotification(context);
-              },
+              onTap: moreItemEntity.onPreseed,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               horizontalTitleGap: 9.17,
               leading: SvgPicture.asset(
-                data.assetPath,
+                moreItemEntity.assetPath,
                 height: MediaQuery.sizeOf(context).height *
                     _moreMenuIconScaleFactor,
                 width:
                     MediaQuery.sizeOf(context).width * _moreMenuIconScaleFactor,
               ),
               title: Text(
-                data.name,
+                moreItemEntity.name,
                 style: GoogleFonts.poppins(
                   fontSize: _devicePixelRatio * _moreMenuTextScaleFactor,
                   fontWeight: FontWeight.w700,

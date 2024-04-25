@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
-import 'package:frifri/src/feature/application/naviation/routes/routes.dart';
+import 'package:frifri/src/feature/application/naviation/navigation_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/feature/application/root_app/wrappers/locale_wrapper.dart';
 
@@ -13,13 +15,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: LocaleScope.of(context).locale,
-      debugShowCheckedModeBanner: false,
-      theme: theme,
-      routerConfig: router,
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        systemNavigationBarColor: kPrimaryBackgroundColor,
+      ),
+      child: MaterialApp.router(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: LocaleScope.of(context).locale,
+        debugShowCheckedModeBanner: false,
+        theme: theme,
+        routerConfig: NavigationManager.router,
+      ),
     );
   }
 }

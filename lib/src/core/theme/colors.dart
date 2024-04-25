@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Application
 const kPrimaryAppColor = Color.fromRGBO(227, 13, 5, 1);
-const kPrimaryBackgroundColor = Colors.white;
+const kPrimaryBackgroundColor = Color.fromRGBO(241, 243, 248, 1);
 
 // Typography
 const kPrimaryTextColor = Color.fromRGBO(0, 0, 0, 0.9);
