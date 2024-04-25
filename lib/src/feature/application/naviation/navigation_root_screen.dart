@@ -56,7 +56,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               CustomNavigationBarItem(
                 title: AppLocalizations.of(context)!.avia,
                 assetPath: 'assets/icons/home.svg',
-                activeAssetPath: 'assets/icons/active_home.svg',
+                activeAssetPath: 'assets/icons/home_active.svg',
                 isActive: navigationIndex == 0,
                 onPressed: () {
                   context.go(NavigationManager.aviaTickets);
@@ -65,7 +65,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               CustomNavigationBarItem(
                 title: AppLocalizations.of(context)!.hotel,
                 assetPath: 'assets/icons/book-open.svg',
-                activeAssetPath: 'assets/icons/book-open.svg',
+                activeAssetPath: 'assets/icons/book_open_active.svg',
                 isActive: navigationIndex == 1,
                 onPressed: () {
                   context.go(NavigationManager.hotels);
