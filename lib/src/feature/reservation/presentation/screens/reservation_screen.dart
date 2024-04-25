@@ -39,69 +39,54 @@ class _ReservationScreenState extends State<ReservationScreen> {
           ),
         ),
         body: ListView.separated(
-            padding: const EdgeInsets.only(left: 24, right: 24, top: 10),
-            itemBuilder: (conntext, index) {
-              final data = serviceList(context)[index];
-              return GestureDetector(
-                onTap: () => UrlLauncherHelper.launchInWeb(data.link),
-                child: ClipRRect(
+          padding: const EdgeInsets.only(left: 24, right: 24, top: 10),
+          itemBuilder: (conntext, index) {
+            final data = serviceList(context)[index];
+            return GestureDetector(
+              onTap: () => UrlLauncherHelper.launchInWeb(data.link),
+              child: ListTile(
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
+                ),
+                tileColor: Colors.white,
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
                   child: SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.06,
-                    width: MediaQuery.sizeOf(context).width,
+                    height: 32,
+                    width: 32,
                     child: ColoredBox(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: SizedBox(
-                                height: 32,
-                                width: 32,
-                                child: ColoredBox(
-                                  color: const Color.fromRGBO(
-                                      91, 156, 236, 0.12),
-                                  child: FractionallySizedBox(
-                                    heightFactor: 0.9,
-                                    widthFactor: 0.9,
-                                    child: Center(
-                                      child: SvgPicture.asset(data.assetPath),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 16, bottom: 16),
-                              child: Text(
-                                data.name,
-                                textHeightBehavior: const TextHeightBehavior(
-                                    applyHeightToFirstAscent: false,
-                                    applyHeightToLastDescent: false),
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
-                                  // textStyle: const TextStyle(height: 0),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
+                      color: const Color.fromRGBO(91, 156, 236, 0.12),
+                      child: FractionallySizedBox(
+                        heightFactor: 0.9,
+                        widthFactor: 0.9,
+                        child: Center(
+                          child: SvgPicture.asset(data.assetPath),
                         ),
                       ),
                     ),
                   ),
                 ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 8);
-            },
-            itemCount: serviceList(context).length),
+                title: Text(
+                  data.name,
+                  textHeightBehavior: const TextHeightBehavior(
+                    applyHeightToFirstAscent: false,
+                    applyHeightToLastDescent: false,
+                  ),
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 8);
+          },
+          itemCount: serviceList(context).length,
+        ),
       ),
     );
   }
