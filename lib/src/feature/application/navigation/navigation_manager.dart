@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/application/naviation/navigation_root_screen.dart';
-import 'package:frifri/src/feature/direct_flight/presentation/screens/direct_fligths_screen.dart';
+import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
-import 'package:frifri/src/feature/reservation/presentation/screens/reservation_screen.dart';
+import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class NavigationManager {

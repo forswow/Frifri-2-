@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:frifri/src/core/theme/colors.dart';
-import 'package:frifri/src/feature/application/naviation/navigation_manager.dart';
+import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key, required this.navigationShell});
