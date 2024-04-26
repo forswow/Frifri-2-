@@ -19,15 +19,14 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  static const _moreMenuTextScaleFactor = 0.036;
+  static const _moreMenuIconScaleFactor = 0.034;
+  static const _arrowIconScaleFactor = 0.026;
+  static const _generalPadding = 24.0;
+  static const _dividerHeightScaleFactor = 0.0125;
+
   @override
   Widget build(BuildContext context) {
-    final _devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    const _moreMenuTextScaleFactor = 6.2;
-    const _moreMenuIconScaleFactor = 0.034;
-    const _arrowIconScaleFactor = 0.026;
-
-    const _generalPadding = 24.0;
-
     // 24 - 14 = 10
     const _tilePadding = _generalPadding - 14.0;
     // 24 - 10 = 14
@@ -78,7 +77,8 @@ class _MoreScreenState extends State<MoreScreen> {
               title: Text(
                 moreItemEntity.name,
                 style: GoogleFonts.poppins(
-                  fontSize: _devicePixelRatio * _moreMenuTextScaleFactor,
+                  fontSize: MediaQuery.sizeOf(context).width *
+                      _moreMenuTextScaleFactor,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -92,7 +92,8 @@ class _MoreScreenState extends State<MoreScreen> {
           },
           separatorBuilder: (context, index) {
             return Divider(
-              height: 10,
+              height:
+                  MediaQuery.sizeOf(context).height * _dividerHeightScaleFactor,
               color: kDividerPrimaryColor,
             );
           },
