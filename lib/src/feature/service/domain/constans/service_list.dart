@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/reservation/domain/entity/service_entity.dart';
+import 'package:frifri/src/feature/service/domain/entity/service_entity.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 List<ServiceEntity> serviceList(BuildContext context) {

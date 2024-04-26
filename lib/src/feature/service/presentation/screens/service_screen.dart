@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/feature/reservation/data/helpers/url_launcher_helper.dart';
-import 'package:frifri/src/feature/reservation/domain/constans/service_list.dart';
+import 'package:frifri/src/feature/service/data/helpers/url_launcher_helper.dart';
+import 'package:frifri/src/feature/service/domain/constans/service_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// {@template reservation_screen}
