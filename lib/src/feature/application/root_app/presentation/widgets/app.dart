@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 /// {@template app}
 /// App widget.
@@ -18,13 +20,18 @@ class App extends StatelessWidget {
       value: SystemUiOverlayStyle(
         systemNavigationBarColor: kPrimaryBackgroundColor,
       ),
-      child: MaterialApp.router(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        // locale:
-        debugShowCheckedModeBanner: false,
-        theme: theme,
-        routerConfig: NavigationManager.router,
+      child: BlocBuilder<AppLanguageCubit, String>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            locale: Locale(state),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            // locale:
+            debugShowCheckedModeBanner: false,
+            theme: theme,
+            routerConfig: NavigationManager.router,
+          );
+        },
       ),
     );
   }
