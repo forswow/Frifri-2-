@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
-import 'package:frifri/src/feature/application/naviation/navigation_manager.dart';
+import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// {@template app}
