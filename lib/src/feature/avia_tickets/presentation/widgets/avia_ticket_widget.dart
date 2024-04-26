@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
-import 'package:frifri/src/feature/direct_flight/domain/entities/direct_flights_entity.dart';
-import 'package:frifri/src/feature/direct_flight/presentation/screens/direct_fligths_screen.dart';
-import 'package:frifri/src/feature/direct_flight/presentation/widgets/country_text_widget.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/widgets/country_text_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
