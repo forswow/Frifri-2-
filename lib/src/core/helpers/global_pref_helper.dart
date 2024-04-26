@@ -16,7 +16,7 @@ base class GlobalPrefHelper {
 
   static const _airportDefault = 'Tbilisi';
   static const _currencyDefault = 'USD';
-  static const _langCodeDefault = 'ENG';
+  static const _langCodeDefault = 'ru';
   static const _pushEnabledDefault = true;
 
   String getAirport() {

@@ -51,7 +51,18 @@ class SelectLanguageModalState extends BottomSheetStatefulModalBaseState {
       separator: _defaultListDivider,
       children: [
         CustomRadioListTile(
-          value: "ENG",
+          value: "ru",
+          title: Text("Russian"),
+          groupValue: selectedLanguage,
+          onChanged: (newValue) {
+            setState(() {
+              selectedLanguage = newValue!;
+              isConfirmButtonActive = selectedLanguage != initialLanguage;
+            });
+          },
+        ),
+        CustomRadioListTile(
+          value: "eng",
           title: Text("English"),
           groupValue: selectedLanguage,
           onChanged: (newValue) {
@@ -62,7 +73,7 @@ class SelectLanguageModalState extends BottomSheetStatefulModalBaseState {
           },
         ),
         CustomRadioListTile(
-          value: "GEO",
+          value: "geo",
           title: Text("Georgian"),
           groupValue: selectedLanguage,
           onChanged: (newValue) {
