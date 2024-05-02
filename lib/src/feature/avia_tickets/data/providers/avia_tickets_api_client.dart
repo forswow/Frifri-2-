@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'avia_tickets_api_client.g.dart';
@@ -25,5 +26,18 @@ abstract class AviaTicketsApiClient {
     @Query('sorting') String? sorting = null,
     @Query('trip_duration') int? tripDuration = null,
     @Query('trip_class') int? tripClass = null,
+  });
+
+  /// Get user's location by ip.
+  ///
+  /// [locale] is a language code of result
+  /// available: in, rue, de, fr, it, pl, th.
+  ///
+  /// [ip] is a optional user's ip address
+  /// if it's not provided the server will try to determine it itself
+  @GET('/whereami')
+  Future<UserLocation> getUserLocation({
+    @Query('locale') String? locale = null,
+    @Query('ip') String? ip = null,
   });
 }

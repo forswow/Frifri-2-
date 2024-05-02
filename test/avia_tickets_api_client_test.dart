@@ -33,4 +33,9 @@ void main() async {
       expect(ticket.origin, "MOW");
     },
   );
+
+  test('Get user location', () async {
+    final result = await aviaApiClient.getUserLocation();
+    expect(result.iata.length, 3);
+  });
 }
