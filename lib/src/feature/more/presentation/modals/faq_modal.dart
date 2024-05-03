@@ -4,7 +4,9 @@ import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
 import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
 
 class FaqModal extends BottomSheetStatelessModalBase {
-  const FaqModal({super.key});
+  const FaqModal({super.key, required this.scrollController});
+
+  final ScrollController scrollController;
 
   static const TextStyle _headerTextStyle = TextStyle(
     fontSize: 16.0,
@@ -38,6 +40,7 @@ class FaqModal extends BottomSheetStatelessModalBase {
           vertical: 24.0,
         ),
         child: ListView(
+          controller: scrollController,
           children: [
             SizedBox(
               height: 12,
