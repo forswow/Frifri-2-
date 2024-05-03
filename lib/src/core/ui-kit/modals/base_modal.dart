@@ -45,9 +45,7 @@ mixin BaseModal {
                 build_header(context),
                 _defaultDivider,
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: build_content(context),
-                  ),
+                  child: build_content(context),
                 ),
               ],
             ),
