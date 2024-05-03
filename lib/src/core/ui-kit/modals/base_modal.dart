@@ -11,15 +11,10 @@ mixin BaseModal {
     return Placeholder();
   }
 
+  /// Основная функция, которая возвращает виджеты
+  /// для отображения в модальном окне под заголовком
   Widget build_content(BuildContext context) {
     return Placeholder();
-  }
-
-  /// Возвращает список [Widget] для отображения на модальном окне
-  /// каждый [Widget] в списке может быть обёрнут в In-Stack виджеты
-  /// например: [Align], [Positioned]
-  List<Widget> build_overlay(BuildContext context) {
-    return [];
   }
 
   Widget build_modal(BuildContext context) {
@@ -37,21 +32,12 @@ mixin BaseModal {
             ),
           ),
         ),
-        child: Stack(
-          children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                build_header(context),
-                _defaultDivider,
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: build_content(context),
-                  ),
-                ),
-              ],
-            ),
-            ...build_overlay(context)
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            build_header(context),
+            _defaultDivider,
+            build_content(context),
           ],
         ),
       ),
@@ -89,5 +75,3 @@ class BottomSheetStatefulModalBaseState
     return super.build_modal(context);
   }
 }
-
-// TODO: вынести в отдельный модуль

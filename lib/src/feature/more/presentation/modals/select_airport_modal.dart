@@ -47,70 +47,70 @@ class SelectAirportModalState extends BottomSheetStatefulModalBaseState {
 
   @override
   Widget build_content(BuildContext context) {
-    return RoundedListContainer(
-      separator: _defaultListDivider,
-      children: [
-        CustomRadioListTile(
-          value: "Tbilisi",
-          title: Text("Тибилиси"),
-          groupValue: selectedAirport,
-          onChanged: (newValue) {
-            setState(() {
-              selectedAirport = newValue!;
-              isConfirmButtonEnabled = selectedAirport != initialAirport;
-            });
-          },
-        ),
-        CustomRadioListTile(
-          value: "Kutaisi",
-          title: Text("Кутаиси"),
-          groupValue: selectedAirport,
-          onChanged: (newValue) {
-            setState(() {
-              selectedAirport = newValue!;
-              isConfirmButtonEnabled = selectedAirport != initialAirport;
-            });
-          },
-        ),
-        CustomRadioListTile(
-          value: "Batumi",
-          title: Text("Батуми"),
-          groupValue: selectedAirport,
-          onChanged: (newValue) {
-            setState(() {
-              selectedAirport = newValue!;
-              isConfirmButtonEnabled = selectedAirport != initialAirport;
-            });
-          },
-        )
-      ],
-    );
-  }
-
-  @override
-  List<Widget> build_overlay(BuildContext context) {
-    return [
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
-          height: 48,
-          child: ConfirmationButton(
-            child: Text(
-              AppLocalizations.of(context)!.confirm,
-              style: GoogleFonts.inter(
-                color: Colors.white,
+    return Expanded(
+      child: Column(
+        children: [
+          RoundedListContainer(
+            separator: _defaultListDivider,
+            children: [
+              CustomRadioListTile(
+                value: "Tbilisi",
+                title: Text("Тибилиси"),
+                groupValue: selectedAirport,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedAirport = newValue!;
+                    isConfirmButtonEnabled = selectedAirport != initialAirport;
+                  });
+                },
               ),
-            ),
-            onPressed: isConfirmButtonEnabled
-                ? () {
-                    context.read<AirportCubit>().selectAirport(selectedAirport);
-                    context.pop();
-                  }
-                : null,
+              CustomRadioListTile(
+                value: "Kutaisi",
+                title: Text("Кутаиси"),
+                groupValue: selectedAirport,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedAirport = newValue!;
+                    isConfirmButtonEnabled = selectedAirport != initialAirport;
+                  });
+                },
+              ),
+              CustomRadioListTile(
+                value: "Batumi",
+                title: Text("Батуми"),
+                groupValue: selectedAirport,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedAirport = newValue!;
+                    isConfirmButtonEnabled = selectedAirport != initialAirport;
+                  });
+                },
+              )
+            ],
           ),
-        ),
+          Spacer(),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+            height: 48,
+            child: ConfirmationButton(
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: isConfirmButtonEnabled
+                  ? () {
+                      context
+                          .read<AirportCubit>()
+                          .selectAirport(selectedAirport);
+                      context.pop();
+                    }
+                  : null,
+            ),
+          ),
+        ],
       ),
-    ];
+    );
   }
 }

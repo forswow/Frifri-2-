@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
@@ -28,8 +29,12 @@ base class Dependencies {
   Future<void> initializationDependencies() async {
     log("Start dependencies initialization");
 
+    await dotenv.load(fileName: '.env');
+    log("dotenv config loaded");
+
     sharedPreferences = await SharedPreferences.getInstance();
     globalPrefHelper = GlobalPrefHelper(sharedPreferences: sharedPreferences);
+    log("globalPrefHelper initialized");
 
     pushNotificationCubit = PushNotificationCubit(prefHelper: globalPrefHelper);
     log("pushEnabled: ${pushNotificationCubit.state}");

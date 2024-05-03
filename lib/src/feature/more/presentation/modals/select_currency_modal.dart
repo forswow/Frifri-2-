@@ -48,72 +48,70 @@ class SelectCurrencyModalState extends BottomSheetStatefulModalBaseState {
 
   @override
   Widget build_content(BuildContext context) {
-    return RoundedListContainer(
-      separator: _defaultListDivider,
-      children: [
-        CustomRadioListTile(
-          value: "USD",
-          title: Text("Доллары"),
-          groupValue: selectedCurrency,
-          onChanged: (newValue) {
-            setState(() {
-              selectedCurrency = newValue!;
-              isConfirmButtonActive = selectedCurrency != initialCurrency;
-            });
-          },
-        ),
-        CustomRadioListTile(
-          value: "EUR",
-          title: Text("Евро"),
-          groupValue: selectedCurrency,
-          onChanged: (newValue) {
-            setState(() {
-              selectedCurrency = newValue!;
-              isConfirmButtonActive = selectedCurrency != initialCurrency;
-            });
-          },
-        ),
-        CustomRadioListTile(
-          value: "LAR",
-          title: Text("Лари"),
-          groupValue: selectedCurrency,
-          onChanged: (newValue) {
-            setState(() {
-              selectedCurrency = newValue!;
-              isConfirmButtonActive = selectedCurrency != initialCurrency;
-            });
-          },
-        ),
-      ],
-    );
-  }
-
-  @override
-  List<Widget> build_overlay(BuildContext context) {
-    return [
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
-          height: 48,
-          child: ConfirmationButton(
-            child: Text(
-              AppLocalizations.of(context)!.confirm,
-              style: GoogleFonts.inter(
-                color: Colors.white,
+    return Expanded(
+      child: Column(
+        children: [
+          RoundedListContainer(
+            separator: _defaultListDivider,
+            children: [
+              CustomRadioListTile(
+                value: "USD",
+                title: Text("Доллары"),
+                groupValue: selectedCurrency,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedCurrency = newValue!;
+                    isConfirmButtonActive = selectedCurrency != initialCurrency;
+                  });
+                },
               ),
-            ),
-            onPressed: isConfirmButtonActive
-                ? () {
-                    context
-                        .read<AppLanguageCubit>()
-                        .selectNewLanguage(selectedCurrency);
-                    context.pop();
-                  }
-                : null,
+              CustomRadioListTile(
+                value: "EUR",
+                title: Text("Евро"),
+                groupValue: selectedCurrency,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedCurrency = newValue!;
+                    isConfirmButtonActive = selectedCurrency != initialCurrency;
+                  });
+                },
+              ),
+              CustomRadioListTile(
+                value: "LAR",
+                title: Text("Лари"),
+                groupValue: selectedCurrency,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedCurrency = newValue!;
+                    isConfirmButtonActive = selectedCurrency != initialCurrency;
+                  });
+                },
+              ),
+            ],
           ),
-        ),
+          Spacer(),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+            height: 48,
+            child: ConfirmationButton(
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: isConfirmButtonActive
+                  ? () {
+                      context
+                          .read<AppLanguageCubit>()
+                          .selectNewLanguage(selectedCurrency);
+                      context.pop();
+                    }
+                  : null,
+            ),
+          ),
+        ],
       ),
-    ];
+    );
   }
 }
