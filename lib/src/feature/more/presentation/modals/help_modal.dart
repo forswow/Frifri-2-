@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
 import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
@@ -38,7 +36,17 @@ class HelpModal extends BottomSheetStatelessModalBase {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (context) => FaqModal(),
+                builder: (context) => DraggableScrollableSheet(
+                  expand: false,
+                  // Здесь передаём контроллер в модалку
+                  // чтобы скролл внутри модалки позволял её закрыть
+                  initialChildSize: 0.9,
+                  minChildSize: 0.85,
+                  maxChildSize: 0.9,
+                  builder: (context, controller) => FaqModal(
+                    scrollController: controller,
+                  ),
+                ),
               );
             },
             child: ListTile(
@@ -57,7 +65,17 @@ class HelpModal extends BottomSheetStatelessModalBase {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (context) => FaqModal(),
+                builder: (context) => DraggableScrollableSheet(
+                  expand: false,
+                  // Здесь передаём контроллер в модалку
+                  // чтобы скролл внутри модалки позволял её закрыть
+                  initialChildSize: 0.9,
+                  minChildSize: 0.8,
+                  maxChildSize: 0.9,
+                  builder: (context, controller) => FaqModal(
+                    scrollController: controller,
+                  ),
+                ),
               );
             },
             child: ListTile(
@@ -76,7 +94,17 @@ class HelpModal extends BottomSheetStatelessModalBase {
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (context) => FaqModal(),
+                builder: (context) => DraggableScrollableSheet(
+                  expand: false,
+                  // Здесь передаём контроллер в модалку
+                  // чтобы скролл внутри модалки позволял её закрыть
+                  initialChildSize: 0.9,
+                  minChildSize: 0.8,
+                  maxChildSize: 0.9,
+                  builder: (context, controller) => FaqModal(
+                    scrollController: controller,
+                  ),
+                ),
               );
             },
             child: ListTile(
