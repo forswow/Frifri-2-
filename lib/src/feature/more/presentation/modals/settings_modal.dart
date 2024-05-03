@@ -45,64 +45,60 @@ class SettingsModalState extends BottomSheetStatefulModalBaseState {
 
   @override
   Widget build_content(BuildContext context) {
-    return IntrinsicHeight(
+    return Expanded(
       child: Container(
         padding: EdgeInsets.all(_contentPadding),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            Text(
-              AppLocalizations.of(context)!.pushNotification,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.pushNotification,
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  child: CupertinoSwitch(
+                    value: pushNotificationEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        pushNotificationEnabled = value;
+                        commitButtonEnabled = initialPushNotificationEnabled !=
+                            pushNotificationEnabled;
+                      });
+                    },
+                    activeColor: kPrimaryAppColor,
+                  ),
+                ),
+              ],
             ),
+            Spacer(),
             SizedBox(
-              child: CupertinoSwitch(
-                value: pushNotificationEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    pushNotificationEnabled = value;
-                    commitButtonEnabled = initialPushNotificationEnabled !=
-                        pushNotificationEnabled;
-                  });
-                },
-                activeColor: kPrimaryAppColor,
+              width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+              height: 48,
+              child: ConfirmationButton(
+                child: Text(
+                  AppLocalizations.of(context)!.confirm,
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: commitButtonEnabled
+                    ? () {
+                        context
+                            .read<PushNotificationCubit>()
+                            .setPushEnabled(pushNotificationEnabled);
+                        context.pop();
+                      }
+                    : null,
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  @override
-  List<Widget> build_overlay(BuildContext context) {
-    return [
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
-          height: 48,
-          child: ConfirmationButton(
-            child: Text(
-              AppLocalizations.of(context)!.confirm,
-              style: GoogleFonts.inter(
-                color: Colors.white,
-              ),
-            ),
-            onPressed: commitButtonEnabled
-                ? () {
-                    context
-                        .read<PushNotificationCubit>()
-                        .setPushEnabled(pushNotificationEnabled);
-                    context.pop();
-                  }
-                : null,
-          ),
-        ),
-      ),
-    ];
   }
 }

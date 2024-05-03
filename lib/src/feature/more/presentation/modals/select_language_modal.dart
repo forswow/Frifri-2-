@@ -47,74 +47,73 @@ class SelectLanguageModalState extends BottomSheetStatefulModalBaseState {
 
   @override
   Widget build_content(BuildContext context) {
-    return RoundedListContainer(
-      separator: _defaultListDivider,
-      children: [
-        CustomRadioListTile(
-          value: "ru",
-          title: Text("Russian"),
-          groupValue: selectedLanguage,
-          onChanged: (newValue) {
-            setState(() {
-              selectedLanguage = newValue!;
-              isConfirmButtonActive = selectedLanguage != initialLanguage;
-            });
-          },
-        ),
-        CustomRadioListTile(
-          value: "eng",
-          title: Text("English"),
-          groupValue: selectedLanguage,
-          onChanged: (newValue) {
-            setState(() {
-              selectedLanguage = newValue!;
-              isConfirmButtonActive = selectedLanguage != initialLanguage;
-            });
-          },
-        ),
-        CustomRadioListTile(
-          value: "geo",
-          title: Text("Georgian"),
-          groupValue: selectedLanguage,
-          onChanged: (newValue) {
-            setState(
-              () {
-                selectedLanguage = newValue!;
-                isConfirmButtonActive = selectedLanguage != initialLanguage;
-              },
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  @override
-  List<Widget> build_overlay(BuildContext context) {
-    return [
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
-          height: 48,
-          child: ConfirmationButton(
-            child: Text(
-              AppLocalizations.of(context)!.confirm,
-              style: GoogleFonts.inter(
-                color: Colors.white,
+    return Expanded(
+      child: Column(
+        children: [
+          RoundedListContainer(
+            separator: _defaultListDivider,
+            children: [
+              CustomRadioListTile(
+                value: "ru",
+                title: Text("Russian"),
+                groupValue: selectedLanguage,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedLanguage = newValue!;
+                    isConfirmButtonActive = selectedLanguage != initialLanguage;
+                  });
+                },
               ),
-            ),
-            onPressed: isConfirmButtonActive
-                ? () {
-                    context
-                        .read<AppLanguageCubit>()
-                        .selectNewLanguage(selectedLanguage);
-                    context.pop();
-                  }
-                : null,
+              CustomRadioListTile(
+                value: "eng",
+                title: Text("English"),
+                groupValue: selectedLanguage,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedLanguage = newValue!;
+                    isConfirmButtonActive = selectedLanguage != initialLanguage;
+                  });
+                },
+              ),
+              CustomRadioListTile(
+                value: "geo",
+                title: Text("Georgian"),
+                groupValue: selectedLanguage,
+                onChanged: (newValue) {
+                  setState(
+                    () {
+                      selectedLanguage = newValue!;
+                      isConfirmButtonActive =
+                          selectedLanguage != initialLanguage;
+                    },
+                  );
+                },
+              ),
+            ],
           ),
-        ),
+          Spacer(),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
+            height: 48,
+            child: ConfirmationButton(
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: isConfirmButtonActive
+                  ? () {
+                      context
+                          .read<AppLanguageCubit>()
+                          .selectNewLanguage(selectedLanguage);
+                      context.pop();
+                    }
+                  : null,
+            ),
+          ),
+        ],
       ),
-    ];
+    );
   }
 }
