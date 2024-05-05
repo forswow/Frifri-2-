@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete_result.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 import 'package:retrofit/retrofit.dart';
@@ -39,6 +40,17 @@ abstract class AviaTicketsApiClient {
   Future<UserLocation> getUserLocation({
     @Query('locale') String? locale = null,
     @Query('ip') String? ip = null,
+  });
+
+  /// Get autocomplete results for [term]
+  /// [locale] is a language code of result
+  /// [types] is a list of types (airport, city, country)
+  @GET('http://autocomplete.travelpayouts.com/places2')
+  Future<List<AutocompleteResult>> getAutocomplete({
+    @Query('term') required String term,
+    @Query('locale') String? locale = null,
+    @Query('types') required List<String> types,
+    @Query('callback') String? callback = null,
   });
 }
 
