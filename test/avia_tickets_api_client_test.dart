@@ -11,9 +11,10 @@ void main() async {
   await dotenv.load(fileName: ".env");
   final _baseUrl = dotenv.get("API_BASE_URL");
   final _apiKey = dotenv.get("API_KEY");
+  final _apiClient = getBasicDioClient(_baseUrl, _apiKey);
 
   final aviaApiClient = AviaTicketsApiClient(
-    getBasicDioClient(_baseUrl, _apiKey),
+    _apiClient,
     baseUrl: _baseUrl,
   );
   log("AviaTicketsApiClient initialized");
@@ -37,5 +38,17 @@ void main() async {
   test('Get user location', () async {
     final result = await aviaApiClient.getUserLocation();
     expect(result.iata.length, 3);
+  });
+
+  test('Get airline logo', () async {
+    var url = getAirlineLogoUrl("S7", "80/80");
+    print(url);
+    var response = await _apiClient.get(url);
+
+    url = getAirlineLogoUrl("S7", "80/80", isRetina: true);
+    print(url);
+    response = await _apiClient.get(url);
+
+    expect(response.statusCode, 200);
   });
 }
