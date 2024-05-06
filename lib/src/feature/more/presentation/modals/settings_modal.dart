@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/theme/colors.dart';
-import 'package:frifri/src/core/ui-kit/buttons/confirm_button.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 

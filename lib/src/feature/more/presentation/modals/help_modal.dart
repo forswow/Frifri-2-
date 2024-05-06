@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/presentation/modals/faq_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 

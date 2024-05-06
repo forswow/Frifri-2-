@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 
 class FaqModal extends BottomSheetStatelessModalBase {
   const FaqModal({super.key});

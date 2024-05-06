@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
 import 'package:frifri/src/feature/search/presentation/widgets/choosefly_airport.component.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';

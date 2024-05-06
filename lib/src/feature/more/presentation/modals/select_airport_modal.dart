@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:frifri/src/core/ui-kit/buttons/confirm_button.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:go_router/go_router.dart';
