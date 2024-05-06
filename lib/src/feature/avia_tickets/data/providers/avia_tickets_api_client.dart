@@ -14,7 +14,7 @@ abstract class AviaTicketsApiClient {
   /// Method docs:
   /// https://support.travelpayouts.com/hc/en-us/articles/203956163-Travel-insights-with-Aviasales-Data-API#chapter_2
   @GET('/aviasales/v3/get_latest_prices')
-  Future<TicketInfoResult> getTickets({
+  Future<TicketInfoResult> getLatestPrices({
     @Query('currency') String? currency = null,
     @Query('origin') required String originIataCode,
     @Query('destination') String? destinationIataCode = null,

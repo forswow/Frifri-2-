@@ -22,7 +22,7 @@ void main() async {
   test(
     'Get TicketsInfo',
     () async {
-      final result = await aviaApiClient.getTickets(
+      final result = await aviaApiClient.getLatestPrices(
         originIataCode: "MOW",
         currency: "usd",
       );
@@ -50,5 +50,16 @@ void main() async {
     response = await _apiClient.get(url);
 
     expect(response.statusCode, 200);
+  });
+
+  test("Get user autocomplete", () async {
+    final result = await aviaApiClient.getAutocomplete(
+      term: "Шереметьево",
+      types: ["airport"],
+      locale: "ru",
+    );
+
+    expect(result[0].name, "Шереметьево");
+    expect(result[0].cityCode, "MOW");
   });
 }
