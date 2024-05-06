@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete_result.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -14,7 +14,7 @@ abstract class AviaTicketsApiClient {
   /// Method docs:
   /// https://support.travelpayouts.com/hc/en-us/articles/203956163-Travel-insights-with-Aviasales-Data-API#chapter_2
   @GET('/aviasales/v3/get_latest_prices')
-  Future<TicketInfoResult> getLatestPrices({
+  Future<LatestPricesResult> getLatestPrices({
     @Query('currency') String? currency = null,
     @Query('origin') required String originIataCode,
     @Query('destination') String? destinationIataCode = null,

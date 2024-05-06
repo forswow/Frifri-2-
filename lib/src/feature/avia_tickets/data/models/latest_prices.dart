@@ -4,26 +4,26 @@
 
 import 'dart:convert';
 
-TicketInfoResult ticketInfoFromJson(String str) =>
-    TicketInfoResult.fromJson(json.decode(str));
+LatestPricesResult ticketInfoFromJson(String str) =>
+    LatestPricesResult.fromJson(json.decode(str));
 
-String ticketInfoToJson(TicketInfoResult data) => json.encode(data.toJson());
+String ticketInfoToJson(LatestPricesResult data) => json.encode(data.toJson());
 
-class TicketInfoResult {
-  final List<TicketInfo> data;
+class LatestPricesResult {
+  final List<PriceInfo> data;
   final String currency;
   final bool success;
 
-  TicketInfoResult({
+  LatestPricesResult({
     required this.data,
     required this.currency,
     required this.success,
   });
 
-  factory TicketInfoResult.fromJson(Map<String, dynamic> json) =>
-      TicketInfoResult(
-        data: List<TicketInfo>.from(
-            json["data"].map((x) => TicketInfo.fromJson(x))),
+  factory LatestPricesResult.fromJson(Map<String, dynamic> json) =>
+      LatestPricesResult(
+        data: List<PriceInfo>.from(
+            json["data"].map((x) => PriceInfo.fromJson(x))),
         currency: json["currency"],
         success: json["success"],
       );
@@ -35,7 +35,7 @@ class TicketInfoResult {
       };
 }
 
-class TicketInfo {
+class PriceInfo {
   final DateTime departDate;
   final String origin;
   final String destination;
@@ -50,7 +50,7 @@ class TicketInfo {
   final bool showToAffiliates;
   final bool actual;
 
-  TicketInfo({
+  PriceInfo({
     required this.departDate,
     required this.origin,
     required this.destination,
@@ -66,7 +66,7 @@ class TicketInfo {
     required this.actual,
   });
 
-  factory TicketInfo.fromJson(Map<String, dynamic> json) => TicketInfo(
+  factory PriceInfo.fromJson(Map<String, dynamic> json) => PriceInfo(
         departDate: DateTime.parse(json["depart_date"]),
         origin: json["origin"],
         destination: json["destination"],
