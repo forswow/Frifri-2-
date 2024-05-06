@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete_result.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -27,6 +28,22 @@ abstract class AviaTicketsApiClient {
     @Query('sorting') String? sorting = null,
     @Query('trip_duration') int? tripDuration = null,
     @Query('trip_class') int? tripClass = null,
+  });
+
+  @GET('/aviasales/v3/prices_for_dates')
+  Future<PricesForDates> getPricesForDates({
+    @Query('currency') String? currency = null,
+    @Query('origin') required String originIataCode,
+    @Query('destination') required String destinationIataCode,
+    @Query('departure_at') required String departureAt,
+    @Query('return_at') String? returnAt = null,
+    @Query('one_way') bool? oneWay = null,
+    @Query('direct') bool? direct = null,
+    @Query('market') String? market = null,
+    @Query('limit') int? limit = null,
+    @Query('page') int? page = null,
+    @Query('sorting') String? sorting = null, // price or route
+    @Query('unique') bool? unique = null,
   });
 
   /// Get user's location by ip.

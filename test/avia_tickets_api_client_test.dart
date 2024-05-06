@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/data/providers/avia_tickets_api_client.dart';
 
 import 'dio_base_client.dart';
@@ -30,7 +30,7 @@ void main() async {
       final ticket = result.data[0];
 
       expect(result, isNotNull);
-      expect(result, isA<TicketInfoResult>());
+      expect(result, isA<LatestPricesResult>());
       expect(ticket.origin, "MOW");
     },
   );
@@ -61,5 +61,15 @@ void main() async {
 
     expect(result[0].name, "Шереметьево");
     expect(result[0].cityCode, "MOW");
+  });
+
+  test("Get tickets with links", () async {
+    final result = await aviaApiClient.getPricesForDates(
+      originIataCode: "MOW",
+      destinationIataCode: "BUS",
+      departureAt: "2024-05-16",
+      currency: "RUB",
+    );
+    print("https://aviasales.com${result.data.first.link}");
   });
 }
