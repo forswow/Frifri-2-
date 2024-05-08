@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
-import 'package:frifri/src/feature/avia_tickets/data/providers/avia_tickets_api_client.dart';
+import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
 
 import 'dio_base_client.dart';
 
