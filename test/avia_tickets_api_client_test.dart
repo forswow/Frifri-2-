@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
-import 'package:frifri/src/feature/avia_tickets/data/providers/avia_tickets_api_client.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
+import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
 
 import 'dio_base_client.dart';
 
@@ -11,9 +11,10 @@ void main() async {
   await dotenv.load(fileName: ".env");
   final _baseUrl = dotenv.get("API_BASE_URL");
   final _apiKey = dotenv.get("API_KEY");
+  final _apiClient = getBasicDioClient(_baseUrl, _apiKey);
 
   final aviaApiClient = AviaTicketsApiClient(
-    getBasicDioClient(_baseUrl, _apiKey),
+    _apiClient,
     baseUrl: _baseUrl,
   );
   log("AviaTicketsApiClient initialized");
@@ -21,7 +22,7 @@ void main() async {
   test(
     'Get TicketsInfo',
     () async {
-      final result = await aviaApiClient.getTickets(
+      final result = await aviaApiClient.getLatestPrices(
         originIataCode: "MOW",
         currency: "usd",
       );
@@ -29,7 +30,7 @@ void main() async {
       final ticket = result.data[0];
 
       expect(result, isNotNull);
-      expect(result, isA<TicketInfoResult>());
+      expect(result, isA<LatestPricesResult>());
       expect(ticket.origin, "MOW");
     },
   );
@@ -37,5 +38,38 @@ void main() async {
   test('Get user location', () async {
     final result = await aviaApiClient.getUserLocation();
     expect(result.iata.length, 3);
+  });
+
+  test('Get airline logo', () async {
+    var url = getAirlineLogoUrl("S7", "80/80");
+    print(url);
+    var response = await _apiClient.get(url);
+
+    url = getAirlineLogoUrl("S7", "80/80", isRetina: true);
+    print(url);
+    response = await _apiClient.get(url);
+
+    expect(response.statusCode, 200);
+  });
+
+  test("Get user autocomplete", () async {
+    final result = await aviaApiClient.getAutocomplete(
+      term: "Шереметьево",
+      types: ["airport"],
+      locale: "ru",
+    );
+
+    expect(result[0].name, "Шереметьево");
+    expect(result[0].cityCode, "MOW");
+  });
+
+  test("Get tickets with links", () async {
+    final result = await aviaApiClient.getPricesForDates(
+      originIataCode: "MOW",
+      destinationIataCode: "BUS",
+      departureAt: "2024-05-16",
+      currency: "RUB",
+    );
+    print("https://aviasales.com${result.data.first.link}");
   });
 }

@@ -1,27 +1,26 @@
 // To parse this JSON data, do
 //
-//     final ticketInfo = ticketInfoFromJson(jsonString);
+//     final pricesForDates = pricesForDatesFromJson(jsonString);
 
 import 'dart:convert';
 
-TicketInfoResult ticketInfoFromJson(String str) =>
-    TicketInfoResult.fromJson(json.decode(str));
+PricesForDates pricesForDatesFromJson(String str) =>
+    PricesForDates.fromJson(json.decode(str));
 
-String ticketInfoToJson(TicketInfoResult data) => json.encode(data.toJson());
+String pricesForDatesToJson(PricesForDates data) => json.encode(data.toJson());
 
-class TicketInfoResult {
+class PricesForDates {
   final List<TicketInfo> data;
   final String currency;
   final bool success;
 
-  TicketInfoResult({
+  PricesForDates({
     required this.data,
     required this.currency,
     required this.success,
   });
 
-  factory TicketInfoResult.fromJson(Map<String, dynamic> json) =>
-      TicketInfoResult(
+  factory PricesForDates.fromJson(Map<String, dynamic> json) => PricesForDates(
         data: List<TicketInfo>.from(
             json["data"].map((x) => TicketInfo.fromJson(x))),
         currency: json["currency"],
@@ -36,65 +35,69 @@ class TicketInfoResult {
 }
 
 class TicketInfo {
-  final DateTime departDate;
-  final String origin;
+  final String flightNumber;
+  final String link;
+  final String originAirport;
+  final String destinationAirport;
+  final DateTime departureAt;
+  final String airline;
   final String destination;
-  final String gate;
-  final String returnDate;
-  final DateTime foundAt;
-  final int tripClass;
-  final int value;
-  final int numberOfChanges;
+  final String origin;
+  final int price;
+  final int returnTransfers;
   final int duration;
-  final int distance;
-  final bool showToAffiliates;
-  final bool actual;
+  final int durationTo;
+  final int durationBack;
+  final int transfers;
 
   TicketInfo({
-    required this.departDate,
-    required this.origin,
+    required this.flightNumber,
+    required this.link,
+    required this.originAirport,
+    required this.destinationAirport,
+    required this.departureAt,
+    required this.airline,
     required this.destination,
-    required this.gate,
-    required this.returnDate,
-    required this.foundAt,
-    required this.tripClass,
-    required this.value,
-    required this.numberOfChanges,
+    required this.origin,
+    required this.price,
+    required this.returnTransfers,
     required this.duration,
-    required this.distance,
-    required this.showToAffiliates,
-    required this.actual,
+    required this.durationTo,
+    required this.durationBack,
+    required this.transfers,
   });
 
   factory TicketInfo.fromJson(Map<String, dynamic> json) => TicketInfo(
-        departDate: DateTime.parse(json["depart_date"]),
-        origin: json["origin"],
+        flightNumber: json["flight_number"],
+        link: json["link"],
+        originAirport: json["origin_airport"],
+        destinationAirport: json["destination_airport"],
+        departureAt: DateTime.parse(json["departure_at"]),
+        airline: json["airline"],
         destination: json["destination"],
-        gate: json["gate"],
-        returnDate: json["return_date"],
-        foundAt: DateTime.parse(json["found_at"]),
-        tripClass: json["trip_class"],
-        value: json["value"],
-        numberOfChanges: json["number_of_changes"],
+        origin: json["origin"],
+        price: json["price"],
+        returnTransfers: json["return_transfers"],
         duration: json["duration"],
-        distance: json["distance"],
-        showToAffiliates: json["show_to_affiliates"],
-        actual: json["actual"],
+        durationTo: json["duration_to"],
+        durationBack: json["duration_back"],
+        transfers: json["transfers"],
       );
 
   Map<String, dynamic> toJson() => {
-        "depart_date": departDate.toIso8601String(),
-        "origin": origin,
+        "flight_number": flightNumber,
+        "link": link,
+        "origin_airport": originAirport,
+        "destination_airport": destinationAirport,
+        "departure_at": departureAt.toIso8601String(),
+        "airline": airline,
         "destination": destination,
-        "gate": gate,
-        "return_date": returnDate,
-        "found_at": foundAt.toIso8601String(),
-        "trip_class": tripClass,
-        "value": value,
-        "number_of_changes": numberOfChanges,
+        "origin": origin,
+        "price": price,
+        "return_transfers": returnTransfers,
         "duration": duration,
-        "distance": distance,
-        "show_to_affiliates": showToAffiliates,
-        "actual": actual,
+        "duration_to": durationTo,
+        "duration_back": durationBack,
+        "transfers": transfers,
       };
 }
