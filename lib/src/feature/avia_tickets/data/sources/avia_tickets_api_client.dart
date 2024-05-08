@@ -34,8 +34,8 @@ abstract class AviaTicketsApiClient {
   Future<PricesForDates> getPricesForDates({
     @Query('currency') String? currency = null,
     @Query('origin') required String originIataCode,
-    @Query('destination') required String destinationIataCode,
-    @Query('departure_at') required String departureAt,
+    @Query('destination') String? destinationIataCode = null,
+    @Query('departure_at') String? departureAt = null,
     @Query('return_at') String? returnAt = null,
     @Query('one_way') bool? oneWay = null,
     @Query('direct') bool? direct = null,

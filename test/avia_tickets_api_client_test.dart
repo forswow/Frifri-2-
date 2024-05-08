@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
 import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
 
 import 'dio_base_client.dart';
@@ -66,10 +67,13 @@ void main() async {
   test("Get tickets with links", () async {
     final result = await aviaApiClient.getPricesForDates(
       originIataCode: "MOW",
-      destinationIataCode: "BUS",
-      departureAt: "2024-05-16",
-      currency: "RUB",
+      // destinationIataCode: "BUS",
+      // departureAt: "2024-05-16",
+      // currency: "RUB",
     );
-    print("https://aviasales.com${result.data.first.link}");
+
+    expect(result.data, isNotNull);
+    expect(result.data, isNotEmpty);
+    expect(result.data.first, isA<TicketInfo>());
   });
 }
