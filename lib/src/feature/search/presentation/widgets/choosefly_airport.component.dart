@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AirportComponentCard extends StatelessWidget {
@@ -27,7 +28,7 @@ class AirportComponentCard extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.black)),
-              Text('Аэропорт $name',
+              Text('${AppLocalizations.of(context)!.airport} $name',
                   style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
