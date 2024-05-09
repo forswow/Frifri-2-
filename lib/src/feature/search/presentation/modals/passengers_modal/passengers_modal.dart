@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
@@ -67,27 +68,36 @@ class PassengersModalState extends BottomSheetStatefulModalBaseState {
   Widget build_content(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
-      child: Column(
-        children: <Widget>[
-          CounterWidget(
-              onCountChange: updateOldCount,
-              count: oldCount,
-              titleText: AppLocalizations.of(context)!.adults,
-              limit: 9),
-          SizedBox(
-            height: 24,
+      child: Stack(alignment: Alignment.topCenter, children: [
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              CounterWidget(
+                  onCountChange: updateOldCount,
+                  count: oldCount,
+                  titleText: AppLocalizations.of(context)!.adults,
+                  limit: 9),
+              SizedBox(
+                height: 24,
+              ),
+              CounterWidget(
+                titleText: AppLocalizations.of(context)!.children,
+                count: childCount,
+                onCountChange: updateChildCount,
+                limit: 6,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 100),
+                child: ClassListWidget(
+                  callback: callbackForRadioButton,
+                ),
+              ),
+            ],
           ),
-          CounterWidget(
-            titleText: AppLocalizations.of(context)!.children,
-            count: childCount,
-            onCountChange: updateChildCount,
-            limit: 6,
-          ),
-          ClassListWidget(
-            callback: callbackForRadioButton,
-          ),
-          Spacer(),
-          ChooseflyButtonComponent(
+        ),
+        Positioned(
+          bottom: 10,
+          child: ChooseflyButtonComponent(
             height: 48,
             text: AppLocalizations.of(context)!.confirm,
             callback: () {
@@ -98,9 +108,9 @@ class PassengersModalState extends BottomSheetStatefulModalBaseState {
               };
               context.pop(data);
             },
-          )
-        ],
-      ),
+          ),
+        )
+      ]),
     );
   }
 }
