@@ -79,10 +79,10 @@ class _ClassListWidgetState extends State<ClassListWidget> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border(
-              right: BorderSide(color: Colors.grey, width: 1),
-              left: BorderSide(color: Colors.grey, width: 1),
-              top: BorderSide(color: Colors.grey, width: 1),
-              bottom: BorderSide(color: Colors.grey, width: 1),
+              right: BorderSide(color: Colors.grey, width: 0.5),
+              left: BorderSide(color: Colors.grey, width: 0.5),
+              top: BorderSide(color: Colors.grey, width: 0.5),
+              bottom: BorderSide(color: Colors.grey, width: 0.5),
             ),
           ),
           child: Column(
@@ -101,7 +101,7 @@ class _ClassListWidgetState extends State<ClassListWidget> {
               ),
               Divider(
                   color: Colors.grey,
-                  thickness: 1,
+                  thickness: 0.5,
                   indent: 58), // Линия после первой строки
               ClasslistRow(
                 buttonIsActive: _isActiveSecond,
@@ -114,7 +114,7 @@ class _ClassListWidgetState extends State<ClassListWidget> {
               ),
               Divider(
                   color: Colors.grey,
-                  thickness: 1,
+                  thickness: 0.5,
                   indent: 58), // Линия после второй строки
               ClasslistRow(
                 buttonIsActive: _isActiveThird,
@@ -127,7 +127,7 @@ class _ClassListWidgetState extends State<ClassListWidget> {
               ),
               Divider(
                   color: Colors.grey,
-                  thickness: 1,
+                  thickness: 0.5,
                   indent: 58), // Линия после третьей строки
               ClasslistRow(
                 buttonIsActive: _isActiveFourth,
