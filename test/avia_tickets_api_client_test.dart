@@ -5,8 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/ticket_info.dart';
 import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
-
-import 'dio_base_client.dart';
+import 'package:frifri/src/core/network/dio_client.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
