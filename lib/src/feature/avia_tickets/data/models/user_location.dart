@@ -4,6 +4,33 @@
 
 import 'dart:convert';
 
+UserLocationQuery pricesForDatesQueryFromJson(String str) =>
+    UserLocationQuery.fromJson(json.decode(str));
+
+String pricesForDatesQueryToJson(UserLocationQuery data) =>
+    json.encode(data.toJson());
+
+class UserLocationQuery {
+  final String locale;
+  final String? ip;
+
+  UserLocationQuery({
+    required this.locale,
+    this.ip,
+  });
+
+  factory UserLocationQuery.fromJson(Map<String, dynamic> json) =>
+      UserLocationQuery(
+        locale: json["locale"],
+        ip: json["ip"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "locale": locale,
+        "ip": ip,
+      };
+}
+
 UserLocation userLocationFromJson(String str) =>
     UserLocation.fromJson(json.decode(str));
 

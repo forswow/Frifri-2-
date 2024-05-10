@@ -4,6 +4,41 @@
 
 import 'dart:convert';
 
+AutocompleteQuery autocompleteQueryFromJson(String str) =>
+    AutocompleteQuery.fromJson(json.decode(str));
+
+String autocompleteQueryToJson(AutocompleteQuery data) =>
+    json.encode(data.toJson());
+
+/// AutocompleteQuery для запроса автодополнения
+/// [locale] - код языка
+/// [types] - тип поиска (city, country, airport)
+/// [term] - строка поиска
+class AutocompleteQuery {
+  String locale;
+  List<String> types;
+  String term;
+
+  AutocompleteQuery({
+    required this.term,
+    required this.locale,
+    required this.types,
+  });
+
+  factory AutocompleteQuery.fromJson(Map<String, dynamic> json) =>
+      AutocompleteQuery(
+        locale: json["locale"],
+        types: List<String>.from(json["types"].map((x) => x)),
+        term: json["term"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "locale": locale,
+        "types": List<dynamic>.from(types.map((x) => x)),
+        "term": term,
+      };
+}
+
 List<AutocompleteResult> autocompleteResultFromJson(String str) =>
     List<AutocompleteResult>.from(
         json.decode(str).map((x) => AutocompleteResult.fromJson(x)));
