@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
 import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client_impl.dart';
@@ -15,6 +16,7 @@ void main() async {
   await dotenv.load(fileName: ".env");
   final _baseUrl = dotenv.get("API_BASE_URL");
   final _apiKey = dotenv.get("API_KEY");
+  final _marker = dotenv.get("API_MARKER");
   final _apiClient = getBasicDioClient(_baseUrl, _apiKey);
 
   final aviaApiClient = AviaTicketsApiClientImpl(
@@ -82,5 +84,28 @@ void main() async {
 
     expect(result.data[0].origin, "MOW");
     print("https://aviasales.com${result.data.first.link}");
+  });
+
+  test("Search tickets with SearchID", () async {
+    final result = await aviaApiClient.searchTickets(
+      options: TicketsSearchQuery(
+        host: "frifri.ge",
+        locale: "en",
+        marker: _marker,
+        segments: [
+          Segment(
+            origin: "MOW",
+            destination: "BUS",
+            date: "2024-05-12",
+          ),
+        ],
+        tripClass: 'Y',
+        passengers: Passengers(adults: 1),
+        userIp: "127.0.0.1",
+      ),
+    );
+
+    expect(result.host, "frifri.ge");
+    expect(result.searchId, isNotNull);
   });
 }
