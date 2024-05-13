@@ -2,6 +2,7 @@ import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets_result.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 
 abstract class AviaTicketsApiClient {
@@ -23,6 +24,10 @@ abstract class AviaTicketsApiClient {
 
   Future<TicketsSearchIdResult> searchTickets({
     required TicketsSearchQuery options,
+  });
+
+  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId({
+    required String searchId,
   });
 }
 

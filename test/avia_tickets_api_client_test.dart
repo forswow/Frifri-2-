@@ -95,7 +95,7 @@ void main() async {
           Segment(
             origin: "MOW",
             destination: "BUS",
-            date: "2024-05-12",
+            date: "2024-05-14",
           ),
         ],
         tripClass: 'Y',
@@ -104,9 +104,16 @@ void main() async {
       ),
     );
 
-    print("SearchID: ${result.searchId}");
-
     expect(result.host, "frifri.ge");
     expect(result.searchId, isNotNull);
+
+    print("SearchID: ${result.searchId}");
+    print("Getting result for the searchID: ${result.searchId}...");
+
+    final searchResult = await aviaApiClient.getTicketsBySearchId(
+      searchId: result.searchId,
+    );
+
+    expect(searchResult[0], isNotNull);
   });
 }

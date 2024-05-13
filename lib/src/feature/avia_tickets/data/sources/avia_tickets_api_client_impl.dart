@@ -8,6 +8,7 @@ import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets_result.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
 import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
 
@@ -85,6 +86,7 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
     return UserLocation.fromJson(result);
   }
 
+  @override
   Future<TicketsSearchIdResult> searchTickets({
     required TicketsSearchQuery options,
   }) async {
@@ -101,6 +103,25 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
     final result = response.data;
 
     return TicketsSearchIdResult.fromJson(result);
+  }
+
+  @override
+  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId({
+    required String searchId,
+  }) async {
+    String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
+
+    final response = await _dio.post(endpoint, queryParameters: {
+      "uuid": searchId,
+    });
+
+    final result = response.data as List<dynamic>;
+
+    return result
+        .map(
+          (e) => TicketsSearchResultBySearchId.fromJson(e),
+        )
+        .toList();
   }
 }
 
