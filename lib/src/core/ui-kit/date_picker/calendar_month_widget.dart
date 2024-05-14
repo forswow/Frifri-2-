@@ -3,7 +3,6 @@ import 'package:frifri/src/core/extensions/string_extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-
 class SelectedDate {
   final DateTime date;
   final bool isWholeMonth;
@@ -18,12 +17,15 @@ class CalendarMonth extends StatefulWidget {
     required this.month,
     required this.selectedDate,
     required this.onDateSelected,
+    this.startWeekDay = DateTime.monday,
   });
 
   final int year;
   final int month;
   final SelectedDate selectedDate;
   final Function(SelectedDate newDate) onDateSelected;
+
+  final int startWeekDay;
 
   @override
   State<CalendarMonth> createState() => _CalendarMonthState();
@@ -32,15 +34,14 @@ class CalendarMonth extends StatefulWidget {
 class _CalendarMonthState extends State<CalendarMonth> {
   @override
   Widget build(BuildContext context) {
-    final monthName = _getMonthShortName(widget.year, widget.month);
-
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.all(19),
           child: MonthHeader(
-            monthName: monthName,
-            widget: widget,
+            year: widget.year,
+            month: widget.month,
+            onDateSelected: widget.onDateSelected,
           ),
         ),
         MonthTableView(
@@ -48,13 +49,10 @@ class _CalendarMonthState extends State<CalendarMonth> {
           month: widget.month,
           selectedDate: widget.selectedDate,
           onDateSelected: widget.onDateSelected,
+          startWeekDay: widget.startWeekDay,
         ),
       ],
     );
-  }
-
-  String _getMonthShortName(int year, int month) {
-    return DateFormat("MMM", "ru").format(DateTime(year, month));
   }
 }
 
@@ -65,6 +63,7 @@ class MonthTableView extends StatelessWidget {
     required this.month,
     required this.selectedDate,
     required this.onDateSelected,
+    required this.startWeekDay,
   });
 
   final DateTime currentDate = DateTime.now();
@@ -75,14 +74,23 @@ class MonthTableView extends StatelessWidget {
   final SelectedDate selectedDate;
   final Function(SelectedDate newDate) onDateSelected;
 
+  final int startWeekDay;
+
+  static int firstDayOffset(int year, int month,
+      {int firstDayOfWeek = DateTime.monday}) {
+    final int weekdayFromMonday = DateTime(year, month).weekday - 1;
+    final firstDayOfWeekIndex = (firstDayOfWeek - 1) % 7;
+    return (weekdayFromMonday - firstDayOfWeekIndex) % 7;
+  }
+
   @override
   Widget build(BuildContext context) {
     final countOfDays = DateUtils.getDaysInMonth(year, month);
 
-    final startsWithDay = DateUtils.firstDayOffset(
+    final startsWithDay = firstDayOffset(
       year,
       month,
-      MaterialLocalizations.of(context),
+      firstDayOfWeek: startWeekDay,
     );
 
     return GridView.count(
@@ -188,20 +196,25 @@ class MonthDay extends StatelessWidget {
 class MonthHeader extends StatelessWidget {
   const MonthHeader({
     super.key,
-    required this.monthName,
-    required this.widget,
+    required this.year,
+    required this.month,
+    required this.onDateSelected,
   });
 
-  final String monthName;
-  final CalendarMonth widget;
+  final int year;
+  final int month;
+
+  final Function(SelectedDate) onDateSelected;
 
   @override
   Widget build(BuildContext context) {
+    String monthName = _getMonthShortName(year, month);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${monthName.captialize()} ${widget.year}",
+          "${monthName.captialize()} ${year}",
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -209,9 +222,9 @@ class MonthHeader extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            widget.onDateSelected(
+            onDateSelected(
               SelectedDate(
-                DateTime(widget.year, widget.month),
+                DateTime(year, month),
                 isWholeMonth: true,
               ),
             );
@@ -229,5 +242,9 @@ class MonthHeader extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _getMonthShortName(int year, int month) {
+    return DateFormat("MMM", "ru").format(DateTime(year, month));
   }
 }

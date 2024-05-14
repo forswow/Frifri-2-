@@ -24,8 +24,7 @@ class _CalendarModalState extends BottomSheetStatefulModalBaseState {
   @override
   Widget build_header(BuildContext context) {
     final weekdays = "SMTWTFS";
-    final firstDayInWeek =
-        MaterialLocalizations.of(context).firstDayOfWeekIndex;
+    final firstDayInWeek = DateTime.monday;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -81,6 +80,7 @@ class _CalendarModalState extends BottomSheetStatefulModalBaseState {
                       selectedDate = newDate;
                     });
                   },
+                  startWeekDay: DateTime.monday,
                 );
               },
             ),
