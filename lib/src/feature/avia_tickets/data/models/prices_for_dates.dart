@@ -4,6 +4,73 @@
 
 import 'dart:convert';
 
+PricesForDatesQuery pricesForDatesQueryFromJson(String str) =>
+    PricesForDatesQuery.fromJson(json.decode(str));
+
+String pricesForDatesQueryToJson(PricesForDatesQuery data) =>
+    json.encode(data.toJson());
+
+class PricesForDatesQuery {
+  final String? currency;
+  final String origin;
+  final String departureAt;
+  final String? destination;
+  final String? returnAt;
+  final bool? unique;
+  final String? sorting;
+  final bool? direct;
+  final int? limit;
+  final int? page;
+  final bool? oneWay;
+  final String? market;
+
+  PricesForDatesQuery({
+    required this.origin,
+    required this.departureAt,
+    this.currency,
+    this.destination,
+    this.returnAt,
+    this.unique,
+    this.sorting,
+    this.direct,
+    this.limit,
+    this.page,
+    this.oneWay,
+    this.market,
+  });
+
+  factory PricesForDatesQuery.fromJson(Map<String, dynamic> json) =>
+      PricesForDatesQuery(
+        currency: json["currency"],
+        origin: json["origin"],
+        destination: json["destination"],
+        departureAt: json["departure_at"],
+        returnAt: json["return_at"],
+        unique: json["unique"],
+        sorting: json["sorting"],
+        direct: json["direct"],
+        limit: json["limit"],
+        page: json["page"],
+        oneWay: json["one_way"],
+        market: json["market"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "currency": currency,
+        "origin": origin,
+        "destination": destination,
+        "departure_at": departureAt,
+        "return_at": returnAt,
+        "unique": unique,
+        "sorting": sorting,
+        "direct": direct,
+        "limit": limit,
+        "page": page,
+        "one_way": oneWay,
+        "market": market,
+      };
+}
+
 PricesForDates pricesForDatesFromJson(String str) =>
     PricesForDates.fromJson(json.decode(str));
 

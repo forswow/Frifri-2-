@@ -4,24 +4,94 @@
 
 import 'dart:convert';
 
-LatestPricesResult ticketInfoFromJson(String str) =>
-    LatestPricesResult.fromJson(json.decode(str));
+LatestPricesQuery pricesForDatesQueryFromJson(String str) =>
+    LatestPricesQuery.fromJson(json.decode(str));
 
-String ticketInfoToJson(LatestPricesResult data) => json.encode(data.toJson());
+String pricesForDatesQueryToJson(LatestPricesQuery data) =>
+    json.encode(data.toJson());
 
-class LatestPricesResult {
+class LatestPricesQuery {
+  final String origin;
+  final String destination;
+  final String? currency;
+  final int? beginningOfPeriod;
+  final String? periodType;
+  final String? groupBy;
+  final bool? oneWay;
+  final int? page;
+  final String? market;
+  final int? limit;
+  final String? sorting;
+  final int? tripDuration;
+  final int? tripClass;
+
+  LatestPricesQuery({
+    required this.origin,
+    required this.destination,
+    this.currency,
+    this.beginningOfPeriod,
+    this.periodType,
+    this.groupBy,
+    this.oneWay,
+    this.page,
+    this.market,
+    this.limit,
+    this.sorting,
+    this.tripDuration,
+    this.tripClass,
+  });
+
+  factory LatestPricesQuery.fromJson(Map<String, dynamic> json) =>
+      LatestPricesQuery(
+        currency: json["currency"],
+        origin: json["origin"],
+        destination: json["destination"],
+        beginningOfPeriod: json["beginning_of_period"],
+        periodType: json["period_type"],
+        groupBy: json["group_by"],
+        oneWay: json["one_way "],
+        page: json["page"],
+        market: json["market"],
+        limit: json["limit"],
+        sorting: json["sorting"],
+        tripDuration: json["trip_duration"],
+        tripClass: json["trip_class"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "currency": currency,
+        "origin": origin,
+        "destination": destination,
+        "beginning_of_period": beginningOfPeriod,
+        "period_type": periodType,
+        "group_by": groupBy,
+        "one_way ": oneWay,
+        "page": page,
+        "market": market,
+        "limit": limit,
+        "sorting": sorting,
+        "trip_duration": tripDuration,
+        "trip_class": tripClass,
+      };
+}
+
+LatestPrices ticketInfoFromJson(String str) =>
+    LatestPrices.fromJson(json.decode(str));
+
+String ticketInfoToJson(LatestPrices data) => json.encode(data.toJson());
+
+class LatestPrices {
   final List<PriceInfo> data;
   final String currency;
   final bool success;
 
-  LatestPricesResult({
+  LatestPrices({
     required this.data,
     required this.currency,
     required this.success,
   });
 
-  factory LatestPricesResult.fromJson(Map<String, dynamic> json) =>
-      LatestPricesResult(
+  factory LatestPrices.fromJson(Map<String, dynamic> json) => LatestPrices(
         data: List<PriceInfo>.from(
             json["data"].map((x) => PriceInfo.fromJson(x))),
         currency: json["currency"],
