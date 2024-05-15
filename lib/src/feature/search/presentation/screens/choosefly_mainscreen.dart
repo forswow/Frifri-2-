@@ -5,6 +5,7 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/search/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/search/presentation/modals/search_modal_fly_from/searchfly_modal_from.dart';
 import 'package:frifri/src/feature/search/presentation/modals/search_modal_fly_to/searchfly_modal_to.dart';
+import 'package:frifri/src/feature/search/presentation/screens/tickets_list/tickets_list.dart';
 import 'package:frifri/src/feature/search/presentation/widgets/choosefly_button.dart';
 import 'package:frifri/src/feature/search/presentation/widgets/choosefly_radiobutton.dart';
 
@@ -290,7 +291,22 @@ class _ChooseFlyMainScreenState extends State<ChooseFlyMainScreen> {
               ChooseflyButtonComponent(
                 height: 48,
                 text: AppLocalizations.of(context)!.findTickets,
-                callback: () {},
+                callback: () {
+                  final userPathData = {
+                    "flyFrom": flyFrom,
+                    "flyTo": flyTo,
+                    "flyClass": passengersData['classGrade'],
+                    "adultPlaces": passengersData['oldCount'],
+                    "childPlaces": passengersData['childCount'],
+                    "onlyDirect": false,
+                  };
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return TicketsList(
+                      passengerData: userPathData,
+                    );
+                  }));
+                },
               ),
             ],
           ),

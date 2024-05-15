@@ -43,7 +43,6 @@ mixin BaseModal {
               mainAxisSize: MainAxisSize.min,
               children: [
                 build_header(context),
-                _defaultDivider,
                 Expanded(
                   child: build_content(context),
                 ),

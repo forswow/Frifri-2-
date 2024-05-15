@@ -24,58 +24,67 @@ class SearchflyModalToState extends BottomSheetStatefulModalBaseState {
   final _controller = TextEditingController();
   @override
   Widget build_header(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {
-                  context.pop();
-                },
-                child: SvgPicture.asset(
-                  "assets/icons/close.svg",
-                  height: 21,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Stack(
+              children: [
+                Align(
                   alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: SvgPicture.asset(
+                      "assets/icons/close.svg",
+                      height: 21,
+                      alignment: Alignment.centerRight,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 90),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 90),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('ОТКУДА',
-                              style: AppStyles.textStylePoppins.copyWith(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black26)),
-                          Text(
-                            shortName,
-                            style: AppStyles.textStylePoppins.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blue),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('ОТКУДА',
+                                  style: AppStyles.textStylePoppins.copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black26)),
+                              Text(
+                                shortName,
+                                style: AppStyles.textStylePoppins.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue),
+                              ),
+                            ],
                           ),
+                          SvgPicture.asset(
+                              'assets/icons/searchfly-airplane.svg'),
+                          Text('КУДА',
+                              style: AppStyles.textStylePoppins.copyWith(
+                                  fontSize: 12, fontWeight: FontWeight.w600))
                         ],
                       ),
-                      SvgPicture.asset('assets/icons/searchfly-airplane.svg'),
-                      Text('КУДА',
-                          style: AppStyles.textStylePoppins.copyWith(
-                              fontSize: 12, fontWeight: FontWeight.w600))
-                    ],
-                  ),
-                )),
-          ],
+                    )),
+              ],
+            ),
+          ),
         ),
-      ),
+        Divider(
+          height: 0,
+          thickness: 0.5,
+        ),
+      ],
     );
   }
 

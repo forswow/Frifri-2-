@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
@@ -59,8 +57,16 @@ class PassengersModalState extends BottomSheetStatefulModalBaseState {
 
   @override
   Widget build_header(BuildContext context) {
-    return DefaultModalHeader(
-      centerText: AppLocalizations.of(context)!.passengersAndClass,
+    return Column(
+      children: [
+        DefaultModalHeader(
+          centerText: AppLocalizations.of(context)!.passengersAndClass,
+        ),
+        Divider(
+          height: 0,
+          thickness: 0.5,
+        ),
+      ],
     );
   }
 

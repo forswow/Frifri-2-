@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/country_text_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// {@template direct_flights_screen}
 /// AviaTicketWidget widget.
@@ -51,7 +51,7 @@ class AviaTicketWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        'assets/icons/avia copy.svg',
+                        'assets/icons/avia-copy.svg',
                         width: MediaQuery.sizeOf(context).width * 0.4,
                       ),
                       const Text('2ч 35м')
