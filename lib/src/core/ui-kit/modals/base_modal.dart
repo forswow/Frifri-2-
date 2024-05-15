@@ -31,6 +31,7 @@ mixin BaseModal {
               _topBorderRadius,
             ),
           ),
+          color: Colors.white,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,

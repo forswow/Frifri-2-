@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/month_matrix.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets_result.dart';
@@ -22,9 +23,12 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
       {required AutocompleteQuery options}) async {
     String endpoint = "https://autocomplete.travelpayouts.com/places2";
 
+    final allOptions = options.toJson();
+    allOptions.removeWhere((key, value) => value == null);
+
     final response = await _dio.get(
       endpoint,
-      queryParameters: options.toJson(),
+      queryParameters: allOptions,
     );
 
     final result = response.data as List<dynamic>;
@@ -43,9 +47,12 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
     String endpoint =
         "https://api.travelpayouts.com/aviasales/v3/prices_for_dates";
 
+    final allOptions = options.toJson();
+    allOptions.removeWhere((key, value) => value == null);
+
     final response = await _dio.get(
       endpoint,
-      queryParameters: options.toJson(),
+      queryParameters: allOptions,
     );
 
     final result = response.data;
@@ -60,9 +67,12 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
     String endpoint =
         "http://api.travelpayouts.com/aviasales/v3/get_latest_prices";
 
+    final allOptions = options.toJson();
+    allOptions.removeWhere((key, value) => value == null);
+
     final response = await _dio.get(
       endpoint,
-      queryParameters: options.toJson(),
+      queryParameters: allOptions,
     );
 
     final result = response.data;
@@ -76,9 +86,12 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
   }) async {
     String endpoint = "http://www.travelpayouts.com/whereami";
 
+    final allOptions = options.toJson();
+    allOptions.removeWhere((key, value) => value == null);
+
     final response = await _dio.get(
       endpoint,
-      queryParameters: options.toJson(),
+      queryParameters: allOptions,
     );
 
     final result = response.data;
@@ -95,9 +108,16 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
     final _apiKey = dotenv.get("API_KEY");
     final signature = _createSignature(options.toJson(), _apiKey);
 
+    final allOptions = options.toJson();
+    allOptions.addAll(
+      {"signature": signature},
+    );
+
+    allOptions.removeWhere((key, value) => value == null);
+
     final response = await _dio.post(
       endpoint,
-      data: options.toJson()..addAll({"signature": signature}),
+      data: allOptions,
     );
 
     final result = response.data;
@@ -122,6 +142,23 @@ class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
           (e) => TicketsSearchResultBySearchId.fromJson(e),
         )
         .toList();
+  }
+
+  @override
+  Future<MonthMatrix> getMonthMatrix({
+    required MonthMatrixQuery options,
+  }) async {
+    String endpoint = "https://api.travelpayouts.com/v2/prices/month-matrix";
+
+    final allOptions = options.toJson();
+    allOptions.removeWhere((key, value) => value == null);
+
+    final response = await _dio.get(endpoint, queryParameters: allOptions);
+    print(response.requestOptions.uri);
+
+    final result = response.data as Map<String, dynamic>;
+
+    return MonthMatrix.fromJson(result);
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
+import 'package:frifri/src/feature/avia_tickets/data/models/month_matrix.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
 import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
@@ -77,7 +78,7 @@ void main() async {
     final result = await aviaApiClient.getPricesForDates(
       options: PricesForDatesQuery(
         origin: "MOW",
-        departureAt: "2024-05-12",
+        departureAt: "2024-05-16",
       ),
     );
 
@@ -95,7 +96,7 @@ void main() async {
           Segment(
             origin: "MOW",
             destination: "BUS",
-            date: "2024-05-14",
+            date: "2024-05-18",
           ),
         ],
         tripClass: 'Y',
@@ -115,5 +116,20 @@ void main() async {
     );
 
     expect(searchResult[0], isNotNull);
+  });
+
+  test("Get month matrix", () async {
+    final result = await aviaApiClient.getMonthMatrix(
+      options: MonthMatrixQuery(
+        origin: "MOW",
+        destination: "GOJ",
+        month: DateTime(2024, 5, 1),
+        currency: "RUB",
+        showToAffiliates: true,
+      ),
+    );
+
+    expect(result, isNotNull);
+    expect(result, isA<MonthMatrix>());
   });
 }
