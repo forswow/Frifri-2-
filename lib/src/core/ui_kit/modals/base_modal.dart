@@ -7,13 +7,13 @@ mixin BaseModal {
     thickness: 0.5,
   );
 
-  Widget build_header(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return Placeholder();
   }
 
   /// Основная функция, которая возвращает виджеты
   /// для отображения в модальном окне под заголовком
-  Widget build_content(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     return Placeholder();
   }
 
@@ -36,9 +36,8 @@ mixin BaseModal {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            build_header(context),
-            _defaultDivider,
-            build_content(context),
+            buildHeader(context),
+            buildContent(context),
           ],
         ),
       ),
@@ -49,7 +48,7 @@ mixin BaseModal {
 /// Это основа модального окна (BottomSheet)
 /// Чтобы сделать модалку на её основе надо
 /// 1. Унаследоваться от [BottomSheetStatelessModalBase]
-/// 2. Переопределить [build_content] и [build_header]
+/// 2. Переопределить [buildContent] и [buildHeader]
 class BottomSheetStatelessModalBase extends StatelessWidget with BaseModal {
   // Возможно в будущем сюда стоит добавить параметры
   // по умолчанию для возможности переопределения

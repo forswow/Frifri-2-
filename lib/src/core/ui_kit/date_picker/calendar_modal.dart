@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/core/ui-kit/buttons/confirm_button.dart';
-import 'package:frifri/src/core/ui-kit/date_picker/calendar_month_widget.dart';
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
+import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -22,7 +22,7 @@ class _CalendarModalState extends BottomSheetStatefulModalBaseState {
   );
 
   @override
-  Widget build_header(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     final weekdays = "SMTWTFS";
     final firstDayInWeek = DateTime.monday;
 
@@ -56,7 +56,7 @@ class _CalendarModalState extends BottomSheetStatefulModalBaseState {
   }
 
   @override
-  Widget build_content(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     final lastMonth = DateUtils.addMonthsToMonthDate(currentDate, 12);
 
     return Expanded(

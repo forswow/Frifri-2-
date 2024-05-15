@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/presentation/modals/faq_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 
@@ -19,14 +18,14 @@ class HelpModal extends BottomSheetStatelessModalBase {
   );
 
   @override
-  Widget build_header(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return DefaultModalHeader(
       centerText: "Помощь",
     );
   }
 
   @override
-  Widget build_content(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     return Container(
       child: RoundedListContainer(
         separator: _defaultListDivider,

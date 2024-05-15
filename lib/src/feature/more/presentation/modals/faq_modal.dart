@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:frifri/src/core/ui-kit/modals/base_modal.dart';
-import 'package:frifri/src/core/ui-kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 
 class FaqModal extends BottomSheetStatelessModalBase {
   const FaqModal({super.key, required this.scrollController});
@@ -24,14 +23,14 @@ class FaqModal extends BottomSheetStatelessModalBase {
   );
 
   @override
-  Widget build_header(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return DefaultModalHeader(
       centerText: "Самые частые вопросы",
     );
   }
 
   @override
-  Widget build_content(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     return Expanded(
       child: Container(
         alignment: Alignment.topLeft,

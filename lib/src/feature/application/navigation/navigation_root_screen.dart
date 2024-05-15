@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/core/ui-kit/date_picker/calendar_modal.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key, required this.navigationShell});
@@ -112,12 +109,7 @@ class _CustomFloatingActionButton extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * 0.135,
       child: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => CalendarModal(),
-          );
+          context.go(NavigationManager.search);
         },
         backgroundColor: kPrimaryAppColor,
         child: SvgPicture.asset('assets/icons/Search.svg'),

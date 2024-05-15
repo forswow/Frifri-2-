@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/core/ui-kit/painters/custom_checkbox.dart';
+import 'package:frifri/src/core/ui_kit/painters/custom_checkbox.dart';
 
 class SelectionItemTile extends StatelessWidget {
   const SelectionItemTile({required this.title, super.key});

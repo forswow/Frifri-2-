@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
+import 'package:frifri/src/feature/search/presentation/screens/choosefly_mainscreen.dart';
 import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,6 +11,7 @@ class NavigationManager {
   static const String hotels = '/hotels';
   static const String services = '/services';
   static const String more = '/more';
+  static const String search = '/search';
 
   static final GoRouter router = GoRouter(
     // TODO: initialLocation можно задавать в настройках
@@ -59,6 +61,16 @@ class NavigationManager {
                 path: more,
                 builder: (context, state) {
                   return MoreScreen();
+                },
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: search,
+                builder: (context, state) {
+                  return ChooseFlyMainScreen();
                 },
               ),
             ],
