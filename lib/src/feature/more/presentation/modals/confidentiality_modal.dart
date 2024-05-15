@@ -1,30 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 
-class ConfidentialityModal extends BottomSheetStatelessModalBase {
+const TextStyle _listTileTextStyle = TextStyle(
+  fontSize: 16.0,
+);
+
+const _defaultListDivider = Divider(
+  height: 1,
+  thickness: 0.5,
+  indent: 16,
+);
+
+class ConfidentialityModal extends StatelessWidget {
   const ConfidentialityModal({super.key});
 
-  static const TextStyle _listTileTextStyle = TextStyle(
-    fontSize: 16.0,
-  );
-
-  static const _defaultListDivider = Divider(
-    height: 1,
-    thickness: 0.5,
-    indent: 16,
-  );
-
   @override
-  Widget buildHeader(BuildContext context) {
-    return DefaultModalHeader(
-      centerText: "Конфиденциальность",
+  Widget build(BuildContext context) {
+    return DefaultModalWrapper(
+      child: Column(
+        children: [
+          DefaultModalHeader(
+            centerText: "Конфиденциальность",
+          ),
+          _ConfidentialityModalContent()
+        ],
+      ),
     );
   }
+}
+
+class _ConfidentialityModalContent extends StatelessWidget {
+  const _ConfidentialityModalContent();
 
   @override
-  Widget buildContent(BuildContext context) {
+  Widget build(BuildContext context) {
     return RoundedListContainer(
       separator: _defaultListDivider,
       children: [

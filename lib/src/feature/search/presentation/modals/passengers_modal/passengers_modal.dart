@@ -1,38 +1,173 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
-import 'package:frifri/src/feature/search/presentation/modals/passengers_modal/components/classlist.dart';
+import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
+import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:frifri/src/feature/search/presentation/modals/passengers_modal/components/counter.dart';
-import 'package:frifri/src/feature/search/presentation/widgets/choosefly_button.dart';
-import 'package:go_router/go_router.dart';
 
-class PassengersModal extends BottomSheetStatefulModalBase {
-  PassengersModal({required this.passengersData});
+const _checkboxGradientColor = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  stops: [0.0594, 1.23528],
+  colors: [
+    Color.fromRGBO(91, 156, 236, 1),
+    Color.fromRGBO(170, 208, 255, 1),
+  ],
+);
 
-  Map passengersData;
+class PassengersModal extends StatelessWidget {
+  PassengersModal({
+    this.adultPassengersCount = 1,
+    this.childCount = 0,
+    this.flightClass = "",
+  });
+
+  final int adultPassengersCount;
+  final int childCount;
+  final String? flightClass;
+
   @override
-  State<BottomSheetStatefulModalBase> createState() {
-    return PassengersModalState(data: passengersData);
+  Widget build(BuildContext context) {
+    return DefaultModalWrapper(
+      child: Column(
+        children: [
+          DefaultModalHeader(
+            centerText: AppLocalizations.of(context)!.passengersAndClass,
+          ),
+          Divider(
+            height: 0,
+            thickness: 0.5,
+          ),
+          // Модалка <--------------
+          _PassengersModalContent(
+            adultPassengersCount: adultPassengersCount,
+            childCount: childCount,
+            flightClass: flightClass,
+          ),
+        ],
+      ),
+    );
   }
 }
 
-class PassengersModalState extends BottomSheetStatefulModalBaseState {
-  Map data;
+class _PassengersModalContent extends StatefulWidget {
+  _PassengersModalContent({
+    required this.adultPassengersCount,
+    required this.childCount,
+    required this.flightClass,
+  });
 
-  PassengersModalState({required this.data}) : super();
+  final int adultPassengersCount;
+  final int childCount;
+  final String? flightClass;
 
-  callbackForRadioButton(String value) {
-    if (classGrade == value) {
-      classGrade = '';
-      return;
-    }
-    this.classGrade = value;
+  @override
+  State<StatefulWidget> createState() {
+    return _PassengersModalContentState();
+  }
+}
+
+class _PassengersModalContentState extends State<_PassengersModalContent> {
+  late int adultPassengersCount;
+  late int childCount;
+  late String? flightClass;
+
+  @override
+  void initState() {
+    super.initState();
+
+    adultPassengersCount = widget.adultPassengersCount;
+    childCount = widget.childCount;
+    flightClass = widget.flightClass;
   }
 
-  int oldCount = 0;
-  int childCount = 0;
-  String classGrade = '';
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Counter(
+                      onCountChange: updateOldCount,
+                      count: adultPassengersCount,
+                      titleText: AppLocalizations.of(context)!.adults,
+                      limit: 9,
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Counter(
+                      titleText: AppLocalizations.of(context)!.children,
+                      count: childCount,
+                      onCountChange: updateChildCount,
+                      limit: 6,
+                    ),
+                    RoundedListContainer(
+                      children: [
+                        CustomRadioListTile<String?>(
+                          fill: _checkboxGradientColor,
+                          value: "Эконом",
+                          title: Text("Эконом"),
+                          groupValue: flightClass,
+                          onChanged: updateFlightClass,
+                        ),
+                        CustomRadioListTile<String?>(
+                          fill: _checkboxGradientColor,
+                          value: "Комфорт",
+                          title: Text("Комфорт"),
+                          groupValue: flightClass,
+                          onChanged: updateFlightClass,
+                        ),
+                        CustomRadioListTile<String?>(
+                          fill: _checkboxGradientColor,
+                          value: "Первый",
+                          title: Text("Первый"),
+                          groupValue: flightClass,
+                          onChanged: updateFlightClass,
+                        ),
+                        CustomRadioListTile<String?>(
+                          fill: _checkboxGradientColor,
+                          value: "Бизнес",
+                          title: Text("Бизнес"),
+                          groupValue: flightClass,
+                          onChanged: updateFlightClass,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ConfirmationButton(
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: isConfirmationButtonActive ? commitUserChoice : null,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void commitUserChoice() {
+    Navigator.pop(context, [adultPassengersCount, childCount, flightClass]);
+  }
 
   void updateChildCount(int childCount) {
     setState(() {
@@ -42,81 +177,17 @@ class PassengersModalState extends BottomSheetStatefulModalBaseState {
 
   void updateOldCount(int oldCount) {
     setState(() {
-      this.oldCount = oldCount;
+      this.adultPassengersCount = oldCount;
     });
   }
 
-  @override
-  void initState() {
-    print(data);
-    oldCount = data['oldCount'];
-    childCount = data['childCount'];
-
-    super.initState();
+  void updateFlightClass(String? newFlightClass) {
+    setState(() {
+      flightClass = newFlightClass;
+    });
   }
 
-  @override
-  Widget buildHeader(BuildContext context) {
-    return Column(
-      children: [
-        DefaultModalHeader(
-          centerText: AppLocalizations.of(context)!.passengersAndClass,
-        ),
-        Divider(
-          height: 0,
-          thickness: 0.5,
-        ),
-      ],
-    );
-  }
-
-  @override
-  Widget buildContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 24, 24, 10),
-      child: Stack(alignment: Alignment.topCenter, children: [
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              CounterWidget(
-                  onCountChange: updateOldCount,
-                  count: oldCount,
-                  titleText: AppLocalizations.of(context)!.adults,
-                  limit: 9),
-              SizedBox(
-                height: 24,
-              ),
-              CounterWidget(
-                titleText: AppLocalizations.of(context)!.children,
-                count: childCount,
-                onCountChange: updateChildCount,
-                limit: 6,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 100),
-                child: ClassListWidget(
-                  callback: callbackForRadioButton,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          child: ChooseflyButtonComponent(
-            height: 48,
-            text: AppLocalizations.of(context)!.confirm,
-            callback: () {
-              data = {
-                'oldCount': oldCount,
-                'childCount': childCount,
-                'classGrade': classGrade
-              };
-              context.pop(data);
-            },
-          ),
-        )
-      ]),
-    );
+  bool get isConfirmationButtonActive {
+    return adultPassengersCount > 0 && flightClass != null;
   }
 }

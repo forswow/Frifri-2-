@@ -73,18 +73,18 @@ List<TicketPreviewCard> tickets = [
       isLesserCost: true,
       iconPath: 'assets/icons/utr-logo.png',
       companyName: 'Utair',
-      price: '3690',
+      price: 3690,
       time: '12:55 - 06:25'),
   TicketPreviewCard(
       isLesserCost: false,
       iconPath: 'assets/icons/smartavia-logo.png',
       companyName: 'Smartavia',
-      price: '4160',
+      price: 4160,
       time: '10:00 - 03:30'),
   TicketPreviewCard(
       isLesserCost: false,
       iconPath: 'assets/icons/s7airlines-logo.png',
       companyName: 'S7 Airlines',
-      price: '4172',
+      price: 4172,
       time: '17:10 - 02:20'),
 ];

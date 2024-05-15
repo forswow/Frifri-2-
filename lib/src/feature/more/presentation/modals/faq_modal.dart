@@ -1,36 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 
-class FaqModal extends BottomSheetStatelessModalBase {
+const TextStyle _headerTextStyle = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.bold,
+);
+
+const TextStyle _bodyTextStyle = TextStyle(
+  fontSize: 12.0,
+);
+
+const _defaultListDivider = Divider(
+  height: 1,
+  thickness: 0.5,
+  indent: 44,
+);
+
+class FaqModal extends StatelessWidget {
   const FaqModal({super.key, required this.scrollController});
+
+  /// Для синхронизации скролла с модальным окном
+  final ScrollController scrollController;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultModalWrapper(
+      child: Column(
+        children: [
+          DefaultModalHeader(
+            centerText: "Самые частые вопросы",
+          ),
+          _FaqModalContent(scrollController: scrollController),
+        ],
+      ),
+    );
+  }
+}
+
+class _FaqModalContent extends StatelessWidget {
+  const _FaqModalContent({required this.scrollController});
 
   final ScrollController scrollController;
 
-  static const TextStyle _headerTextStyle = TextStyle(
-    fontSize: 16.0,
-    fontWeight: FontWeight.bold,
-  );
-
-  static const TextStyle _bodyTextStyle = TextStyle(
-    fontSize: 12.0,
-  );
-
-  static const _defaultListDivider = Divider(
-    height: 1,
-    thickness: 0.5,
-    indent: 44,
-  );
-
   @override
-  Widget buildHeader(BuildContext context) {
-    return DefaultModalHeader(
-      centerText: "Самые частые вопросы",
-    );
-  }
-
-  @override
-  Widget buildContent(BuildContext context) {
+  Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         alignment: Alignment.topLeft,

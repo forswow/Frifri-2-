@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/search/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/search/presentation/modals/search_modal_fly_from/searchfly_modal_from.dart';
@@ -61,26 +62,30 @@ class _ChooseFlyMainScreenState extends State<ChooseFlyMainScreen> {
                                 context: context,
                                 useRootNavigator: true,
                                 isScrollControlled: true,
-                                builder: (context) => SearchflyModalFrom(),
-                              ).then((value) => setState(() {
-                                    flyFrom = value;
-                                  }));
+                                builder: (context) => SearchFlyModalFrom(),
+                              );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppLocalizations.of(context)!.whereFrom,
-                                    style: AppStyles.textStylePoppins.copyWith(
-                                        color: Colors.grey, fontSize: 16)),
+                                Text(
+                                  AppLocalizations.of(context)!.whereFrom,
+                                  style: AppStyles.textStylePoppins.copyWith(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                ),
                                 SizedBox(height: 4),
-                                Text(flyFrom,
-                                    style: AppStyles.textStylePoppins.copyWith(
-                                        color: flyFrom !=
-                                                AppLocalizations.of(context)!
-                                                    .choose
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontWeight: FontWeight.w600)),
+                                Text(
+                                  flyFrom,
+                                  style: AppStyles.textStylePoppins.copyWith(
+                                    color: flyFrom !=
+                                            AppLocalizations.of(context)!.choose
+                                        ? Colors.black
+                                        : Colors.grey,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -92,14 +97,11 @@ class _ChooseFlyMainScreenState extends State<ChooseFlyMainScreen> {
                                 context: context,
                                 useRootNavigator: true,
                                 isScrollControlled: true,
-                                builder: (context) => SearchflyModalTo(
-                                    shortName:
-                                        flyFrom.substring(0, 3).toUpperCase()),
-                              ).then((value) => {
-                                    setState(() {
-                                      flyTo = value;
-                                    })
-                                  });
+                                builder: (context) => SearchFlyModalTo(
+                                  shortName:
+                                      flyFrom.substring(0, 3).toUpperCase(),
+                                ),
+                              );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -133,14 +135,31 @@ class _ChooseFlyMainScreenState extends State<ChooseFlyMainScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(AppLocalizations.of(context)!.when,
+                              InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    useRootNavigator: true,
+                                    isScrollControlled: true,
+                                    builder: (context) => CalendarModal(),
+                                  );
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.when,
                                   style: AppStyles.textStylePoppins.copyWith(
-                                      color: Colors.grey, fontSize: 16)),
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
                               SizedBox(height: 4),
-                              Text(AppLocalizations.of(context)!.selectDate,
-                                  style: AppStyles.textStylePoppins.copyWith(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w600)),
+                              Text(
+                                AppLocalizations.of(context)!.selectDate,
+                                style: AppStyles.textStylePoppins.copyWith(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ],
                           ),
                           Divider(height: 32, color: Colors.grey, thickness: 1),
@@ -173,17 +192,15 @@ class _ChooseFlyMainScreenState extends State<ChooseFlyMainScreen> {
                           child: InkWell(
                             onTap: () {
                               showModalBottomSheet(
-                                      context: context,
-                                      useRootNavigator: true,
-                                      isScrollControlled: true,
-                                      builder: (context) => PassengersModal(
-                                          passengersData: passengersData))
-                                  .then((value) {
-                                setState(() {
-                                  passengersData = value;
-                                  print(passengersData['classGrade']);
-                                });
-                              });
+                                context: context,
+                                useRootNavigator: true,
+                                isScrollControlled: true,
+                                builder: (context) => PassengersModal(
+                                  adultPassengersCount: 1,
+                                  childCount: 0,
+                                  flightClass: null,
+                                ),
+                              );
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
