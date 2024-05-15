@@ -4,14 +4,14 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/month_matrix.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets_result.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
-import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/prices_for_dates.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
 
 class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
   final Dio _dio;

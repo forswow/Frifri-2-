@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/autocomplete.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/latest_prices.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/month_matrix.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/prices_for_dates.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/search_tickets.dart';
-import 'package:frifri/src/feature/avia_tickets/data/models/user_location.dart';
-import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client.dart';
-import 'package:frifri/src/feature/avia_tickets/data/sources/avia_tickets_api_client_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/prices_for_dates.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
+import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client_impl.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
