@@ -4,32 +4,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
-import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SettingsModal extends BottomSheetStatefulModalBase {
+const _contentPadding = 24.0;
+
+class SettingsModal extends StatelessWidget {
   @override
-  State<BottomSheetStatefulModalBase> createState() {
-    return SettingsModalState();
+  Widget build(BuildContext context) {
+    return DefaultModalWrapper(
+      child: Column(
+        children: [
+          DefaultModalHeader(
+            centerText: "Настройки",
+          ),
+          _SettingsModalContent(),
+        ],
+      ),
+    );
   }
 }
 
-class SettingsModalState extends BottomSheetStatefulModalBaseState {
+class _SettingsModalContent extends StatefulWidget {
+  const _SettingsModalContent();
+
   @override
-  Widget buildHeader(BuildContext context) {
-    return DefaultModalHeader(
-      centerText: "Настройки",
-    );
-  }
+  State<_SettingsModalContent> createState() => _SettingsModalContentState();
+}
 
-  static const _contentPadding = 24.0;
-
+class _SettingsModalContentState extends State<_SettingsModalContent> {
   late bool initialPushNotificationEnabled;
   late bool pushNotificationEnabled;
-
   late bool commitButtonEnabled;
 
   @override
@@ -39,12 +47,11 @@ class SettingsModalState extends BottomSheetStatefulModalBaseState {
         context.read<PushNotificationCubit>().state;
     pushNotificationEnabled = initialPushNotificationEnabled;
 
-    commitButtonEnabled =
-        initialPushNotificationEnabled != pushNotificationEnabled;
+    commitButtonEnabled = false;
   }
 
   @override
-  Widget buildContent(BuildContext context) {
+  Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(_contentPadding),

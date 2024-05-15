@@ -23,11 +23,11 @@ class ChooseflyButtonComponent extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
             color: kPrimaryAppColor, borderRadius: BorderRadius.circular(12)),
-        child: Text(text,
-            style: GoogleFonts.inter(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600)),
+        child: Text(
+          text,
+          style: GoogleFonts.inter(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+        ),
       ),
     );
   }

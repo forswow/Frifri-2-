@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/search/presentation/modals/ticket_modal/ticket_modal.dart';
+import 'package:intl/intl.dart';
 
 class TicketPreviewCard extends StatefulWidget {
   const TicketPreviewCard({
@@ -13,7 +14,7 @@ class TicketPreviewCard extends StatefulWidget {
 
   final String iconPath;
   final String companyName;
-  final String price;
+  final int price;
   final String time;
   final bool isLesserCost;
 
@@ -22,6 +23,27 @@ class TicketPreviewCard extends StatefulWidget {
 }
 
 class _TicketPreviewCardState extends State<TicketPreviewCard> {
+  late final String iconPath;
+  late final String companyName;
+  late final int price;
+  late final String time;
+  late final bool isLesserCost;
+
+  late final String formattedPrice;
+
+  @override
+  void initState() {
+    super.initState();
+
+    iconPath = widget.iconPath;
+    companyName = widget.companyName;
+    price = widget.price;
+    time = widget.time;
+    isLesserCost = widget.isLesserCost;
+
+    formattedPrice = NumberFormat("#,##0").format(price);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,8 +59,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                 useRootNavigator: true,
                 isScrollControlled: true,
                 builder: (context) => TicketModal(
-                  ticketPrice: widget.price,
-                  companyIconPath: widget.iconPath,
+                  ticketPrice: price,
+                  companyIconPath: iconPath,
                 ),
               );
             },
@@ -59,20 +81,23 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                       children: <Widget>[
                         Row(
                           children: [
-                            Image.asset(widget.iconPath),
+                            Image.asset(iconPath),
                             SizedBox(
                               width: 8,
                             ),
-                            Text(widget.companyName,
+                            Text(companyName,
                                 style: AppStyles.textStylePoppins.copyWith(
                                     fontWeight: FontWeight.w500, fontSize: 16)),
                           ],
                         ),
-                        Text(widget.price + ' ₽',
-                            style: AppStyles.textStylePoppins.copyWith(
-                                color: Color(0xff4B94F7),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16))
+                        Text(
+                          formattedPrice + ' ₽',
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Color(0xff4B94F7),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -81,7 +106,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(widget.time,
+                        Text(time,
                             style: AppStyles.textStylePoppins.copyWith(
                                 fontSize: 16, fontWeight: FontWeight.w600)),
                         SizedBox(
@@ -106,7 +131,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
               ),
             ),
           ),
-          widget.isLesserCost
+          isLesserCost
               ? Positioned(
                   left: 20,
                   top: 0,
@@ -121,9 +146,10 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                     child: Text(
                       'Самый дешевый',
                       style: AppStyles.textStylePoppins.copyWith(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 )

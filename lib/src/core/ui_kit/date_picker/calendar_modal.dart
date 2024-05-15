@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
-import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class CalendarModal extends BottomSheetStatefulModalBase {
+class CalendarModal extends StatefulWidget {
   @override
-  State<BottomSheetStatefulModalBase> createState() {
+  State<CalendarModal> createState() {
     return _CalendarModalState();
   }
 }
 
-class _CalendarModalState extends BottomSheetStatefulModalBaseState {
+class _CalendarModalState extends State<CalendarModal> {
   final currentDate = DateTime.now();
 
   SelectedDate selectedDate = SelectedDate(
@@ -22,10 +22,24 @@ class _CalendarModalState extends BottomSheetStatefulModalBaseState {
   );
 
   @override
-  Widget buildHeader(BuildContext context) {
-    final weekdays = "SMTWTFS";
-    final firstDayInWeek = DateTime.monday;
+  Widget build(BuildContext context) {
+    return DefaultModalWrapper(
+      child: Column(children: [
+        _CalendarModalHeader(),
+        _CalendarModalContent(),
+      ]),
+    );
+  }
+}
 
+class _CalendarModalHeader extends StatelessWidget {
+  const _CalendarModalHeader();
+
+  static const weekdays = "SMTWTFS";
+  static const firstDayInWeek = DateTime.monday;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -54,26 +68,51 @@ class _CalendarModalState extends BottomSheetStatefulModalBaseState {
       ],
     );
   }
+}
+
+class _CalendarModalContent extends StatefulWidget {
+  @override
+  State<_CalendarModalContent> createState() {
+    return _CalendarModalContentState();
+  }
+}
+
+class _CalendarModalContentState extends State<_CalendarModalContent> {
+  SelectedDate selectedDate = SelectedDate(
+    DateTime.now(),
+    isWholeMonth: true,
+  );
+
+  late final currentDate;
+  late final lastMonth;
+  late final countOfMonths;
 
   @override
-  Widget buildContent(BuildContext context) {
-    final lastMonth = DateUtils.addMonthsToMonthDate(currentDate, 12);
+  void initState() {
+    super.initState();
 
+    countOfMonths = 12;
+    currentDate = DateTime.now();
+    lastMonth = DateUtils.addMonthsToMonthDate(currentDate, countOfMonths);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: DateUtils.monthDelta(currentDate, lastMonth),
+              itemCount: countOfMonths,
               itemBuilder: (context, index) {
-                final newDate = DateUtils.addMonthsToMonthDate(
+                final currentMonth = DateUtils.addMonthsToMonthDate(
                   currentDate,
                   index,
                 );
 
                 return CalendarMonth(
-                  year: newDate.year,
-                  month: newDate.month,
+                  year: currentMonth.year,
+                  month: currentMonth.month,
                   selectedDate: selectedDate,
                   onDateSelected: (newDate) {
                     setState(() {

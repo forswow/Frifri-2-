@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frifri/src/core/theme/colors.dart';
 
 class CustomRadioListTile<T> extends StatelessWidget {
   final T value;
   final T groupValue;
   final Widget? title;
   final ValueChanged<T?> onChanged;
+  final dynamic fill; // Color or LinearGradient
 
   const CustomRadioListTile({
     required this.value,
     required this.groupValue,
     required this.onChanged,
     this.title,
+    this.fill = kPrimaryAppColor,
   });
 
   @override
@@ -28,7 +31,10 @@ class CustomRadioListTile<T> extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            _customRadioButton,
+            RadioButtonCheck(
+              isSelected: value == groupValue,
+              fill: fill,
+            ),
             SizedBox(width: 12),
             if (title != null) title,
           ],
@@ -36,12 +42,27 @@ class CustomRadioListTile<T> extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget get _customRadioButton {
-    final isSelected = value == groupValue;
+class RadioButtonCheck extends StatelessWidget {
+  const RadioButtonCheck({
+    super.key,
+    required this.isSelected,
+    required this.fill,
+  });
+
+  final bool isSelected;
+  final dynamic fill;
+
+  @override
+  Widget build(BuildContext context) {
+    Color? color = fill.runtimeType == Color ? fill : null;
+    LinearGradient? gradient = fill.runtimeType == LinearGradient ? fill : null;
+
     return Container(
       decoration: BoxDecoration(
-        color: isSelected ? Color.fromRGBO(227, 14, 5, 1) : Colors.transparent,
+        gradient: isSelected ? gradient : null,
+        color: isSelected ? color : null,
         border: isSelected
             ? null
             : Border.all(

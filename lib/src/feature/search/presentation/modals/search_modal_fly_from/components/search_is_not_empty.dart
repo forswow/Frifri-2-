@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 class SearchIsNotEmptyListFrom extends StatelessWidget {
   SearchIsNotEmptyListFrom({super.key, required this.filteredAirlines});
-  var filteredAirlines;
+  final filteredAirlines;
 
   @override
   Widget build(BuildContext context) {

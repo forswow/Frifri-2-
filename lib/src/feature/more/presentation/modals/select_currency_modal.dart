@@ -2,51 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
-import 'package:frifri/src/core/ui_kit/modals/base_modal.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
-import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SelectCurrencyModal extends BottomSheetStatefulModalBase {
+const _contentPadding = 22;
+const _defaultListDivider = Divider(
+  height: 1,
+  thickness: 0.5,
+  indent: 44,
+);
+
+class SelectCurrencyModal extends StatelessWidget {
   @override
-  State<BottomSheetStatefulModalBase> createState() {
-    return SelectCurrencyModalState();
+  Widget build(BuildContext context) {
+    return DefaultModalWrapper(
+      child: Column(
+        children: [
+          DefaultModalHeader(
+            centerText: "Валюта",
+          ),
+          _SelectCurrencyModalContent(),
+        ],
+      ),
+    );
   }
 }
 
-class SelectCurrencyModalState extends BottomSheetStatefulModalBaseState {
-  static const _contentPadding = 22;
-  static const _defaultListDivider = Divider(
-    height: 1,
-    thickness: 0.5,
-    indent: 44,
-  );
+class _SelectCurrencyModalContent extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _SelectCurrencyModalContentState();
+  }
+}
 
+class _SelectCurrencyModalContentState
+    extends State<_SelectCurrencyModalContent> {
   late String initialCurrency;
   late String selectedCurrency;
-
-  bool isConfirmButtonActive = false;
+  late bool isConfirmButtonActive;
 
   @override
   void initState() {
     super.initState();
+
     initialCurrency = context.read<CurrencyCubit>().state;
     selectedCurrency = initialCurrency;
+    isConfirmButtonActive = false;
   }
 
   @override
-  Widget buildHeader(BuildContext context) {
-    return DefaultModalHeader(
-      centerText: "Валюта",
-    );
-  }
-
-  @override
-  Widget buildContent(BuildContext context) {
+  Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         children: [
@@ -102,8 +112,8 @@ class SelectCurrencyModalState extends BottomSheetStatefulModalBaseState {
               onPressed: isConfirmButtonActive
                   ? () {
                       context
-                          .read<AppLanguageCubit>()
-                          .selectNewLanguage(selectedCurrency);
+                          .read<CurrencyCubit>()
+                          .selectCurrency(selectedCurrency);
                       context.pop();
                     }
                   : null,
