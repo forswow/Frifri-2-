@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/slider/slidercard.dart';
 
 class HoryzUserDataSlider extends StatelessWidget {
-  HoryzUserDataSlider();
+  const HoryzUserDataSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
     final List cardsContent = <Widget>[
-      Text('Дата вылета'),
-      Row(
+      const Text('Дата вылета'),
+      const Row(
         children: <Widget>[
           Icon(Icons.add),
           Text(' обратно'),
         ],
       ),
-      Row(
+      const Row(
         children: <Widget>[
           Row(
             children: <Widget>[

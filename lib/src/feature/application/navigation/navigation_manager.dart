@@ -28,7 +28,7 @@ class NavigationManager {
               GoRoute(
                 name: aviaTickets,
                 path: aviaTickets,
-                builder: (context, state) => AviaTicketScreen(),
+                builder: (context, state) => const AviaTicketScreen(),
               ),
             ],
           ),
@@ -37,7 +37,7 @@ class NavigationManager {
               GoRoute(
                 path: hotels,
                 builder: (context, state) {
-                  return Placeholder();
+                  return const Placeholder();
                 },
               ),
             ],
@@ -47,7 +47,7 @@ class NavigationManager {
               GoRoute(
                 path: services,
                 builder: (context, state) {
-                  return ServicesScreen();
+                  return const ServicesScreen();
                 },
               ),
             ],
@@ -57,7 +57,7 @@ class NavigationManager {
               GoRoute(
                 path: more,
                 builder: (context, state) {
-                  return MoreScreen();
+                  return const MoreScreen();
                 },
               ),
             ],
@@ -67,7 +67,7 @@ class NavigationManager {
               GoRoute(
                 path: search,
                 builder: (context, state) {
-                  return SearchTicketFormScreen();
+                  return const SearchTicketFormScreen();
                 },
               ),
             ],

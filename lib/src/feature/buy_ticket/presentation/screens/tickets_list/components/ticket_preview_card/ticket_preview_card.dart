@@ -4,7 +4,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/t
 import 'package:intl/intl.dart';
 
 class TicketPreviewCard extends StatefulWidget {
-  const TicketPreviewCard({
+  const TicketPreviewCard({super.key, 
     required this.companyName,
     required this.iconPath,
     required this.price,
@@ -46,7 +46,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 132,
       child: Stack(
@@ -82,7 +82,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                         Row(
                           children: [
                             Image.asset(iconPath),
-                            SizedBox(
+                            const SizedBox(
                               width: 8,
                             ),
                             Text(companyName,
@@ -91,16 +91,16 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                           ],
                         ),
                         Text(
-                          formattedPrice + ' ₽',
+                          '$formattedPrice ₽',
                           style: AppStyles.textStylePoppins.copyWith(
-                            color: Color(0xff4B94F7),
+                            color: const Color(0xff4B94F7),
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -109,7 +109,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                         Text(time,
                             style: AppStyles.textStylePoppins.copyWith(
                                 fontSize: 16, fontWeight: FontWeight.w600)),
-                        SizedBox(
+                        const SizedBox(
                           width: 30,
                         ),
                         Text('17ч 30м в пути',
@@ -117,7 +117,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                                 .copyWith(fontSize: 12)),
                       ],
                     ),
-                    Row(children: [
+                    const Row(children: [
                       Text('LED'),
                       SizedBox(width: 30),
                       Text("EAR"),
@@ -140,7 +140,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                     width: 139,
                     height: 28,
                     decoration: BoxDecoration(
-                      color: Color(0xFF27AE60),
+                      color: const Color(0xFF27AE60),
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(

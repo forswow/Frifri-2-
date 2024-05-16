@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +31,7 @@ class _ChooseAirportState extends State<ChooseAirport> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
-                          padding: EdgeInsets.only(right: 14),
+                          padding: const EdgeInsets.only(right: 14),
                           child: SvgPicture.asset('assets/icons/close.svg')),
                     ),
                     Align(
@@ -50,16 +48,16 @@ class _ChooseAirportState extends State<ChooseAirport> {
                   ],
                 ),
               ),
-              Divider(color: Color.fromRGBO(0, 0, 0, 0.12)),
+              const Divider(color: Color.fromRGBO(0, 0, 0, 0.12)),
               Container(
-                margin: EdgeInsets.fromLTRB(24, 24, 24, 0),
+                margin: const EdgeInsets.fromLTRB(24, 24, 24, 0),
                 height: MediaQuery.sizeOf(context).height * 0.2,
                 width: MediaQuery.sizeOf(context).width,
-                padding: EdgeInsets.fromLTRB(16, 16, 0, 0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 0, 0),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Color.fromRGBO(0, 0, 0, 0.12),
+                      color: const Color.fromRGBO(0, 0, 0, 0.12),
                     )),
                 child: Column(
                   children: [
@@ -75,6 +73,16 @@ class _ChooseAirportState extends State<ChooseAirport> {
                           child: Container(
                             height: 24,
                             width: 24,
+                            decoration: BoxDecoration(
+                              color: active
+                                  ? const Color.fromRGBO(227, 14, 5, 1)
+                                  : Colors.transparent,
+                              border: active
+                                  ? null
+                                  : Border.all(
+                                      color: const Color.fromRGBO(0, 0, 0, 0.12)),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
                             child: FractionallySizedBox(
                                 widthFactor: 0.5,
                                 heightFactor: 0.5,
@@ -82,19 +90,9 @@ class _ChooseAirportState extends State<ChooseAirport> {
                                     ? SvgPicture.asset(
                                         'assets/icons/action.svg')
                                     : null),
-                            decoration: BoxDecoration(
-                              color: active
-                                  ? Color.fromRGBO(227, 14, 5, 1)
-                                  : Colors.transparent,
-                              border: active
-                                  ? null
-                                  : Border.all(
-                                      color: Color.fromRGBO(0, 0, 0, 0.12)),
-                              borderRadius: BorderRadius.circular(100),
-                            ),
                           ),
                         ),
-                        SizedBox(width: 12),
+                        const SizedBox(width: 12),
                         Text(
                           'Тбилиси',
                           style: GoogleFonts.poppins(
@@ -106,8 +104,8 @@ class _ChooseAirportState extends State<ChooseAirport> {
                     ),
                     Row(
                       children: [
-                        CustomCheckBox(),
-                        SizedBox(width: 20),
+                        const CustomCheckBox(),
+                        const SizedBox(width: 20),
                         Text(
                           'Тбилиси',
                           style: GoogleFonts.poppins(
@@ -117,7 +115,7 @@ class _ChooseAirportState extends State<ChooseAirport> {
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       indent: 26,
                     )
                   ],
@@ -158,16 +156,16 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       child: Container(
         height: 24,
         width: 24,
+        decoration: BoxDecoration(
+          color: active ? const Color.fromRGBO(227, 14, 5, 1) : Colors.transparent,
+          border:
+              active ? null : Border.all(color: const Color.fromRGBO(0, 0, 0, 0.12)),
+          borderRadius: BorderRadius.circular(100),
+        ),
         child: FractionallySizedBox(
             widthFactor: 0.5,
             heightFactor: 0.5,
             child: active ? SvgPicture.asset('assets/icons/action.svg') : null),
-        decoration: BoxDecoration(
-          color: active ? Color.fromRGBO(227, 14, 5, 1) : Colors.transparent,
-          border:
-              active ? null : Border.all(color: Color.fromRGBO(0, 0, 0, 0.12)),
-          borderRadius: BorderRadius.circular(100),
-        ),
       ),
     );
   }

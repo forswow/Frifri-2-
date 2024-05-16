@@ -44,7 +44,7 @@ class RootApp extends StatelessWidget {
                 value: dependencies.searchBloc,
               ),
             ],
-            child: App(),
+            child: const App(),
           );
         },
       ),

@@ -7,7 +7,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_f
 import 'package:go_router/go_router.dart';
 
 class SearchFlyModalTo extends StatelessWidget {
-  const SearchFlyModalTo({
+  const SearchFlyModalTo({super.key, 
     required this.shortName,
   });
 
@@ -19,7 +19,7 @@ class SearchFlyModalTo extends StatelessWidget {
       child: Column(
         children: [
           SearchFlyModalHeader(shortName: shortName),
-          Divider(
+          const Divider(
             height: 0,
             thickness: 0.5,
           ),
@@ -71,21 +71,21 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
                 });
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.grey,
                 ),
                 filled: true,
                 labelText: 'Поиск аэропорта/города',
                 labelStyle: AppStyles.textStylePoppins,
-                fillColor: Color(0xFFF1F3F8),
+                fillColor: const Color(0xFFF1F3F8),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Expanded(
@@ -109,7 +109,7 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
     );
 
     if (searchText == '') {
-      return EmptyStringListTo(
+      return const EmptyStringListTo(
         airlinesList: airlinesList,
       );
     } else if (filteredAirlines.isNotEmpty) {
@@ -118,21 +118,21 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
       return Center(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             Text(
               _controller.text.toString(),
-              style: TextStyle(fontSize: 30),
+              style: const TextStyle(fontSize: 30),
             ),
-            Text('По данному запросу ничего не найдено'),
+            const Text('По данному запросу ничего не найдено'),
           ],
         ),
       );
     }
 
     return Container(
-      child: Center(
+      child: const Center(
         child: Text('Ошибка'),
       ),
     );

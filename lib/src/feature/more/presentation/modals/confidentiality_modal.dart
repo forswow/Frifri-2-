@@ -18,7 +18,7 @@ class ConfidentialityModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultModalWrapper(
+    return const DefaultModalWrapper(
       child: Column(
         children: [
           DefaultModalHeader(
@@ -41,7 +41,7 @@ class _ConfidentialityModalContent extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {},
-          child: ListTile(
+          child: const ListTile(
             contentPadding: EdgeInsets.only(left: 16, right: 12),
             title: Text(
               "Политика конфидециальности",
@@ -54,7 +54,7 @@ class _ConfidentialityModalContent extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {},
-          child: ListTile(
+          child: const ListTile(
             contentPadding: EdgeInsets.only(left: 16, right: 12),
             title: Text(
               "Лицензионное соглашение",

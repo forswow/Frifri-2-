@@ -18,12 +18,14 @@ const _defaultListDivider = Divider(
 );
 
 class SelectLanguageModal extends StatelessWidget {
+  const SelectLanguageModal({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          DefaultModalHeader(
+          const DefaultModalHeader(
             centerText: "Язык",
           ),
           _SelectLanguageModalContent()
@@ -64,7 +66,7 @@ class _SelectLanguageModalContentState
             children: [
               CustomRadioListTile(
                 value: "ru",
-                title: Text("Russian"),
+                title: const Text("Russian"),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
                   setState(() {
@@ -75,7 +77,7 @@ class _SelectLanguageModalContentState
               ),
               CustomRadioListTile(
                 value: "eng",
-                title: Text("English"),
+                title: const Text("English"),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
                   setState(() {
@@ -86,7 +88,7 @@ class _SelectLanguageModalContentState
               ),
               CustomRadioListTile(
                 value: "geo",
-                title: Text("Georgian"),
+                title: const Text("Georgian"),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
                   setState(
@@ -100,17 +102,11 @@ class _SelectLanguageModalContentState
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
             height: 48,
             child: ConfirmationButton(
-              child: Text(
-                AppLocalizations.of(context)!.confirm,
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                ),
-              ),
               onPressed: isConfirmButtonActive
                   ? () {
                       context
@@ -119,6 +115,12 @@ class _SelectLanguageModalContentState
                       context.pop();
                     }
                   : null,
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ],

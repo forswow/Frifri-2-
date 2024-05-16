@@ -22,12 +22,12 @@ class AviaTicketWidget extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    final _devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16)),
         color: Colors.white,
       ),
@@ -84,7 +84,7 @@ class AviaTicketWidget extends StatelessWidget {
                   AppLocalizations.of(context)!.flightCost,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
-                    fontSize: _devicePixelRatio * _aboutPriceTextScaleFactor,
+                    fontSize: devicePixelRatio * _aboutPriceTextScaleFactor,
                     color: kSecondaryTextColor,
                   ),
                 ),
@@ -92,7 +92,7 @@ class AviaTicketWidget extends StatelessWidget {
                   '23 690 ₽',
                   style: GoogleFonts.roboto(
                     fontWeight: FontWeight.bold,
-                    fontSize: _devicePixelRatio * _priceTextScaleFactor,
+                    fontSize: devicePixelRatio * _priceTextScaleFactor,
                     color: kPriceColor,
                   ),
                 )

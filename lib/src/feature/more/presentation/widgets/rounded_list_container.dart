@@ -32,7 +32,7 @@ class RoundedListContainer extends StatelessWidget {
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: children.length,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) => children[index],
         separatorBuilder: (context, index) => separator,
       ),

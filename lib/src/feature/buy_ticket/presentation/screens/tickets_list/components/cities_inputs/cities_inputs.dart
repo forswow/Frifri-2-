@@ -31,7 +31,7 @@ class _CitiesInputsState extends State<CitiesInputs> {
                 });
               },
               iconPath: 'assets/icons/arrow-up-down.svg'),
-          Divider(color: Colors.grey, thickness: 0.5, indent: 20),
+          const Divider(color: Colors.grey, thickness: 0.5, indent: 20),
           CitiesInput(
               cityName: widget.citiesNames['flyTo'] ?? "Укажите город",
               callback: () {

@@ -20,7 +20,7 @@ class EmptyStringListTo extends StatelessWidget {
               style: AppStyles.textStylePoppins
                   .copyWith(fontSize: 12, fontWeight: FontWeight.w500)),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 36)),
+        const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
@@ -40,12 +40,12 @@ class EmptyStringListTo extends StatelessWidget {
             addRepaintBoundaries: true,
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 36)),
+        const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverToBoxAdapter(
             child: Text('НЕДАВНИЕ ПОИСКИ',
                 style: AppStyles.textStylePoppins
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w500))),
-        SliverToBoxAdapter(child: SizedBox(height: 16)),
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {

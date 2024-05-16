@@ -17,7 +17,7 @@ class ClasslistRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(width: 10), // Отступ слева
+        const SizedBox(width: 10), // Отступ слева
         RadioButton(callback: callback, isActive: buttonIsActive),
         Text(leadingText, style: AppStyles.textStylePoppins),
       ],

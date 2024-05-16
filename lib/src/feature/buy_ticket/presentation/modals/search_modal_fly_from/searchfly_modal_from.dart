@@ -9,9 +9,11 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchFlyModalFrom extends StatelessWidget {
+  const SearchFlyModalFrom({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return DefaultModalWrapper(
+    return const DefaultModalWrapper(
       child: Column(
         children: [
           SearchFlyModalHeader(),
@@ -27,7 +29,7 @@ class SearchFlyModalFrom extends StatelessWidget {
 }
 
 class _SearchFlyModalFromContent extends StatefulWidget {
-  const _SearchFlyModalFromContent({super.key});
+  const _SearchFlyModalFromContent();
 
   @override
   State<_SearchFlyModalFromContent> createState() =>
@@ -55,20 +57,20 @@ class _SearchFlyModalFromContentState
                 });
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.grey,
                 ),
                 filled: true,
                 labelText: AppLocalizations.of(context)!.airportCitySearch,
                 labelStyle: AppStyles.textStylePoppins,
-                fillColor: Color(0xFFF1F3F8),
+                fillColor: const Color(0xFFF1F3F8),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Expanded(
@@ -99,17 +101,17 @@ class _SearchFlyModalFromContentState
       return Center(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
-            Text(_controller.text.toString(), style: TextStyle(fontSize: 30)),
-            Text('По данному запросу ничего не найдено'),
+            Text(_controller.text.toString(), style: const TextStyle(fontSize: 30)),
+            const Text('По данному запросу ничего не найдено'),
           ],
         ),
       );
     }
     return Container(
-      child: Center(
+      child: const Center(
         child: Text('Ошибка при поиске'),
       ),
     );

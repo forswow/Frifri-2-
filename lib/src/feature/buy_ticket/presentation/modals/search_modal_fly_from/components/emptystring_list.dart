@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EmptyStringListFrom extends StatelessWidget {
-  EmptyStringListFrom({super.key, required this.airlinesList});
+  const EmptyStringListFrom({super.key, required this.airlinesList});
 
   final Map<String, String> airlinesList;
 
@@ -22,7 +22,7 @@ class EmptyStringListFrom extends StatelessWidget {
               style: AppStyles.textStylePoppins
                   .copyWith(fontWeight: FontWeight.w500, fontSize: 12)),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 36)),
+        const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
@@ -46,7 +46,7 @@ class EmptyStringListFrom extends StatelessWidget {
                 true, // Добавляем границы перерисовки для оптимизации
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 36)),
+        const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverToBoxAdapter(
             child: Text(
                 AppLocalizations.of(context)!.recentSearches.toUpperCase(),
@@ -54,7 +54,7 @@ class EmptyStringListFrom extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Colors.black))),
-        SliverToBoxAdapter(child: SizedBox(height: 16)),
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {

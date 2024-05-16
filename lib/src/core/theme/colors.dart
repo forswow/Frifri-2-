@@ -28,8 +28,8 @@ const kPrimaryButtonDisabledColor = Color.fromRGBO(255, 211, 211, 1);
 // Card
 const kCardBackgroundColor = Colors.white;
 const kCardShadow = BoxShadow(
-  color: const Color.fromRGBO(115, 135, 174, 0.12),
-  offset: const Offset(0, 4),
+  color: Color.fromRGBO(115, 135, 174, 0.12),
+  offset: Offset(0, 4),
   blurRadius: 12,
   spreadRadius: 0,
 );

@@ -29,8 +29,8 @@ final class SearchDataSources
     try {
       String endpoint = "http://api.travelpayouts.com/v1/flight_search";
 
-      final _apiKey = dotenv.get("API_KEY");
-      final signature = createSignature(options.toJson(), _apiKey);
+      final apiKey = dotenv.get("API_KEY");
+      final signature = createSignature(options.toJson(), apiKey);
 
       final allOptions = options.toJson();
       allOptions.addAll(
@@ -79,7 +79,7 @@ final class SearchDataSources
   @override
   Future<BookingTicketEntity> getABookingLink(String searchId) async {
     try {
-      final endPoint =
+      const endPoint =
           'http://api.travelpayouts.com/v1/flight_searches/search_id/clicks/terms.url.json?';
 
       final marker = dotenv.get('API_MARKER');

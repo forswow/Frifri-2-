@@ -39,7 +39,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return TicketsList();
+          return const TicketsSearchResultScreen();
         },
       ),
     );
@@ -54,25 +54,25 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _SearchTicketScreenHeader(),
-              SizedBox(height: 24),
+              const _SearchTicketScreenHeader(),
+              const SizedBox(height: 24),
               // Форма
               FormWrapper(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    LocationPickerZone(),
+                    const LocationPickerZone(),
                     _defaultDivider,
-                    FlightDatePickerZone(),
+                    const FlightDatePickerZone(),
                     _defaultDivider,
-                    PassengersAndClassPickerZone(),
+                    const PassengersAndClassPickerZone(),
                     _defaultDivider,
-                    DirectFlightCheckZone(),
+                    const DirectFlightCheckZone(),
                   ],
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ChooseflyButtonComponent(
                 height: 48,
                 text: AppLocalizations.of(context)!.findTickets,
@@ -104,7 +104,7 @@ class LocationPickerZone extends StatelessWidget {
                 context: context,
                 useRootNavigator: true,
                 isScrollControlled: true,
-                builder: (context) => SearchFlyModalFrom(),
+                builder: (context) => const SearchFlyModalFrom(),
               );
             },
             child: Column(
@@ -117,7 +117,7 @@ class LocationPickerZone extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   "Выбрать",
                   style: AppStyles.textStylePoppins.copyWith(
@@ -157,7 +157,7 @@ class LocationPickerZone extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     "Выбрать",
                     style: AppStyles.textStylePoppins.copyWith(
@@ -196,7 +196,7 @@ class FlightDatePickerZone extends StatelessWidget {
                     context: context,
                     useRootNavigator: true,
                     isScrollControlled: true,
-                    builder: (context) => CalendarModal(),
+                    builder: (context) => const CalendarModal(),
                   );
                 },
                 child: Text(
@@ -207,7 +207,7 @@ class FlightDatePickerZone extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 AppLocalizations.of(context)!.selectDate,
                 style: AppStyles.textStylePoppins.copyWith(
@@ -217,7 +217,7 @@ class FlightDatePickerZone extends StatelessWidget {
               ),
             ],
           ),
-          Divider(
+          const Divider(
             height: 32,
             color: Colors.grey,
             thickness: 1,
@@ -232,7 +232,7 @@ class FlightDatePickerZone extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 AppLocalizations.of(context)!.selectDate,
                 style: AppStyles.textStylePoppins.copyWith(
@@ -294,7 +294,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                 context: context,
                 useRootNavigator: true,
                 isScrollControlled: true,
-                builder: (context) => PassengersModal(
+                builder: (context) => const PassengersModal(
                   adultPassengersCount: 1,
                   childCount: 0,
                   flightClass: null,
@@ -310,7 +310,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                     Text(AppLocalizations.of(context)!.passengers,
                         style: AppStyles.textStylePoppins
                             .copyWith(color: Colors.grey, fontSize: 16)),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       AppLocalizations.of(context)!.choose,
                       style: AppStyles.textStylePoppins.copyWith(
@@ -324,7 +324,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                     Text(AppLocalizations.of(context)!.placeClass,
                         style: AppStyles.textStylePoppins
                             .copyWith(color: Colors.grey, fontSize: 16)),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       AppLocalizations.of(context)!.choose,
                       style: AppStyles.textStylePoppins.copyWith(
@@ -339,7 +339,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
           ),
         ),
         Container(
-          constraints: BoxConstraints(maxHeight: 78),
+          constraints: const BoxConstraints(maxHeight: 78),
           width: 1,
           color: Colors.grey[300],
         ),

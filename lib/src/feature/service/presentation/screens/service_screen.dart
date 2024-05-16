@@ -45,7 +45,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
             return GestureDetector(
               onTap: () => UrlLauncherHelper.launchInWeb(data.link),
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

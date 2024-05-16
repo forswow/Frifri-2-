@@ -11,13 +11,13 @@ class ChooseflyTextController extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color(0xffF1F3F8),
+        fillColor: const Color(0xffF1F3F8),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide.none,
         ),
         hintText: AppLocalizations.of(context)!.airportCitySearch,
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.search,
           size: 20,
         ),

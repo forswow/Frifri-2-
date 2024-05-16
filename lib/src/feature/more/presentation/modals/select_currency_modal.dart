@@ -18,12 +18,14 @@ const _defaultListDivider = Divider(
 );
 
 class SelectCurrencyModal extends StatelessWidget {
+  const SelectCurrencyModal({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          DefaultModalHeader(
+          const DefaultModalHeader(
             centerText: "Валюта",
           ),
           _SelectCurrencyModalContent(),
@@ -65,7 +67,7 @@ class _SelectCurrencyModalContentState
             children: [
               CustomRadioListTile(
                 value: "USD",
-                title: Text("Доллары"),
+                title: const Text("Доллары"),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {
@@ -76,7 +78,7 @@ class _SelectCurrencyModalContentState
               ),
               CustomRadioListTile(
                 value: "EUR",
-                title: Text("Евро"),
+                title: const Text("Евро"),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {
@@ -87,7 +89,7 @@ class _SelectCurrencyModalContentState
               ),
               CustomRadioListTile(
                 value: "LAR",
-                title: Text("Лари"),
+                title: const Text("Лари"),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {
@@ -98,17 +100,11 @@ class _SelectCurrencyModalContentState
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
             height: 48,
             child: ConfirmationButton(
-              child: Text(
-                AppLocalizations.of(context)!.confirm,
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                ),
-              ),
               onPressed: isConfirmButtonActive
                   ? () {
                       context
@@ -117,6 +113,12 @@ class _SelectCurrencyModalContentState
                       context.pop();
                     }
                   : null,
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ],

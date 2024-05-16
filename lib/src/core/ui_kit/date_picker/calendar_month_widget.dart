@@ -37,7 +37,7 @@ class _CalendarMonthState extends State<CalendarMonth> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.all(19),
+          padding: const EdgeInsets.all(19),
           child: MonthHeader(
             year: widget.year,
             month: widget.month,
@@ -94,16 +94,16 @@ class MonthTableView extends StatelessWidget {
     );
 
     return GridView.count(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 7,
       childAspectRatio: 1,
       mainAxisSpacing: 10,
       crossAxisSpacing: 0,
-      padding: EdgeInsets.all(17),
+      padding: const EdgeInsets.all(17),
       children: List.generate(countOfDays + startsWithDay, (index) {
         if (index < startsWithDay) {
-          return UnconstrainedBox();
+          return const UnconstrainedBox();
         }
 
         int day = index - startsWithDay + 1;
@@ -160,8 +160,8 @@ class MonthDay extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: isSelected
-            ? Color.fromRGBO(235, 243, 243, 1)
-            : Color.fromRGBO(255, 255, 255, 1),
+            ? const Color.fromRGBO(235, 243, 243, 1)
+            : const Color.fromRGBO(255, 255, 255, 1),
         borderRadius: BorderRadius.circular(17),
       ),
       child: Column(
@@ -173,8 +173,8 @@ class MonthDay extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: isActive
-                  ? Color.fromRGBO(0, 0, 0, 1)
-                  : Color.fromRGBO(0, 0, 0, 0.3),
+                  ? const Color.fromRGBO(0, 0, 0, 1)
+                  : const Color.fromRGBO(0, 0, 0, 0.3),
             ),
           ),
           if (isActive && !isSelected)
@@ -184,7 +184,7 @@ class MonthDay extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color:
-                    isLowestPrice ? Colors.green : Color.fromRGBO(0, 0, 0, 0.3),
+                    isLowestPrice ? Colors.green : const Color.fromRGBO(0, 0, 0, 0.3),
               ),
             ),
         ],
@@ -214,7 +214,7 @@ class MonthHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${monthName.captialize()} ${year}",
+          "${monthName.captialize()} $year",
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -230,7 +230,7 @@ class MonthHeader extends StatelessWidget {
             );
           },
           child: Container(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             child: Text(
               "Выбрать весь месяц",
               style: GoogleFonts.poppins(

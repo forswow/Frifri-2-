@@ -19,7 +19,7 @@ const _checkboxGradientColor = LinearGradient(
 );
 
 class PassengersModal extends StatelessWidget {
-  PassengersModal({
+  const PassengersModal({super.key, 
     this.adultPassengersCount = 1,
     this.childCount = 0,
     this.flightClass = "",
@@ -37,7 +37,7 @@ class PassengersModal extends StatelessWidget {
           DefaultModalHeader(
             centerText: AppLocalizations.of(context)!.passengersAndClass,
           ),
-          Divider(
+          const Divider(
             height: 0,
             thickness: 0.5,
           ),
@@ -54,7 +54,7 @@ class PassengersModal extends StatelessWidget {
 }
 
 class _PassengersModalContent extends StatefulWidget {
-  _PassengersModalContent({
+  const _PassengersModalContent({
     required this.adultPassengersCount,
     required this.childCount,
     required this.flightClass,
@@ -102,7 +102,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                       titleText: AppLocalizations.of(context)!.adults,
                       limit: 9,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     Counter(
@@ -116,28 +116,28 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                         CustomRadioListTile<String?>(
                           fill: _checkboxGradientColor,
                           value: "Эконом",
-                          title: Text("Эконом"),
+                          title: const Text("Эконом"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
                         CustomRadioListTile<String?>(
                           fill: _checkboxGradientColor,
                           value: "Комфорт",
-                          title: Text("Комфорт"),
+                          title: const Text("Комфорт"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
                         CustomRadioListTile<String?>(
                           fill: _checkboxGradientColor,
                           value: "Первый",
-                          title: Text("Первый"),
+                          title: const Text("Первый"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
                         CustomRadioListTile<String?>(
                           fill: _checkboxGradientColor,
                           value: "Бизнес",
-                          title: Text("Бизнес"),
+                          title: const Text("Бизнес"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         )
@@ -147,17 +147,17 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ConfirmationButton(
+              onPressed: isConfirmationButtonActive ? commitUserChoice : null,
               child: Text(
                 AppLocalizations.of(context)!.confirm,
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.white,
                 ),
               ),
-              onPressed: isConfirmationButtonActive ? commitUserChoice : null,
             )
           ],
         ),
@@ -177,7 +177,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
 
   void updateOldCount(int oldCount) {
     setState(() {
-      this.adultPassengersCount = oldCount;
+      adultPassengersCount = oldCount;
     });
   }
 

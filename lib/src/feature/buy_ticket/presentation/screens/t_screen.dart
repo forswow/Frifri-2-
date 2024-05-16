@@ -42,10 +42,10 @@ class _ExampleScreenState extends State<ExampleScreen> {
                 case SearchCompleted():
                   return Text(state.ticketList.first.searchId);
                 case Failure():
-                  return Text("");
+                  return const Text("");
 
                 case LinkFetched():
-                  return Text("");
+                  return const Text("");
               }
             },
           );

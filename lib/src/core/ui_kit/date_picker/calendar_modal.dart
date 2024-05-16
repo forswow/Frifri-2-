@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
+  const CalendarModal({super.key});
+
   @override
   State<CalendarModal> createState() {
     return _CalendarModalState();
@@ -25,7 +27,7 @@ class _CalendarModalState extends State<CalendarModal> {
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(children: [
-        _CalendarModalHeader(),
+        const _CalendarModalHeader(),
         _CalendarModalContent(),
       ]),
     );
@@ -43,11 +45,11 @@ class _CalendarModalHeader extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        DefaultModalHeader(
+        const DefaultModalHeader(
           centerText: "Когда",
         ),
         GridView.count(
-          padding: EdgeInsets.symmetric(horizontal: 17),
+          padding: const EdgeInsets.symmetric(horizontal: 17),
           shrinkWrap: true,
           crossAxisCount: 7,
           childAspectRatio: 1.5,
@@ -59,7 +61,7 @@ class _CalendarModalHeader extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(0, 0, 0, 0.3),
+                  color: const Color.fromRGBO(0, 0, 0, 0.3),
                 ),
               ),
             );
@@ -125,16 +127,16 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Divider(
+                const Divider(
                   height: 1,
                   color: Color.fromRGBO(0, 0, 0, 0.12),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Text(
@@ -156,10 +158,10 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(0, 0, 0, 0.32),
+                    color: const Color.fromRGBO(0, 0, 0, 0.32),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 13,
                 ),
                 SizedBox(

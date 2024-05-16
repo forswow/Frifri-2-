@@ -14,10 +14,10 @@ class CounterButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 14),
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xffEBF3FD),
+          color: const Color(0xffEBF3FD),
           borderRadius: BorderRadius.circular(12),
         ),
         child: child,

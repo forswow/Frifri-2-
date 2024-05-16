@@ -36,7 +36,7 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
 
     return result
         .map(
-          (ac_item) => AutocompleteResult.fromJson(ac_item),
+          (acItem) => AutocompleteResult.fromJson(acItem),
         )
         .toList();
   }
@@ -113,8 +113,8 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
     try {
       String endpoint = "http://api.travelpayouts.com/v1/flight_search";
 
-      final _apiKey = dotenv.get("API_KEY");
-      final signature = Signature().createSignature(options.toJson(), _apiKey);
+      final apiKey = dotenv.get("API_KEY");
+      final signature = Signature().createSignature(options.toJson(), apiKey);
 
       final allOptions = options.toJson();
       allOptions.addAll(
