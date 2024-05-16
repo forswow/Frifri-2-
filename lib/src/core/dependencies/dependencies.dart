@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bloc.dart';
@@ -32,6 +33,7 @@ base class Dependencies {
 
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
+    logger.i("Initializing dependencies...");
 
     sharedPreferences = await SharedPreferences.getInstance();
     globalPrefHelper = GlobalPrefHelper(sharedPreferences: sharedPreferences);
@@ -44,6 +46,8 @@ base class Dependencies {
     searchTicketRepoImpl =
         SearchTicketRepoImpl(searchDataSources: searchDataSources);
     searchBloc = SearchBloc(searchTicketRepoImpl);
+
+    logger.i("Dependencies initialized.");
   }
 }
 

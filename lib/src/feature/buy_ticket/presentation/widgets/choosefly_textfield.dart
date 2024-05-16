@@ -8,18 +8,20 @@ class ChooseflyTextController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-        controller: controller,
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: Color(0xffF1F3F8),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.0),
-              borderSide: BorderSide.none,
-            ),
-            hintText: AppLocalizations.of(context)!.airportCitySearch,
-            prefixIcon: Icon(
-              Icons.search,
-              size: 20,
-            )));
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Color(0xffF1F3F8),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12.0),
+          borderSide: BorderSide.none,
+        ),
+        hintText: AppLocalizations.of(context)!.airportCitySearch,
+        prefixIcon: Icon(
+          Icons.search,
+          size: 20,
+        ),
+      ),
+    );
   }
 }

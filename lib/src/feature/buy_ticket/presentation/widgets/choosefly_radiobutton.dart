@@ -16,9 +16,10 @@ class _RadioButtonState extends State<RadioButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: widget.callback,
-        icon: widget.isActive
-            ? SvgPicture.asset('assets/icons/searchfly-radiobutton-active.svg')
-            : SvgPicture.asset('assets/icons/searchfly-radiobutton.svg'));
+      onPressed: widget.callback,
+      icon: widget.isActive
+          ? SvgPicture.asset('assets/icons/searchfly-radiobutton-active.svg')
+          : SvgPicture.asset('assets/icons/searchfly-radiobutton.svg'),
+    );
   }
 }

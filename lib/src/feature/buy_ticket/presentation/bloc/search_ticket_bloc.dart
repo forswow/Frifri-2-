@@ -20,8 +20,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<GetABookingLink>(_getABookingLink);
   }
 
-  void fetchDepartureLocation(FetchDepartureLocation event,
-      Emitter<SearchState> emit) async {
+  void fetchDepartureLocation(
+      FetchDepartureLocation event, Emitter<SearchState> emit) async {
     /// Get Segment instance.
     final segment = EnteringParameters()
         .segment
@@ -32,8 +32,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   /// Update [date] field in [Segment].
-  void _fetchDepartureDate(FetchDepartureDate event,
-      Emitter<SearchState> emit) {
+  void _fetchDepartureDate(
+      FetchDepartureDate event, Emitter<SearchState> emit) {
     /// Get Segment instance.
     final segment = EnteringParameters().segment.copyWith(date: event.date);
 
@@ -42,8 +42,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   /// Update field [adults],[children],[tripClass].
-  void _fetchPassengers(FetchPassengersAndTripClass event,
-      Emitter<SearchState> emit) {
+  void _fetchPassengers(
+      FetchPassengersAndTripClass event, Emitter<SearchState> emit) {
     /// Get segment instance.
     final passengers = EnteringParameters().passengers.copyWith(
         children: event.passengers.children, adults: event.passengers.adults);
@@ -75,20 +75,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     state.copyWith(
         ticketsSearchQuery: state.ticketsSearchQuery.copyWith(
-          passengers: state.passengers,
-          segments: [state.segment],
-        ));
+      passengers: state.passengers,
+      segments: [state.segment],
+    ));
 
     print(state.toString());
   }
 
-  Future<void> _searchTicket(SearchTicket event,
-      Emitter<SearchState> emit) async {
+  Future<void> _searchTicket(
+      SearchTicket event, Emitter<SearchState> emit) async {
     try {
       final searchResult = await ticketRepo.searchTicket(event.options);
 
       final ticketList =
-      await ticketRepo.getTicketsBySearchId(searchResult.searchId);
+          await ticketRepo.getTicketsBySearchId(searchResult.searchId);
 
       emit(SearchCompleted(ticketList: ticketList, options: event.options));
     } on DioException catch (error, stack) {
@@ -101,8 +101,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Future<void> _getABookingLink(GetABookingLink event,
-      Emitter<SearchState> emit) async {
+  Future<void> _getABookingLink(
+      GetABookingLink event, Emitter<SearchState> emit) async {
     try {
       final link = await ticketRepo.getABookingLink(event.searchId);
 
@@ -126,8 +126,7 @@ final class EnteringParameters extends SearchState {
     TicketsSearchQuery? ticketsSearchQuery,
     Segment? segment,
     Passengers? passengers,
-  })
-      : ticketsSearchQuery = TicketsSearchQuery(),
+  })  : ticketsSearchQuery = TicketsSearchQuery(),
         segment = Segment(),
         passengers = Passengers();
 
@@ -194,7 +193,6 @@ final class FetchDepartureLocation extends SearchEvent {
   List<Object?> get props => [destination, origin];
 }
 
-
 final class FetchDepartureDate extends SearchEvent {
   FetchDepartureDate({required this.date});
 
@@ -246,5 +244,3 @@ final class GetABookingLink extends SearchEvent {
   @override
   List<Object?> get props => [searchId];
 }
-
-
