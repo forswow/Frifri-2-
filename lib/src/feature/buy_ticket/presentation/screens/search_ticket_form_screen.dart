@@ -104,73 +104,95 @@ class LocationPickerZone extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
       child: Row(
         children: [
-          Expanded(
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  useRootNavigator: true,
-                  isScrollControlled: true,
-                  builder: (context) => const SearchFlyModalFrom(),
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.whereFrom,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "Выбрать",
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          const Expanded(
+            child: FromLocationPicker(),
           ),
           SvgPicture.asset(
             'assets/icons/searchfly-airplane.svg',
           ),
-          Expanded(
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  useRootNavigator: true,
-                  isScrollControlled: true,
-                  builder: (context) => SearchFlyModalTo(
-                    shortName: "Выбрать".substring(0, 3).toUpperCase(),
-                  ),
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.where,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "Выбрать",
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
+          const Expanded(
+            child: ToLocationPicker(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ToLocationPicker extends StatelessWidget {
+  const ToLocationPicker({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          builder: (context) => SearchFlyModalTo(
+            shortName: "Выбрать".substring(0, 3).toUpperCase(),
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.where,
+            style: AppStyles.textStylePoppins.copyWith(
+              fontSize: 16,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "Выбрать",
+            style: AppStyles.textStylePoppins.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FromLocationPicker extends StatelessWidget {
+  const FromLocationPicker({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          builder: (context) => const SearchFlyModalFrom(),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.whereFrom,
+            style: AppStyles.textStylePoppins.copyWith(
+              color: Colors.grey,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "Выбрать",
+            style: AppStyles.textStylePoppins.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

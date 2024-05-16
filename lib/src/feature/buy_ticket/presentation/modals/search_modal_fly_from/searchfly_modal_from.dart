@@ -66,8 +66,9 @@ class _SearchFlyModalFromContentState
                 labelStyle: AppStyles.textStylePoppins,
                 fillColor: const Color(0xFFF1F3F8),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none),
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
               ),
             ),
             const SizedBox(
@@ -104,16 +105,21 @@ class _SearchFlyModalFromContentState
             const SizedBox(
               height: 100,
             ),
-            Text(_controller.text.toString(), style: const TextStyle(fontSize: 30)),
-            const Text('По данному запросу ничего не найдено'),
+            Text(
+              _controller.text.toString(),
+              style: const TextStyle(
+                fontSize: 30,
+              ),
+            ),
+            const Text(
+              'По данному запросу ничего не найдено',
+            ),
           ],
         ),
       );
     }
-    return Container(
-      child: const Center(
-        child: Text('Ошибка при поиске'),
-      ),
+    return const Center(
+      child: Text('Ошибка при поиске'),
     );
   }
 }
