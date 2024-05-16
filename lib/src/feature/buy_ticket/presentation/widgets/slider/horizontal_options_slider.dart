@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/slider/slidercard.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/options_chips_card.dart';
 
-class HoryzUserDataSlider extends StatelessWidget {
-  const HoryzUserDataSlider({super.key});
+class HorizontalOptionsSlider extends StatelessWidget {
+  const HorizontalOptionsSlider({super.key});
 
   @override
   Widget build(BuildContext context) {

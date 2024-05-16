@@ -67,16 +67,17 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
             },
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                      color: Color.fromRGBO(18, 18, 18, 0.08),
-                      offset: Offset(0, 16),
-                      blurRadius: 32,
-                      spreadRadius: 0,
-                    ),
-                  ]),
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+                boxShadow: const <BoxShadow>[
+                  BoxShadow(
+                    color: Color.fromRGBO(18, 18, 18, 0.08),
+                    offset: Offset(0, 16),
+                    blurRadius: 32,
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
               width: double.infinity,
               height: 122,
               child: Padding(
@@ -93,9 +94,13 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(companyName,
-                                style: AppStyles.textStylePoppins.copyWith(
-                                    fontWeight: FontWeight.w500, fontSize: 16)),
+                            Text(
+                              companyName,
+                              style: AppStyles.textStylePoppins.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
                           ],
                         ),
                         Text(
@@ -114,15 +119,22 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(time,
-                            style: AppStyles.textStylePoppins.copyWith(
-                                fontSize: 16, fontWeight: FontWeight.w600)),
+                        Text(
+                          time,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                         const SizedBox(
                           width: 30,
                         ),
-                        Text('17ч 30м в пути',
-                            style: AppStyles.textStylePoppins
-                                .copyWith(fontSize: 12)),
+                        Text(
+                          '17ч 30м в пути',
+                          style: AppStyles.textStylePoppins.copyWith(
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     ),
                     Row(children: [

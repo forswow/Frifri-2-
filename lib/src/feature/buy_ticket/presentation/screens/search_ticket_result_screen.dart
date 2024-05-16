@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/cities_inputs/cities_inputs.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/slider/HoryzUserDataSlider.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/ticket_preview_card/ticket_preview_card.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_inputs.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 
 class TicketsSearchResultScreen extends StatefulWidget {
   const TicketsSearchResultScreen({super.key});
@@ -62,7 +62,7 @@ class _ChipsZone extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.fromLTRB(24, 16, 0, 0),
-      child: SizedBox(height: 40, child: HoryzUserDataSlider()),
+      child: SizedBox(height: 40, child: HorizontalOptionsSlider()),
     );
   }
 }

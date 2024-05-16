@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/cities_inputs/cities_input_widget.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_input_widget.dart';
 
 class CitiesInputs extends StatefulWidget {
   const CitiesInputs({super.key, required this.citiesNames});
