@@ -10,6 +10,7 @@ class AppLanguageCubit extends Cubit<String> {
       : super(prefHelper.getLanguageCode());
 
   void selectNewLanguage(String newLanguage) {
+    if(state == newLanguage) return;
     emit(newLanguage);
   }
 
