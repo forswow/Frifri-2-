@@ -1,9 +1,6 @@
-import 'dart:collection';
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
@@ -12,11 +9,15 @@ import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
+
+import '../../../../core/helpers/signature/signature_helper.dart';
+import '../dto/ticket_search_query.dart';
 
 class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
-  final Dio _dio;
+  AviaTicketsApiClientImpl() : _dio = Network().dioClient;
 
-  AviaTicketsApiClientImpl({required Dio apiClient}) : _dio = apiClient;
+  final Dio _dio;
 
   @override
   Future<List<AutocompleteResult>> getAutocomplete(
@@ -38,6 +39,12 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
           (ac_item) => AutocompleteResult.fromJson(ac_item),
         )
         .toList();
+  }
+
+  @override
+  Future<BookingTicketEntity> getABookingLink(String searchId) {
+    // TODO: implement getABookingLink
+    throw UnimplementedError();
   }
 
   @override
@@ -103,26 +110,32 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
   Future<TicketsSearchIdResult> searchTickets({
     required TicketsSearchQuery options,
   }) async {
-    String endpoint = "http://api.travelpayouts.com/v1/flight_search";
+    try {
+      String endpoint = "http://api.travelpayouts.com/v1/flight_search";
 
-    final _apiKey = dotenv.get("API_KEY");
-    final signature = _createSignature(options.toJson(), _apiKey);
+      final _apiKey = dotenv.get("API_KEY");
+      final signature = Signature().createSignature(options.toJson(), _apiKey);
 
-    final allOptions = options.toJson();
-    allOptions.addAll(
-      {"signature": signature},
-    );
+      final allOptions = options.toJson();
+      allOptions.addAll(
+        {"signature": signature},
+      );
 
-    allOptions.removeWhere((key, value) => value == null);
+      allOptions.removeWhere((key, value) => value == null);
 
-    final response = await _dio.post(
-      endpoint,
-      data: allOptions,
-    );
+      final response = await _dio.post(
+        endpoint,
+        data: allOptions,
+      );
 
-    final result = response.data;
+      final result = response.data;
 
-    return TicketsSearchIdResult.fromJson(result);
+      return TicketsSearchIdResult.fromJson(result);
+    } on DioException catch (error, stack) {
+      Error.throwWithStackTrace(error, stack);
+    } on Object catch (error, stack) {
+      Error.throwWithStackTrace(error, stack);
+    }
   }
 
   @override
@@ -165,57 +178,3 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
 // +---------------------------------------------+
 // |    Helper functions for signing requests    |
 // +---------------------------------------------+
-
-SplayTreeMap<String, dynamic> _convertToSplayTreeMap(Map<String, dynamic> map) {
-  SplayTreeMap<String, dynamic> splayTreeMap = SplayTreeMap();
-
-  map.forEach((key, value) {
-    if (value is Map) {
-      splayTreeMap[key] = _convertToSplayTreeMap(value as Map<String, dynamic>);
-    } else if (value is List) {
-      splayTreeMap[key] = value.map(
-        (e) => _convertToSplayTreeMap(e),
-      );
-    } else {
-      splayTreeMap[key] = value;
-    }
-  });
-
-  return splayTreeMap;
-}
-
-String _flattenParameters(SplayTreeMap<String, dynamic> params) {
-  List<String> values = [];
-
-  params.forEach((key, value) {
-    if (value is Iterable) {
-      value.toList().forEach((element) {
-        values.add(_flattenParameters(element));
-      });
-    } else if (value is SplayTreeMap<String, dynamic>) {
-      values.add(_flattenParameters(value));
-    } else {
-      values.add(value.toString());
-    }
-  });
-
-  return values.join(':');
-}
-
-String _createSignature(Map<String, dynamic> params, String token) {
-  // Step 1: Rearrange parameters alphabetically
-  // SplayTreeMap make it automatically sorted
-  SplayTreeMap<String, dynamic> splayTreeMap = _convertToSplayTreeMap(params);
-
-  // Step 2: Flatten all parameters into a single string
-  // separated by columns
-  String result = _flattenParameters(splayTreeMap);
-
-  // Step 3: Add token in the beginning
-  result = "$token:$result";
-
-  // Step 4: Hash it with MD5
-  var bytes = utf8.encode(result);
-  var md5Signature = md5.convert(bytes).toString();
-  return md5Signature;
-}

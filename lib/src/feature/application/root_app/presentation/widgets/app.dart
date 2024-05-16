@@ -5,7 +5,10 @@ import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/t_screen.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/search/presentation/screens/search_screen.dart';
+
 
 /// {@template app}
 /// App widget.
@@ -22,14 +25,15 @@ class App extends StatelessWidget {
       ),
       child: BlocBuilder<AppLanguageCubit, String>(
         builder: (context, state) {
-          return MaterialApp.router(
+          return MaterialApp(
             locale: Locale(state),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             // locale:
             debugShowCheckedModeBanner: false,
             theme: theme,
-            routerConfig: NavigationManager.router,
+            // routerConfig: NavigationManager.router,
+            home: TScreen(),
           );
         },
       ),

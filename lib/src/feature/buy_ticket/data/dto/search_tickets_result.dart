@@ -106,6 +106,19 @@ class TicketsSearchResultBySearchId {
         "initiated_at": initiatedAt?.toIso8601String(),
         "filters_boundary": filtersBoundary?.toJson(),
       };
+
+  @override
+  String toString() {
+    return 'TicketsSearchResultBySearchId{'
+        'searchId: $searchId, '
+        'chunkId: $chunkId, '
+        'market: $market, '
+        'cleanMarker: $cleanMarker, '
+        'openJaw: $openJaw, '
+        'currency: $currency, '
+        'initiatedAt: $initiatedAt, '
+        '}';
+  }
 }
 
 class Airlines {
@@ -562,7 +575,7 @@ class Gate {
   final int id;
   final String gateLabel;
   final int mergedCodeshares;
-  final Error error;
+  final ErrorFlight error;
   final double createdAt;
   final String serverName;
   final bool cache;
@@ -591,7 +604,7 @@ class Gate {
         id: json["id"],
         gateLabel: json["gate_label"],
         mergedCodeshares: json["merged_codeshares"],
-        error: Error.fromJson(json["error"]),
+        error: ErrorFlight.fromJson(json["error"]),
         createdAt: json["created_at"]?.toDouble(),
         serverName: json["server_name"],
         cache: json["cache"],
@@ -638,16 +651,16 @@ class BadCount {
       };
 }
 
-class Error {
+class ErrorFlight {
   final int code;
   final String tos;
 
-  Error({
+  ErrorFlight({
     required this.code,
     required this.tos,
   });
 
-  factory Error.fromJson(Map<String, dynamic> json) => Error(
+  factory ErrorFlight.fromJson(Map<String, dynamic> json) => ErrorFlight(
         code: json["code"],
         tos: json["tos"],
       );
