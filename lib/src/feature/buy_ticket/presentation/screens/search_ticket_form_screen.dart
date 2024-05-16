@@ -9,7 +9,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bl
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_from/searchfly_modal_from.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/searchfly_modal_to.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/tickets_list.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_radiobutton.dart';
 
 final _defaultDivider = Divider(

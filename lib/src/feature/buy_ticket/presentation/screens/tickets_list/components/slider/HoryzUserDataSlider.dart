@@ -49,7 +49,7 @@ class HoryzUserDataSlider extends StatelessWidget {
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
-            return SliderCard(
+            return OptionsChipsCard(
               cardContent: cardsContent[index],
             );
           }, childCount: cardsContent.length),
