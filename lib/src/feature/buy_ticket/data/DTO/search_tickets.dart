@@ -53,12 +53,12 @@ class TicketsSearchQuery {
 }
 
 class Passengers {
-  final int adults;
+  final int? adults;
   final int? children;
   final int? infants;
 
   Passengers({
-    required this.adults,
+    this.adults = 1,
     this.children = 0,
     this.infants = 0,
   });

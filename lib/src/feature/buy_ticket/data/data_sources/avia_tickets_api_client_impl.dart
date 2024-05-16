@@ -13,7 +13,7 @@ import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dar
 import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
 
-class AviaTicketsApiClientImpl implements AviaTicketsApiClient {
+class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
   final Dio _dio;
 
   AviaTicketsApiClientImpl({required Dio apiClient}) : _dio = apiClient;

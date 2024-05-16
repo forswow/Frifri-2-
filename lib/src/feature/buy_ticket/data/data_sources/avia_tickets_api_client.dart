@@ -6,7 +6,7 @@ import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
 
-abstract class AviaTicketsApiClient {
+abstract class IAviaTicketsApiClient {
   Future<List<AutocompleteResult>> getAutocomplete({
     required AutocompleteQuery options,
   });
