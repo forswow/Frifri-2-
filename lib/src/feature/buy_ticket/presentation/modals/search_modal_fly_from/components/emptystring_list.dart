@@ -48,12 +48,15 @@ class EmptyStringListFrom extends StatelessWidget {
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverToBoxAdapter(
-            child: Text(
-                AppLocalizations.of(context)!.recentSearches.toUpperCase(),
-                style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black))),
+          child: Text(
+            AppLocalizations.of(context)!.recentSearches.toUpperCase(),
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+          ),
+        ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -63,9 +66,10 @@ class EmptyStringListFrom extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: AirportComponentCard(
-                    name: name,
-                    shortName: shortName,
-                    callback: () => context.pop(name)),
+                  name: name,
+                  shortName: shortName,
+                  callback: () => context.pop(name),
+                ),
               );
             },
             childCount: airlinesList.length,

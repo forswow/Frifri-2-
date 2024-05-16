@@ -4,7 +4,7 @@ import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';

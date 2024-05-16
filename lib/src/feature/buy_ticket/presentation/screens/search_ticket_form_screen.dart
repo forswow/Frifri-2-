@@ -5,7 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_states.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_from/searchfly_modal_from.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/searchfly_modal_to.dart';
@@ -127,8 +130,8 @@ class ToLocationPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showModalBottomSheet(
+      onTap: () async {
+        final AirportEntity? location = await showModalBottomSheet(
           context: context,
           useRootNavigator: true,
           isScrollControlled: true,
@@ -136,6 +139,12 @@ class ToLocationPicker extends StatelessWidget {
             shortName: "Выбрать".substring(0, 3).toUpperCase(),
           ),
         );
+
+        if (location == null) return;
+
+        if (context.mounted) {
+          context.read<SearchBloc>().add(InputArrivalAtEvent(location));
+        }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -148,12 +157,28 @@ class ToLocationPicker extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            "Выбрать",
-            style: AppStyles.textStylePoppins.copyWith(
-              color: Colors.grey,
-              fontWeight: FontWeight.w600,
-            ),
+          BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              if (state is FillingFormOptions) {
+                return Text(
+                  state.arrivalAt == null
+                      ? AppLocalizations.of(context)!.choose
+                      : state.arrivalAt!.name,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: state.arrivalAt == null ? Colors.grey : Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+              }
+
+              return Text(
+                "Выбрать",
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w600,
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -169,13 +194,17 @@ class FromLocationPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showModalBottomSheet(
+      onTap: () async {
+        final AirportEntity? location = await showModalBottomSheet(
           context: context,
           useRootNavigator: true,
           isScrollControlled: true,
           builder: (context) => const SearchFlyModalFrom(),
         );
+        if (location == null) return;
+        if (context.mounted) {
+          context.read<SearchBloc>().add(InputDepartureAtEvent(location));
+        }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,12 +217,29 @@ class FromLocationPicker extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            "Выбрать",
-            style: AppStyles.textStylePoppins.copyWith(
-              color: Colors.grey,
-              fontWeight: FontWeight.w600,
-            ),
+          BlocBuilder<SearchBloc, SearchState>(
+            builder: (BuildContext context, state) {
+              if (state is FillingFormOptions) {
+                return Text(
+                  state.departureAt == null
+                      ? AppLocalizations.of(context)!.choose
+                      : state.departureAt!.name,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color:
+                        state.departureAt == null ? Colors.grey : Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+              }
+
+              return Text(
+                "Выбрать",
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w600,
+                ),
+              );
+            },
           ),
         ],
       ),

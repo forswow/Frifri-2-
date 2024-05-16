@@ -40,9 +40,7 @@ class PathInfoHeader extends StatelessWidget {
           ],
         ),
         InkWell(
-          onTap: () {
-            print('1');
-          },
+          onTap: () {},
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
             decoration: const BoxDecoration(

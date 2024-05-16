@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_airport.component.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,7 +32,9 @@ class EmptyStringListTo extends StatelessWidget {
                 child: AirportComponentCard(
                   name: name,
                   shortName: shortName,
-                  callback: () => context.pop(name),
+                  callback: () => context.pop(
+                    AirportEntity(name: name, code: shortName),
+                  ),
                 ),
               );
             },

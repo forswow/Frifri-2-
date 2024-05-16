@@ -4,7 +4,7 @@ String ticketsSearchQueryToJson(TicketsSearchQuery data) =>
     json.encode(data.toJson());
 
 class TicketsSearchQuery {
-  TicketsSearchQuery({
+  const TicketsSearchQuery({
     this.marker = '406687',
     this.host = 'frifri.ge',
     this.userIp = '127.0.0.1',
