@@ -5,10 +5,7 @@ import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/t_screen.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:frifri/src/feature/search/presentation/screens/search_screen.dart';
-
 
 /// {@template app}
 /// App widget.
@@ -33,7 +30,6 @@ class App extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: theme,
             routerConfig: NavigationManager.router,
-
           );
         },
       ),

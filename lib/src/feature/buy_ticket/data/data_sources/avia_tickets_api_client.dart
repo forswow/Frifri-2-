@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';

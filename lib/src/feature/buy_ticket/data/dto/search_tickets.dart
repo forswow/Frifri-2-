@@ -6,8 +6,6 @@ import 'dart:convert';
 
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
 
-import '../DTO/search_tickets.dart';
-
 TicketsSearchIdResult ticketsSearchIdResultFromJson(String str) =>
     TicketsSearchIdResult.fromJson(json.decode(str));
 
