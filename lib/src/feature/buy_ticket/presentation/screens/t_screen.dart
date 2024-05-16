@@ -28,7 +28,9 @@ class _ExampleScreenState extends State<ExampleScreen> {
     
     return Scaffold(
       body: BlocConsumer<SearchBloc, SearchState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+        },
         builder: (context, state) {
           return BlocBuilder<SearchBloc, SearchState>(
             bloc: searchBloc..add(UpdateLocale(langCode: langCode)),
