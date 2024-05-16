@@ -25,15 +25,15 @@ class App extends StatelessWidget {
       ),
       child: BlocBuilder<AppLanguageCubit, String>(
         builder: (context, state) {
-          return MaterialApp(
+          return MaterialApp.router(
             locale: Locale(state),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             // locale:
             debugShowCheckedModeBanner: false,
             theme: theme,
-            // routerConfig: NavigationManager.router,
-            home: TScreen(),
+            routerConfig: NavigationManager.router,
+
           );
         },
       ),

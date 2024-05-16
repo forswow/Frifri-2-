@@ -1,66 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client_impl.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bloc.dart';
 
-import '../../data/dto/ticket_search_query.dart';
-
-class TScreen extends StatefulWidget {
-  const TScreen({super.key});
+class ExampleScreen extends StatefulWidget {
+  const ExampleScreen({super.key});
 
   @override
-  State<TScreen> createState() => _TScreenState();
+  State<ExampleScreen> createState() => _ExampleScreenState();
 }
 
-class _TScreenState extends State<TScreen> {
-  final inputFormat = DateFormat('yyyy-mm-dd');
+class _ExampleScreenState extends State<ExampleScreen> {
+  late final SearchBloc searchBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    searchBloc = Dependencies.of(context).searchBloc;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Center(
-        child: ElevatedButton(
-            onPressed: () async {
-              try {
-                final date = DateTime.now();
+      body: BlocConsumer<SearchBloc, SearchState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return BlocBuilder<SearchBloc, SearchState>(
+            bloc: searchBloc,
+            builder: (context, state) {
+              switch (state) {
+                case EnteringParameters():
+                  return Text(state.ticketsSearchQuery.locale);
 
-                final options = TicketsSearchQuery(
-                  host: "frifri.ge",
-                  locale: "en",
-                  marker: '406687',
-                  segments: [
-                    Segment(
-                      origin: "MOW",
-                      destination: "BUS",
-                      date: "2024-05-18",
-                    ),
-                  ],
-                  tripClass: 'Y',
-                  passengers: Passengers(adults: 1),
-                  userIp: "127.0.0.1",
-                );
+                case SearchCompleted():
+                  return Text(state.ticketList.first.searchId);
+                case Failure():
+                  return Text("");
 
-                print('${date.year}-0${date.month}-${date.day}');
-                await AviaTicketsApiClientImpl()
-                    .searchTickets(options: options)
-                    .then((value) async {
-                  print('Parse data');
-                  await AviaTicketsApiClientImpl()
-                      .getTicketsBySearchId(searchId: value.searchId)
-                      .then((value) {
-                    for (var element in value) {
-                      print(element..toString());
-                    }
-                  });
-                });
-              } on Object catch (error, stack) {
-                print(error);
-                // debugPrintStack(stackTrace: stack, label: '$error');
+                case LinkFetched():
+                  return Text("");
               }
             },
-            child: const Text("Get prices")),
-      )),
+          );
+        },
+      ),
     );
   }
 }

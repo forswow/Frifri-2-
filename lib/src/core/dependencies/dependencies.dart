@@ -18,7 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 base class Dependencies {
   /// {@macro dependencies}
 
-  Dependencies of(BuildContext context) =>
+  static Dependencies of(BuildContext context) =>
       context.getInheritedWidgetOfExactType<DependenciesScope>()!.d;
 
   late SharedPreferences sharedPreferences;
@@ -33,8 +33,6 @@ base class Dependencies {
   late final SearchBloc searchBloc;
 
   Future<void> initializationDependencies() async {
-    log("Start dependencies initialization");
-
     await dotenv.load(fileName: '.env');
 
     sharedPreferences = await SharedPreferences.getInstance();
