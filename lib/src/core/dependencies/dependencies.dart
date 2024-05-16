@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
+import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bloc.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
@@ -23,32 +26,28 @@ base class Dependencies {
   late AirportCubit airportCubit;
   late AppLanguageCubit languageCubit;
   late CurrencyCubit currencyCubit;
-
   late GlobalPrefHelper globalPrefHelper;
+
+  late final SearchDataSources searchDataSources;
+  late final SearchTicketRepoImpl searchTicketRepoImpl;
+  late final SearchBloc searchBloc;
 
   Future<void> initializationDependencies() async {
     log("Start dependencies initialization");
 
     await dotenv.load(fileName: '.env');
-    log("dotenv config loaded");
 
     sharedPreferences = await SharedPreferences.getInstance();
     globalPrefHelper = GlobalPrefHelper(sharedPreferences: sharedPreferences);
-    log("globalPrefHelper initialized");
-
     pushNotificationCubit = PushNotificationCubit(prefHelper: globalPrefHelper);
-    log("pushEnabled: ${pushNotificationCubit.state}");
-
     airportCubit = AirportCubit(prefHelper: globalPrefHelper);
-    log("airport: ${airportCubit.state}");
-
     languageCubit = AppLanguageCubit(prefHelper: globalPrefHelper);
-    log("language: ${languageCubit.state}");
-
     currencyCubit = CurrencyCubit(prefHelper: globalPrefHelper);
-    log("currency: ${currencyCubit.state}");
 
-    log("Dependencies initialized");
+    searchDataSources = SearchDataSources();
+    searchTicketRepoImpl =
+        SearchTicketRepoImpl(searchDataSources: searchDataSources);
+    searchBloc = SearchBloc(searchTicketRepoImpl);
   }
 }
 
