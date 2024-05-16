@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_ticket_bloc.dart';
@@ -9,7 +10,6 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_mod
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_from/searchfly_modal_from.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/searchfly_modal_to.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/tickets_list.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_button.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_radiobutton.dart';
 
 final _defaultDivider = Divider(
@@ -34,7 +34,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
     searchBloc = context.read<SearchBloc>();
   }
 
-  void onFindTicketsClick() {
+  void onFindTicketsButtonClick() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -52,7 +52,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 10),
         child: Scaffold(
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               const _SearchTicketScreenHeader(),
               const SizedBox(height: 24),
@@ -73,10 +73,17 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              ChooseflyButtonComponent(
+              SizedBox(
                 height: 48,
-                text: AppLocalizations.of(context)!.findTickets,
-                callback: onFindTicketsClick,
+                child: ConfirmationButton(
+                  onPressed: onFindTicketsButtonClick,
+                  child: Text(
+                    AppLocalizations.of(context)!.findTickets,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -96,56 +103,53 @@ class LocationPickerZone extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                useRootNavigator: true,
-                isScrollControlled: true,
-                builder: (context) => const SearchFlyModalFrom(),
-              );
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.whereFrom,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.grey,
-                    fontSize: 16,
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  useRootNavigator: true,
+                  isScrollControlled: true,
+                  builder: (context) => const SearchFlyModalFrom(),
+                );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.whereFrom,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "Выбрать",
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w600,
+                  const SizedBox(height: 4),
+                  Text(
+                    "Выбрать",
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SvgPicture.asset(
             'assets/icons/searchfly-airplane.svg',
           ),
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                useRootNavigator: true,
-                isScrollControlled: true,
-                builder: (context) => SearchFlyModalTo(
-                  shortName: "Выбрать".substring(0, 3).toUpperCase(),
-                ),
-              );
-            },
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
+          Expanded(
+            child: InkWell(
               onTap: () {
-                print("Hello");
+                showModalBottomSheet(
+                  context: context,
+                  useRootNavigator: true,
+                  isScrollControlled: true,
+                  builder: (context) => SearchFlyModalTo(
+                    shortName: "Выбрать".substring(0, 3).toUpperCase(),
+                  ),
+                );
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
