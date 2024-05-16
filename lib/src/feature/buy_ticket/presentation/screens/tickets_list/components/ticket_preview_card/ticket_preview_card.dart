@@ -4,7 +4,8 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/t
 import 'package:intl/intl.dart';
 
 class TicketPreviewCard extends StatefulWidget {
-  const TicketPreviewCard({super.key, 
+  const TicketPreviewCard({
+    super.key,
     required this.companyName,
     required this.iconPath,
     required this.price,
@@ -66,9 +67,16 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
             },
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
-              ),
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                  boxShadow: const <BoxShadow>[
+                    BoxShadow(
+                      color: Color.fromRGBO(18, 18, 18, 0.08),
+                      offset: Offset(0, 16),
+                      blurRadius: 32,
+                      spreadRadius: 0,
+                    ),
+                  ]),
               width: double.infinity,
               height: 122,
               child: Padding(
@@ -117,14 +125,26 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                                 .copyWith(fontSize: 12)),
                       ],
                     ),
-                    const Row(children: [
-                      Text('LED'),
-                      SizedBox(width: 30),
-                      Text("EAR"),
-                      SizedBox(
+                    Row(children: [
+                      Text(
+                        'LED',
+                        style: AppStyles.textStylePoppins.copyWith(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(width: 30),
+                      Text(
+                        "EAR",
+                        style: AppStyles.textStylePoppins.copyWith(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(
                         width: 44,
                       ),
-                      Text('1 пересадка VCO'),
+                      const Text('1 пересадка VCO'),
                     ])
                   ],
                 ),
