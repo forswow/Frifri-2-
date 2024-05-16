@@ -6,25 +6,18 @@ import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/ticket_preview_card/ticket_preview_card.dart';
 
 class TicketsList extends StatefulWidget {
-  const TicketsList({super.key, required this.passengerData});
-
-  final passengerData;
+  const TicketsList({super.key});
 
   @override
-  State<TicketsList> createState() =>
-      _TicketsListState(passengerData: passengerData);
+  State<TicketsList> createState() => _TicketsListState();
 }
 
 class _TicketsListState extends State<TicketsList> {
-  _TicketsListState({required this.passengerData});
-
-  final Map passengerData;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
+      body: SingleChildScrollView(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -36,18 +29,16 @@ class _TicketsListState extends State<TicketsList> {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-              child: CitiesInputs(citiesNames: {
-                "flyFrom": passengerData['flyFrom'],
-                "flyTo": passengerData['flyTo']
-              }),
+              child: CitiesInputs(
+                citiesNames: {
+                  "flyFrom": "FlyFrom city",
+                  "flyTo": "FlyTo city",
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 16, 0, 0),
-              child: Container(
-                  height: 40,
-                  child: HoryzUserDataSlider(
-                    passengerData: widget.passengerData,
-                  )),
+              child: Container(height: 40, child: HoryzUserDataSlider()),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
@@ -63,8 +54,10 @@ class _TicketsListState extends State<TicketsList> {
                 itemCount: 3,
               ),
             ),
-          ]),
-    ));
+          ],
+        ),
+      ),
+    );
   }
 }
 

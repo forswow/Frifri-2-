@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/tickets_list/components/slider/slidercard.dart';
 
 class HoryzUserDataSlider extends StatelessWidget {
-  HoryzUserDataSlider({required this.passengerData});
-
-  final passengerData;
+  HoryzUserDataSlider();
 
   @override
   Widget build(BuildContext context) {
@@ -18,40 +16,34 @@ class HoryzUserDataSlider extends StatelessWidget {
       ),
       Row(
         children: <Widget>[
-          passengerData['adultPlaces'] > 0
-              ? Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.person,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                    Text(passengerData['adultPlaces'].toString()),
-                  ],
-                )
-              : Text(''),
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.person,
+                color: Colors.grey,
+                size: 20,
+              ),
+              Text("ADULT PLACES"),
+            ],
+          ),
+          Text(''),
           SizedBox(
             width: 6,
           ),
-          passengerData['childPlaces'] > 0
-              ? Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.child_care,
-                      color: Colors.grey,
-                      size: 20,
-                    ),
-                    Text(passengerData['childPlaces'].toString()),
-                  ],
-                )
-              : Text(""),
-          passengerData['flyClass'] != ''
-              ? Text(', ${passengerData['flyClass']} ')
-              : Text('')
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.child_care,
+                color: Colors.grey,
+                size: 20,
+              ),
+              Text("CHILD PLACES"),
+            ],
+          ),
+          Text('FLIGHT CLASS'),
         ],
       )
     ];
-    print(passengerData);
     return CustomScrollView(
       scrollDirection: Axis.horizontal,
       slivers: <Widget>[

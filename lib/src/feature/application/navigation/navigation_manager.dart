@@ -67,7 +67,7 @@ class NavigationManager {
               GoRoute(
                 path: search,
                 builder: (context, state) {
-                  return ChooseFlyMainScreen();
+                  return SearchTicketFormScreen();
                 },
               ),
             ],
