@@ -80,7 +80,6 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
   // Начальные значения формы
   // формироваться она будет при submit-е
   // с помощью полей ниже
-  final TicketsSearchQuery options = const TicketsSearchQuery();
   final _searchModel = SearchModel();
 
   void onFindTicketsButtonClick() {

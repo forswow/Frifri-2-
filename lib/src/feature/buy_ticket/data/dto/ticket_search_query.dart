@@ -4,7 +4,7 @@ String ticketsSearchQueryToJson(TicketsSearchQuery data) =>
     json.encode(data.toJson());
 
 class TicketsSearchQuery {
-  const TicketsSearchQuery({
+  TicketsSearchQuery({
     this.marker = '406687',
     this.host = 'frifri.ge',
     this.userIp = '127.0.0.1',
@@ -14,13 +14,13 @@ class TicketsSearchQuery {
     this.segments = const [],
   });
 
-  final String marker;
-  final String host;
-  final String? userIp;
-  final String locale;
-  final String tripClass;
-  final Passengers? passengers;
-  final List<Segment> segments;
+  String marker;
+  String host;
+  String? userIp;
+  String locale;
+  String tripClass;
+  Passengers? passengers;
+  List<Segment> segments;
 
   TicketsSearchQuery copyWith({
     String? marker,

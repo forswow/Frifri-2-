@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_inputs.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
@@ -18,11 +23,46 @@ class TicketsSearchResultScreen extends StatefulWidget {
 
 class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
   late final SearchModel _searchModel;
+  late final SearchBloc searchBloc;
 
   @override
   void initState() {
     super.initState();
     _searchModel = widget.searchModel;
+    searchBloc = context.read<SearchBloc>();
+
+    TicketsSearchQuery options = TicketsSearchQuery(
+      tripClass:
+          tripClassToDataString(_searchModel.passengersAndClass!.tripClass),
+      passengers: Passengers(
+        adults: _searchModel.passengersAndClass!.passengers.adults,
+        children: _searchModel.passengersAndClass!.passengers.children,
+        infants: 0,
+      ),
+      segments: [
+        Segment(
+          origin: _searchModel.departureAt!.code,
+          destination: _searchModel.arrivalAt!.code,
+          date:
+              "${_searchModel.departureDate!.year}-${_searchModel.departureDate!.month.toString().padLeft(2, '0')}-${_searchModel.departureDate!.day.toString().padLeft(2, '0')}",
+        ),
+      ],
+    );
+
+    if (_searchModel.returnDate != null) {
+      options.segments.add(
+        Segment(
+          origin: _searchModel.arrivalAt!.code,
+          destination: _searchModel.departureAt!.code,
+          date:
+              "${_searchModel.returnDate!.year}-${_searchModel.returnDate!.month.toString().padLeft(2, '0')}-${_searchModel.returnDate!.day.toString().padLeft(2, '0')}",
+        ),
+      );
+    }
+
+    searchBloc.add(
+      StartSearchTicketEvent(options),
+    );
   }
 
   @override

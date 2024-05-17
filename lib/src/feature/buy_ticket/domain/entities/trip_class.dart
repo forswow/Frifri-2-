@@ -6,14 +6,19 @@ enum TripClass {
 }
 
 String tripClassToString(TripClass tripClass) {
-  switch (tripClass) {
-    case TripClass.economy:
-      return 'Эконом';
-    case TripClass.comfort:
-      return 'Комфорт';
-    case TripClass.first:
-      return 'Первый';
-    case TripClass.business:
-      return 'Бизнес';
-  }
+  return switch (tripClass) {
+    TripClass.economy => 'Эконом',
+    TripClass.comfort => 'Комфорт',
+    TripClass.first => 'Первый',
+    TripClass.business => 'Бизнес'
+  };
+}
+
+String tripClassToDataString(TripClass tripClass) {
+  return switch (tripClass) {
+    TripClass.economy => "Y",
+    TripClass.comfort => "Y",
+    TripClass.first => "C",
+    TripClass.business => "C"
+  };
 }
