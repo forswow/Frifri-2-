@@ -28,6 +28,10 @@ class SelectCurrencyModal extends StatelessWidget {
           const DefaultModalHeader(
             centerText: "Валюта",
           ),
+          const Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _SelectCurrencyModalContent(),
         ],
       ),

@@ -28,6 +28,10 @@ class SelectAirportModal extends StatelessWidget {
           const DefaultModalHeader(
             centerText: "Аэропорт вылета",
           ),
+          const Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _SelectAirportModalContent(),
         ],
       ),

@@ -25,6 +25,10 @@ class HelpModal extends StatelessWidget {
           DefaultModalHeader(
             centerText: "Помощь",
           ),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _HelpModalContent(),
         ],
       ),

@@ -24,6 +24,10 @@ class ConfidentialityModal extends StatelessWidget {
           DefaultModalHeader(
             centerText: "Конфиденциальность",
           ),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _ConfidentialityModalContent()
         ],
       ),

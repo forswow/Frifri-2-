@@ -23,6 +23,10 @@ class SettingsModal extends StatelessWidget {
           DefaultModalHeader(
             centerText: "Настройки",
           ),
+          Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _SettingsModalContent(),
         ],
       ),

@@ -184,9 +184,10 @@ class SearchFlyModalHeader extends StatelessWidget {
                             Text(
                               'ОТКУДА',
                               style: AppStyles.textStylePoppins.copyWith(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black26),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black26,
+                              ),
                             ),
                             searchModel.departureAt != null
                                 ? Text(

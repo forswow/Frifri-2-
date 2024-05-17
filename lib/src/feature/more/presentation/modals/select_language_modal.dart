@@ -28,6 +28,10 @@ class SelectLanguageModal extends StatelessWidget {
           const DefaultModalHeader(
             centerText: "Язык",
           ),
+          const Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _SelectLanguageModalContent()
         ],
       ),

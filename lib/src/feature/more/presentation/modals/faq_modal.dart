@@ -31,6 +31,10 @@ class FaqModal extends StatelessWidget {
           const DefaultModalHeader(
             centerText: "Самые частые вопросы",
           ),
+          const Divider(
+            height: 1,
+            thickness: 0.5,
+          ),
           _FaqModalContent(scrollController: scrollController),
         ],
       ),
