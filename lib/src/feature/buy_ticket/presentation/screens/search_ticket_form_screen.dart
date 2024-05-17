@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
@@ -89,7 +88,9 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const TicketsSearchResultScreen();
+          return TicketsSearchResultScreen(
+            searchModel: _searchModel,
+          );
         },
       ),
     );
@@ -255,6 +256,9 @@ class ToLocationPicker extends StatelessWidget {
                 searchModel.arrivalAt?.name ?? "Выбрать",
                 style: AppStyles.textStylePoppins.copyWith(
                   fontWeight: FontWeight.w600,
+                  color: searchModel.arrivalAt == null
+                      ? Colors.grey
+                      : Colors.black,
                 ),
               );
             },
@@ -358,11 +362,16 @@ class FlightDatePickerZone extends StatelessWidget {
                 useRootNavigator: true,
                 isScrollControlled: true,
                 builder: (context) => CalendarModal(
+                  title: AppLocalizations.of(context)!.when,
                   availableFromDate: DateTime.now(),
                 ),
               );
 
               if (departureDate == null) return;
+
+              if (searchModel.returnDate != null) {
+                searchModel.returnDate = null;
+              }
 
               searchModel.departureDate = departureDate;
             },
@@ -404,12 +413,16 @@ class FlightDatePickerZone extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
+              final DateTime? leastAvailableDate;
+              leastAvailableDate = searchModel.departureDate;
+
               final DateTime? returnDate = await showModalBottomSheet(
                 context: context,
                 useRootNavigator: true,
                 isScrollControlled: true,
                 builder: (context) => CalendarModal(
-                  availableFromDate: DateTime.now(),
+                  title: AppLocalizations.of(context)!.back,
+                  availableFromDate: leastAvailableDate ?? DateTime.now(),
                 ),
               );
 
@@ -516,10 +529,12 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                 context: context,
                 useRootNavigator: true,
                 isScrollControlled: true,
-                builder: (context) => const PassengersModal(
-                  adultPassengersCount: 1,
-                  childCount: 0,
-                  flightClass: null,
+                builder: (context) => PassengersModal(
+                  adultPassengersCount:
+                      searchModel.passengersAndClass?.passengers.adults ?? 1,
+                  childCount:
+                      searchModel.passengersAndClass?.passengers.children ?? 0,
+                  flightClass: searchModel.passengersAndClass?.tripClass,
                 ),
               );
 

@@ -7,9 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
-  const CalendarModal({super.key, required this.availableFromDate});
+  const CalendarModal({
+    super.key,
+    required this.availableFromDate,
+    required this.title,
+  });
 
   final DateTime availableFromDate;
+  final String title;
 
   @override
   State<CalendarModal> createState() {
@@ -21,6 +26,8 @@ class _CalendarModalState extends State<CalendarModal> {
   final currentDate = DateTime.now();
   late final DateTime availableFromDate;
 
+  late final String title;
+
   SelectedDate selectedDate = SelectedDate(
     DateTime.now(),
     isWholeMonth: false,
@@ -30,13 +37,14 @@ class _CalendarModalState extends State<CalendarModal> {
   void initState() {
     super.initState();
     availableFromDate = widget.availableFromDate;
+    title = widget.title;
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(children: [
-        const _CalendarModalHeader(),
+        _CalendarModalHeader(title: title),
         _CalendarModalContent(
           availableFromDate: availableFromDate,
         ),
@@ -46,18 +54,20 @@ class _CalendarModalState extends State<CalendarModal> {
 }
 
 class _CalendarModalHeader extends StatelessWidget {
-  const _CalendarModalHeader();
+  const _CalendarModalHeader({required this.title});
 
   static const weekdays = "SMTWTFS";
   static const firstDayInWeek = DateTime.monday;
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const DefaultModalHeader(
-          centerText: "Когда",
+        DefaultModalHeader(
+          centerText: title,
         ),
         GridView.count(
           padding: const EdgeInsets.symmetric(horizontal: 17),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_inputs.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 
 class TicketsSearchResultScreen extends StatefulWidget {
-  const TicketsSearchResultScreen({super.key});
+  const TicketsSearchResultScreen({super.key, required this.searchModel});
+
+  final SearchModel searchModel;
 
   @override
   State<TicketsSearchResultScreen> createState() =>
@@ -14,18 +17,30 @@ class TicketsSearchResultScreen extends StatefulWidget {
 }
 
 class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
+  late final SearchModel _searchModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchModel = widget.searchModel;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _TicketsSearchResultHeader(),
-            _LocationPickerZone(),
-            _ChipsZone(),
-            _ResultedTicketsList(),
+            const _TicketsSearchResultHeader(),
+            _LocationPickerZone(
+              searchModel: _searchModel,
+            ),
+            _ChipsZone(
+              searchModel: _searchModel,
+            ),
+            const _ResultedTicketsList(),
           ],
         ),
       ),
@@ -56,28 +71,38 @@ class _ResultedTicketsList extends StatelessWidget {
 }
 
 class _ChipsZone extends StatelessWidget {
-  const _ChipsZone();
+  const _ChipsZone({required this.searchModel});
+
+  final SearchModel searchModel;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(24, 16, 0, 0),
-      child: SizedBox(height: 40, child: HorizontalOptionsSlider()),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 16, 0, 0),
+      child: SizedBox(
+        height: 40,
+        child: HorizontalOptionsSlider(
+          searchModel: searchModel,
+        ),
+      ),
     );
   }
 }
 
 class _LocationPickerZone extends StatelessWidget {
-  const _LocationPickerZone();
+  const _LocationPickerZone({required this.searchModel});
+
+  final SearchModel searchModel;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
       child: CitiesInputs(
+        searchModel: searchModel,
         citiesNames: {
-          "flyFrom": "FlyFrom city",
-          "flyTo": "FlyTo city",
+          "flyFrom": searchModel.departureAt!.name,
+          "flyTo": searchModel.arrivalAt!.name,
         },
       ),
     );
