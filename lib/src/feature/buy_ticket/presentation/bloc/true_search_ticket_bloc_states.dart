@@ -1,66 +1,23 @@
 import 'package:equatable/equatable.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 
 sealed class SearchState extends Equatable {}
 
-class FillingFormOptions extends SearchState {
-  FillingFormOptions({
-    this.options = const TicketsSearchQuery(),
-    this.departureAt,
-    this.arrivalAt,
-    this.departureDate,
-    this.returnDate,
-    this.passengers,
-    this.tripClass,
-  });
+class SearchInitial extends SearchState {
+  @override
+  List<Object?> get props => [];
+}
 
-  // Начальные значения формы
-  // формироваться она будет при submit-е
-  // с помощью полей ниже
-  final TicketsSearchQuery options;
+class SearchingInProgress extends SearchState {
+  @override
+  List<Object?> get props => [];
+}
 
-  // Поля ввода локаций
-  final AirportEntity? departureAt;
-  final AirportEntity? arrivalAt;
+class SearchComplete extends SearchState {
+  SearchComplete({required this.tickets});
 
-  // Поля ввода дат прилёта и возврата
-  final DateTime? departureDate;
-  final DateTime? returnDate;
-
-  // Поля ввода количества пассажиров и класса билета
-  final Passengers? passengers;
-  final TripClass? tripClass;
+  final List<TicketEntity> tickets;
 
   @override
-  List<Object?> get props => [
-        options,
-        departureAt,
-        arrivalAt,
-        departureDate,
-        returnDate,
-        passengers,
-        tripClass,
-      ];
-
-  FillingFormOptions copyWith({
-    TicketsSearchQuery? options,
-    AirportEntity? departureAt,
-    AirportEntity? arrivalAt,
-    DateTime? departureDate,
-    DateTime? returnDate,
-    Passengers? passengers,
-    TripClass? tripClass,
-  }) {
-    return FillingFormOptions(
-      options: options ?? this.options,
-      departureAt: departureAt ?? this.departureAt,
-      arrivalAt: arrivalAt ?? this.arrivalAt,
-      departureDate: departureDate ?? this.departureDate,
-      returnDate: returnDate ?? this.returnDate,
-      passengers: passengers ?? this.passengers,
-      tripClass: tripClass ?? this.tripClass,
-    );
-  }
+  List<Object?> get props => [];
 }
