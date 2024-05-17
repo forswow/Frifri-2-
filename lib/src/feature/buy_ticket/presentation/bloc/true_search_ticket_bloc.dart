@@ -61,10 +61,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> _onInputDepartureDateEvent(
-      InputDepartureDateEvent event, Emitter<SearchState> emit) {}
+      InputDepartureDateEvent event, Emitter<SearchState> emit) {
+    if (state is FillingFormOptions) {
+      final localState = state as FillingFormOptions;
+      emit(localState.copyWith(
+        departureDate: event.departureDate,
+      ));
+    }
+  }
 
   FutureOr<void> _onInputReturnDateEvent(
-      InputReturnDateEvent event, Emitter<SearchState> emit) {}
+      InputReturnDateEvent event, Emitter<SearchState> emit) {
+    if (state is FillingFormOptions) {
+      final localState = state as FillingFormOptions;
+      emit(localState.copyWith(
+        returnDate: event.returnAt,
+      ));
+    }
+  }
 
   FutureOr<void> _onInputPassengersAndClass(
       InputPassengersAndClass event, Emitter<SearchState> emit) {}

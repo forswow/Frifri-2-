@@ -18,7 +18,10 @@ class CalendarMonth extends StatefulWidget {
     required this.selectedDate,
     required this.onDateSelected,
     this.startWeekDay = DateTime.monday,
+    required this.availableFromDate,
   });
+
+  final DateTime availableFromDate;
 
   final int year;
   final int month;
@@ -32,6 +35,14 @@ class CalendarMonth extends StatefulWidget {
 }
 
 class _CalendarMonthState extends State<CalendarMonth> {
+  late final DateTime availableFromDate;
+
+  @override
+  void initState() {
+    super.initState();
+    availableFromDate = widget.availableFromDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,6 +61,7 @@ class _CalendarMonthState extends State<CalendarMonth> {
           selectedDate: widget.selectedDate,
           onDateSelected: widget.onDateSelected,
           startWeekDay: widget.startWeekDay,
+          availableFromDate: availableFromDate,
         ),
       ],
     );
@@ -64,7 +76,10 @@ class MonthTableView extends StatelessWidget {
     required this.selectedDate,
     required this.onDateSelected,
     required this.startWeekDay,
+    required this.availableFromDate,
   });
+
+  final DateTime availableFromDate;
 
   final DateTime currentDate = DateTime.now();
 
@@ -114,7 +129,11 @@ class MonthTableView extends StatelessWidget {
             !selectedDate.isWholeMonth;
 
         final isActive =
-            currentDate.difference(DateTime(year, month, day)).inDays <= 0;
+            currentDate.difference(DateTime(year, month, day)).inDays <= 0 &&
+                availableFromDate
+                        .difference(DateTime(year, month, day))
+                        .inDays <=
+                    0;
 
         return InkWell(
           onTap: () => isActive
@@ -183,8 +202,9 @@ class MonthDay extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color:
-                    isLowestPrice ? Colors.green : const Color.fromRGBO(0, 0, 0, 0.3),
+                color: isLowestPrice
+                    ? Colors.green
+                    : const Color.fromRGBO(0, 0, 0, 0.3),
               ),
             ),
         ],

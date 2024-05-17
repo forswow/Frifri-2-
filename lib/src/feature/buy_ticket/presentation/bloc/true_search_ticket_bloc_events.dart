@@ -36,7 +36,7 @@ class InputDepartureDateEvent extends SearchEvent {
 class InputReturnDateEvent extends SearchEvent {
   InputReturnDateEvent(this.returnAt);
 
-  final DateTime returnAt;
+  final DateTime? returnAt;
 
   @override
   List<Object?> get props => [returnAt];

@@ -8,5 +8,5 @@ class PassengersAndClass {
   });
 
   final TripClass tripClass;
-  final Passengers passengers;
+  final PassengersEntity passengers;
 }

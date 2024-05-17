@@ -1,5 +1,5 @@
-class Passengers {
-  const Passengers({
+class PassengersEntity {
+  const PassengersEntity({
     required this.adults,
     required this.children,
   });

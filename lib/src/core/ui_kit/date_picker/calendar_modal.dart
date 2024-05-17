@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
-  const CalendarModal({super.key});
+  const CalendarModal({super.key, required this.availableFromDate});
+
+  final DateTime availableFromDate;
 
   @override
   State<CalendarModal> createState() {
@@ -17,6 +19,7 @@ class CalendarModal extends StatefulWidget {
 
 class _CalendarModalState extends State<CalendarModal> {
   final currentDate = DateTime.now();
+  late final DateTime availableFromDate;
 
   SelectedDate selectedDate = SelectedDate(
     DateTime.now(),
@@ -24,11 +27,19 @@ class _CalendarModalState extends State<CalendarModal> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    availableFromDate = widget.availableFromDate;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(children: [
         const _CalendarModalHeader(),
-        _CalendarModalContent(),
+        _CalendarModalContent(
+          availableFromDate: availableFromDate,
+        ),
       ]),
     );
   }
@@ -73,6 +84,10 @@ class _CalendarModalHeader extends StatelessWidget {
 }
 
 class _CalendarModalContent extends StatefulWidget {
+  const _CalendarModalContent({required this.availableFromDate});
+
+  final DateTime availableFromDate;
+
   @override
   State<_CalendarModalContent> createState() {
     return _CalendarModalContentState();
@@ -85,9 +100,10 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
     isWholeMonth: true,
   );
 
-  late final currentDate;
-  late final lastMonth;
-  late final countOfMonths;
+  late final DateTime currentDate;
+  late final DateTime lastMonth;
+  late final int countOfMonths;
+  late final DateTime availableFromDate;
 
   @override
   void initState() {
@@ -96,6 +112,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
     countOfMonths = 12;
     currentDate = DateTime.now();
     lastMonth = DateUtils.addMonthsToMonthDate(currentDate, countOfMonths);
+    availableFromDate = widget.availableFromDate;
   }
 
   @override
@@ -122,6 +139,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                     });
                   },
                   startWeekDay: DateTime.monday,
+                  availableFromDate: availableFromDate,
                 );
               },
             ),
@@ -168,14 +186,16 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "Найти билеты",
+                      "Выбрать дату",
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop(selectedDate.date);
+                    },
                   ),
                 )
               ],
