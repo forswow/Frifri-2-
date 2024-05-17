@@ -68,7 +68,8 @@ class EmptyStringListFrom extends StatelessWidget {
                 child: AirportComponentCard(
                   name: name,
                   shortName: shortName,
-                  callback: () => context.pop(name),
+                  callback: () =>
+                      context.pop(AirportEntity(name: name, code: shortName)),
                 ),
               );
             },

@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
@@ -215,7 +214,7 @@ class ToLocationPicker extends StatelessWidget {
           useRootNavigator: true,
           isScrollControlled: true,
           builder: (context) => SearchFlyModalTo(
-            shortName: "Выбрать".substring(0, 3).toUpperCase(),
+            searchModel: searchModel,
           ),
         );
 
@@ -284,7 +283,9 @@ class FromLocationPicker extends StatelessWidget {
           context: context,
           useRootNavigator: true,
           isScrollControlled: true,
-          builder: (context) => const SearchFlyModalFrom(),
+          builder: (context) => SearchFlyModalFrom(
+            searchModel: searchModel,
+          ),
         );
 
         if (location == null) return;

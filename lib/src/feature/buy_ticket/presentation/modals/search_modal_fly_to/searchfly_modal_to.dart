@@ -4,26 +4,28 @@ import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/components/emptystring_list.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/components/search_is_not_empty.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchFlyModalTo extends StatelessWidget {
-  const SearchFlyModalTo({super.key, 
-    required this.shortName,
+  const SearchFlyModalTo({
+    super.key,
+    required this.searchModel,
   });
 
-  final shortName;
+  final SearchModel searchModel;
 
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          SearchFlyModalHeader(shortName: shortName),
+          SearchFlyModalHeader(searchModel: searchModel),
           const Divider(
             height: 0,
             thickness: 0.5,
           ),
-          _SearchFlyModalToContent(shortName: shortName),
+          _SearchFlyModalToContent(searchModel: searchModel),
         ],
       ),
     );
@@ -32,10 +34,10 @@ class SearchFlyModalTo extends StatelessWidget {
 
 class _SearchFlyModalToContent extends StatefulWidget {
   const _SearchFlyModalToContent({
-    required this.shortName,
+    required this.searchModel,
   });
 
-  final String shortName;
+  final SearchModel searchModel;
 
   @override
   State<_SearchFlyModalToContent> createState() =>
@@ -48,10 +50,12 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
 
   late String shortName;
 
+  late final SearchModel searchModel;
+
   @override
   void initState() {
     super.initState();
-    shortName = widget.shortName;
+    searchModel = widget.searchModel;
   }
 
   @override
@@ -67,7 +71,6 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
               onChanged: (text) {
                 setState(() {
                   searchText = text;
-                  print(searchText);
                 });
               },
               decoration: InputDecoration(
@@ -131,10 +134,8 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
       );
     }
 
-    return Container(
-      child: const Center(
-        child: Text('Ошибка'),
-      ),
+    return const Center(
+      child: Text('Ошибка'),
     );
   }
 }
@@ -142,10 +143,10 @@ class _SearchFlyModalToContentState extends State<_SearchFlyModalToContent> {
 class SearchFlyModalHeader extends StatelessWidget {
   const SearchFlyModalHeader({
     super.key,
-    required this.shortName,
+    required this.searchModel,
   });
 
-  final String shortName;
+  final SearchModel searchModel;
 
   @override
   Widget build(BuildContext context) {
@@ -187,22 +188,38 @@ class SearchFlyModalHeader extends StatelessWidget {
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black26),
                             ),
-                            Text(
-                              shortName,
-                              style: AppStyles.textStylePoppins.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blue,
-                              ),
-                            ),
+                            searchModel.departureAt != null
+                                ? Text(
+                                    searchModel.departureAt!.code,
+                                    style: AppStyles.textStylePoppins.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                         SvgPicture.asset('assets/icons/searchfly-airplane.svg'),
-                        Text(
-                          'КУДА',
-                          style: AppStyles.textStylePoppins.copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'КУДА',
+                              style: AppStyles.textStylePoppins.copyWith(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            searchModel.arrivalAt != null
+                                ? Text(
+                                    searchModel.arrivalAt!.code,
+                                    style: AppStyles.textStylePoppins.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ],
                         )
                       ],
                     ),

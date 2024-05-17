@@ -5,23 +5,31 @@ import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_from/components/emptystring_list.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_from/components/search_is_not_empty.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchFlyModalFrom extends StatelessWidget {
-  const SearchFlyModalFrom({super.key});
+  const SearchFlyModalFrom({
+    super.key,
+    required this.searchModel,
+  });
+
+  final SearchModel searchModel;
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultModalWrapper(
+    return DefaultModalWrapper(
       child: Column(
         children: [
-          SearchFlyModalHeader(),
-          Divider(
+          SearchFlyModalHeader(
+            searchModel: searchModel,
+          ),
+          const Divider(
             height: 0,
             thickness: 0.5,
           ),
-          _SearchFlyModalFromContent(),
+          const _SearchFlyModalFromContent(),
         ],
       ),
     );
@@ -127,7 +135,10 @@ class _SearchFlyModalFromContentState
 class SearchFlyModalHeader extends StatelessWidget {
   const SearchFlyModalHeader({
     super.key,
+    required this.searchModel,
   });
+
+  final SearchModel searchModel;
 
   @override
   Widget build(BuildContext context) {
@@ -165,21 +176,47 @@ class SearchFlyModalHeader extends StatelessWidget {
                             Text(
                               'ОТКУДА',
                               style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
                             ),
+                            searchModel.departureAt != null
+                                ? Text(
+                                    searchModel.departureAt!.code,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                         SvgPicture.asset('assets/icons/searchfly-airplane.svg'),
-                        Text(
-                          'КУДА',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black26,
-                          ),
-                        )
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'КУДА',
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black26,
+                              ),
+                            ),
+                            searchModel.arrivalAt != null
+                                ? Text(
+                                    searchModel.arrivalAt!.code,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ],
+                        ),
                       ],
                     ),
                   ),
