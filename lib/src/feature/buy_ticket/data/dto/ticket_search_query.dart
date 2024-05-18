@@ -7,7 +7,7 @@ class TicketsSearchQuery {
   TicketsSearchQuery({
     this.marker = '406687',
     this.host = 'frifri.ge',
-    this.userIp = '127.0.0.1',
+    this.userIp = '200.44.76.149',
     this.locale = 'ru',
     this.tripClass = 'Y',
     this.passengers,

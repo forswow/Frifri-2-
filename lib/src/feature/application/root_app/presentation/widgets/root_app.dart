@@ -7,6 +7,8 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 
+
+
 /// {@template root_app}
 /// RootApp widget.
 /// {@endtemplate}
@@ -21,29 +23,31 @@ class RootApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DependenciesScope(
-      d: dependencies,
-      child: Builder(
-        builder: (context) {
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider<PushNotificationCubit>.value(
-                value: dependencies.pushNotificationCubit,
-              ),
-              BlocProvider<AirportCubit>.value(
-                value: dependencies.airportCubit,
-              ),
-              BlocProvider<AppLanguageCubit>.value(
-                value: dependencies.languageCubit,
-              ),
-              BlocProvider<CurrencyCubit>.value(
-                value: dependencies.currencyCubit,
-              )
-            ],
-            child: App(),
-          );
-        },
-      ),
-    );
+    return Builder(builder: (context) {
+      return DependenciesScope(
+        d: dependencies,
+        child: Builder(
+          builder: (context) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider<PushNotificationCubit>.value(
+                  value: dependencies.pushNotificationCubit,
+                ),
+                BlocProvider<AirportCubit>.value(
+                  value: dependencies.airportCubit,
+                ),
+                BlocProvider<AppLanguageCubit>.value(
+                  value: dependencies.languageCubit,
+                ),
+                BlocProvider<CurrencyCubit>.value(
+                  value: dependencies.currencyCubit,
+                )
+              ],
+              child: App(),
+            );
+          },
+        ),
+      );
+    });
   }
 }

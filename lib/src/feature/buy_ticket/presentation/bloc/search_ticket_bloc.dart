@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,10 +20,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<CollectParameters>(_collectParameters);
     on<SearchTicket>(_searchTicket);
     on<GetABookingLink>(_getABookingLink);
+    on<UpdateEvent>(_update);
   }
 
-  void fetchDepartureLocation(FetchDepartureLocation event,
-      Emitter<SearchState> emit) async {
+  void fetchDepartureLocation(
+      FetchDepartureLocation event, Emitter<SearchState> emit) async {
     /// Get Segment instance.
     final segment = EnteringParameters()
         .segment
@@ -32,8 +35,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   /// Update [date] field in [Segment].
-  void _fetchDepartureDate(FetchDepartureDate event,
-      Emitter<SearchState> emit) {
+  void _fetchDepartureDate(
+      FetchDepartureDate event, Emitter<SearchState> emit) {
     /// Get Segment instance.
     final segment = EnteringParameters().segment.copyWith(date: event.date);
 
@@ -42,19 +45,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   /// Update field [adults],[children],[tripClass].
-  void _fetchPassengers(FetchPassengersAndTripClass event,
-      Emitter<SearchState> emit) {
+  FutureOr<void> _fetchPassengers(
+      FetchPassengersAndTripClass event, Emitter<SearchState> emit) {
     /// Get segment instance.
-    final passengers = EnteringParameters().passengers.copyWith(
-        children: event.passengers.children, adults: event.passengers.adults);
 
-    final ticketSearchQuery = EnteringParameters()
-        .ticketsSearchQuery
-        .copyWith(tripClass: event.tripClass);
+    final initialState = state as EnteringParameters;
 
-    /// Update field;
-    emit(EnteringParameters().copyWith(
-        passengers: passengers, ticketsSearchQuery: ticketSearchQuery));
+    emit(initialState.copyWith(number: 20));
   }
 
   /// Update field [locale];
@@ -75,20 +72,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     state.copyWith(
         ticketsSearchQuery: state.ticketsSearchQuery.copyWith(
-          passengers: state.passengers,
-          segments: [state.segment],
-        ));
+      passengers: state.passengers,
+      segments: [state.segment],
+    ));
 
     print(state.toString());
   }
 
-  Future<void> _searchTicket(SearchTicket event,
-      Emitter<SearchState> emit) async {
+  Future<void> _searchTicket(
+      SearchTicket event, Emitter<SearchState> emit) async {
     try {
       final searchResult = await ticketRepo.searchTicket(event.options);
 
       final ticketList =
-      await ticketRepo.getTicketsBySearchId(searchResult.searchId);
+          await ticketRepo.getTicketsBySearchId(searchResult.searchId);
 
       emit(SearchCompleted(ticketList: ticketList, options: event.options));
     } on DioException catch (error, stack) {
@@ -101,8 +98,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  Future<void> _getABookingLink(GetABookingLink event,
-      Emitter<SearchState> emit) async {
+  Future<void> _getABookingLink(
+      GetABookingLink event, Emitter<SearchState> emit) async {
     try {
       final link = await ticketRepo.getABookingLink(event.searchId);
 
@@ -116,9 +113,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(Failure(message: '$message', statusCode: '$message'));
     }
   }
+
+  FutureOr<void> _update(UpdateEvent event, Emitter<SearchState> emit) {
+    final initialState = state as EnteringParameters;
+
+    emit(initialState.copyWith(date: "new date"));
+  }
 }
 
-@immutable
+final class UpdateEvent extends SearchEvent {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
 sealed class SearchState extends Equatable {}
 
 final class EnteringParameters extends SearchState {
@@ -126,8 +134,9 @@ final class EnteringParameters extends SearchState {
     TicketsSearchQuery? ticketsSearchQuery,
     Segment? segment,
     Passengers? passengers,
-  })
-      : ticketsSearchQuery = TicketsSearchQuery(),
+    this.number = 10,
+    this.date = 'old date',
+  })  : ticketsSearchQuery = TicketsSearchQuery(),
         segment = Segment(),
         passengers = Passengers();
 
@@ -135,16 +144,23 @@ final class EnteringParameters extends SearchState {
   final Segment segment;
   final Passengers passengers;
 
+  int number;
+
+  String date;
+
   EnteringParameters copyWith({
     TicketsSearchQuery? ticketsSearchQuery,
     Segment? segment,
     Passengers? passengers,
+    int? number,
+    String? date,
   }) {
     return EnteringParameters(
-      ticketsSearchQuery: ticketsSearchQuery ?? this.ticketsSearchQuery,
-      segment: segment ?? this.segment,
-      passengers: passengers ?? this.passengers,
-    );
+        ticketsSearchQuery: ticketsSearchQuery ?? this.ticketsSearchQuery,
+        segment: segment ?? this.segment,
+        passengers: passengers ?? this.passengers,
+        number: number ?? this.number,
+        date: date ?? this.date);
   }
 
   @override
@@ -193,7 +209,6 @@ final class FetchDepartureLocation extends SearchEvent {
   @override
   List<Object?> get props => [destination, origin];
 }
-
 
 final class FetchDepartureDate extends SearchEvent {
   FetchDepartureDate({required this.date});
@@ -246,5 +261,3 @@ final class GetABookingLink extends SearchEvent {
   @override
   List<Object?> get props => [searchId];
 }
-
-
