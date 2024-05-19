@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
@@ -49,11 +50,11 @@ void main() async {
 
   test('Get airline logo', () async {
     var url = getAirlineLogoUrl("S7", "80/80");
-    print(url);
+    logger.i(url);
     var response = await apiClient.get(url);
 
     url = getAirlineLogoUrl("S7", "80/80", isRetina: true);
-    print(url);
+    logger.i(url);
     response = await apiClient.get(url);
 
     expect(response.statusCode, 200);
@@ -82,7 +83,7 @@ void main() async {
 
     expect(result.data[0].origin, "MOW");
     for (var elements in result.data) {
-      print("https://aviasales.com${elements.link}");
+      logger.i("https://aviasales.com${elements.link}");
     }
   });
 
@@ -108,8 +109,8 @@ void main() async {
     expect(result.host, "frifri.ge");
     expect(result.searchId, isNotNull);
 
-    print("SearchID: ${result.searchId}");
-    print("Getting result for the searchID: ${result.searchId}...");
+    logger.i("SearchID: ${result.searchId}");
+    logger.i("Getting result for the searchID: ${result.searchId}...");
 
     final searchResult = await aviaApiClient.getTicketsBySearchId(
       searchId: result.searchId,

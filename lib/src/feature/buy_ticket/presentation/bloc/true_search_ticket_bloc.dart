@@ -31,11 +31,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final searchId = searchResult.searchId;
       logger.i("Got searchID: $searchId");
 
-      final allTickets = await ticketRepo.getTicketsBySearchId(searchId);
-      for (var ticket in allTickets) {
-        logger.i("------------- TICKET ---------");
-        logger.i("------------------------------");
-      }
       emit(SearchComplete(tickets: const []));
     } on DioException catch (e, stack) {
       logger.e("DIO EXCEPTION: ${e.message}");
