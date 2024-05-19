@@ -130,9 +130,6 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
         data: allOptions,
       );
 
-      logger.i("URL: ${response.requestOptions.uri}");
-      logger.i("Data: ${response.requestOptions.data}");
-
       final result = response.data;
 
       return TicketsSearchIdResult.fromJson(result);
@@ -151,7 +148,7 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
   }) async {
     String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
 
-    final response = await _dio.post(endpoint, queryParameters: {
+    final response = await _dio.get(endpoint, queryParameters: {
       "uuid": searchId,
     });
 
