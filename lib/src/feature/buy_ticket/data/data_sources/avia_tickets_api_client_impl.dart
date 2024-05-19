@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
@@ -114,24 +115,30 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
       String endpoint = "http://api.travelpayouts.com/v1/flight_search";
 
       final apiKey = dotenv.get("API_KEY");
-      final signature = Signature().createSignature(options.toJson(), apiKey);
 
       final allOptions = options.toJson();
+      allOptions.removeWhere((key, value) => value == null);
+
+      final signature = Signature().createSignature(allOptions, apiKey);
+
       allOptions.addAll(
         {"signature": signature},
       );
-
-      allOptions.removeWhere((key, value) => value == null);
 
       final response = await _dio.post(
         endpoint,
         data: allOptions,
       );
 
+      logger.i("URL: ${response.requestOptions.uri}");
+      logger.i("Data: ${response.requestOptions.data}");
+
       final result = response.data;
 
       return TicketsSearchIdResult.fromJson(result);
     } on DioException catch (error, stack) {
+      logger.e("[DIO Error]: ${error.message}");
+      logger.e("[Request Data]: ${error.requestOptions.data}");
       Error.throwWithStackTrace(error, stack);
     } on Object catch (error, stack) {
       Error.throwWithStackTrace(error, stack);

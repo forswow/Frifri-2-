@@ -97,14 +97,16 @@ void main() async {
           Segment(
             origin: "MOW",
             destination: "BUS",
-            date: "2024-05-18",
+            date: "2024-05-30",
           ),
         ],
         tripClass: 'Y',
         passengers: Passengers(adults: 1),
-        userIp: "127.0.0.1",
+        userIp: null,
       ),
     );
+
+    logger.i("[Testing SearchID request]");
 
     expect(result.host, "frifri.ge");
     expect(result.searchId, isNotNull);
