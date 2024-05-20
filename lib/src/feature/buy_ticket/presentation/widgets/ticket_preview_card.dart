@@ -15,6 +15,7 @@ class TicketPreviewCard extends StatefulWidget {
     required this.arrivalAtIataCode,
     required this.departureTime,
     required this.arrivalTime,
+    required this.countOfTransfers,
   });
 
   final String iconPath;
@@ -28,6 +29,8 @@ class TicketPreviewCard extends StatefulWidget {
 
   final String departureTime;
   final String arrivalTime;
+
+  final int countOfTransfers;
 
   @override
   State<TicketPreviewCard> createState() => _TicketPreviewCardState();
@@ -46,6 +49,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
   late final String departureTime;
   late final String arrivalTime;
 
+  late final int countOfTransfers;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +68,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
     departureTime = widget.departureTime;
     arrivalTime = widget.arrivalTime;
+
+    countOfTransfers = widget.countOfTransfers;
   }
 
   @override
@@ -209,7 +216,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "17ч 30м в пути",
+                              time,
                               style: AppStyles.textStylePoppins.copyWith(
                                 color: Colors.black,
                               ),
@@ -218,7 +225,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                               height: 2,
                             ),
                             Text(
-                              "1 пересадка VKO",
+                              "Количество пересадок: $countOfTransfers",
                               style: AppStyles.textStylePoppins.copyWith(
                                 color: Colors.grey,
                               ),

@@ -1,16 +1,31 @@
 // The whole data class
 
+import 'dart:convert';
+
+import 'package:frifri/src/core/utils/logger.dart';
+
 class TicketsSearchResultBySearchId {
   final List<TicketsChunkData> data;
 
   TicketsSearchResultBySearchId({required this.data});
 
   factory TicketsSearchResultBySearchId.fromJson(List<dynamic> json) {
-    return TicketsSearchResultBySearchId(
-      data: json
-          .map((e) => TicketsChunkData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+    try {
+      return TicketsSearchResultBySearchId(
+        data: json
+            .map((e) => TicketsChunkData.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+    } catch (e, s) {
+      logger.e(
+        "TicketsSearchResultBySearchId.fromJson error: $e\n$s",
+      );
+      logger.e("--------------------");
+      logger.e(
+        "Response: ${jsonEncode(json)}",
+      );
+      Error.throwWithStackTrace(e, s);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -33,6 +48,15 @@ class TicketsChunkData {
   });
 
   factory TicketsChunkData.fromJson(Map<String, dynamic> json) {
+    // If data has ended
+    if (json['proposals'] == null) {
+      return TicketsChunkData(
+        proposals: [],
+        airports: {},
+        airlines: {},
+      );
+    }
+
     return TicketsChunkData(
       proposals: (json['proposals'] as List<dynamic>)
           .map((e) => Proposals.fromJson(e))

@@ -29,7 +29,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       StartSearchTicketEvent event, Emitter<SearchState> emit) async {
     emit(SearchingInProgress(tickets: const []));
 
-    final List<TicketEntity> newTickets = [];
+    final List<TicketEntity> newTickets = List.empty(growable: true);
 
     try {
       final searchModel = event.searchModelForm;
@@ -40,21 +40,37 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final searchId = searchResult.searchId;
 
       // Step 2: get tickets by search id
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 30));
       var result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
 
-      while (result.data.isNotEmpty) {
+      // Bang операторы используются по причине того, что
+      // API всегда содержит вместе с собой airlines мапу
+      // необходимую для получения названия самолёта/аэролинии
+      // и она гарантировано содержит IATA код для каждого proposal
+
+      // Сами же airports, proposals, airlines являются nullable
+      // то есть апи может их и вовсе не прислать
+      //
+      // А пришлёт она только 1 элемент в массиве, который будет содержать
+      // searchId, из которого собрать чанк нельзя
+      while (result.data.length != 1) {
         for (final chunk in result.data) {
+          logger.i("chunk loaded");
+          logger.i("proposals count: ${chunk.proposals}");
+
+          int proposalN = 0;
+
           for (final proposal in chunk.proposals) {
+            proposalN++;
+            logger
+                .i("Loading proposal: $proposalN / ${chunk.proposals.length}");
+
             if (searchModel.isDirectFlightOnly && !proposal.isDirect) {
               continue;
             }
 
             final List<SegmentEntity> ticketSegments = [];
 
-            // Bang операторы используются по причине того, что
-            // API всегда содержит вместе с собой airlines мапу
-            // необходимую для получения названия самолёта/аэролинии
             for (var proposalSegment in proposal.segments.first.flight) {
               final departureAirportName =
                   chunk.airports[proposalSegment.departureAt]!.name;
@@ -98,9 +114,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             final formattedDuration =
                 "${proposal.totalDurationInMinutes ~/ 60}h ${proposal.totalDurationInMinutes % 60}m";
 
-            final bookingLinkResult = await ticketRepo.getABookingLink(
-                searchId: searchId, termsUrl: proposal.terms.urlCode);
-            final bookingLink = bookingLinkResult.url;
+            // final bookingLinkResult = await ticketRepo.getABookingLink(
+            //     searchId: searchId, termsUrl: proposal.terms.urlCode);
+            const bookingLink = "";
 
             final ticket = TicketEntity(
               originAirport: searchModel.departureAt!,
@@ -114,25 +130,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             );
 
             newTickets.add(ticket);
-
-            // Ждём секунду, чтобы избежать rate limit-а
-            await Future.delayed(const Duration(seconds: 1));
-
-            if (state is SearchingInProgress) {
-              final searchingState = state as SearchingInProgress;
-              emit(SearchingInProgress(
-                  tickets: searchingState.tickets + newTickets));
-            } else {
-              emit(SearchComplete(tickets: newTickets));
-            }
           }
         }
-        // Ждём 10 секунд перед запросом следующего чанка
-        await Future.delayed(const Duration(seconds: 10));
-        result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
+
+        await Future.delayed(const Duration(seconds: 5));
+
+        // logger.i("Requesting next chunk...");
+        // result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
+
+        // Дедлайн...
+        break;
       }
 
-      _sortTicketsByPrice(newTickets);
+      sortTicketsByPrice(newTickets);
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {
       logger.e("DIO EXCEPTION: ${e.message}");
@@ -177,7 +187,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     return options;
   }
 
-  void _sortTicketsByPrice(List<TicketEntity> tickets) {
+  void sortTicketsByPrice(List<TicketEntity> tickets) {
     tickets.sort(
       (a, b) {
         return a.price.compareTo(b.price);

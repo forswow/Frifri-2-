@@ -67,7 +67,7 @@ class _ResultedTicketsList extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
-          if (state is SearchingInProgress) {
+          if (state is SearchComplete) {
             return ListView.builder(
               itemCount: state.tickets.length,
               shrinkWrap: true,
@@ -91,15 +91,36 @@ class _ResultedTicketsList extends StatelessWidget {
                         state.tickets[index].segmentsList.first.departureTime,
                     arrivalTime:
                         state.tickets[index].segmentsList.last.arrivalTime,
+                    countOfTransfers: state.tickets[index].segmentsList.length,
                   ),
                 );
               },
             );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+          } else if (state is SearchingInProgress) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Собираем билетики, будьте терпеливы!",
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "Это займёт примерно 30-35 секунд",
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const CircularProgressIndicator(),
+                ],
+              ),
             );
           }
+
+          return Container();
         },
       ),
     );
