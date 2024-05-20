@@ -27,5 +27,3 @@ Dio getBasicDioClient(String baseUrl, String apiKey) {
 
   return dioClient;
 }
-
-

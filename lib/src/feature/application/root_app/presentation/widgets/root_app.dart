@@ -8,8 +8,6 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 
-
-
 /// {@template root_app}
 /// RootApp widget.
 /// {@endtemplate}
