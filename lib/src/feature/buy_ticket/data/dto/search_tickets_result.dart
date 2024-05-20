@@ -51,7 +51,7 @@ class TicketsChunkData {
 }
 
 class Airlines {
-  final int id;
+  final int? id;
   final String name;
   final String iataCode;
 
@@ -220,7 +220,6 @@ class Segment {
   Segment({required this.flight});
 
   factory Segment.fromJson(Map<String, dynamic> json) {
-    logger.i("SENT SEGMENTS");
     return Segment(
       flight: (json['flight'] as List<dynamic>).map<Flight>((jsonObject) {
         return Flight.fromJson(jsonObject);
@@ -250,6 +249,8 @@ class Flight {
 
   final String tripClass; // Y or C
 
+  final String operatedByAirlineIataCode;
+
   Flight({
     required this.aircraftName,
     required this.arrivalAt,
@@ -261,6 +262,7 @@ class Flight {
     required this.duration,
     required this.delay,
     required this.tripClass,
+    required this.operatedByAirlineIataCode,
   });
 
   factory Flight.fromJson(Map<String, dynamic> json) {
@@ -275,6 +277,7 @@ class Flight {
       duration: json["duration"],
       delay: json["delay"],
       tripClass: json["trip_class"],
+      operatedByAirlineIataCode: json["operated_by"],
     );
   }
 
@@ -289,5 +292,6 @@ class Flight {
         "duration": duration,
         "delay": delay,
         "trip_class": tripClass,
+        "operated_by": operatedByAirlineIataCode,
       };
 }
