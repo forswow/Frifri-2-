@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frifri/src/core/data_base/search_database.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
@@ -9,6 +10,11 @@ import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
+import 'package:frifri/src/module/country_search/data/data_sources/country_search_data_sources.dart';
+import 'package:frifri/src/module/country_search/data/repos/country_search_repo_impl.dart';
+import 'package:frifri/src/module/country_search/domain/entity/country_search_entity.dart';
+import 'package:frifri/src/module/country_search/domain/repos/country_search_repo.dart';
+import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template dependencies}
@@ -31,6 +37,12 @@ base class Dependencies {
   late final SearchTicketRepoImpl searchTicketRepoImpl;
   late final SearchBloc searchBloc;
 
+  late final AppDatabase appDatabase;
+
+  late final CountrySearchDataSources countrySearchDataSources;
+  late final CountrySearchRepoImpl countrySearchRepo;
+  late final CountrySearchBloc countrySearchBloc;
+
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
     logger.i("Initializing dependencies...");
@@ -46,7 +58,11 @@ base class Dependencies {
     searchTicketRepoImpl =
         SearchTicketRepoImpl(searchDataSources: searchDataSources);
     searchBloc = SearchBloc(searchTicketRepoImpl);
-
+    appDatabase = AppDatabase();
+    countrySearchDataSources = CountrySearchDataSources();
+    countrySearchRepo = CountrySearchRepoImpl(
+        countrySearchDataSources: countrySearchDataSources);
+    countrySearchBloc = CountrySearchBloc(countrySearchRepo);
     logger.i("Dependencies initialized.");
   }
 }
