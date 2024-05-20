@@ -90,7 +90,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                       children: <Widget>[
                         Row(
                           children: [
-                            Image.asset(iconPath),
+                            Image.network(iconPath),
                             const SizedBox(
                               width: 8,
                             ),

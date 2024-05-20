@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_states.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_inputs.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
@@ -30,7 +29,6 @@ class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
     super.initState();
     _searchModel = widget.searchModel;
     searchBloc = context.read<SearchBloc>();
-
 
     searchBloc.add(
       StartSearchTicketEvent(_searchModel),
@@ -65,18 +63,48 @@ class _ResultedTicketsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return Padding(
+    //   padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+    //   child: ListView.builder(
+    //     shrinkWrap: true,
+    //     physics: const NeverScrollableScrollPhysics(),
+    //     itemBuilder: (context, index) {
+    //       return Padding(
+    //         padding: const EdgeInsets.only(bottom: 16),
+    //         child: tickets[index],
+    //       );
+    //     },
+    //     itemCount: 3,
+    //   ),
+    // );
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: tickets[index],
-          );
+      child: BlocBuilder<SearchBloc, SearchState>(
+        builder: (context, state) {
+          if (state is SearchComplete) {
+            return ListView.builder(
+              itemCount: state.tickets.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: TicketPreviewCard(
+                    companyName:
+                        state.tickets[index].segmentsList.first.airlineName,
+                    iconPath:
+                        state.tickets[index].segmentsList.first.airlineLogo,
+                    isLesserCost: true,
+                    price: state.tickets[index].price,
+                    time: state.tickets[index].flightDuration,
+                  ),
+                );
+              },
+            );
+          } else {
+            return const CircularProgressIndicator.adaptive();
+          }
         },
-        itemCount: 3,
       ),
     );
   }
