@@ -31,37 +31,9 @@ class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
     _searchModel = widget.searchModel;
     searchBloc = context.read<SearchBloc>();
 
-    TicketsSearchQuery options = TicketsSearchQuery(
-      tripClass:
-          tripClassToDataString(_searchModel.passengersAndClass!.tripClass),
-      passengers: Passengers(
-        adults: _searchModel.passengersAndClass!.passengers.adults,
-        children: _searchModel.passengersAndClass!.passengers.children,
-        infants: 0,
-      ),
-      segments: [
-        Segment(
-          origin: _searchModel.departureAt!.code,
-          destination: _searchModel.arrivalAt!.code,
-          date:
-              "${_searchModel.departureDate!.year}-${_searchModel.departureDate!.month.toString().padLeft(2, '0')}-${_searchModel.departureDate!.day.toString().padLeft(2, '0')}",
-        ),
-      ],
-    );
-
-    if (_searchModel.returnDate != null) {
-      options.segments.add(
-        Segment(
-          origin: _searchModel.arrivalAt!.code,
-          destination: _searchModel.departureAt!.code,
-          date:
-              "${_searchModel.returnDate!.year}-${_searchModel.returnDate!.month.toString().padLeft(2, '0')}-${_searchModel.returnDate!.day.toString().padLeft(2, '0')}",
-        ),
-      );
-    }
 
     searchBloc.add(
-      StartSearchTicketEvent(options),
+      StartSearchTicketEvent(_searchModel),
     );
   }
 

@@ -38,18 +38,25 @@ class SegmentEntity {
   final String departureTime;
   final DateTime departureDate;
 
-  final String cityName;
-  final String airportName;
+  final String departureCityName;
+  final String departureAirportName;
 
+  final String arrivalTime;
   final DateTime arrivalDate;
+
+  final String arrivalCityName;
+  final String arrivalAirportName;
 
   SegmentEntity({
     required this.airlineLogo,
     required this.airlineName,
     required this.departureTime,
     required this.departureDate,
-    required this.cityName,
-    required this.airportName,
+    required this.departureCityName,
+    required this.departureAirportName,
     required this.arrivalDate,
+    required this.arrivalTime,
+    required this.arrivalCityName,
+    required this.arrivalAirportName,
   });
 }
