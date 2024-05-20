@@ -5,7 +5,7 @@ base mixin class Network {
     BaseOptions(
       headers: {
         'X-Access-Token': '31c30d4e58d9cd3a3dc5cd2b8123e1b1',
-        'Accept-Encoding': 'gzip',
+        // 'Accept-Encoding': 'gzip',
       },
       baseUrl: 'https://api.travelpayouts.com',
     ),
@@ -27,3 +27,5 @@ Dio getBasicDioClient(String _baseUrl, String _apiKey) {
 
   return dioClient;
 }
+
+
