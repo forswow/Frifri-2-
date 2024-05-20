@@ -29,9 +29,9 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
     return await searchDataSources.getTicketsBySearchId(searchId);
   }
 
-  Future<void> mock(final String searchId) async {
-    return await searchDataSources.mock(searchId);
-  }
+  // Future<void> mock(final String searchId) async {
+  //   return await searchDataSources.mock(searchId);
+  // }
 
   @override
   Future<TicketsSearchIdResult> searchTickets(
