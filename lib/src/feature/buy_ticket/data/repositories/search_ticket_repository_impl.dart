@@ -13,8 +13,14 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   final ISearchDataSources searchDataSources;
 
   @override
-  Future<BookingTicketEntity> getABookingLink(String searchId) async {
-    return await searchDataSources.getABookingLink(searchId);
+  Future<BookingTicketEntity> getABookingLink({
+    required String searchId,
+    required int termsUrl,
+  }) async {
+    return await searchDataSources.getABookingLink(
+      searchId: searchId,
+      termsUrl: termsUrl,
+    );
   }
 
   @override

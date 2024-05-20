@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
@@ -49,37 +49,72 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             // if (proposal.isDirect && true)
             final List<SegmentEntity> ticketSegments = [];
 
-            // for (var proposalSegment in proposal.segments.first.flight) {
-            //   final departureAirlineName = chunk.airports[proposalSegment.departureAt]!.name;
+            for (var proposalSegment in proposal.segments.first.flight) {
+              final departureAirportName =
+                  chunk.airports[proposalSegment.departureAt]!.name;
+              final departureCityName =
+                  chunk.airports[proposalSegment.departureAt]!.city;
 
-            //   final departureAirportName = chunk.airports[proposalSegment.departureAt]!.name;
-            //   final departureCityName = chunk.airports[proposalSegment.departureAt]!.city;
+              final arrivalAirportName =
+                  chunk.airports[proposalSegment.arrivalAt]!.name;
+              final arrivalCityName =
+                  chunk.airports[proposalSegment.arrivalAt]!.city;
 
-            //   final arrivalAirportName = chunk.airports[proposalSegment.arrivalAt]!.name;
-            //   final arrivalCityName = chunk.airports[proposalSegment.arrivalAt]!.city;
+              final airlineName = chunk
+                  .airlines[proposalSegment.operatedByAirlineIataCode]!.name;
 
-            //   ticketSegments.add(SegmentEntity(
-            //       airlineLogo: "GENERATE THIS" // TODO: <---------
-            //       airlineName:
-            //     )
-            //   );
-            // }
+              final departureDate =
+                  DateTime.parse(proposalSegment.departureDate);
+              final departureTime = proposalSegment.departureTime;
 
-            // final ticket = TicketEntity(
-            //   originAirport: searchModel.departureAt!,
-            //   destinationAirport: searchModel.arrivalAt!,
-            //   flightDuration: ,
-            //   segmentsList: [],
-            //   departureTime: '',
-            //   arrivalTime: '',
-            //   price: null,
-            //   bookingLink: '',
-            // );
+              final arrivalDate = DateTime.parse(proposalSegment.arrivalDate);
+              final arrivalTime = proposalSegment.arrivalTime;
+
+              // final airlineLogoUrl = ticketRepo.
+
+              ticketSegments.add(
+                SegmentEntity(
+                  airlineLogo: getAirlineLogoUrl(
+                    proposalSegment.operatedByAirlineIataCode,
+                    "200/200",
+                  ),
+                  airlineName: airlineName,
+                  arrivalAirportName: arrivalAirportName,
+                  arrivalCityName: arrivalCityName,
+                  departureAirportName: departureAirportName,
+                  departureCityName: departureCityName,
+                  departureDate: departureDate,
+                  departureTime: departureTime,
+                  arrivalDate: arrivalDate,
+                  arrivalTime: arrivalTime,
+                ),
+              );
+            }
+
+            final formattedDuration =
+                "${proposal.totalDurationInMinutes ~/ 60}h ${proposal.totalDurationInMinutes % 60}m";
+
+            final bookingLinkResult = await ticketRepo.getABookingLink(
+                searchId: searchId, termsUrl: proposal.terms.urlCode);
+            final bookingLink = bookingLinkResult.url;
+
+            final ticket = TicketEntity(
+              originAirport: searchModel.departureAt!,
+              destinationAirport: searchModel.arrivalAt!,
+              flightDuration: formattedDuration,
+              segmentsList: ticketSegments,
+              departureTime: ticketSegments.first.departureTime,
+              arrivalTime: ticketSegments.last.arrivalTime,
+              price: proposal.terms.price,
+              bookingLink: bookingLink,
+            );
+
+            newTickets.add(ticket);
           }
         }
       }
 
-      emit(SearchComplete(tickets: const []));
+      emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {
       logger.e("DIO EXCEPTION: ${e.message}");
       Error.throwWithStackTrace(e, stack);

@@ -18,7 +18,10 @@ abstract interface class ISearchDataSources {
   );
 
   /// Get companies buy ticket link.
-  Future<BookingTicketEntity> getABookingLink(final String searchId);
+  Future<BookingTicketEntity> getABookingLink({
+    required String searchId,
+    required int termsUrl,
+  });
 }
 
 final class SearchDataSources
@@ -70,12 +73,15 @@ final class SearchDataSources
   }
 
   @override
-  Future<BookingTicketEntity> getABookingLink(String searchId) async {
+  Future<BookingTicketEntity> getABookingLink({
+    required String searchId,
+    required int termsUrl,
+  }) async {
     try {
-      const endPoint =
-          'http://api.travelpayouts.com/v1/flight_searches/search_id/clicks/terms.url.json?';
-
       final marker = dotenv.get('API_MARKER');
+
+      final endPoint =
+          'http://api.travelpayouts.com/v1/flight_searches/$searchId/clicks/$termsUrl.json';
 
       final response =
           await dioClient.get(endPoint, queryParameters: {"marker": marker});

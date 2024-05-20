@@ -14,5 +14,8 @@ abstract interface class ISearchTicketsRepo {
   });
 
   /// Get companies buy ticket link.
-  Future<BookingTicketEntity> getABookingLink(final String searchId);
+  Future<BookingTicketEntity> getABookingLink({
+    required String searchId,
+    required int termsUrl,
+  });
 }
