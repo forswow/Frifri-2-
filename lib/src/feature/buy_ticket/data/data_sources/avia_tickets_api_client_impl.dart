@@ -143,7 +143,7 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
   }
 
   @override
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId({
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId({
     required String searchId,
   }) async {
     String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
@@ -152,13 +152,9 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
       "uuid": searchId,
     });
 
-    final result = response.data as List<dynamic>;
+    final result = response.data;
 
-    return result
-        .map(
-          (e) => TicketsSearchResultBySearchId.fromJson(e),
-        )
-        .toList();
+    return TicketsSearchResultBySearchId.fromJson(result);
   }
 
   @override
@@ -178,7 +174,3 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
     return MonthMatrix.fromJson(result);
   }
 }
-
-// +---------------------------------------------+
-// |    Helper functions for signing requests    |
-// +---------------------------------------------+

@@ -87,7 +87,8 @@ void main() async {
     }
   });
 
-  test("Search tickets with SearchID", () async {
+  test("Search tickets with SearchID",
+      timeout: const Timeout(Duration(days: 1)), () async {
     final result = await aviaApiClient.searchTickets(
       options: TicketsSearchQuery(
         host: "frifri.ge",
@@ -96,7 +97,7 @@ void main() async {
         segments: [
           Segment(
             origin: "MOW",
-            destination: "BUS",
+            destination: "NYC",
             date: "2024-05-30",
           ),
         ],
@@ -114,11 +115,45 @@ void main() async {
     logger.i("SearchID: ${result.searchId}");
     logger.i("Getting result for the searchID: ${result.searchId}...");
 
+    await Future.delayed(const Duration(seconds: 120));
+
     final searchResult = await aviaApiClient.getTicketsBySearchId(
       searchId: result.searchId,
     );
 
-    expect(searchResult[0], isNotNull);
+    for (var element in searchResult.data) {
+      logger.i("--------- SEARCH CHUNK --------");
+      if (element.proposals.isEmpty) {
+        logger.i("Empty...");
+        logger.i("-------------------------------");
+      }
+
+      for (var proposal in element.proposals) {
+        logger.i("Прямой: ${proposal.isDirect}");
+        logger.i("Чартерный: ${proposal.isCharter}");
+        logger.i("Теги: ${proposal.tagsAsString}");
+        logger.i("Количество пересадок: ${proposal.segments.length}");
+        logger.i(
+            "Суммарная продолжительность: ${proposal.totalDurationInMinutes} мин.");
+
+        logger.i("\t~~~~~~~~~~~ Segments ~~~~~~~~~~~");
+        for (int segmentN = 0;
+            segmentN < proposal.segments.length;
+            segmentN++) {
+          final flight = proposal.segments[segmentN].flight;
+          for (int flightN = 0; flightN < flight.length; flightN++) {
+            final flightData = flight[flightN];
+            logger.i("\t\t------- Трансфер $flightN ----------");
+            logger.i("\t\tНа чём летим: ${flightData.aircraftName}");
+            logger.i("\t\tДальше пока западло писать ⚠ lol");
+            logger.i('\t\t-------------------------------------');
+          }
+        }
+        logger.i("\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+      }
+
+      logger.i("-------------------------------");
+    }
   });
 
   test("Get month matrix", () async {

@@ -16,7 +16,7 @@ abstract class IAviaTicketsApiClient {
   });
 
   /// Get list companies offers.
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId({
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId({
     required String searchId,
   });
 
