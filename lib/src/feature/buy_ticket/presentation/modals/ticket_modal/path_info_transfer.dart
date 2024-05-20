@@ -7,17 +7,17 @@ class PathInfoTransfer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         alignment: Alignment.center,
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
-          color: Color(0xFFF8F8F8),
+          color: const Color(0xFFF8F8F8),
         ),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(

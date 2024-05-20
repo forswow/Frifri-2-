@@ -28,9 +28,9 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     // 24 - 14 = 10
-    const _tilePadding = _generalPadding - 14.0;
+    const tilePadding = _generalPadding - 14.0;
     // 24 - 10 = 14
-    const _tileContentPadding = _generalPadding - _tilePadding;
+    const tileContentPadding = _generalPadding - tilePadding;
     // Суммарно = 24
 
     return AnnotatedRegion(
@@ -43,7 +43,7 @@ class _MoreScreenState extends State<MoreScreen> {
           titleSpacing: 0,
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           title: Padding(
-            padding: EdgeInsets.only(left: 24),
+            padding: const EdgeInsets.only(left: 24),
             child: Text(
               AppLocalizations.of(context)!.more,
               style: GoogleFonts.poppins(
@@ -55,12 +55,12 @@ class _MoreScreenState extends State<MoreScreen> {
           // Padding + contentPadding = 24 пикселя по дизайну
           // это нужно чтобы эффект тапа не казался уродливым (прижатым к иконкам)
           padding: const EdgeInsets.only(
-              left: _tileContentPadding, right: _tileContentPadding, top: 20),
+              left: tileContentPadding, right: tileContentPadding, top: 20),
           itemBuilder: (context, index) {
             final moreItemEntity = moreItemList(context)[index];
             return ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: _tileContentPadding,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: tileContentPadding,
               ),
               onTap: moreItemEntity.onPreseed,
               shape: RoundedRectangleBorder(

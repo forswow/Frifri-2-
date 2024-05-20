@@ -4,7 +4,7 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/widgets/counter_button.dart';
 
 class Counter extends StatefulWidget {
-  Counter({
+  const Counter({
     super.key,
     required this.titleText,
     required this.count,
@@ -44,11 +44,11 @@ class _CounterState extends State<Counter> {
         CounterTitle(titleText: titleText),
         Container(
           height: 60,
-          margin: EdgeInsets.only(top: 16),
+          margin: const EdgeInsets.only(top: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: Color(0xffEDEDEE),
+              color: const Color(0xffEDEDEE),
             ),
           ),
           child: Padding(
@@ -71,7 +71,7 @@ class _CounterState extends State<Counter> {
                   style: AppStyles.textStylePoppins.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
-                    color: Color(0xff202020),
+                    color: const Color(0xff202020),
                   ),
                 ),
                 CounterButton(
@@ -110,7 +110,7 @@ class CounterTitle extends StatelessWidget {
       style: AppStyles.textStylePoppins.copyWith(
         fontWeight: FontWeight.w700,
         fontSize: 16,
-        color: Color(0xff202020),
+        color: const Color(0xff202020),
       ),
     );
   }

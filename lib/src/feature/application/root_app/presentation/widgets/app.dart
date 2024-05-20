@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// {@template app}
 /// App widget.
@@ -17,7 +18,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         systemNavigationBarColor: kPrimaryBackgroundColor,
       ),
       child: BlocBuilder<AppLanguageCubit, String>(
@@ -30,6 +31,7 @@ class App extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: theme,
             routerConfig: NavigationManager.router,
+            // routerConfig: NavigationManager.router,
           );
         },
       ),

@@ -18,13 +18,19 @@ const _defaultListDivider = Divider(
 );
 
 class SelectAirportModal extends StatelessWidget {
+  const SelectAirportModal({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          DefaultModalHeader(
+          const DefaultModalHeader(
             centerText: "Аэропорт вылета",
+          ),
+          const Divider(
+            height: 1,
+            thickness: 0.5,
           ),
           _SelectAirportModalContent(),
         ],
@@ -65,7 +71,7 @@ class _SelectAirportModalContentState
             children: [
               CustomRadioListTile(
                 value: "Tbilisi",
-                title: Text("Тибилиси"),
+                title: const Text("Тибилиси"),
                 groupValue: selectedAirport,
                 onChanged: (newValue) {
                   setState(
@@ -79,7 +85,7 @@ class _SelectAirportModalContentState
               ),
               CustomRadioListTile(
                 value: "Kutaisi",
-                title: Text("Кутаиси"),
+                title: const Text("Кутаиси"),
                 groupValue: selectedAirport,
                 onChanged: (newValue) {
                   setState(
@@ -93,7 +99,7 @@ class _SelectAirportModalContentState
               ),
               CustomRadioListTile(
                 value: "Batumi",
-                title: Text("Батуми"),
+                title: const Text("Батуми"),
                 groupValue: selectedAirport,
                 onChanged: (newValue) {
                   setState(
@@ -107,17 +113,11 @@ class _SelectAirportModalContentState
               )
             ],
           ),
-          Spacer(),
+          const Spacer(),
           SizedBox(
             width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
             height: 48,
             child: ConfirmationButton(
-              child: Text(
-                AppLocalizations.of(context)!.confirm,
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                ),
-              ),
               onPressed: isConfirmButtonEnabled
                   ? () {
                       context
@@ -126,6 +126,12 @@ class _SelectAirportModalContentState
                       context.pop();
                     }
                   : null,
+              child: Text(
+                AppLocalizations.of(context)!.confirm,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ],

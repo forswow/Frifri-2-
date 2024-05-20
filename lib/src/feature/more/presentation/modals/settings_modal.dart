@@ -13,13 +13,19 @@ import 'package:google_fonts/google_fonts.dart';
 const _contentPadding = 24.0;
 
 class SettingsModal extends StatelessWidget {
+  const SettingsModal({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return DefaultModalWrapper(
+    return const DefaultModalWrapper(
       child: Column(
         children: [
           DefaultModalHeader(
             centerText: "Настройки",
+          ),
+          Divider(
+            height: 1,
+            thickness: 0.5,
           ),
           _SettingsModalContent(),
         ],
@@ -54,7 +60,7 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(_contentPadding),
+        padding: const EdgeInsets.all(_contentPadding),
         child: Column(
           children: [
             Row(
@@ -82,17 +88,11 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               width: MediaQuery.sizeOf(context).width - _contentPadding * 2,
               height: 48,
               child: ConfirmationButton(
-                child: Text(
-                  AppLocalizations.of(context)!.confirm,
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                  ),
-                ),
                 onPressed: commitButtonEnabled
                     ? () {
                         context
@@ -101,6 +101,12 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
                         context.pop();
                       }
                     : null,
+                child: Text(
+                  AppLocalizations.of(context)!.confirm,
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],

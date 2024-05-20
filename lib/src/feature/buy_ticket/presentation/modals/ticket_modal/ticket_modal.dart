@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 class TicketModal extends StatelessWidget {
   const TicketModal({
+    super.key,
     required this.ticketPrice,
     required this.companyIconPath,
   });
@@ -21,7 +22,7 @@ class TicketModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(children: [
-        _TicketModalHeader(),
+        const _TicketModalHeader(),
         _TicketModalContent(
           ticketPrice: ticketPrice,
           companyIconPath: companyIconPath,
@@ -73,29 +74,30 @@ class __TicketModalContentState extends State<_TicketModalContent> {
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(16, 17, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(16, 17, 16, 0),
                   decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Color(0xffEDEDEE)),
+                      border:
+                          Border.all(width: 1, color: const Color(0xffEDEDEE)),
                       borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     children: <Widget>[
                       PathInfoHeader(companyIconPath: companyIconPath),
-                      SizedBox(height: 16),
-                      PathInfoBody(),
-                      SizedBox(height: 20),
-                      PathInfoTransfer(),
-                      SizedBox(
+                      const SizedBox(height: 16),
+                      const PathInfoBody(),
+                      const SizedBox(height: 20),
+                      const PathInfoTransfer(),
+                      const SizedBox(
                         height: 20,
                       ),
                       PathInfoHeader(companyIconPath: companyIconPath),
-                      SizedBox(height: 16),
-                      PathInfoBody(),
+                      const SizedBox(height: 16),
+                      const PathInfoBody(),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ConfirmationButton(

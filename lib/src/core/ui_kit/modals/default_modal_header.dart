@@ -30,7 +30,7 @@ class DefaultModalHeader extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Text(
               centerText,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),

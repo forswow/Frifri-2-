@@ -62,7 +62,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
                         color: Colors.black),
                     children: [
                       TextSpan(
-                        text: " " + currentAirport,
+                        text: " $currentAirport",
                         style: GoogleFonts.poppins(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -79,7 +79,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
                     context: context,
                     useRootNavigator: true,
                     builder: (BuildContext context) {
-                      return SelectAirportModal();
+                      return const SelectAirportModal();
                     },
                   );
                 },
@@ -91,7 +91,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
               )
             ],
           ),
-          actions: [],
+          actions: const [],
         ),
         body: SafeArea(
           child: ReorderableListView(

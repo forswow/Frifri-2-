@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
@@ -36,7 +37,7 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
 
     return result
         .map(
-          (ac_item) => AutocompleteResult.fromJson(ac_item),
+          (acItem) => AutocompleteResult.fromJson(acItem),
         )
         .toList();
   }
@@ -113,15 +114,16 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
     try {
       String endpoint = "http://api.travelpayouts.com/v1/flight_search";
 
-      final _apiKey = dotenv.get("API_KEY");
-      final signature = Signature().createSignature(options.toJson(), _apiKey);
+      final apiKey = dotenv.get("API_KEY");
 
       final allOptions = options.toJson();
+      allOptions.removeWhere((key, value) => value == null);
+
+      final signature = Signature().createSignature(allOptions, apiKey);
+
       allOptions.addAll(
         {"signature": signature},
       );
-
-      allOptions.removeWhere((key, value) => value == null);
 
       final response = await _dio.post(
         endpoint,
@@ -132,6 +134,8 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
 
       return TicketsSearchIdResult.fromJson(result);
     } on DioException catch (error, stack) {
+      logger.e("[DIO Error]: ${error.message}");
+      logger.e("[Request Data]: ${error.requestOptions.data}");
       Error.throwWithStackTrace(error, stack);
     } on Object catch (error, stack) {
       Error.throwWithStackTrace(error, stack);
@@ -139,22 +143,18 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
   }
 
   @override
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId({
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId({
     required String searchId,
   }) async {
     String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
 
-    final response = await _dio.post(endpoint, queryParameters: {
+    final response = await _dio.get(endpoint, queryParameters: {
       "uuid": searchId,
     });
 
-    final result = response.data as List<dynamic>;
+    final result = response.data;
 
-    return result
-        .map(
-          (e) => TicketsSearchResultBySearchId.fromJson(e),
-        )
-        .toList();
+    return TicketsSearchResultBySearchId.fromJson(result);
   }
 
   @override
@@ -167,14 +167,9 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
     allOptions.removeWhere((key, value) => value == null);
 
     final response = await _dio.get(endpoint, queryParameters: allOptions);
-    print(response.requestOptions.uri);
 
     final result = response.data as Map<String, dynamic>;
 
     return MonthMatrix.fromJson(result);
   }
 }
-
-// +---------------------------------------------+
-// |    Helper functions for signing requests    |
-// +---------------------------------------------+

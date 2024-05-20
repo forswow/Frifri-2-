@@ -18,7 +18,10 @@ class CalendarMonth extends StatefulWidget {
     required this.selectedDate,
     required this.onDateSelected,
     this.startWeekDay = DateTime.monday,
+    required this.availableFromDate,
   });
+
+  final DateTime availableFromDate;
 
   final int year;
   final int month;
@@ -32,12 +35,20 @@ class CalendarMonth extends StatefulWidget {
 }
 
 class _CalendarMonthState extends State<CalendarMonth> {
+  late final DateTime availableFromDate;
+
+  @override
+  void initState() {
+    super.initState();
+    availableFromDate = widget.availableFromDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.all(19),
+          padding: const EdgeInsets.all(19),
           child: MonthHeader(
             year: widget.year,
             month: widget.month,
@@ -50,6 +61,7 @@ class _CalendarMonthState extends State<CalendarMonth> {
           selectedDate: widget.selectedDate,
           onDateSelected: widget.onDateSelected,
           startWeekDay: widget.startWeekDay,
+          availableFromDate: availableFromDate,
         ),
       ],
     );
@@ -64,7 +76,10 @@ class MonthTableView extends StatelessWidget {
     required this.selectedDate,
     required this.onDateSelected,
     required this.startWeekDay,
+    required this.availableFromDate,
   });
+
+  final DateTime availableFromDate;
 
   final DateTime currentDate = DateTime.now();
 
@@ -94,16 +109,16 @@ class MonthTableView extends StatelessWidget {
     );
 
     return GridView.count(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 7,
       childAspectRatio: 1,
       mainAxisSpacing: 10,
       crossAxisSpacing: 0,
-      padding: EdgeInsets.all(17),
+      padding: const EdgeInsets.all(17),
       children: List.generate(countOfDays + startsWithDay, (index) {
         if (index < startsWithDay) {
-          return UnconstrainedBox();
+          return const UnconstrainedBox();
         }
 
         int day = index - startsWithDay + 1;
@@ -114,7 +129,11 @@ class MonthTableView extends StatelessWidget {
             !selectedDate.isWholeMonth;
 
         final isActive =
-            currentDate.difference(DateTime(year, month, day)).inDays <= 0;
+            currentDate.difference(DateTime(year, month, day)).inDays <= 0 &&
+                availableFromDate
+                        .difference(DateTime(year, month, day))
+                        .inDays <=
+                    0;
 
         return InkWell(
           onTap: () => isActive
@@ -160,8 +179,8 @@ class MonthDay extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: isSelected
-            ? Color.fromRGBO(235, 243, 243, 1)
-            : Color.fromRGBO(255, 255, 255, 1),
+            ? const Color.fromRGBO(235, 243, 243, 1)
+            : const Color.fromRGBO(255, 255, 255, 1),
         borderRadius: BorderRadius.circular(17),
       ),
       child: Column(
@@ -173,8 +192,8 @@ class MonthDay extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: isActive
-                  ? Color.fromRGBO(0, 0, 0, 1)
-                  : Color.fromRGBO(0, 0, 0, 0.3),
+                  ? const Color.fromRGBO(0, 0, 0, 1)
+                  : const Color.fromRGBO(0, 0, 0, 0.3),
             ),
           ),
           if (isActive && !isSelected)
@@ -183,8 +202,9 @@ class MonthDay extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color:
-                    isLowestPrice ? Colors.green : Color.fromRGBO(0, 0, 0, 0.3),
+                color: isLowestPrice
+                    ? Colors.green
+                    : const Color.fromRGBO(0, 0, 0, 0.3),
               ),
             ),
         ],
@@ -214,7 +234,7 @@ class MonthHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${monthName.captialize()} ${year}",
+          "${monthName.captialize()} $year",
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -230,7 +250,7 @@ class MonthHeader extends StatelessWidget {
             );
           },
           child: Container(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             child: Text(
               "Выбрать весь месяц",
               style: GoogleFonts.poppins(

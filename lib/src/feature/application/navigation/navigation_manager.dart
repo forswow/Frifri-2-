@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/choosefly_main_screen.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,7 +28,7 @@ class NavigationManager {
               GoRoute(
                 name: aviaTickets,
                 path: aviaTickets,
-                builder: (context, state) => AviaTicketScreen(),
+                builder: (context, state) => const AviaTicketScreen(),
               ),
             ],
           ),
@@ -37,7 +37,7 @@ class NavigationManager {
               GoRoute(
                 path: hotels,
                 builder: (context, state) {
-                  return Placeholder();
+                  return const Placeholder();
                 },
               ),
             ],
@@ -47,7 +47,7 @@ class NavigationManager {
               GoRoute(
                 path: services,
                 builder: (context, state) {
-                  return ServicesScreen();
+                  return const ServicesScreen();
                 },
               ),
             ],
@@ -57,7 +57,7 @@ class NavigationManager {
               GoRoute(
                 path: more,
                 builder: (context, state) {
-                  return MoreScreen();
+                  return const MoreScreen();
                 },
               ),
             ],
@@ -67,7 +67,7 @@ class NavigationManager {
               GoRoute(
                 path: search,
                 builder: (context, state) {
-                  return ChooseFlyMainScreen();
+                  return const SearchTicketFormScreen();
                 },
               ),
             ],

@@ -16,7 +16,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             useRootNavigator: true,
             context: context,
             isScrollControlled: true,
-            builder: (context) => SettingsModal(),
+            builder: (context) => const SettingsModal(),
           );
         },
         name: AppLocalizations.of(context)!.settings,
@@ -27,7 +27,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             context: context,
             useRootNavigator: true,
             isScrollControlled: true,
-            builder: (context) => SelectAirportModal(),
+            builder: (context) => const SelectAirportModal(),
           );
         },
         name: AppLocalizations.of(context)!.departureAirport,
@@ -38,7 +38,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             context: context,
             useRootNavigator: true,
             isScrollControlled: true,
-            builder: (context) => SelectLanguageModal(),
+            builder: (context) => const SelectLanguageModal(),
           );
         },
         name: AppLocalizations.of(context)!.language,
@@ -49,7 +49,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             context: context,
             useRootNavigator: true,
             isScrollControlled: true,
-            builder: (context) => SelectCurrencyModal(),
+            builder: (context) => const SelectCurrencyModal(),
           );
         },
         name: AppLocalizations.of(context)!.currency,
@@ -60,7 +60,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             context: context,
             useRootNavigator: true,
             isScrollControlled: true,
-            builder: (context) => HelpModal(),
+            builder: (context) => const HelpModal(),
           );
         },
         name: AppLocalizations.of(context)!.help,
@@ -71,7 +71,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             context: context,
             useRootNavigator: true,
             isScrollControlled: true,
-            builder: (context) => ConfidentialityModal(),
+            builder: (context) => const ConfidentialityModal(),
           );
         },
         name: AppLocalizations.of(context)!.confidentiality,

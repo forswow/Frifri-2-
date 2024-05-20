@@ -12,16 +12,16 @@ base mixin class Network {
   );
 }
 
-Dio getBasicDioClient(String _baseUrl, String _apiKey) {
+Dio getBasicDioClient(String baseUrl, String apiKey) {
   // Use GZIP because it's much faster than deflate
   // for the api
   final dioClient = Dio(
     BaseOptions(
       headers: {
-        'X-Access-Token': _apiKey,
+        'X-Access-Token': apiKey,
         'Accept-Encoding': 'gzip',
       },
-      baseUrl: _baseUrl,
+      baseUrl: baseUrl,
     ),
   );
 

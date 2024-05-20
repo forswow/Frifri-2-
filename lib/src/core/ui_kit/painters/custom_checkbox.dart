@@ -28,19 +28,19 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       child: Container(
         height: 16,
         width: 16,
+        decoration: BoxDecoration(
+          color: active ? const Color.fromRGBO(227, 14, 5, 1) : Colors.transparent,
+          border: active
+              ? null
+              : Border.all(
+                  color: const Color.fromRGBO(0, 0, 0, 0.12),
+                ),
+          borderRadius: BorderRadius.circular(100),
+        ),
         child: FractionallySizedBox(
           widthFactor: 0.5,
           heightFactor: 0.5,
           child: active ? SvgPicture.asset('assets/icons/action.svg') : null,
-        ),
-        decoration: BoxDecoration(
-          color: active ? Color.fromRGBO(227, 14, 5, 1) : Colors.transparent,
-          border: active
-              ? null
-              : Border.all(
-                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                ),
-          borderRadius: BorderRadius.circular(100),
         ),
       ),
     );

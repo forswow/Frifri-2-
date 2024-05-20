@@ -5,7 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 List<ServiceEntity> serviceList(BuildContext context) {
   final localiztion = AppLocalizations.of(context)!;
   return [
- 
     ServiceEntity(
       name: localiztion.insurance,
       assetPath: 'assets/icons/shield-check 1.svg',

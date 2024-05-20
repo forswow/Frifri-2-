@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_airport.component.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,7 +21,7 @@ class EmptyStringListTo extends StatelessWidget {
               style: AppStyles.textStylePoppins
                   .copyWith(fontSize: 12, fontWeight: FontWeight.w500)),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 36)),
+        const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
@@ -31,7 +32,9 @@ class EmptyStringListTo extends StatelessWidget {
                 child: AirportComponentCard(
                   name: name,
                   shortName: shortName,
-                  callback: () => context.pop(name),
+                  callback: () => context.pop(
+                    AirportEntity(name: name, code: shortName),
+                  ),
                 ),
               );
             },
@@ -40,12 +43,12 @@ class EmptyStringListTo extends StatelessWidget {
             addRepaintBoundaries: true,
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 36)),
+        const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverToBoxAdapter(
             child: Text('НЕДАВНИЕ ПОИСКИ',
                 style: AppStyles.textStylePoppins
                     .copyWith(fontSize: 12, fontWeight: FontWeight.w500))),
-        SliverToBoxAdapter(child: SizedBox(height: 16)),
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {

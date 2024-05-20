@@ -28,8 +28,12 @@ class FaqModal extends StatelessWidget {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          DefaultModalHeader(
+          const DefaultModalHeader(
             centerText: "Самые частые вопросы",
+          ),
+          const Divider(
+            height: 1,
+            thickness: 0.5,
           ),
           _FaqModalContent(scrollController: scrollController),
         ],
@@ -54,7 +58,7 @@ class _FaqModalContent extends StatelessWidget {
         ),
         child: ListView(
           controller: scrollController,
-          children: [
+          children: const [
             SizedBox(
               height: 12,
             ),

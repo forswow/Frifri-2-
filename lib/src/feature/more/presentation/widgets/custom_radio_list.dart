@@ -9,7 +9,7 @@ class CustomRadioListTile<T> extends StatelessWidget {
   final ValueChanged<T?> onChanged;
   final dynamic fill; // Color or LinearGradient
 
-  const CustomRadioListTile({
+  const CustomRadioListTile({super.key, 
     required this.value,
     required this.groupValue,
     required this.onChanged,
@@ -28,14 +28,14 @@ class CustomRadioListTile<T> extends StatelessWidget {
       },
       child: Container(
         height: 56,
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
             RadioButtonCheck(
               isSelected: value == groupValue,
               fill: fill,
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             if (title != null) title,
           ],
         ),
@@ -66,7 +66,7 @@ class RadioButtonCheck extends StatelessWidget {
         border: isSelected
             ? null
             : Border.all(
-                color: Color.fromRGBO(0, 0, 0, 0.12),
+                color: const Color.fromRGBO(0, 0, 0, 0.12),
               ),
         borderRadius: BorderRadius.circular(100),
       ),

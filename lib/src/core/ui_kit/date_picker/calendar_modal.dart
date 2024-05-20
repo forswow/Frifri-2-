@@ -7,6 +7,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
+  const CalendarModal({
+    super.key,
+    required this.availableFromDate,
+    required this.title,
+  });
+
+  final DateTime availableFromDate;
+  final String title;
+
   @override
   State<CalendarModal> createState() {
     return _CalendarModalState();
@@ -15,6 +24,9 @@ class CalendarModal extends StatefulWidget {
 
 class _CalendarModalState extends State<CalendarModal> {
   final currentDate = DateTime.now();
+  late final DateTime availableFromDate;
+
+  late final String title;
 
   SelectedDate selectedDate = SelectedDate(
     DateTime.now(),
@@ -22,21 +34,32 @@ class _CalendarModalState extends State<CalendarModal> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    availableFromDate = widget.availableFromDate;
+    title = widget.title;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(children: [
-        _CalendarModalHeader(),
-        _CalendarModalContent(),
+        _CalendarModalHeader(title: title),
+        _CalendarModalContent(
+          availableFromDate: availableFromDate,
+        ),
       ]),
     );
   }
 }
 
 class _CalendarModalHeader extends StatelessWidget {
-  const _CalendarModalHeader();
+  const _CalendarModalHeader({required this.title});
 
   static const weekdays = "SMTWTFS";
   static const firstDayInWeek = DateTime.monday;
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +67,10 @@ class _CalendarModalHeader extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         DefaultModalHeader(
-          centerText: "Когда",
+          centerText: title,
         ),
         GridView.count(
-          padding: EdgeInsets.symmetric(horizontal: 17),
+          padding: const EdgeInsets.symmetric(horizontal: 17),
           shrinkWrap: true,
           crossAxisCount: 7,
           childAspectRatio: 1.5,
@@ -59,7 +82,7 @@ class _CalendarModalHeader extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(0, 0, 0, 0.3),
+                  color: const Color.fromRGBO(0, 0, 0, 0.3),
                 ),
               ),
             );
@@ -71,6 +94,10 @@ class _CalendarModalHeader extends StatelessWidget {
 }
 
 class _CalendarModalContent extends StatefulWidget {
+  const _CalendarModalContent({required this.availableFromDate});
+
+  final DateTime availableFromDate;
+
   @override
   State<_CalendarModalContent> createState() {
     return _CalendarModalContentState();
@@ -83,9 +110,10 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
     isWholeMonth: true,
   );
 
-  late final currentDate;
-  late final lastMonth;
-  late final countOfMonths;
+  late final DateTime currentDate;
+  late final DateTime lastMonth;
+  late final int countOfMonths;
+  late final DateTime availableFromDate;
 
   @override
   void initState() {
@@ -94,6 +122,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
     countOfMonths = 12;
     currentDate = DateTime.now();
     lastMonth = DateUtils.addMonthsToMonthDate(currentDate, countOfMonths);
+    availableFromDate = widget.availableFromDate;
   }
 
   @override
@@ -120,21 +149,22 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                     });
                   },
                   startWeekDay: DateTime.monday,
+                  availableFromDate: availableFromDate,
                 );
               },
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Divider(
+                const Divider(
                   height: 1,
                   color: Color.fromRGBO(0, 0, 0, 0.12),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 Text(
@@ -156,24 +186,26 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(0, 0, 0, 0.32),
+                    color: const Color.fromRGBO(0, 0, 0, 0.32),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 13,
                 ),
                 SizedBox(
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "Найти билеты",
+                      "Выбрать дату",
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop(selectedDate.date);
+                    },
                   ),
                 )
               ],

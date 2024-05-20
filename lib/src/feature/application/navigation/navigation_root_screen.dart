@@ -20,7 +20,7 @@ class RootScreen extends StatelessWidget {
       bottomNavigationBar: CustomBottomNavigationBar(
         navigationIndex: currentNavigationIndex,
       ),
-      floatingActionButton: _CustomFloatingActionButton(),
+      floatingActionButton: const _CustomFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -45,7 +45,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: kCardBackgroundColor,
-            boxShadow: [
+            boxShadow: const [
               kCardShadow,
             ],
           ),
@@ -69,7 +69,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   context.go(NavigationManager.hotels);
                 },
               ),
-              Spacer(),
+              const Spacer(),
               CustomNavigationBarItem(
                 title: AppLocalizations.of(context)!.service,
                 assetPath: 'assets/icons/fire.svg',
@@ -97,9 +97,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
 }
 
 class _CustomFloatingActionButton extends StatelessWidget {
-  const _CustomFloatingActionButton({
-    super.key,
-  });
+  const _CustomFloatingActionButton();
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +110,9 @@ class _CustomFloatingActionButton extends StatelessWidget {
           context.go(NavigationManager.search);
         },
         backgroundColor: kPrimaryAppColor,
-        child: SvgPicture.asset('assets/icons/Search.svg'),
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         elevation: 0,
+        child: SvgPicture.asset('assets/icons/Search.svg'),
       ),
     );
   }

@@ -19,11 +19,15 @@ class HelpModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultModalWrapper(
+    return const DefaultModalWrapper(
       child: Column(
         children: [
           DefaultModalHeader(
             centerText: "Помощь",
+          ),
+          Divider(
+            height: 1,
+            thickness: 0.5,
           ),
           _HelpModalContent(),
         ],
@@ -58,7 +62,7 @@ class _HelpModalContent extends StatelessWidget {
               ),
             );
           },
-          child: ListTile(
+          child: const ListTile(
             contentPadding: EdgeInsets.only(left: 16, right: 12),
             title: Text(
               "Самые частые вопросы",
@@ -87,7 +91,7 @@ class _HelpModalContent extends StatelessWidget {
               ),
             );
           },
-          child: ListTile(
+          child: const ListTile(
             contentPadding: EdgeInsets.only(left: 16, right: 12),
             title: Text(
               "Отмена рейсов",
@@ -116,7 +120,7 @@ class _HelpModalContent extends StatelessWidget {
               ),
             );
           },
-          child: ListTile(
+          child: const ListTile(
             contentPadding: EdgeInsets.only(left: 16, right: 12),
             title: Text(
               "Оформление билета",

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 
 class PathInfoHeader extends StatelessWidget {
-  const PathInfoHeader({required this.companyIconPath});
+  const PathInfoHeader({super.key, required this.companyIconPath});
   final String companyIconPath;
 
   @override
@@ -12,7 +12,7 @@ class PathInfoHeader extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Container(
+            SizedBox(
               width: 32,
               height: 32,
               child: Image.asset(
@@ -20,7 +20,7 @@ class PathInfoHeader extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Column(
@@ -40,17 +40,20 @@ class PathInfoHeader extends StatelessWidget {
           ],
         ),
         InkWell(
-          onTap: () {
-            print('1');
-          },
+          onTap: () {},
           child: Container(
-            padding: EdgeInsets.fromLTRB(6, 16, 6, 16),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
+            decoration: const BoxDecoration(
               color: Color(0xFFEEF3FD),
+              borderRadius: BorderRadius.all(Radius.circular(100)),
             ),
-            child: Text("Подробнее",
-                style: AppStyles.textStylePoppins
-                    .copyWith(fontWeight: FontWeight.w500, fontSize: 12)),
+            child: Text(
+              "Подробнее",
+              style: AppStyles.textStylePoppins.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
           ),
         )
       ],

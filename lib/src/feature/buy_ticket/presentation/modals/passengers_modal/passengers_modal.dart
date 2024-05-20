@@ -4,6 +4,9 @@ import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/components/counter.dart';
@@ -19,15 +22,16 @@ const _checkboxGradientColor = LinearGradient(
 );
 
 class PassengersModal extends StatelessWidget {
-  PassengersModal({
+  const PassengersModal({
+    super.key,
     this.adultPassengersCount = 1,
     this.childCount = 0,
-    this.flightClass = "",
+    this.flightClass,
   });
 
   final int adultPassengersCount;
   final int childCount;
-  final String? flightClass;
+  final TripClass? flightClass;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,7 @@ class PassengersModal extends StatelessWidget {
           DefaultModalHeader(
             centerText: AppLocalizations.of(context)!.passengersAndClass,
           ),
-          Divider(
+          const Divider(
             height: 0,
             thickness: 0.5,
           ),
@@ -54,7 +58,7 @@ class PassengersModal extends StatelessWidget {
 }
 
 class _PassengersModalContent extends StatefulWidget {
-  _PassengersModalContent({
+  const _PassengersModalContent({
     required this.adultPassengersCount,
     required this.childCount,
     required this.flightClass,
@@ -62,7 +66,7 @@ class _PassengersModalContent extends StatefulWidget {
 
   final int adultPassengersCount;
   final int childCount;
-  final String? flightClass;
+  final TripClass? flightClass;
 
   @override
   State<StatefulWidget> createState() {
@@ -73,7 +77,7 @@ class _PassengersModalContent extends StatefulWidget {
 class _PassengersModalContentState extends State<_PassengersModalContent> {
   late int adultPassengersCount;
   late int childCount;
-  late String? flightClass;
+  late TripClass? flightClass;
 
   @override
   void initState() {
@@ -102,7 +106,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                       titleText: AppLocalizations.of(context)!.adults,
                       limit: 9,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
                     Counter(
@@ -113,31 +117,31 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                     ),
                     RoundedListContainer(
                       children: [
-                        CustomRadioListTile<String?>(
+                        CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
-                          value: "Эконом",
-                          title: Text("Эконом"),
+                          value: TripClass.economy,
+                          title: const Text("Эконом"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
-                        CustomRadioListTile<String?>(
+                        CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
-                          value: "Комфорт",
-                          title: Text("Комфорт"),
+                          value: TripClass.comfort,
+                          title: const Text("Комфорт"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
-                        CustomRadioListTile<String?>(
+                        CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
-                          value: "Первый",
-                          title: Text("Первый"),
+                          value: TripClass.first,
+                          title: const Text("Первый"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
-                        CustomRadioListTile<String?>(
+                        CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
-                          value: "Бизнес",
-                          title: Text("Бизнес"),
+                          value: TripClass.business,
+                          title: const Text("Бизнес"),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         )
@@ -147,17 +151,17 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             ConfirmationButton(
+              onPressed: isConfirmationButtonActive ? commitUserChoice : null,
               child: Text(
                 AppLocalizations.of(context)!.confirm,
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.white,
                 ),
               ),
-              onPressed: isConfirmationButtonActive ? commitUserChoice : null,
             )
           ],
         ),
@@ -166,7 +170,16 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
   }
 
   void commitUserChoice() {
-    Navigator.pop(context, [adultPassengersCount, childCount, flightClass]);
+    Navigator.pop(
+      context,
+      PassengersAndClass(
+        passengers: PassengersEntity(
+          adults: adultPassengersCount,
+          children: childCount,
+        ),
+        tripClass: flightClass!,
+      ),
+    );
   }
 
   void updateChildCount(int childCount) {
@@ -177,11 +190,11 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
 
   void updateOldCount(int oldCount) {
     setState(() {
-      this.adultPassengersCount = oldCount;
+      adultPassengersCount = oldCount;
     });
   }
 
-  void updateFlightClass(String? newFlightClass) {
+  void updateFlightClass(TripClass? newFlightClass) {
     setState(() {
       flightClass = newFlightClass;
     });

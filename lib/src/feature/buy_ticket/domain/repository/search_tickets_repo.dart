@@ -5,18 +5,17 @@ import '../../data/DTO/search_tickets.dart';
 import '../../data/dto/ticket_search_query.dart';
 
 abstract interface class ISearchTicketsRepo {
-
-
   /// Main request with params.
-  Future<TicketsSearchIdResult> searchTicket(final TicketsSearchQuery options);
+  Future<TicketsSearchIdResult> searchTickets(final TicketsSearchQuery options);
 
   /// Get list companies offers.
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId(
-    final String searchId,
-  );
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId({
+    required String searchId,
+  });
 
   /// Get companies buy ticket link.
-  Future<BookingTicketEntity> getABookingLink(final String searchId);
+  Future<BookingTicketEntity> getABookingLink({
+    required String searchId,
+    required int termsUrl,
+  });
 }
-
-

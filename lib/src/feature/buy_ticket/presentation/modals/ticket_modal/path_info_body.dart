@@ -17,7 +17,7 @@ class PathInfoBody extends StatelessWidget {
           Container(
             width: 2,
             height: 50,
-            color: Color(0xFFE4E9F3),
+            color: const Color(0xFFE4E9F3),
           ),
           SvgPicture.asset(
             'assets/icons/circle-icon.svg',
@@ -25,7 +25,7 @@ class PathInfoBody extends StatelessWidget {
           )
         ],
       ),
-      SizedBox(
+      const SizedBox(
         width: 16,
       ),
       Column(
@@ -41,7 +41,7 @@ class PathInfoBody extends StatelessWidget {
                       .copyWith(color: Colors.black45, fontSize: 12)),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Column(
@@ -57,7 +57,7 @@ class PathInfoBody extends StatelessWidget {
           )
         ],
       ),
-      SizedBox(
+      const SizedBox(
         width: 16,
       ),
       Column(
@@ -74,7 +74,7 @@ class PathInfoBody extends StatelessWidget {
                       .copyWith(color: Colors.black45, fontSize: 12)),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Column(

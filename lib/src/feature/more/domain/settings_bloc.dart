@@ -7,7 +7,7 @@ class PushNotificationCubit extends Cubit<bool> {
   final GlobalPrefHelper prefHelper;
 
   PushNotificationCubit({required this.prefHelper})
-      : super(prefHelper.getPushEnabled()) {}
+      : super(prefHelper.getPushEnabled());
 
   void setPushEnabled(bool newValue) => emit(newValue);
 

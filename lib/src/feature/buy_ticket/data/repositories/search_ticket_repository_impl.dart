@@ -13,13 +13,19 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   final ISearchDataSources searchDataSources;
 
   @override
-  Future<BookingTicketEntity> getABookingLink(String searchId) async {
-    return await searchDataSources.getABookingLink(searchId);
+  Future<BookingTicketEntity> getABookingLink({
+    required String searchId,
+    required int termsUrl,
+  }) async {
+    return await searchDataSources.getABookingLink(
+      searchId: searchId,
+      termsUrl: termsUrl,
+    );
   }
 
   @override
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId(
-      String searchId) async {
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId(
+      {required String searchId}) async {
     return await searchDataSources.getTicketsBySearchId(searchId);
   }
 
@@ -28,7 +34,8 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   }
 
   @override
-  Future<TicketsSearchIdResult> searchTicket(TicketsSearchQuery options) async {
-    return await searchDataSources.searchTicket(options);
+  Future<TicketsSearchIdResult> searchTickets(
+      TicketsSearchQuery options) async {
+    return await searchDataSources.searchTickets(options: options);
   }
 }
