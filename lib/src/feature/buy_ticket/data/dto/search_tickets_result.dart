@@ -22,8 +22,13 @@ class TicketsSearchResultBySearchId {
 class TicketsChunkData {
   final List<Proposals> proposals;
   final Map<String, Airport> airports;
+  final Map<String, Airlines> airlines;
 
-  TicketsChunkData({required this.proposals, required this.airports});
+  TicketsChunkData({
+    required this.proposals,
+    required this.airports,
+    required this.airlines,
+  });
 
   factory TicketsChunkData.fromJson(Map<String, dynamic> json) {
     return TicketsChunkData(
@@ -32,6 +37,8 @@ class TicketsChunkData {
           .toList(),
       airports: (json['airports'] as Map<String, dynamic>)
           .map((key, value) => MapEntry(key, Airport.fromJson(value))),
+      airlines: (json['airlines'] as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, Airlines.fromJson(value))),
     );
   }
 
@@ -39,6 +46,34 @@ class TicketsChunkData {
     return {
       'proposals': proposals.map((e) => e.toJson()).toList(),
       'airports': airports.map((key, value) => MapEntry(key, value.toJson())),
+    };
+  }
+}
+
+class Airlines {
+  final int id;
+  final String name;
+  final String iataCode;
+
+  Airlines({
+    required this.id,
+    required this.name,
+    required this.iataCode,
+  });
+
+  factory Airlines.fromJson(Map<String, dynamic> json) {
+    return Airlines(
+      id: json['id'],
+      name: json['name'],
+      iataCode: json['iata'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'iata': iataCode,
     };
   }
 }
