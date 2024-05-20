@@ -3,9 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
+import 'package:frifri/src/feature/service/data/helpers/url_launcher_helper.dart';
 import 'package:intl/intl.dart';
 
 class TicketModal extends StatelessWidget {
@@ -110,18 +112,27 @@ class __TicketModalContentState extends State<_TicketModalContent> {
             SizedBox(
               height: 48,
               child: ConfirmationButton(
+                onPressed: _onBookingPressed,
                 child: Text(
                   "Подтвердить покупку билета",
                   style:
                       AppStyles.textStylePoppins.copyWith(color: Colors.white),
                 ),
-                onPressed: () {},
               ),
             )
           ],
         ),
       ),
     );
+  }
+
+  void _onBookingPressed() async {
+    final bookingUrlResult = await SearchDataSources().getABookingLink(
+        searchId: ticketEntity.searchId, termsUrl: ticketEntity.termsUrl);
+
+    final String url = bookingUrlResult.url;
+
+    await UrlLauncherHelper.launchInWeb(url);
   }
 }
 

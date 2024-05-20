@@ -154,12 +154,15 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
             const SizedBox(
               height: 10,
             ),
-            ConfirmationButton(
-              onPressed: isConfirmationButtonActive ? commitUserChoice : null,
-              child: Text(
-                AppLocalizations.of(context)!.confirm,
-                style: AppStyles.textStylePoppins.copyWith(
-                  color: Colors.white,
+            SizedBox(
+              height: 48,
+              child: ConfirmationButton(
+                onPressed: isConfirmationButtonActive ? commitUserChoice : null,
+                child: Text(
+                  AppLocalizations.of(context)!.confirm,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             )

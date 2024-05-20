@@ -114,10 +114,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             final formattedDuration =
                 "${proposal.totalDurationInMinutes ~/ 60}h ${proposal.totalDurationInMinutes % 60}m";
 
-            // final bookingLinkResult = await ticketRepo.getABookingLink(
-            //     searchId: searchId, termsUrl: proposal.terms.urlCode);
-            const bookingLink = "";
-
             final ticket = TicketEntity(
               originAirport: searchModel.departureAt!,
               destinationAirport: searchModel.arrivalAt!,
@@ -126,7 +122,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               departureTime: ticketSegments.first.departureTime,
               arrivalTime: ticketSegments.last.arrivalTime,
               price: proposal.terms.price,
-              bookingLink: bookingLink,
+
+              // For forming url for booking
+              searchId: searchId,
+              termsUrl: proposal.terms.urlCode,
             );
 
             newTickets.add(ticket);
