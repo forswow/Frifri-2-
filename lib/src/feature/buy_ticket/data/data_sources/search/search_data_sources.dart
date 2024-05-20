@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
-import 'package:frifri/src/feature/buy_ticket/data/modal/sarch_result_model.dart';
 import '../../../../../core/helpers/signature/signature_helper.dart';
 import '../../../domain/entities/booking_ticket_entity.dart';
 import '../../dto/ticket_search_query.dart';
@@ -139,22 +135,17 @@ final class SearchDataSources
         //     .map((e) => e)
         //     .toList();
 
-
-
         logger.i(json);
         final ticketList = (json as List<dynamic>).map((e) => e['proposals']);
 
-
         logger.i(ticketList);
         for (var element in ticketList) {
-    print('run');
+          print('run');
         }
         //
         // final myList =
         //     (jsonDecode(utf8.decode(response.bodyBytes)) as List<dynamic>)
         //         .map((e) => e['proposals']);
-
-
 
         // for (var elements in data) {
         //   logger.i(data.map((e) => logger.i(elements['proposals'])));
