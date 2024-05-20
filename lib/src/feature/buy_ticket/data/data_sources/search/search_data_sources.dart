@@ -102,6 +102,10 @@ final class SearchDataSources
         message: '${response.statusCode}',
         statusCode: "${response.statusCode}",
       );
+    } on DioException catch (error, stack) {
+      logger.e("[DIO Error]: ${error.message}");
+      logger.e("[Request Data]: ${error.requestOptions.data}");
+      Error.throwWithStackTrace(error, stack);
     } on Object catch (error, stack) {
       Error.throwWithStackTrace(error, stack);
     }
