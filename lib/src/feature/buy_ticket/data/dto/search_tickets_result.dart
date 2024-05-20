@@ -21,23 +21,88 @@ class TicketsSearchResultBySearchId {
 // The data chunk, has list of results as proposals
 class TicketsChunkData {
   final List<Proposals> proposals;
+  final Map<String, Airport> airports;
 
-  TicketsChunkData({required this.proposals});
+  TicketsChunkData({required this.proposals, required this.airports});
 
   factory TicketsChunkData.fromJson(Map<String, dynamic> json) {
     return TicketsChunkData(
-      proposals: (json['proposals'] as List<dynamic>?)
-              ?.map((e) => Proposals.fromJson(e))
-              .toList() ??
-          [],
+      proposals: (json['proposals'] as List<dynamic>)
+          .map((e) => Proposals.fromJson(e))
+          .toList(),
+      airports: (json['airports'] as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, Airport.fromJson(value))),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'proposals': proposals.map((e) => e.toJson()).toList(),
+      'airports': airports.map((key, value) => MapEntry(key, value.toJson())),
     };
   }
+}
+
+class Airport {
+  final String name;
+  final String city;
+  final String cityCode;
+  final String country;
+  final String countryCode;
+  final String timeZone;
+  final Coordinates coordinates;
+
+  Airport({
+    required this.name,
+    required this.city,
+    required this.cityCode,
+    required this.country,
+    required this.countryCode,
+    required this.timeZone,
+    required this.coordinates,
+  });
+
+  factory Airport.fromJson(Map<String, dynamic> json) {
+    return Airport(
+      name: json['name'] as String,
+      city: json['city'] as String,
+      cityCode: json['city_code'] as String,
+      country: json['country'] as String,
+      countryCode: json['country_code'] as String,
+      timeZone: json['time_zone'] as String,
+      coordinates:
+          Coordinates.fromJson(json['coordinates'] as Map<String, dynamic>),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'city': city,
+      'city_code': cityCode,
+      'country': country,
+      'country_code': countryCode,
+      'time_zone': timeZone,
+      'coordinates': coordinates.toJson(),
+    };
+  }
+}
+
+class Coordinates {
+  final double lat;
+  final double lon;
+
+  Coordinates({required this.lat, required this.lon});
+
+  Map<String, dynamic> toJson() => {
+        'lat': lat,
+        'lon': lon,
+      };
+
+  factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
+        lat: json['lat'].toDouble(),
+        lon: json['lon'].toDouble(),
+      );
 }
 
 class Proposals {
