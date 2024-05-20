@@ -39,9 +39,8 @@ dependencies:
   path: ^1.9.0
   stream_transform: ^2.1.0
   rxdart: ^0.27.7
-
   sqlite3: any
-  flutter_gen: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
