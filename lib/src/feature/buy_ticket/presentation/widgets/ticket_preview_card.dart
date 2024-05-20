@@ -114,7 +114,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                               width: 12,
                             ),
                             SizedBox(
-                              width: 180,
+                              width: 150,
                               child: FittedBox(
                                 alignment: Alignment.centerLeft,
                                 fit: BoxFit.scaleDown,

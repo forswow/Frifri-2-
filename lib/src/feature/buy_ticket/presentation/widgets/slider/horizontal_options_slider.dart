@@ -33,7 +33,11 @@ class HorizontalOptionsSlider extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Icon(Icons.flight),
+              const Icon(
+                Icons.flight,
+                color: Colors.grey,
+                size: 20,
+              ),
               const SizedBox(
                 width: 6,
               ),
