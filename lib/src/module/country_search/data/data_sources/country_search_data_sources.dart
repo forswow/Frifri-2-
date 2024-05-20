@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
-import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/module/country_search/data/interceptor/country_search_interceptor.dart';
 
 import '../../domain/dto/input_dto.dart';
