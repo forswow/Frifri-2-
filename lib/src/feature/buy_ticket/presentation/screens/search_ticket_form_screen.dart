@@ -28,7 +28,7 @@ class SearchModel with ChangeNotifier {
   DateTime? get departureDate => _departureDate;
   DateTime? get returnDate => _returnDate;
   PassengersAndClass? get passengersAndClass => _passengers;
-  bool get isDirectFlight => _isDirectFlight;
+  bool get isDirectFlightOnly => _isDirectFlight;
 
   // Setters with notifyListeners
   set departureAt(AirportEntity? value) {
@@ -56,7 +56,7 @@ class SearchModel with ChangeNotifier {
     notifyListeners();
   }
 
-  set isDirectFlight(bool value) {
+  set isDirectFlightOnly(bool value) {
     _isDirectFlight = value;
     notifyListeners();
   }
@@ -480,7 +480,7 @@ class DirectFlightCheckZone extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        searchModel.isDirectFlight = !searchModel.isDirectFlight;
+        searchModel.isDirectFlightOnly = !searchModel.isDirectFlightOnly;
       },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
@@ -490,7 +490,7 @@ class DirectFlightCheckZone extends StatelessWidget {
               listenable: searchModel,
               builder: (context, child) {
                 return RadioButton(
-                  isActive: searchModel.isDirectFlight,
+                  isActive: searchModel.isDirectFlightOnly,
                 );
               },
             ),

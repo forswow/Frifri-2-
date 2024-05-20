@@ -9,8 +9,12 @@ class SearchInitial extends SearchState {
 }
 
 class SearchingInProgress extends SearchState {
+  SearchingInProgress({required this.tickets});
+
+  final List<TicketEntity> tickets;
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [tickets];
 }
 
 class SearchComplete extends SearchState {
@@ -19,5 +23,5 @@ class SearchComplete extends SearchState {
   final List<TicketEntity> tickets;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [tickets];
 }

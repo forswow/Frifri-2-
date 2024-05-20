@@ -63,25 +63,11 @@ class _ResultedTicketsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Padding(
-    //   padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-    //   child: ListView.builder(
-    //     shrinkWrap: true,
-    //     physics: const NeverScrollableScrollPhysics(),
-    //     itemBuilder: (context, index) {
-    //       return Padding(
-    //         padding: const EdgeInsets.only(bottom: 16),
-    //         child: tickets[index],
-    //       );
-    //     },
-    //     itemCount: 3,
-    //   ),
-    // );
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
-          if (state is SearchComplete) {
+          if (state is SearchingInProgress) {
             return ListView.builder(
               itemCount: state.tickets.length,
               shrinkWrap: true,

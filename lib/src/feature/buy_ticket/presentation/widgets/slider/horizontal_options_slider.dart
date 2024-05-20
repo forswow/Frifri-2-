@@ -38,7 +38,9 @@ class HorizontalOptionsSlider extends StatelessWidget {
                 width: 6,
               ),
               Text(
-                searchModel.isDirectFlight ? "Прямой перелёт" : "С пересадками",
+                searchModel.isDirectFlightOnly
+                    ? "Прямой перелёт"
+                    : "С пересадками",
               ),
             ],
           );

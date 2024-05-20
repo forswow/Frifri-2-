@@ -27,7 +27,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   FutureOr<void> _onStartSearchTicketEvent(
       StartSearchTicketEvent event, Emitter<SearchState> emit) async {
-    emit(SearchingInProgress());
+    emit(SearchingInProgress(tickets: const []));
 
     final List<TicketEntity> newTickets = [];
 
@@ -46,10 +46,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       while (result.data.isNotEmpty) {
         for (final chunk in result.data) {
           for (final proposal in chunk.proposals) {
-            // TODO: check if it is direct and required by form
-            // if (proposal.isDirect && true)
+            if (searchModel.isDirectFlightOnly && !proposal.isDirect) {
+              continue;
+            }
+
             final List<SegmentEntity> ticketSegments = [];
 
+            // Bang операторы используются по причине того, что
+            // API всегда содержит вместе с собой airlines мапу
+            // необходимую для получения названия самолёта/аэролинии
             for (var proposalSegment in proposal.segments.first.flight) {
               final departureAirportName =
                   chunk.airports[proposalSegment.departureAt]!.name;
@@ -71,9 +76,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               final arrivalDate = DateTime.parse(proposalSegment.arrivalDate);
               final arrivalTime = proposalSegment.arrivalTime;
 
-              // final airlineLogoUrl = ticketRepo.
-
-              await Future.delayed(const Duration(milliseconds: 200));
               ticketSegments.add(
                 SegmentEntity(
                   airlineLogo: getAirlineLogoUrl(
@@ -112,18 +114,25 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             );
 
             newTickets.add(ticket);
+
+            // Ждём секунду, чтобы избежать rate limit-а
+            await Future.delayed(const Duration(seconds: 1));
+
+            if (state is SearchingInProgress) {
+              final searchingState = state as SearchingInProgress;
+              emit(SearchingInProgress(
+                  tickets: searchingState.tickets + newTickets));
+            } else {
+              emit(SearchComplete(tickets: newTickets));
+            }
           }
         }
-        // await Future.delayed(const Duration(seconds: 5));
-        // result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
-        break;
+        // Ждём 10 секунд перед запросом следующего чанка
+        await Future.delayed(const Duration(seconds: 10));
+        result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
       }
 
-      newTickets.sort(
-        (a, b) {
-          return a.price.compareTo(b.price);
-        },
-      );
+      _sortTicketsByPrice(newTickets);
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {
       logger.e("DIO EXCEPTION: ${e.message}");
@@ -166,5 +175,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       );
     }
     return options;
+  }
+
+  void _sortTicketsByPrice(List<TicketEntity> tickets) {
+    tickets.sort(
+      (a, b) {
+        return a.price.compareTo(b.price);
+      },
+    );
   }
 }

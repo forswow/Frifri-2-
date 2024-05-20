@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
@@ -69,7 +68,7 @@ class _CountrySearchScreenState extends State<CountrySearchScreen> {
             builder: (context, state) {
               switch (state) {
                 case Idle():
-                  return SliverToBoxAdapter(
+                  return const SliverToBoxAdapter(
                     child: Text("idle"),
                   );
                 case SearchCompleted():
@@ -85,7 +84,7 @@ class _CountrySearchScreenState extends State<CountrySearchScreen> {
                     itemCount: state.countrySearchList.length,
                   );
                 case SearchFailure():
-                  return SliverToBoxAdapter(
+                  return const SliverToBoxAdapter(
                     child: Text("failure"),
                   );
               }
