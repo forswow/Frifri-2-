@@ -1,5 +1,4 @@
 // The whole data class
-import 'package:frifri/src/core/utils/logger.dart';
 
 class TicketsSearchResultBySearchId {
   final List<TicketsChunkData> data;
@@ -8,7 +7,10 @@ class TicketsSearchResultBySearchId {
 
   factory TicketsSearchResultBySearchId.fromJson(List<dynamic> json) {
     return TicketsSearchResultBySearchId(
-        data: json.map((e) => TicketsChunkData.fromJson(e)).toList());
+      data: json
+          .map((e) => TicketsChunkData.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -46,6 +48,7 @@ class TicketsChunkData {
     return {
       'proposals': proposals.map((e) => e.toJson()).toList(),
       'airports': airports.map((key, value) => MapEntry(key, value.toJson())),
+      'airlines': airlines.map((key, value) => MapEntry(key, value.toJson())),
     };
   }
 }

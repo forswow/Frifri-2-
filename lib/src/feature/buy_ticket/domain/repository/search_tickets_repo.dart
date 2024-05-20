@@ -6,7 +6,7 @@ import '../../data/dto/ticket_search_query.dart';
 
 abstract interface class ISearchTicketsRepo {
   /// Main request with params.
-  Future<TicketsSearchIdResult> searchTicket(final TicketsSearchQuery options);
+  Future<TicketsSearchIdResult> searchTickets(final TicketsSearchQuery options);
 
   /// Get list companies offers.
   Future<TicketsSearchResultBySearchId> getTicketsBySearchId({

@@ -36,14 +36,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final query = generateTicketsSearchQueryFromForm(searchModel);
 
       // Step 1: get search id
-      final searchResult = await ticketRepo.searchTicket(query);
+      final searchResult = await ticketRepo.searchTickets(query);
       final searchId = searchResult.searchId;
 
-      // Step 2: get tickets by search id
-      final result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
+      await Future.delayed(const Duration(seconds: 2));
 
-      while (result.data.isNotEmpty) {
-        for (final chunk in result.data) {
+      // Step 2: get tickets by search id
+      var result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
+      if (result.data == null) {
+        throw Exception("Tickets not found");
+      }
+
+      while (result.data!.isNotEmpty) {
+        for (final chunk in result.data!) {
           for (final proposal in chunk.proposals) {
             // TODO: check if it is direct and required by form
             // if (proposal.isDirect && true)
@@ -112,7 +117,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             newTickets.add(ticket);
           }
         }
+        break;
+        // result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
       }
+
+      print(newTickets);
 
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {

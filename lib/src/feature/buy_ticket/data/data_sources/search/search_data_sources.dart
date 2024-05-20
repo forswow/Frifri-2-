@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
@@ -10,7 +11,9 @@ import '../../dto/ticket_search_query.dart';
 
 abstract interface class ISearchDataSources {
   /// Main request with params.
-  Future<TicketsSearchIdResult> searchTicket(final TicketsSearchQuery options);
+  Future<TicketsSearchIdResult> searchTickets({
+    required TicketsSearchQuery options,
+  });
 
   /// Get list companies offers.
   Future<TicketsSearchResultBySearchId> getTicketsBySearchId(
@@ -28,19 +31,22 @@ final class SearchDataSources
     with Network, Signature
     implements ISearchDataSources {
   @override
-  Future<TicketsSearchIdResult> searchTicket(TicketsSearchQuery options) async {
+  Future<TicketsSearchIdResult> searchTickets({
+    required TicketsSearchQuery options,
+  }) async {
     try {
       String endpoint = "http://api.travelpayouts.com/v1/flight_search";
 
       final apiKey = dotenv.get("API_KEY");
-      final signature = createSignature(options.toJson(), apiKey);
 
       final allOptions = options.toJson();
+      allOptions.removeWhere((key, value) => value == null);
+
+      final signature = Signature().createSignature(allOptions, apiKey);
+
       allOptions.addAll(
         {"signature": signature},
       );
-
-      allOptions.removeWhere((key, value) => value == null);
 
       final response = await dioClient.post(
         endpoint,
@@ -51,6 +57,8 @@ final class SearchDataSources
 
       return TicketsSearchIdResult.fromJson(result);
     } on DioException catch (error, stack) {
+      logger.e("[DIO Error]: ${error.message}");
+      logger.e("[Request Data]: ${error.requestOptions.data}");
       Error.throwWithStackTrace(error, stack);
     } on Object catch (error, stack) {
       Error.throwWithStackTrace(error, stack);

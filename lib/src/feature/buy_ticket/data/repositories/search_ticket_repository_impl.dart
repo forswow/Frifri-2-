@@ -30,7 +30,8 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   }
 
   @override
-  Future<TicketsSearchIdResult> searchTicket(TicketsSearchQuery options) async {
-    return await searchDataSources.searchTicket(options);
+  Future<TicketsSearchIdResult> searchTickets(
+      TicketsSearchQuery options) async {
+    return await searchDataSources.searchTickets(options: options);
   }
 }
