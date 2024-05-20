@@ -1,47 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/ticket_modal.dart';
 import 'package:intl/intl.dart';
 
 class TicketPreviewCard extends StatefulWidget {
   const TicketPreviewCard({
     super.key,
-    required this.companyName,
-    required this.iconPath,
-    required this.price,
-    required this.time,
-    required this.isLesserCost,
-    required this.departureAtIataCode,
-    required this.arrivalAtIataCode,
-    required this.departureTime,
-    required this.arrivalTime,
-    required this.countOfTransfers,
+    required this.ticketEntity,
+    required this.isCheapestTicket,
   });
 
-  final String iconPath;
-  final String companyName;
-  final int price;
-  final String time;
-  final bool isLesserCost;
-
-  final String departureAtIataCode;
-  final String arrivalAtIataCode;
-
-  final String departureTime;
-  final String arrivalTime;
-
-  final int countOfTransfers;
+  final TicketEntity ticketEntity;
+  final bool isCheapestTicket;
 
   @override
   State<TicketPreviewCard> createState() => _TicketPreviewCardState();
 }
 
 class _TicketPreviewCardState extends State<TicketPreviewCard> {
+  late final TicketEntity ticketEntity;
   late final String iconPath;
   late final String companyName;
   late final int price;
   late final String time;
-  late final bool isLesserCost;
+  late final bool isCheapestTicket;
 
   late final String formattedPrice;
   late final String departureAtIataCode;
@@ -54,22 +37,21 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
   @override
   void initState() {
     super.initState();
+    ticketEntity = widget.ticketEntity;
+    isCheapestTicket = widget.isCheapestTicket;
 
-    iconPath = widget.iconPath;
-    companyName = widget.companyName;
-    price = widget.price;
-    time = widget.time;
-    isLesserCost = widget.isLesserCost;
+    companyName = ticketEntity.segmentsList.first.airlineName;
+    iconPath = ticketEntity.segmentsList.first.airlineLogo;
+    price = ticketEntity.price;
+    time = ticketEntity.flightDuration;
+    departureAtIataCode = ticketEntity.originAirport.code;
+    arrivalAtIataCode = ticketEntity.destinationAirport.code;
+    departureTime = ticketEntity.segmentsList.first.departureTime;
+
+    arrivalTime = ticketEntity.segmentsList.last.arrivalTime;
+    countOfTransfers = ticketEntity.segmentsList.length;
 
     formattedPrice = NumberFormat("#,##0").format(price).replaceAll(",", " ");
-
-    departureAtIataCode = widget.departureAtIataCode;
-    arrivalAtIataCode = widget.arrivalAtIataCode;
-
-    departureTime = widget.departureTime;
-    arrivalTime = widget.arrivalTime;
-
-    countOfTransfers = widget.countOfTransfers;
   }
 
   @override
@@ -88,8 +70,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                 useRootNavigator: true,
                 isScrollControlled: true,
                 builder: (context) => TicketModal(
-                  ticketPrice: price,
-                  companyIconPath: iconPath,
+                  ticketEntity: ticketEntity,
                 ),
               );
             },
@@ -132,12 +113,19 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                             const SizedBox(
                               width: 12,
                             ),
-                            Text(
-                              textAlign: TextAlign.center,
-                              companyName,
-                              style: AppStyles.textStylePoppins.copyWith(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
+                            SizedBox(
+                              width: 180,
+                              child: FittedBox(
+                                alignment: Alignment.centerLeft,
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  companyName,
+                                  style: AppStyles.textStylePoppins.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -239,7 +227,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
               ),
             ),
           ),
-          isLesserCost
+          isCheapestTicket
               ? Positioned(
                   left: 20,
                   top: -10,

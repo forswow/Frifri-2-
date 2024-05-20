@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_transfer.dart';
@@ -11,21 +13,20 @@ import 'package:intl/intl.dart';
 class TicketModal extends StatelessWidget {
   const TicketModal({
     super.key,
-    required this.ticketPrice,
-    required this.companyIconPath,
+    required this.ticketEntity,
   });
 
-  final int ticketPrice;
-  final String companyIconPath;
+  final TicketEntity ticketEntity;
 
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
       child: Column(children: [
-        const _TicketModalHeader(),
+        _TicketModalHeader(
+          ticketEntity: ticketEntity,
+        ),
         _TicketModalContent(
-          ticketPrice: ticketPrice,
-          companyIconPath: companyIconPath,
+          ticketEntity: ticketEntity,
         )
       ]),
     );
@@ -34,12 +35,10 @@ class TicketModal extends StatelessWidget {
 
 class _TicketModalContent extends StatefulWidget {
   const _TicketModalContent({
-    required this.ticketPrice,
-    required this.companyIconPath,
+    required this.ticketEntity,
   });
 
-  final int ticketPrice;
-  final String companyIconPath;
+  final TicketEntity ticketEntity;
 
   @override
   State<_TicketModalContent> createState() => __TicketModalContentState();
@@ -48,15 +47,21 @@ class _TicketModalContent extends StatefulWidget {
 class __TicketModalContentState extends State<_TicketModalContent> {
   late final int ticketPrice;
   late final String companyIconPath;
-
   late final String formattedTicketPrice;
+
+  late final TicketEntity ticketEntity;
+
+  late final List<SegmentEntity> allSegments;
 
   @override
   void initState() {
     super.initState();
 
-    ticketPrice = widget.ticketPrice;
-    companyIconPath = widget.companyIconPath;
+    ticketEntity = widget.ticketEntity;
+    allSegments = ticketEntity.segmentsList;
+
+    ticketPrice = ticketEntity.price;
+    companyIconPath = ticketEntity.segmentsList.first.airlineLogo;
 
     formattedTicketPrice =
         NumberFormat("#,##0").format(ticketPrice).replaceAll(",", " ");
@@ -80,19 +85,23 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                           Border.all(width: 1, color: const Color(0xffEDEDEE)),
                       borderRadius: BorderRadius.circular(12)),
                   child: Column(
-                    children: <Widget>[
-                      PathInfoHeader(companyIconPath: companyIconPath),
-                      const SizedBox(height: 16),
-                      const PathInfoBody(),
-                      const SizedBox(height: 20),
-                      const PathInfoTransfer(),
-                      const SizedBox(
-                        height: 20,
+                    children: List<Widget>.generate(
+                      allSegments.length,
+                      (index) => Column(
+                        children: [
+                          SegmentInfoHeader(
+                            segmentEntity: allSegments[index],
+                          ),
+                          const SizedBox(height: 16),
+                          PathInfoBody(
+                            segmentEntity: allSegments[index],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
                       ),
-                      PathInfoHeader(companyIconPath: companyIconPath),
-                      const SizedBox(height: 16),
-                      const PathInfoBody(),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -100,12 +109,16 @@ class __TicketModalContentState extends State<_TicketModalContent> {
             const SizedBox(
               height: 10,
             ),
-            ConfirmationButton(
-              child: Text(
-                "Подтвердить покупку билета",
-                style: AppStyles.textStylePoppins.copyWith(color: Colors.white),
+            SizedBox(
+              height: 48,
+              child: ConfirmationButton(
+                child: Text(
+                  "Подтвердить покупку билета",
+                  style:
+                      AppStyles.textStylePoppins.copyWith(color: Colors.white),
+                ),
+                onPressed: () {},
               ),
-              onPressed: () {},
             )
           ],
         ),
@@ -115,7 +128,11 @@ class __TicketModalContentState extends State<_TicketModalContent> {
 }
 
 class _TicketModalHeader extends StatelessWidget {
-  const _TicketModalHeader();
+  const _TicketModalHeader({
+    required this.ticketEntity,
+  });
+
+  final TicketEntity ticketEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -129,12 +146,12 @@ class _TicketModalHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'TBS',
+                ticketEntity.originAirport.code,
                 style: AppStyles.textStylePoppins
                     .copyWith(fontSize: 22, fontWeight: FontWeight.w600),
               ),
               Text(
-                'Tbilisi',
+                ticketEntity.originAirport.name,
                 style: AppStyles.textStylePoppins,
               ),
             ],
@@ -146,7 +163,7 @@ class _TicketModalHeader extends StatelessWidget {
                 width: 150,
               ),
               Text(
-                "2h 45m",
+                ticketEntity.flightDuration,
                 style: AppStyles.textStylePoppins.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -157,14 +174,14 @@ class _TicketModalHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Text(
-                'TBS',
+                ticketEntity.destinationAirport.code,
                 style: AppStyles.textStylePoppins.copyWith(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                'Tbilisi',
+                ticketEntity.destinationAirport.name,
                 style: AppStyles.textStylePoppins,
               ),
             ],

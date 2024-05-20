@@ -68,6 +68,17 @@ class _ResultedTicketsList extends StatelessWidget {
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           if (state is SearchComplete) {
+            if (state.tickets.isEmpty) {
+              return Center(
+                child: Text(
+                  "К сожалению билеты по вашему запросу не найдены",
+                  style: AppStyles.textStylePoppins.copyWith(
+                    fontSize: 16,
+                  ),
+                ),
+              );
+            }
+
             return ListView.builder(
               itemCount: state.tickets.length,
               shrinkWrap: true,
@@ -76,22 +87,8 @@ class _ResultedTicketsList extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: TicketPreviewCard(
-                    companyName:
-                        state.tickets[index].segmentsList.first.airlineName,
-                    iconPath:
-                        state.tickets[index].segmentsList.first.airlineLogo,
-                    isLesserCost: index == 0,
-                    price: state.tickets[index].price,
-                    time: state.tickets[index].flightDuration,
-                    departureAtIataCode:
-                        state.tickets[index].originAirport.code,
-                    arrivalAtIataCode:
-                        state.tickets[index].destinationAirport.code,
-                    departureTime:
-                        state.tickets[index].segmentsList.first.departureTime,
-                    arrivalTime:
-                        state.tickets[index].segmentsList.last.arrivalTime,
-                    countOfTransfers: state.tickets[index].segmentsList.length,
+                    ticketEntity: state.tickets[index],
+                    isCheapestTicket: index == 0,
                   ),
                 );
               },

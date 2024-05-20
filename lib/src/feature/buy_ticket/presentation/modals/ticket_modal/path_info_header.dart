@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 
-class PathInfoHeader extends StatelessWidget {
-  const PathInfoHeader({super.key, required this.companyIconPath});
-  final String companyIconPath;
+class SegmentInfoHeader extends StatelessWidget {
+  const SegmentInfoHeader({
+    super.key,
+    required this.segmentEntity,
+  });
+
+  final SegmentEntity segmentEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +20,8 @@ class PathInfoHeader extends StatelessWidget {
             SizedBox(
               width: 32,
               height: 32,
-              child: Image.asset(
-                companyIconPath,
+              child: Image.network(
+                segmentEntity.airlineLogo,
                 fit: BoxFit.cover,
               ),
             ),
@@ -27,7 +32,7 @@ class PathInfoHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Text>[
                 Text(
-                  'S7 airlines',
+                  segmentEntity.airlineName,
                   style: AppStyles.textStylePoppins
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
