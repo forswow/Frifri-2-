@@ -94,15 +94,25 @@ class _ResultedTicketsList extends StatelessWidget {
                         state.tickets[index].segmentsList.first.airlineName,
                     iconPath:
                         state.tickets[index].segmentsList.first.airlineLogo,
-                    isLesserCost: true,
+                    isLesserCost: index == 0,
                     price: state.tickets[index].price,
                     time: state.tickets[index].flightDuration,
+                    departureAtIataCode:
+                        state.tickets[index].originAirport.code,
+                    arrivalAtIataCode:
+                        state.tickets[index].destinationAirport.code,
+                    departureTime:
+                        state.tickets[index].segmentsList.first.departureTime,
+                    arrivalTime:
+                        state.tickets[index].segmentsList.last.arrivalTime,
                   ),
                 );
               },
             );
           } else {
-            return const CircularProgressIndicator.adaptive();
+            return const Center(
+              child: CircularProgressIndicator.adaptive(),
+            );
           }
         },
       ),
@@ -166,27 +176,3 @@ class _TicketsSearchResultHeader extends StatelessWidget {
     );
   }
 }
-
-List<TicketPreviewCard> tickets = [
-  const TicketPreviewCard(
-    isLesserCost: true,
-    iconPath: 'assets/icons/utr-logo.png',
-    companyName: 'Utair',
-    price: 3690,
-    time: '12:55 - 06:25',
-  ),
-  const TicketPreviewCard(
-    isLesserCost: false,
-    iconPath: 'assets/icons/smartavia-logo.png',
-    companyName: 'Smartavia',
-    price: 4160,
-    time: '10:00 - 03:30',
-  ),
-  const TicketPreviewCard(
-    isLesserCost: false,
-    iconPath: 'assets/icons/s7airlines-logo.png',
-    companyName: 'S7 Airlines',
-    price: 4172,
-    time: '17:10 - 02:20',
-  ),
-];

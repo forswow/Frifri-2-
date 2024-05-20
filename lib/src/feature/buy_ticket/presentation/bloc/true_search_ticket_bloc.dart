@@ -39,16 +39,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final searchResult = await ticketRepo.searchTickets(query);
       final searchId = searchResult.searchId;
 
-      await Future.delayed(const Duration(seconds: 2));
-
       // Step 2: get tickets by search id
+      await Future.delayed(const Duration(seconds: 5));
       var result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
-      if (result.data == null) {
-        throw Exception("Tickets not found");
-      }
 
-      while (result.data!.isNotEmpty) {
-        for (final chunk in result.data!) {
+      while (result.data.isNotEmpty) {
+        for (final chunk in result.data) {
           for (final proposal in chunk.proposals) {
             // TODO: check if it is direct and required by form
             // if (proposal.isDirect && true)
@@ -77,6 +73,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
               // final airlineLogoUrl = ticketRepo.
 
+              await Future.delayed(const Duration(milliseconds: 200));
               ticketSegments.add(
                 SegmentEntity(
                   airlineLogo: getAirlineLogoUrl(
@@ -117,11 +114,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             newTickets.add(ticket);
           }
         }
-        break;
+        // await Future.delayed(const Duration(seconds: 5));
         // result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
+        break;
       }
-
-      print(newTickets);
 
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {
