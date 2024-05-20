@@ -119,6 +119,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         break;
       }
 
+      newTickets.sort(
+        (a, b) {
+          return a.price.compareTo(b.price);
+        },
+      );
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {
       logger.e("DIO EXCEPTION: ${e.message}");
