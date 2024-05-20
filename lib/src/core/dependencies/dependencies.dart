@@ -12,8 +12,6 @@ import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:frifri/src/module/country_search/data/data_sources/country_search_data_sources.dart';
 import 'package:frifri/src/module/country_search/data/repos/country_search_repo_impl.dart';
-import 'package:frifri/src/module/country_search/domain/entity/country_search_entity.dart';
-import 'package:frifri/src/module/country_search/domain/repos/country_search_repo.dart';
 import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
