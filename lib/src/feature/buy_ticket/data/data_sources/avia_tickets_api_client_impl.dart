@@ -167,7 +167,6 @@ class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
     allOptions.removeWhere((key, value) => value == null);
 
     final response = await _dio.get(endpoint, queryParameters: allOptions);
-    print(response.requestOptions.uri);
 
     final result = response.data as Map<String, dynamic>;
 

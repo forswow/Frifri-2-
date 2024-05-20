@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_states.dart';
 
@@ -24,12 +25,35 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       StartSearchTicketEvent event, Emitter<SearchState> emit) async {
     emit(SearchingInProgress());
 
-    logger.i("Start searching for ${event.query}");
-    try {
-      final searchResult = await ticketRepo.searchTicket(event.query);
+    final List<TicketEntity> newTickets = [];
 
+    try {
+      // Step 1: get search id
+      final searchResult = await ticketRepo.searchTicket(event.query);
       final searchId = searchResult.searchId;
-      logger.i("Got searchID: $searchId");
+
+      // Step 2: get tickets by search id
+      final result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
+
+      while (result.data.isNotEmpty) {
+        for (final chunk in result.data) {
+          for (final proposal in chunk.proposals) {
+            // TODO: check if it is direct and required by form
+            // if (proposal.isDirect && true)
+
+            // final ticket = TicketEntity(
+            //   originAirport: null,
+            //   destinationAirport: null,
+            //   flightDuration: '',
+            //   segmentsList: [],
+            //   departureTime: '',
+            //   arrivalTime: '',
+            //   price: null,
+            //   bookingLink: '',
+            // );
+          }
+        }
+      }
 
       emit(SearchComplete(tickets: const []));
     } on DioException catch (e, stack) {

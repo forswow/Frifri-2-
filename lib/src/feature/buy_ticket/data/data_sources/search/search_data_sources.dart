@@ -13,7 +13,7 @@ abstract interface class ISearchDataSources {
   Future<TicketsSearchIdResult> searchTicket(final TicketsSearchQuery options);
 
   /// Get list companies offers.
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId(
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId(
     final String searchId,
   );
 
@@ -55,25 +55,18 @@ final class SearchDataSources
   }
 
   @override
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId(
-      String searchId) async {
-    try {
-      String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId(
+    String searchId,
+  ) async {
+    String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
 
-      final response = await dioClient.post(endpoint, queryParameters: {
-        "uuid": searchId,
-      });
+    final response = await dioClient.get(endpoint, queryParameters: {
+      "uuid": searchId,
+    });
 
-      final result = response.data as List<dynamic>;
+    final result = response.data;
 
-      return result
-          .map(
-            (e) => TicketsSearchResultBySearchId.fromJson(e),
-          )
-          .toList();
-    } on Object catch (error, stack) {
-      Error.throwWithStackTrace(error, stack);
-    }
+    return TicketsSearchResultBySearchId.fromJson(result);
   }
 
   @override

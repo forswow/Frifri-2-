@@ -1,30 +1,55 @@
+import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
+
+/// Сущность билета, содержит всю необходимую инфу
+/// для отображения как миниатюр, бронирования, подробной информации
 class TicketEntity {
-  final String originIataCode;
-  final String destinationIataCode;
+  final AirportEntity originAirport;
+  final AirportEntity destinationAirport;
 
-  DateTime departureAt;
-  DateTime arrivalAt;
+  // In [2h 45m] format
+  final String flightDuration;
 
-  // В минутах
-  int tripDuration;
-  int price;
-  String logoUrl;
-  String airlineName;
+  // In [HH:mm] format
+  final String departureTime;
+  final String arrivalTime;
 
-  // Количество пересадок
-  int countOfTransfers;
-  String transferAirlineIataCode;
+  final List<SegmentEntity> segmentsList;
+
+  final int price;
+
+  final String bookingLink;
 
   TicketEntity({
-    required this.originIataCode,
-    required this.destinationIataCode,
-    required this.departureAt,
-    required this.arrivalAt,
-    required this.tripDuration,
+    required this.originAirport,
+    required this.destinationAirport,
+    required this.flightDuration,
+    required this.segmentsList,
+    required this.departureTime,
+    required this.arrivalTime,
     required this.price,
-    required this.logoUrl,
+    required this.bookingLink,
+  });
+}
+
+class SegmentEntity {
+  final String airlineLogo;
+  final String airlineName;
+
+  final String departureTime;
+  final DateTime departureDate;
+
+  final String cityName;
+  final String airportName;
+
+  final DateTime arrivalDate;
+
+  SegmentEntity({
+    required this.airlineLogo,
     required this.airlineName,
-    required this.countOfTransfers,
-    required this.transferAirlineIataCode,
+    required this.departureTime,
+    required this.departureDate,
+    required this.cityName,
+    required this.airportName,
+    required this.arrivalDate,
   });
 }

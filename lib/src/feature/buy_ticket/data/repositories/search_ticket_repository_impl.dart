@@ -18,8 +18,8 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   }
 
   @override
-  Future<List<TicketsSearchResultBySearchId>> getTicketsBySearchId(
-      String searchId) async {
+  Future<TicketsSearchResultBySearchId> getTicketsBySearchId(
+      {required String searchId}) async {
     return await searchDataSources.getTicketsBySearchId(searchId);
   }
 
