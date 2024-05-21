@@ -9,6 +9,8 @@ import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_inputs.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 class TicketsSearchResultScreen extends StatefulWidget {
   const TicketsSearchResultScreen({super.key, required this.searchModel});
@@ -29,9 +31,15 @@ class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
     super.initState();
     _searchModel = widget.searchModel;
     searchBloc = context.read<SearchBloc>();
+    final locale = context.read<AppLanguageCubit>().state.toLowerCase();
+    final currency = context.read<CurrencyCubit>().state.toLowerCase();
 
     searchBloc.add(
-      StartSearchTicketEvent(_searchModel),
+      StartSearchTicketEvent(
+        searchModelForm: _searchModel,
+        locale: locale,
+        currency: currency,
+      ),
     );
   }
 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/ticket_modal.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:intl/intl.dart';
 
 class TicketPreviewCard extends StatefulWidget {
@@ -51,7 +54,17 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
     arrivalTime = ticketEntity.segmentsList.last.arrivalTime;
     countOfTransfers = ticketEntity.segmentsList.length;
 
-    formattedPrice = NumberFormat("#,##0").format(price).replaceAll(",", " ");
+    final currency =
+        context.read<CurrencyCubit>().state.toLowerCase().toUpperCase();
+    final locale = context.read<AppLanguageCubit>().state.toLowerCase();
+
+    final priceFormatter = NumberFormat.simpleCurrency(
+      decimalDigits: 0,
+      name: currency,
+      locale: locale.toUpperCase(),
+    );
+
+    formattedPrice = priceFormatter.format(price).replaceAll(",", " ");
   }
 
   @override
@@ -124,7 +137,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                             ),
                           ),
                           TicketArrivalTimeAndPlace(
-                            arrivalTime: ticketEntity.departureTime,
+                            arrivalTime: ticketEntity.arrivalTime,
                             arrivalAtIataCode:
                                 ticketEntity.destinationAirport.code,
                           ),
@@ -333,7 +346,7 @@ class TicketHeader extends StatelessWidget {
         ),
         Text(
           textAlign: TextAlign.center,
-          '$formattedPrice ₽',
+          formattedPrice,
           style: AppStyles.textStylePoppins.copyWith(
             color: const Color(0xff4B94F7),
             fontWeight: FontWeight.bold,

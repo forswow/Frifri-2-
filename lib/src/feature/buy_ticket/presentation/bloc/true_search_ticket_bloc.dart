@@ -37,6 +37,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       // Step 1: get search id
       final searchResult = await ticketRepo.searchTickets(query);
+      final currencyRates = searchResult.currencyRates;
       final searchId = searchResult.searchId;
 
       // Step 2: get tickets by search id
@@ -114,6 +115,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             final formattedDuration =
                 "${proposal.totalDurationInMinutes ~/ 60}h ${proposal.totalDurationInMinutes % 60}m";
 
+            final priceInRubles = proposal.terms.priceInRubles;
+            final currencyRate = currencyRates[event.currency]!;
+            final finalPrice = priceInRubles ~/ currencyRate;
+
             final ticket = TicketEntity(
               originAirport: searchModel.departureAt!,
               destinationAirport: searchModel.arrivalAt!,
@@ -121,7 +126,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               segmentsList: ticketSegments,
               departureTime: ticketSegments.first.departureTime,
               arrivalTime: ticketSegments.last.arrivalTime,
-              price: proposal.terms.priceInRubles,
+              price: finalPrice,
 
               // For forming url for booking
               searchId: searchId,

@@ -8,7 +8,14 @@ abstract class SearchEvent extends Equatable {}
 class StartSearchTicketEvent extends SearchEvent {
   // final TicketsSearchQuery query;
   final SearchModel searchModelForm;
-  StartSearchTicketEvent(this.searchModelForm);
+  final String locale;
+  final String currency;
+
+  StartSearchTicketEvent({
+    required this.searchModelForm,
+    required this.locale,
+    required this.currency,
+  });
 
   @override
   List<Object?> get props => [searchModelForm];
