@@ -319,13 +319,15 @@ class TicketHeader extends StatelessWidget {
             SizedBox(
               width: 164,
               child: FittedBox(
+                alignment: Alignment.centerLeft,
                 fit: BoxFit.scaleDown,
-                child: Text(
-                  textAlign: TextAlign.center,
-                  companyName,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                child: Align(
+                  child: Text(
+                    companyName,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
