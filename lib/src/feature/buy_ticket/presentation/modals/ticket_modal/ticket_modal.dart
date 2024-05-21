@@ -111,7 +111,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
               child: ConfirmationButton(
                 onPressed: _onBookingPressed,
                 child: Text(
-                  "Купить билет за $formattedTicketPrice₽",
+                  "Купить билет за $formattedTicketPrice",
                   style:
                       AppStyles.textStylePoppins.copyWith(color: Colors.white),
                 ),

@@ -90,17 +90,23 @@ class PathInfoBody extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  segmentEntity.departureCityName,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontWeight: FontWeight.w600,
+                SizedBox(
+                  width: 180,
+                  child: Text(
+                    segmentEntity.departureCityName,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-                Text(
-                  segmentEntity.departureAirportName,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black45,
-                    fontSize: 12,
+                SizedBox(
+                  width: 180,
+                  child: Text(
+                    segmentEntity.departureAirportName,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.black45,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
@@ -111,17 +117,23 @@ class PathInfoBody extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  segmentEntity.arrivalCityName,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontWeight: FontWeight.w600,
+                SizedBox(
+                  width: 180,
+                  child: Text(
+                    segmentEntity.arrivalCityName,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-                Text(
-                  segmentEntity.arrivalAirportName,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black45,
-                    fontSize: 12,
+                SizedBox(
+                  width: 180,
+                  child: Text(
+                    segmentEntity.arrivalAirportName,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.black45,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
