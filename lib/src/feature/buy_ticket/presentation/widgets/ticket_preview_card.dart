@@ -125,7 +125,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                           TicketDepartureTimeAndPlace(
                             departureTime: ticketEntity.departureTime,
                             departureAtIataCode:
-                                ticketEntity.destinationAirport.code,
+                                ticketEntity.originAirport.code,
                           ),
                           Text(
                             "–",
