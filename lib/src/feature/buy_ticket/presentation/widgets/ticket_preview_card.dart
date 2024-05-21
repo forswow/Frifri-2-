@@ -25,7 +25,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
   late final TicketEntity ticketEntity;
   late final String iconPath;
   late final String companyName;
-  late final int price;
+  late final String price;
   late final String time;
   late final bool isCheapestTicket;
 
@@ -45,7 +45,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
     companyName = ticketEntity.segmentsList.first.airlineName;
     iconPath = ticketEntity.segmentsList.first.airlineLogo;
-    price = ticketEntity.price;
+    formattedPrice = ticketEntity.formattedPrice;
     time = ticketEntity.flightDuration;
     departureAtIataCode = ticketEntity.originAirport.code;
     arrivalAtIataCode = ticketEntity.destinationAirport.code;
@@ -53,18 +53,6 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
     arrivalTime = ticketEntity.segmentsList.last.arrivalTime;
     countOfTransfers = ticketEntity.segmentsList.length;
-
-    final currency =
-        context.read<CurrencyCubit>().state.toLowerCase().toUpperCase();
-    final locale = context.read<AppLanguageCubit>().state.toLowerCase();
-
-    final priceFormatter = NumberFormat.simpleCurrency(
-      decimalDigits: 0,
-      name: currency,
-      locale: locale.toUpperCase(),
-    );
-
-    formattedPrice = priceFormatter.format(price).replaceAll(",", " ");
   }
 
   @override

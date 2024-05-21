@@ -8,7 +8,6 @@ import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/feature/service/data/helpers/url_launcher_helper.dart';
-import 'package:intl/intl.dart';
 
 class TicketModal extends StatelessWidget {
   const TicketModal({
@@ -45,7 +44,7 @@ class _TicketModalContent extends StatefulWidget {
 }
 
 class __TicketModalContentState extends State<_TicketModalContent> {
-  late final int ticketPrice;
+  late final String ticketPrice;
   late final String companyIconPath;
   late final String formattedTicketPrice;
 
@@ -60,11 +59,9 @@ class __TicketModalContentState extends State<_TicketModalContent> {
     ticketEntity = widget.ticketEntity;
     allSegments = ticketEntity.segmentsList;
 
-    ticketPrice = ticketEntity.price;
+    ticketPrice = ticketEntity.formattedPrice;
     companyIconPath = ticketEntity.segmentsList.first.airlineLogo;
-
-    formattedTicketPrice =
-        NumberFormat("#,##0").format(ticketPrice).replaceAll(",", " ");
+    formattedTicketPrice = ticketEntity.formattedPrice;
   }
 
   @override
@@ -114,7 +111,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
               child: ConfirmationButton(
                 onPressed: _onBookingPressed,
                 child: Text(
-                  "Подтвердить покупку билета",
+                  "Купить билет за $formattedTicketPrice₽",
                   style:
                       AppStyles.textStylePoppins.copyWith(color: Colors.white),
                 ),

@@ -10,7 +10,7 @@ class TicketEntity {
     required this.segmentsList,
     required this.departureTime,
     required this.arrivalTime,
-    required this.price,
+    required this.formattedPrice,
     required this.termsUrl,
     required this.searchId,
   });
@@ -27,7 +27,7 @@ class TicketEntity {
 
   final List<SegmentEntity> segmentsList;
 
-  final int price;
+  final String formattedPrice;
 
   final int termsUrl;
   final String searchId;

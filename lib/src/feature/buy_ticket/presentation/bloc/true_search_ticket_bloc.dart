@@ -11,6 +11,7 @@ import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_states.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
+import 'package:intl/intl.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchTicketRepoImpl ticketRepo;
@@ -120,6 +121,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             final currencyRate = currencyRates[event.currency]!;
             final finalPrice = priceInRubles ~/ currencyRate;
 
+            final priceFormatter = NumberFormat.simpleCurrency(
+              decimalDigits: 0,
+              name: event.currency.toUpperCase(),
+              locale: event.locale.toUpperCase(),
+            );
+
+            final formattedTicketPrice = priceFormatter
+                .format(
+                  finalPrice,
+                )
+                .replaceAll(",", " ");
+
             final ticket = TicketEntity(
               originAirport: searchModel.departureAt!,
               destinationAirport: searchModel.arrivalAt!,
@@ -127,7 +140,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               segmentsList: ticketSegments,
               departureTime: ticketSegments.first.departureTime,
               arrivalTime: ticketSegments.last.arrivalTime,
-              price: finalPrice,
+              formattedPrice: formattedTicketPrice,
 
               // For forming url for booking
               searchId: searchId,
@@ -197,7 +210,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void sortTicketsByPrice(List<TicketEntity> tickets) {
     tickets.sort(
       (a, b) {
-        return a.price.compareTo(b.price);
+        return a.formattedPrice.compareTo(b.formattedPrice);
       },
     );
   }
