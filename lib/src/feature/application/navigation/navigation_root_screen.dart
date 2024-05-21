@@ -138,7 +138,7 @@ class CustomNavigationBarItem extends StatelessWidget {
   final bool isActive;
   final VoidCallback onPressed;
 
-  static const double _SvgScaleFactor = 0.07;
+  static const double _svgScaleFactor = 0.07;
   static const double _fontScaleFactor = 5.5;
 
   @override
@@ -151,7 +151,7 @@ class CustomNavigationBarItem extends StatelessWidget {
           children: [
             SvgPicture.asset(
               isActive ? activeAssetPath : assetPath,
-              width: MediaQuery.sizeOf(context).width * _SvgScaleFactor,
+              width: MediaQuery.sizeOf(context).width * _svgScaleFactor,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 4),
