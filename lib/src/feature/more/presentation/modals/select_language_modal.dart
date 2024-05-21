@@ -80,7 +80,7 @@ class _SelectLanguageModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "eng",
+                value: "en",
                 title: const Text("English"),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
@@ -91,7 +91,7 @@ class _SelectLanguageModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "geo",
+                value: "ge",
                 title: const Text("Georgian"),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
