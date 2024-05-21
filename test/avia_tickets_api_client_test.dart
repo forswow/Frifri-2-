@@ -115,7 +115,7 @@ void main() async {
     logger.i("SearchID: ${result.searchId}");
     logger.i("Getting result for the searchID: ${result.searchId}...");
 
-    await Future.delayed(const Duration(seconds: 120));
+    await Future.delayed(const Duration(seconds: 40));
 
     final searchResult = await aviaApiClient.getTicketsBySearchId(
       searchId: result.searchId,
