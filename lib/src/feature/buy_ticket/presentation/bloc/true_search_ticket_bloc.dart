@@ -40,7 +40,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final searchId = searchResult.searchId;
 
       // Step 2: get tickets by search id
-      await Future.delayed(const Duration(seconds: 30));
+      await Future.delayed(const Duration(seconds: 15));
       var result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
 
       // Bang операторы используются по причине того, что
@@ -121,7 +121,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               segmentsList: ticketSegments,
               departureTime: ticketSegments.first.departureTime,
               arrivalTime: ticketSegments.last.arrivalTime,
-              price: proposal.terms.price,
+              price: proposal.terms.priceInRubles,
 
               // For forming url for booking
               searchId: searchId,
