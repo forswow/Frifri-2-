@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
@@ -127,8 +128,10 @@ class __TicketModalContentState extends State<_TicketModalContent> {
   }
 
   void _onBookingPressed() async {
-    final bookingUrlResult = await SearchDataSources().getABookingLink(
-        searchId: ticketEntity.searchId, termsUrl: ticketEntity.termsUrl);
+    final bookingUrlResult = await Dependencies.of(context)
+        .searchDataSources
+        .getABookingLink(
+            searchId: ticketEntity.searchId, termsUrl: ticketEntity.termsUrl);
 
     final String url = bookingUrlResult.url;
 
