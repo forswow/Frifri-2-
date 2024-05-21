@@ -11,10 +11,10 @@ class AirportCubit extends Cubit<String> {
   void selectAirport(String newAirport) => emit(newAirport);
 
   @override
-  void onChange(Change<String> newAirport) {
-    super.onChange(newAirport);
+  void onChange(Change<String> change) {
+    super.onChange(change);
 
-    prefHelper.setAirport(newAirport.nextState);
-    log("airport state change: ${newAirport.currentState} => ${newAirport.nextState}");
+    prefHelper.setAirport(change.nextState);
+    log("airport state change: ${change.currentState} => ${change.nextState}");
   }
 }

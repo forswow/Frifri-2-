@@ -52,7 +52,7 @@ class _CountrySearchScreenState extends State<CountrySearchScreen> {
                             InputDto(locale: 'ru', term: 'Казах'));
 
                     for (var element in list) {
-                      print(element.toString());
+                      logger.i(element);
                     }
                   } on NetworkException catch (error, stack) {
                     logger.e('', error: error, stackTrace: stack);

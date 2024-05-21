@@ -7,7 +7,7 @@ class CounterButton extends StatelessWidget {
     required this.onPressed,
   });
   final Widget child;
-  final onPressed;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {

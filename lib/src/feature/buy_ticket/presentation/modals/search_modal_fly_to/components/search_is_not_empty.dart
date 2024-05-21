@@ -3,8 +3,8 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_air
 import 'package:go_router/go_router.dart';
 
 class SearchIsNotEmptyList extends StatelessWidget {
-  const SearchIsNotEmptyList({super.key, this.filteredAirlines});
-  final filteredAirlines;
+  const SearchIsNotEmptyList({super.key, required this.filteredAirlines});
+  final Map<String, String> filteredAirlines;
 
   @override
   Widget build(BuildContext context) {

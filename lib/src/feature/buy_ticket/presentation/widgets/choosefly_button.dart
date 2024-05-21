@@ -12,7 +12,7 @@ class ChooseflyButtonComponent extends StatelessWidget {
 
   final double height;
   final String text;
-  final callback;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {

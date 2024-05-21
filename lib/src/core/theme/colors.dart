@@ -40,7 +40,7 @@ const kNavBarInactiveColor = Colors.grey;
 
 // Rounded Icon
 const kRoundedButtonBackgroundColor = Color.fromRGBO(235, 243, 253, 1);
-const KRoundedButtonIconColor = Color.fromRGBO(91, 156, 236, 1);
+const kRoundedButtonIconColor = Color.fromRGBO(91, 156, 236, 1);
 
 // Borders
 const kBorderPrimaryColor = Color.fromRGBO(227, 227, 227, 1);
