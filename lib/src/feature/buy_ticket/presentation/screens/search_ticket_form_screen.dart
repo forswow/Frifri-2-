@@ -246,12 +246,23 @@ class ToLocationPicker extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(
-            AppLocalizations.of(context)!.where,
-            style: AppStyles.textStylePoppins.copyWith(
-              fontSize: 16,
-              color: Colors.grey,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.where,
+                style: AppStyles.textStylePoppins.copyWith(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              Text(
+                " *",
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.red[900],
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 4),
           ListenableBuilder(
@@ -316,12 +327,22 @@ class FromLocationPicker extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppLocalizations.of(context)!.whereFrom,
-            style: AppStyles.textStylePoppins.copyWith(
-              color: Colors.grey,
-              fontSize: 16,
-            ),
+          Row(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.whereFrom,
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                " *",
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.red[900],
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 4),
           ListenableBuilder(
@@ -385,12 +406,22 @@ class FlightDatePickerZone extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  AppLocalizations.of(context)!.when,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.when,
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(
+                      " *",
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.red[900],
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 4),
                 ListenableBuilder(
@@ -555,38 +586,69 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(AppLocalizations.of(context)!.passengers,
-                        style: AppStyles.textStylePoppins
-                            .copyWith(color: Colors.grey, fontSize: 16)),
+                    Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.passengers,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          " *",
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.red[900],
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 4),
                     ListenableBuilder(
-                        listenable: searchModel,
-                        builder: (context, child) {
-                          return ListenableBuilder(
-                            listenable: searchModel,
-                            builder: (context, child) {
-                              return Text(
-                                searchModel.passengersAndClass == null
-                                    ? AppLocalizations.of(context)!.choose
-                                    : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context)!.adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context)!.children}",
-                                style: AppStyles.textStylePoppins.copyWith(
-                                  color: searchModel.passengersAndClass == null
-                                      ? Colors.grey
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              );
-                            },
-                          );
-                        })
+                      listenable: searchModel,
+                      builder: (context, child) {
+                        return ListenableBuilder(
+                          listenable: searchModel,
+                          builder: (context, child) {
+                            return Text(
+                              searchModel.passengersAndClass == null
+                                  ? AppLocalizations.of(context)!.choose
+                                  : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context)!.adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context)!.children}",
+                              style: AppStyles.textStylePoppins.copyWith(
+                                color: searchModel.passengersAndClass == null
+                                    ? Colors.grey
+                                    : Colors.black,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    )
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(AppLocalizations.of(context)!.placeClass,
-                        style: AppStyles.textStylePoppins
-                            .copyWith(color: Colors.grey, fontSize: 16)),
+                    Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.placeClass,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          " *",
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.red[900],
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 4),
                     ListenableBuilder(
                       listenable: searchModel,
