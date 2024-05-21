@@ -70,6 +70,17 @@ class _SelectCurrencyModalContentState
             separator: _defaultListDivider,
             children: [
               CustomRadioListTile(
+                value: "RUB",
+                title: const Text("Рубли"),
+                groupValue: selectedCurrency,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedCurrency = newValue!;
+                    isConfirmButtonActive = selectedCurrency != initialCurrency;
+                  });
+                },
+              ),
+              CustomRadioListTile(
                 value: "USD",
                 title: const Text("Доллары"),
                 groupValue: selectedCurrency,
@@ -92,7 +103,7 @@ class _SelectCurrencyModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "LAR",
+                value: "GEL",
                 title: const Text("Лари"),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
