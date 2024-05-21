@@ -33,7 +33,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     try {
       final searchModel = event.searchModelForm;
-      final query = generateTicketsSearchQueryFromForm(searchModel);
+      final query = generateTicketsSearchQueryFromForm(
+          searchModel: searchModel, locale: event.locale);
 
       // Step 1: get search id
       final searchResult = await ticketRepo.searchTickets(query);
@@ -157,10 +158,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  TicketsSearchQuery generateTicketsSearchQueryFromForm(
-    SearchModel searchModel,
-  ) {
+  TicketsSearchQuery generateTicketsSearchQueryFromForm({
+    required SearchModel searchModel,
+    required String locale,
+  }) {
     TicketsSearchQuery options = TicketsSearchQuery(
+      locale: locale,
       tripClass:
           tripClassToDataString(searchModel.passengersAndClass!.tripClass),
       passengers: Passengers(
