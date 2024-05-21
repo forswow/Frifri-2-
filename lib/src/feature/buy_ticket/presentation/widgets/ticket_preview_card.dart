@@ -100,8 +100,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                   ),
                   Table(
                     columnWidths: const <int, TableColumnWidth>{
-                      0: FixedColumnWidth(48),
-                      1: FixedColumnWidth(24),
+                      0: IntrinsicColumnWidth(),
+                      1: FixedColumnWidth(30),
                       2: FixedColumnWidth(48),
                       3: FixedColumnWidth(24),
                     },
@@ -315,12 +315,18 @@ class TicketHeader extends StatelessWidget {
             const SizedBox(
               width: 12,
             ),
-            Text(
-              textAlign: TextAlign.center,
-              companyName,
-              style: AppStyles.textStylePoppins.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+            SizedBox(
+              width: 164,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  textAlign: TextAlign.center,
+                  companyName,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
           ],
