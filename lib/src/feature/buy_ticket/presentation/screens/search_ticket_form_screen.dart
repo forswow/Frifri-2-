@@ -5,6 +5,7 @@ import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
@@ -20,7 +21,13 @@ class SearchModel with ChangeNotifier {
   DateTime? _departureDate;
   DateTime? _returnDate;
   bool _isDirectFlight = false;
-  PassengersAndClass? _passengers;
+  PassengersAndClass? _passengers = const PassengersAndClass(
+    passengers: PassengersEntity(
+      adults: 1,
+      children: 0,
+    ),
+    tripClass: TripClass.economy,
+  );
 
   // Getters
   AirportEntity? get departureAt => _departureAt;
