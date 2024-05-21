@@ -380,124 +380,155 @@ class FlightDatePickerZone extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () async {
-              final DateTime? departureDate = await showModalBottomSheet(
-                context: context,
-                useRootNavigator: true,
-                isScrollControlled: true,
-                builder: (context) => CalendarModal(
-                  title: AppLocalizations.of(context)!.when,
-                  availableFromDate: DateTime.now(),
-                ),
-              );
-
-              if (departureDate == null) return;
-
-              if (searchModel.returnDate != null) {
-                searchModel.returnDate = null;
-              }
-
-              searchModel.departureDate = departureDate;
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.when,
-                      style: AppStyles.textStylePoppins.copyWith(
-                        color: Colors.grey,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      " *",
-                      style: AppStyles.textStylePoppins.copyWith(
-                        color: Colors.red[900],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                ListenableBuilder(
-                  listenable: searchModel,
-                  builder: (context, child) {
-                    return Text(
-                      searchModel.departureDate == null
-                          ? AppLocalizations.of(context)!.choose
-                          : DateFormat('dd MMMM yyyy')
-                              .format(searchModel.departureDate!),
-                      style: AppStyles.textStylePoppins.copyWith(
-                        color: searchModel.departureDate == null
-                            ? Colors.grey
-                            : Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    );
-                  },
-                ),
-              ],
+          Expanded(
+            child: DepartureDatePicker(
+              searchModel: searchModel,
             ),
           ),
-          const Divider(
-            height: 32,
-            color: Colors.grey,
-            thickness: 1,
+          Expanded(
+            child: ReturnDatePicker(
+              searchModel: searchModel,
+            ),
           ),
-          GestureDetector(
-            onTap: () async {
-              final DateTime? leastAvailableDate;
-              leastAvailableDate = searchModel.departureDate;
+        ],
+      ),
+    );
+  }
+}
 
-              final DateTime? returnDate = await showModalBottomSheet(
-                context: context,
-                useRootNavigator: true,
-                isScrollControlled: true,
-                builder: (context) => CalendarModal(
-                  title: AppLocalizations.of(context)!.back,
-                  availableFromDate: leastAvailableDate ?? DateTime.now(),
+class DepartureDatePicker extends StatelessWidget {
+  const DepartureDatePicker({
+    super.key,
+    required this.searchModel,
+  });
+
+  final SearchModel searchModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () async {
+        final DateTime? departureDate = await showModalBottomSheet(
+          context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          builder: (context) => CalendarModal(
+            title: AppLocalizations.of(context)!.when,
+            availableFromDate: DateTime.now(),
+          ),
+        );
+
+        if (departureDate == null) return;
+
+        if (searchModel.returnDate != null) {
+          searchModel.returnDate = null;
+        }
+
+        searchModel.departureDate = departureDate;
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.when,
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                " *",
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: Colors.red[900],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          ListenableBuilder(
+            listenable: searchModel,
+            builder: (context, child) {
+              return Text(
+                searchModel.departureDate == null
+                    ? AppLocalizations.of(context)!.choose
+                    : DateFormat('dd MMMM yyyy')
+                        .format(searchModel.departureDate!),
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: searchModel.departureDate == null
+                      ? Colors.grey
+                      : Colors.black,
+                  fontWeight: FontWeight.w600,
                 ),
               );
-
-              if (returnDate == null) return;
-
-              searchModel.returnDate = returnDate;
             },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.back,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                ListenableBuilder(
-                  listenable: searchModel,
-                  builder: (context, child) {
-                    return Text(
-                      searchModel.returnDate == null
-                          ? AppLocalizations.of(context)!.choose
-                          : DateFormat('dd MMMM yyyy')
-                              .format(searchModel.returnDate!),
-                      style: AppStyles.textStylePoppins.copyWith(
-                        color: searchModel.returnDate == null
-                            ? Colors.grey
-                            : Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    );
-                  },
-                ),
-              ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ReturnDatePicker extends StatelessWidget {
+  const ReturnDatePicker({
+    super.key,
+    required this.searchModel,
+  });
+
+  final SearchModel searchModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () async {
+        final DateTime? leastAvailableDate;
+        leastAvailableDate = searchModel.departureDate;
+
+        final DateTime? returnDate = await showModalBottomSheet(
+          context: context,
+          useRootNavigator: true,
+          isScrollControlled: true,
+          builder: (context) => CalendarModal(
+            title: AppLocalizations.of(context)!.back,
+            availableFromDate: leastAvailableDate ?? DateTime.now(),
+          ),
+        );
+
+        if (returnDate == null) return;
+
+        searchModel.returnDate = returnDate;
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            AppLocalizations.of(context)!.back,
+            style: AppStyles.textStylePoppins.copyWith(
+              color: Colors.grey,
+              fontSize: 16,
             ),
+          ),
+          const SizedBox(height: 4),
+          ListenableBuilder(
+            listenable: searchModel,
+            builder: (context, child) {
+              return Text(
+                searchModel.returnDate == null
+                    ? AppLocalizations.of(context)!.choose
+                    : DateFormat('dd MMMM yyyy')
+                        .format(searchModel.returnDate!),
+                style: AppStyles.textStylePoppins.copyWith(
+                  color: searchModel.returnDate == null
+                      ? Colors.grey
+                      : Colors.black,
+                  fontWeight: FontWeight.w600,
+                ),
+              );
+            },
           ),
         ],
       ),
