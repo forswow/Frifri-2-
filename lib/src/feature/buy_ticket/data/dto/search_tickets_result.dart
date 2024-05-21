@@ -217,26 +217,26 @@ class Proposals {
 
 class Terms {
   final String currency;
-  final int price;
+  final int priceInRubles;
   final int urlCode;
 
   Terms({
     required this.currency,
-    required this.price,
+    required this.priceInRubles,
     required this.urlCode,
   });
 
   factory Terms.fromJson(Map<String, dynamic> json) {
     return Terms(
       currency: json['currency'],
-      price: json['price'],
+      priceInRubles: json['unified_price'],
       urlCode: json['url'],
     );
   }
 
   Map<String, dynamic> toJson() => {
         'currency': currency,
-        'price': price,
+        'unified_price': priceInRubles,
         'urlCode': urlCode,
       };
 }
