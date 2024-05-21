@@ -22,6 +22,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
             DateFormat("EEE, dd MMM").format(searchModel.departureDate!),
             style: AppStyles.textStylePoppins.copyWith(
               fontSize: _defaultChipsDefaultTextSize,
+              fontWeight: FontWeight.w600,
             ),
           );
         },
@@ -45,6 +46,10 @@ class HorizontalOptionsSlider extends StatelessWidget {
                 searchModel.isDirectFlightOnly
                     ? "Прямой перелёт"
                     : "С пересадками",
+                style: AppStyles.textStylePoppins.copyWith(
+                  fontSize: _defaultChipsDefaultTextSize,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ],
           );
@@ -66,6 +71,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
                 "${searchModel.passengersAndClass!.passengers.adults}",
                 style: AppStyles.textStylePoppins.copyWith(
                   fontSize: _defaultChipsDefaultTextSize,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -87,6 +93,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
                 "${searchModel.passengersAndClass!.passengers.children}",
                 style: AppStyles.textStylePoppins.copyWith(
                   fontSize: _defaultChipsDefaultTextSize,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -100,6 +107,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
             ),
             style: AppStyles.textStylePoppins.copyWith(
               fontSize: _defaultChipsDefaultTextSize,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
