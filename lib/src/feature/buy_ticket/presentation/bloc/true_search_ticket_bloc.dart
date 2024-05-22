@@ -140,7 +140,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               segmentsList: ticketSegments,
               departureTime: ticketSegments.first.departureTime,
               arrivalTime: ticketSegments.last.arrivalTime,
+
               formattedPrice: formattedTicketPrice,
+              price: finalPrice,
 
               // For forming url for booking
               searchId: searchId,
@@ -210,7 +212,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void sortTicketsByPrice(List<TicketEntity> tickets) {
     tickets.sort(
       (a, b) {
-        return a.formattedPrice.compareTo(b.formattedPrice);
+        return a.price.compareTo(b.price);
       },
     );
   }
