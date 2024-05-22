@@ -13,12 +13,19 @@ import 'package:intl/intl.dart';
 class CalendarModal extends StatefulWidget {
   const CalendarModal({
     super.key,
-    required this.availableFromDate,
     required this.title,
+    required this.availableFromDate,
+    required this.isOneWay,
+    required this.originIataCode,
+    required this.destinationIataCode,
   });
 
-  final DateTime availableFromDate;
   final String title;
+  final DateTime availableFromDate;
+
+  final bool isOneWay;
+  final String? originIataCode;
+  final String? destinationIataCode;
 
   @override
   State<CalendarModal> createState() {
@@ -28,9 +35,13 @@ class CalendarModal extends StatefulWidget {
 
 class _CalendarModalState extends State<CalendarModal> {
   final currentDate = DateTime.now();
-  late final DateTime availableFromDate;
 
+  late final bool shouldFetchPrices;
+  late final DateTime availableFromDate;
   late final String title;
+
+  late final String? originIataCode;
+  late final String? destinationIataCode;
 
   DateTime selectedDate = DateTime.now();
 
@@ -39,6 +50,9 @@ class _CalendarModalState extends State<CalendarModal> {
     super.initState();
     availableFromDate = widget.availableFromDate;
     title = widget.title;
+
+    originIataCode = widget.originIataCode;
+    destinationIataCode = widget.destinationIataCode;
   }
 
   @override
@@ -48,6 +62,8 @@ class _CalendarModalState extends State<CalendarModal> {
         _CalendarModalHeader(title: title),
         _CalendarModalContent(
           availableFromDate: availableFromDate,
+          originIataCode: originIataCode,
+          destinationIataCode: destinationIataCode,
         ),
       ]),
     );
@@ -108,9 +124,16 @@ class _CalendarModalHeaderState extends State<_CalendarModalHeader> {
 }
 
 class _CalendarModalContent extends StatefulWidget {
-  const _CalendarModalContent({required this.availableFromDate});
+  const _CalendarModalContent({
+    required this.availableFromDate,
+    required this.originIataCode,
+    required this.destinationIataCode,
+  });
 
   final DateTime availableFromDate;
+
+  final String? originIataCode;
+  final String? destinationIataCode;
 
   @override
   State<_CalendarModalContent> createState() {
@@ -126,6 +149,9 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
   late final int countOfMonths;
   late final DateTime availableFromDate;
 
+  late final String? originIataCode;
+  late final String? destinationIataCode;
+
   @override
   void initState() {
     super.initState();
@@ -134,6 +160,9 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
     currentDate = DateTime.now();
     lastMonth = DateUtils.addMonthsToMonthDate(currentDate, countOfMonths);
     availableFromDate = widget.availableFromDate;
+
+    originIataCode = widget.originIataCode;
+    destinationIataCode = widget.destinationIataCode;
   }
 
   @override
@@ -151,6 +180,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                 );
 
                 return CalendarMonth(
+                  key: ValueKey(index),
                   year: currentMonth.year,
                   month: currentMonth.month,
                   selectedDate: selectedDate,
@@ -161,6 +191,8 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   },
                   startWeekDay: DateTime.monday,
                   availableFromDate: availableFromDate,
+                  originIataCode: originIataCode,
+                  destinationIataCode: destinationIataCode,
                 );
               },
             ),

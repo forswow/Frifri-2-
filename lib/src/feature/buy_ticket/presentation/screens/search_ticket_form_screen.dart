@@ -417,6 +417,9 @@ class DepartureDatePicker extends StatelessWidget {
           builder: (context) => CalendarModal(
             title: AppLocalizations.of(context)!.when,
             availableFromDate: DateTime.now(),
+            isOneWay: true,
+            originIataCode: searchModel.departureAt?.code,
+            destinationIataCode: searchModel.arrivalAt?.code,
           ),
         );
 
@@ -495,6 +498,9 @@ class ReturnDatePicker extends StatelessWidget {
           builder: (context) => CalendarModal(
             title: AppLocalizations.of(context)!.back,
             availableFromDate: leastAvailableDate ?? DateTime.now(),
+            isOneWay: false,
+            originIataCode: searchModel.departureAt?.code,
+            destinationIataCode: searchModel.arrivalAt?.code,
           ),
         );
 
