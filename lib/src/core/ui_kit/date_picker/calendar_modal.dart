@@ -55,6 +55,8 @@ class _CalendarModalState extends State<CalendarModal> {
 
   late final int countOfMonths;
 
+  late Map<DateTime, Text>? calendarData;
+
   @override
   void initState() {
     super.initState();
@@ -66,6 +68,7 @@ class _CalendarModalState extends State<CalendarModal> {
     shouldFetchPrices = originIataCode != null && destinationIataCode != null;
 
     countOfMonths = widget.countOfMonths;
+    calendarData = null;
   }
 
   @override
@@ -75,8 +78,9 @@ class _CalendarModalState extends State<CalendarModal> {
         children: [
           _CalendarModalHeader(title: title),
           FutureBuilder(
-            future:
-                shouldFetchPrices ? fetchPricesData(context: context) : null,
+            future: shouldFetchPrices && calendarData == null
+                ? fetchPricesData(context: context)
+                : null,
             builder: (context, snapshot) {
               if (shouldFetchPrices && !snapshot.hasData) {
                 return Center(
@@ -96,6 +100,8 @@ class _CalendarModalState extends State<CalendarModal> {
                   ),
                 );
               }
+
+              calendarData = snapshot.data;
 
               return _CalendarModalContent(
                 availableFromDate: availableFromDate,
@@ -117,7 +123,7 @@ class _CalendarModalState extends State<CalendarModal> {
     final Map<DateTime, Text> calendarData = {};
 
     for (int i = 0; i < countOfMonths; i++) {
-      await Future.delayed(const Duration(milliseconds: 200));
+      // await Future.delayed(const Duration(milliseconds: 200));
       final monthData = await ticketRepo.getMonthMatrixPrices(
         options: MonthMatrixQuery(
           oneWay: widget.isOneWay,
@@ -132,8 +138,6 @@ class _CalendarModalState extends State<CalendarModal> {
             (e) => e.value,
           );
 
-      logger.e(leastThreePrices.toString());
-
       for (final dayInfo in monthData.data) {
         if (calendarData.containsKey(dayInfo.departDate)) {
           continue;
@@ -142,12 +146,11 @@ class _CalendarModalState extends State<CalendarModal> {
         calendarData[dayInfo.departDate] = Text(
           dayInfo.value.toString(),
           style: AppStyles.textStylePoppins.copyWith(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: leastThreePrices.contains(dayInfo.value)
-                ? Colors.green
-                : Colors.grey,
-          ),
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: leastThreePrices.contains(dayInfo.value)
+                  ? Colors.green
+                  : const Color.fromRGBO(0, 0, 0, 0.28)),
         );
       }
     }
