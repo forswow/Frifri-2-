@@ -50,5 +50,10 @@
 
   "cityTbilisi": "Tbilisi",
   "cityKutaisi": "Kutaisi",
-  "cityBatumi": "Batumi"
+  "cityBatumi": "Batumi",
+
+  "currencyRub": "Rubles",
+  "currencyUsd": "Dollars",
+  "currencyEur": "Euros",
+  "currencyGel": "Lari"
 }

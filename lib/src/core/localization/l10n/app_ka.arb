@@ -47,5 +47,10 @@
 
     "cityTbilisi": "თბილისი",
     "cityKutaisi": "ქუთაისი",
-    "cityBatumi": "ბათუმი"
+    "cityBatumi": "ბათუმი",
+
+    "currencyRub": "რუბლი",
+    "currencyUsd": "დოლარი",
+    "currencyEur": "ევრო",
+    "currencyGel": "ლარი"
 }

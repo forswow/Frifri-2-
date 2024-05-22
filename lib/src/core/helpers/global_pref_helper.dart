@@ -1,4 +1,5 @@
 import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/more/domain/entities/currency_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template global_pref_helper}
@@ -32,12 +33,16 @@ base class GlobalPrefHelper {
     sharedPreferences.setString(_airportKey, airportName);
   }
 
-  String getCurrency() {
-    return sharedPreferences.getString(_currencyKey) ?? _currencyDefault;
+  CurrencyEnum getCurrency() {
+    final currencyName =
+        sharedPreferences.getString(_currencyKey) ?? _currencyDefault;
+    final currencyEnum = getCurrencyFromString(currencyName);
+    return currencyEnum;
   }
 
-  void setCurrency(String newValue) {
-    sharedPreferences.setString(_currencyKey, newValue);
+  void setCurrency(CurrencyEnum newValue) {
+    final String currencyName = newValue.name;
+    sharedPreferences.setString(_currencyKey, currencyName);
   }
 
   String getLanguageCode() {

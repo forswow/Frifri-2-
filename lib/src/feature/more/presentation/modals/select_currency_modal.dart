@@ -4,7 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/entities/currency_entity.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:go_router/go_router.dart';
@@ -48,8 +50,8 @@ class _SelectCurrencyModalContent extends StatefulWidget {
 
 class _SelectCurrencyModalContentState
     extends State<_SelectCurrencyModalContent> {
-  late String initialCurrency;
-  late String selectedCurrency;
+  late CurrencyEnum initialCurrency;
+  late CurrencyEnum selectedCurrency;
   late bool isConfirmButtonActive;
 
   @override
@@ -70,8 +72,13 @@ class _SelectCurrencyModalContentState
             separator: _defaultListDivider,
             children: [
               CustomRadioListTile(
-                value: "RUB",
-                title: const Text("Рубли"),
+                value: CurrencyEnum.rub,
+                title: Text(
+                  AppLocalizations.of(context)!.currencyRub,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {
@@ -81,8 +88,13 @@ class _SelectCurrencyModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "USD",
-                title: const Text("Доллары"),
+                value: CurrencyEnum.usd,
+                title: Text(
+                  AppLocalizations.of(context)!.currencyUsd,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {
@@ -92,8 +104,13 @@ class _SelectCurrencyModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "EUR",
-                title: const Text("Евро"),
+                value: CurrencyEnum.eur,
+                title: Text(
+                  AppLocalizations.of(context)!.currencyEur,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {
@@ -103,8 +120,13 @@ class _SelectCurrencyModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "GEL",
-                title: const Text("Лари"),
+                value: CurrencyEnum.gel,
+                title: Text(
+                  AppLocalizations.of(context)!.currencyGel,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedCurrency,
                 onChanged: (newValue) {
                   setState(() {

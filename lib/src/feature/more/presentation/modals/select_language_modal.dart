@@ -9,7 +9,6 @@ import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.d
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const _contentPadding = 24.0;
 const _defaultListDivider = Divider(

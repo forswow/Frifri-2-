@@ -47,5 +47,10 @@
 
     "cityTbilisi": "Тбилиси",
     "cityKutaisi": "Кутаиси",
-    "cityBatumi": "Батуми"
+    "cityBatumi": "Батуми",
+
+    "currencyRub": "Рубли",
+    "currencyUsd": "Доллары",
+    "currencyEur": "Евро",
+    "currencyGel": "Лари"
 }
