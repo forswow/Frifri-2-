@@ -12,41 +12,60 @@ import '../../domain/repos/country_search_repo.dart';
 
 EventTransformer<E> throttleDroppable<E>() {
   return (events, mapper) {
-    return throttleDroppable<E>()
-        .call(events.throttle(const Duration(milliseconds: 200)), mapper);
+    return throttleDroppable<E>().call(
+      events.throttle(
+        const Duration(
+          milliseconds: 200,
+        ),
+      ),
+      mapper,
+    );
   };
 }
 
-class SearchCityBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
+class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   final ICountrySearchRepo _countrySearchRepo;
 
   SearchCityBloc(this._countrySearchRepo) : super(Idle()) {
-    on<SearchCountry>(_searchCountry);
+    on<StartCitySearchEvent>(_searchCountry);
   }
 
   FutureOr<void> _searchCountry(
-      SearchCountry event, Emitter<CountrySearchState> emit) async {
+      StartCitySearchEvent event, Emitter<SearchCityState> emit) async {
     try {
-      final countrySearchList =
-          await _countrySearchRepo.fetchCountrySearch(event.inputDto);
+      emit(SearchInProgress());
+
+      final countrySearchList = await _countrySearchRepo.fetchCountrySearch(
+        InputDto(
+          term: event.text,
+          locale: "ru",
+        ),
+      );
 
       emit(SearchCompleted(countrySearchList: countrySearchList));
     } on DioException catch (error, stackTrace) {
       logger.e('CountrySearchBloc', error: error, stackTrace: stackTrace);
-      emit(SearchFailure(message: error.message ?? ''));
+      emit(
+        SearchFailure(message: error.message ?? ''),
+      );
     }
   }
 }
 
 @immutable
-sealed class CountrySearchState extends Equatable {}
+sealed class SearchCityState extends Equatable {}
 
-final class Idle extends CountrySearchState {
+final class Idle extends SearchCityState {
   @override
   List<Object> get props => [];
 }
 
-final class SearchCompleted extends CountrySearchState {
+final class SearchInProgress extends SearchCityState {
+  @override
+  List<Object?> get props => [];
+}
+
+final class SearchCompleted extends SearchCityState {
   SearchCompleted({required this.countrySearchList});
 
   final List<CountrySearchEntity> countrySearchList;
@@ -55,7 +74,7 @@ final class SearchCompleted extends CountrySearchState {
   List<Object> get props => [countrySearchList];
 }
 
-final class SearchFailure extends CountrySearchState {
+final class SearchFailure extends SearchCityState {
   SearchFailure({required this.message});
 
   final String message;
@@ -65,13 +84,13 @@ final class SearchFailure extends CountrySearchState {
 }
 
 @immutable
-abstract class CountrySearchEvent extends Equatable {}
+abstract class CitySearchEvent extends Equatable {}
 
-final class SearchCountry extends CountrySearchEvent {
-  SearchCountry({required this.inputDto});
+final class StartCitySearchEvent extends CitySearchEvent {
+  StartCitySearchEvent({required this.text});
 
-  final InputDto inputDto;
+  final String text;
 
   @override
-  List<Object> get props => [inputDto];
+  List<Object> get props => [text];
 }

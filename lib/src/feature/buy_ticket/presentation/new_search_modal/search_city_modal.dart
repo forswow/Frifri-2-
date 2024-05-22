@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_airport.component.dart';
+import 'package:frifri/src/module/country_search/domain/entity/country_search_entity.dart';
+import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -59,46 +64,102 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: _controller,
-              onChanged: (text) {
-                setState(() {
-                  searchText = text;
-                });
-              },
-              decoration: InputDecoration(
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                ),
-                filled: true,
-                labelText: AppLocalizations.of(context)!.airportCitySearch,
-                labelStyle: AppStyles.textStylePoppins,
-                fillColor: const Color(0xFFF1F3F8),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          TextField(
+            controller: _controller,
+            onChanged: onSearchFieldChanged,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              filled: true,
+              labelText: AppLocalizations.of(context)!.airportCitySearch,
+              labelStyle: AppStyles.textStylePoppins,
+              fillColor: const Color(0xFFF1F3F8),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
               ),
             ),
-            const SizedBox(
-              height: 40,
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+          Expanded(
+            child: BlocBuilder<SearchCityBloc, SearchCityState>(
+              builder: (BuildContext context, state) {
+                switch (state) {
+                  case Idle():
+                    // TODO: Отображать недавние поиски с локалки
+                    return Container();
+                  case SearchInProgress():
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case SearchCompleted():
+                    return SearchCityResult(
+                      searchResult: state.countrySearchList,
+                    );
+                  case SearchFailure():
+                    return Container();
+                }
+              },
             ),
-            const Expanded(
-              child: Text("Тут делаем крутые штуки"),
-            )
-          ],
-        ),
+          )
+        ]),
       ),
     );
+  }
+
+  void onSearchFieldChanged(String newText) {
+    searchText = newText;
+    context.read<SearchCityBloc>().add(StartCitySearchEvent(text: newText));
   }
 
   // return EmptyStringListFrom(airlinesList: filteredAirlines);
   // return SearchIsNotEmptyListFrom(filteredAirlines: filteredAirlines);
   // } else if (filteredAirlines.isEmpty && searchText != '') {
+}
+
+class SearchCityResult extends StatelessWidget {
+  const SearchCityResult({
+    super.key,
+    required this.searchResult,
+  });
+
+  final List<CountrySearchEntity> searchResult;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final String name = searchResult[index].name;
+              final String code = searchResult[index].code;
+
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: AirportComponentCard(
+                  name: name,
+                  shortName: code,
+                  callback: () => context.pop(
+                    AirportEntity(
+                      name: name,
+                      code: code,
+                    ),
+                  ),
+                ),
+              );
+            },
+            childCount: searchResult.length,
+          ),
+        )
+      ],
+    );
+  }
 }
 
 class SearchFlyModalHeader extends StatelessWidget {
