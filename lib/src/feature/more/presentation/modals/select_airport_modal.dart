@@ -6,6 +6,7 @@ import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
+import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:go_router/go_router.dart';
@@ -49,8 +50,8 @@ class _SelectAirportModalContent extends StatefulWidget {
 
 class _SelectAirportModalContentState
     extends State<_SelectAirportModalContent> {
-  late String initialAirport;
-  late String selectedAirport;
+  late AirportEnum initialAirport;
+  late AirportEnum selectedAirport;
   late bool isConfirmButtonEnabled;
 
   @override
@@ -71,7 +72,7 @@ class _SelectAirportModalContentState
             separator: _defaultListDivider,
             children: [
               CustomRadioListTile(
-                value: "Tbilisi",
+                value: AirportEnum.tbilisi,
                 title: Text(
                   // "Тбилиси",
                   AppLocalizations.of(context)!.cityTbilisi,
@@ -91,7 +92,7 @@ class _SelectAirportModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "Kutaisi",
+                value: AirportEnum.kutaisi,
                 title: Text(
                   AppLocalizations.of(context)!.cityKutaisi,
                   style: AppStyles.textStylePoppins.copyWith(
@@ -110,7 +111,7 @@ class _SelectAirportModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "Batumi",
+                value: AirportEnum.batumi,
                 title: Text(
                   AppLocalizations.of(context)!.cityBatumi,
                   style: AppStyles.textStylePoppins.copyWith(

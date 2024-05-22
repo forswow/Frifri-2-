@@ -2,16 +2,19 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
+import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 
-class AirportCubit extends Cubit<String> {
+class AirportCubit extends Cubit<AirportEnum> {
   final GlobalPrefHelper prefHelper;
 
   AirportCubit({required this.prefHelper}) : super(prefHelper.getAirport());
 
-  void selectAirport(String newAirport) => emit(newAirport);
+  Future<void> selectAirport(AirportEnum newAirport) async {
+    emit(newAirport);
+  }
 
   @override
-  void onChange(Change<String> change) {
+  void onChange(Change<AirportEnum> change) {
     super.onChange(change);
 
     prefHelper.setAirport(change.nextState);

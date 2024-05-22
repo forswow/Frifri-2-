@@ -1,3 +1,4 @@
+import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template global_pref_helper}
@@ -14,17 +15,21 @@ base class GlobalPrefHelper {
   static const _langCodeKey = 'langCode';
   static const _pushEnabledKey = 'pushEnabled';
 
-  static const _airportDefault = 'Tbilisi';
+  static const _airportDefault = 'tbilisi';
   static const _currencyDefault = 'USD';
   static const _langCodeDefault = 'ru';
   static const _pushEnabledDefault = true;
 
-  String getAirport() {
-    return sharedPreferences.getString(_airportKey) ?? _airportDefault;
+  AirportEnum getAirport() {
+    final airportName =
+        sharedPreferences.getString(_airportKey) ?? _airportDefault;
+    final AirportEnum airport = getAirportFromString(airportName);
+    return airport;
   }
 
-  void setAirport(String newValue) {
-    sharedPreferences.setString(_airportKey, newValue);
+  void setAirport(AirportEnum newValue) {
+    final airportName = newValue.name;
+    sharedPreferences.setString(_airportKey, airportName);
   }
 
   String getCurrency() {
