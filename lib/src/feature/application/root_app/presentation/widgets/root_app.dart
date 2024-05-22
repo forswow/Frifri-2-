@@ -7,6 +7,7 @@ import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
+import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
 
 /// {@template root_app}
 /// RootApp widget.
@@ -42,6 +43,9 @@ class RootApp extends StatelessWidget {
               ),
               BlocProvider<SearchBloc>.value(
                 value: dependencies.searchBloc,
+              ),
+              BlocProvider<SearchCityBloc>.value(
+                value: dependencies.searchCityBloc,
               ),
             ],
             child: const App(),

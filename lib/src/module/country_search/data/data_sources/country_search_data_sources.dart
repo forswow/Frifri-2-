@@ -10,7 +10,7 @@ abstract interface class ICountrySearchDataSources {
   Future<List<CountrySearchEntity>> fetchCountrySearch(InputDto inputDto);
 }
 
-base class CountrySearchDataSources
+base class SearchCityDataSources
     with Network
     implements ICountrySearchDataSources {
   @override

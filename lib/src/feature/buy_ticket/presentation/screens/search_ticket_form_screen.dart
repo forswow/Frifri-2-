@@ -9,8 +9,7 @@ import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_from/searchfly_modal_from.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/searchfly_modal_to.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/new_search_modal/search_city_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_radiobutton.dart';
 import 'package:intl/intl.dart';
@@ -220,8 +219,9 @@ class ToLocationPicker extends StatelessWidget {
           context: context,
           useRootNavigator: true,
           isScrollControlled: true,
-          builder: (context) => SearchFlyModalTo(
+          builder: (context) => SearchCityModal(
             searchModel: searchModel,
+            mode: SearchCityModalModeEnum.to,
           ),
         );
 
@@ -301,8 +301,9 @@ class FromLocationPicker extends StatelessWidget {
           context: context,
           useRootNavigator: true,
           isScrollControlled: true,
-          builder: (context) => SearchFlyModalFrom(
+          builder: (context) => SearchCityModal(
             searchModel: searchModel,
+            mode: SearchCityModalModeEnum.from,
           ),
         );
 

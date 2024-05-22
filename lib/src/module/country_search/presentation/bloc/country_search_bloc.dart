@@ -17,10 +17,10 @@ EventTransformer<E> throttleDroppable<E>() {
   };
 }
 
-class CountrySearchBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
+class SearchCityBloc extends Bloc<CountrySearchEvent, CountrySearchState> {
   final ICountrySearchRepo _countrySearchRepo;
 
-  CountrySearchBloc(this._countrySearchRepo) : super(Idle()) {
+  SearchCityBloc(this._countrySearchRepo) : super(Idle()) {
     on<SearchCountry>(_searchCountry);
   }
 

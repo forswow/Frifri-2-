@@ -37,9 +37,9 @@ base class Dependencies {
 
   late final AppDatabase appDatabase;
 
-  late final CountrySearchDataSources countrySearchDataSources;
-  late final CountrySearchRepoImpl countrySearchRepo;
-  late final CountrySearchBloc countrySearchBloc;
+  late final SearchCityDataSources searchCityDataSource;
+  late final SearchCityRepoImpl searchCityRepo;
+  late final SearchCityBloc searchCityBloc;
 
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
@@ -52,15 +52,18 @@ base class Dependencies {
     languageCubit = AppLanguageCubit(prefHelper: globalPrefHelper);
     currencyCubit = CurrencyCubit(prefHelper: globalPrefHelper);
 
+    // TODO: Разграничить Impl и Interface, иначе какой смысл
     searchDataSources = SearchDataSources();
     searchTicketRepoImpl =
         SearchTicketRepoImpl(searchDataSources: searchDataSources);
     searchBloc = SearchBloc(searchTicketRepoImpl);
     appDatabase = AppDatabase();
-    countrySearchDataSources = CountrySearchDataSources();
-    countrySearchRepo = CountrySearchRepoImpl(
-        countrySearchDataSources: countrySearchDataSources);
-    countrySearchBloc = CountrySearchBloc(countrySearchRepo);
+
+    searchCityDataSource = SearchCityDataSources();
+    searchCityRepo =
+        SearchCityRepoImpl(searchCityDataSources: searchCityDataSource);
+    searchCityBloc = SearchCityBloc(searchCityRepo);
+
     logger.i("Dependencies initialized.");
   }
 }

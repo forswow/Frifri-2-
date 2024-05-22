@@ -18,12 +18,12 @@ class CountrySearchScreen extends StatefulWidget {
 }
 
 class _CountrySearchScreenState extends State<CountrySearchScreen> {
-  late final CountrySearchBloc countrySearchBloc;
+  late final SearchCityBloc countrySearchBloc;
   final searchController = TextEditingController();
 
   @override
   void initState() {
-    countrySearchBloc = Dependencies.of(context).countrySearchBloc;
+    countrySearchBloc = Dependencies.of(context).searchCityBloc;
     searchController.addListener(_searchHandler);
 
     super.initState();
@@ -47,7 +47,7 @@ class _CountrySearchScreenState extends State<CountrySearchScreen> {
             child: ElevatedButton(
                 onPressed: () async {
                   try {
-                    final list = await CountrySearchDataSources()
+                    final list = await SearchCityDataSources()
                         .fetchCountrySearch(
                             InputDto(locale: 'ru', term: 'Казах'));
 
@@ -63,7 +63,7 @@ class _CountrySearchScreenState extends State<CountrySearchScreen> {
                 },
                 child: const Text(' fetch')),
           ),
-          BlocBuilder<CountrySearchBloc, CountrySearchState>(
+          BlocBuilder<SearchCityBloc, CountrySearchState>(
             bloc: countrySearchBloc,
             builder: (context, state) {
               switch (state) {
