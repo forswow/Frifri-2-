@@ -28,10 +28,7 @@ class _CalendarModalState extends State<CalendarModal> {
 
   late final String title;
 
-  SelectedDate selectedDate = SelectedDate(
-    DateTime.now(),
-    isWholeMonth: false,
-  );
+  DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -105,10 +102,7 @@ class _CalendarModalContent extends StatefulWidget {
 }
 
 class _CalendarModalContentState extends State<_CalendarModalContent> {
-  SelectedDate selectedDate = SelectedDate(
-    DateTime.now(),
-    isWholeMonth: true,
-  );
+  DateTime selectedDate = DateTime.now();
 
   late final DateTime currentDate;
   late final DateTime lastMonth;
@@ -169,10 +163,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                 ),
                 Text(
                   // "ПТ, 15 Фев 2023",
-                  selectedDate.isWholeMonth
-                      ? DateFormat("MMM yyyy").format(selectedDate.date)
-                      : DateFormat('EEE, dd MMM yyyy')
-                          .format(selectedDate.date),
+                  DateFormat('EEE, dd MMM yyyy').format(selectedDate),
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                     fontSize: 12,
@@ -204,7 +195,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop(selectedDate.date);
+                      Navigator.of(context).pop(selectedDate);
                     },
                   ),
                 )

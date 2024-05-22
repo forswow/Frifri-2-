@@ -3,13 +3,6 @@ import 'package:frifri/src/core/extensions/string_extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-class SelectedDate {
-  final DateTime date;
-  final bool isWholeMonth;
-
-  SelectedDate(this.date, {required this.isWholeMonth});
-}
-
 class CalendarMonth extends StatefulWidget {
   const CalendarMonth({
     super.key,
@@ -25,8 +18,8 @@ class CalendarMonth extends StatefulWidget {
 
   final int year;
   final int month;
-  final SelectedDate selectedDate;
-  final Function(SelectedDate newDate) onDateSelected;
+  final DateTime selectedDate;
+  final Function(DateTime newDate) onDateSelected;
 
   final int startWeekDay;
 
@@ -86,8 +79,8 @@ class MonthTableView extends StatelessWidget {
   final int year;
   final int month;
 
-  final SelectedDate selectedDate;
-  final Function(SelectedDate newDate) onDateSelected;
+  final DateTime selectedDate;
+  final Function(DateTime newDate) onDateSelected;
 
   final int startWeekDay;
 
@@ -116,43 +109,42 @@ class MonthTableView extends StatelessWidget {
       mainAxisSpacing: 10,
       crossAxisSpacing: 0,
       padding: const EdgeInsets.all(17),
-      children: List.generate(countOfDays + startsWithDay, (index) {
-        if (index < startsWithDay) {
-          return const UnconstrainedBox();
-        }
+      children: List.generate(
+        countOfDays + startsWithDay,
+        (index) {
+          if (index < startsWithDay) {
+            return const UnconstrainedBox();
+          }
 
-        int day = index - startsWithDay + 1;
+          int day = index - startsWithDay + 1;
 
-        final isSelectedDay = selectedDate.date.year == year &&
-            selectedDate.date.day == day &&
-            selectedDate.date.month == month &&
-            !selectedDate.isWholeMonth;
+          final isSelectedDay = selectedDate.year == year &&
+              selectedDate.day == day &&
+              selectedDate.month == month;
 
-        final isActive =
-            currentDate.difference(DateTime(year, month, day)).inDays <= 0 &&
-                availableFromDate
-                        .difference(DateTime(year, month, day))
-                        .inDays <=
-                    0;
+          final isActive =
+              currentDate.difference(DateTime(year, month, day)).inDays <= 0 &&
+                  availableFromDate
+                          .difference(DateTime(year, month, day))
+                          .inDays <=
+                      0;
 
-        return InkWell(
-          onTap: () => isActive
-              ? onDateSelected(
-                  SelectedDate(
+          return InkWell(
+            onTap: () => isActive
+                ? onDateSelected(
                     DateTime(year, month, day),
-                    isWholeMonth: false,
-                  ),
-                )
-              : null,
-          child: MonthDay(
-            isActive: isActive,
-            price: index * 525,
-            isLowestPrice: index % 2 == 0,
-            day: day,
-            isSelected: isSelectedDay,
-          ),
-        );
-      }),
+                  )
+                : null,
+            child: MonthDay(
+              isActive: isActive,
+              price: index * 525,
+              isLowestPrice: index % 2 == 0,
+              day: day,
+              isSelected: isSelectedDay,
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -224,7 +216,7 @@ class MonthHeader extends StatelessWidget {
   final int year;
   final int month;
 
-  final Function(SelectedDate) onDateSelected;
+  final Function(DateTime) onDateSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -240,24 +232,11 @@ class MonthHeader extends StatelessWidget {
             fontWeight: FontWeight.normal,
           ),
         ),
-        InkWell(
-          onTap: () {
-            onDateSelected(
-              SelectedDate(
-                DateTime(year, month),
-                isWholeMonth: true,
-              ),
-            );
-          },
-          child: Container(
-            padding: const EdgeInsets.all(2),
-            child: Text(
-              "Выбрать весь месяц",
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+        Expanded(
+          child: Divider(
+            color: Colors.grey[300],
+            thickness: 1,
+            indent: 48,
           ),
         ),
       ],
