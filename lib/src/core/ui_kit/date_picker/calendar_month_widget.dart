@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/core/extensions/string_extensions.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
-import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 
 class CalendarMonth extends StatefulWidget {
@@ -17,8 +13,7 @@ class CalendarMonth extends StatefulWidget {
     required this.selectedDate,
     required this.onDateSelected,
     required this.availableFromDate,
-    required this.originIataCode,
-    required this.destinationIataCode,
+    required this.calendarData,
     this.startWeekDay = DateTime.monday,
   });
 
@@ -31,8 +26,7 @@ class CalendarMonth extends StatefulWidget {
 
   final int startWeekDay;
 
-  final String? originIataCode;
-  final String? destinationIataCode;
+  final Map<DateTime, Text>? calendarData;
 
   @override
   State<CalendarMonth> createState() => _CalendarMonthState();
@@ -40,19 +34,13 @@ class CalendarMonth extends StatefulWidget {
 
 class _CalendarMonthState extends State<CalendarMonth> {
   late final DateTime availableFromDate;
-
-  late final String? originIataCode;
-  late final String? destinationIataCode;
-  late final bool shouldFetchPrices;
+  late final Map<DateTime, Text>? calendarData;
 
   @override
   void initState() {
     super.initState();
     availableFromDate = widget.availableFromDate;
-
-    originIataCode = widget.originIataCode;
-    destinationIataCode = widget.destinationIataCode;
-    shouldFetchPrices = originIataCode != null && destinationIataCode != null;
+    calendarData = widget.calendarData;
   }
 
   @override
@@ -67,58 +55,24 @@ class _CalendarMonthState extends State<CalendarMonth> {
             onDateSelected: widget.onDateSelected,
           ),
         ),
-        FutureBuilder(
-          future: shouldFetchPrices ? fetchPricesData(context: context) : null,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            final MonthMatrix? monthMatrix;
-
-            if (snapshot.hasData) {
-              monthMatrix = snapshot.data as MonthMatrix;
-            } else {
-              monthMatrix = null;
-            }
-
-            return MonthTableView(
-              year: widget.year,
-              month: widget.month,
-              selectedDate: widget.selectedDate,
-              onDateSelected: widget.onDateSelected,
-              startWeekDay: widget.startWeekDay,
-              availableFromDate: availableFromDate,
-              monthData: monthMatrix,
-            );
-          },
+        MonthTableView(
+          year: widget.year,
+          month: widget.month,
+          selectedDate: widget.selectedDate,
+          onDateSelected: widget.onDateSelected,
+          startWeekDay: widget.startWeekDay,
+          availableFromDate: availableFromDate,
+          calendarData: calendarData,
         ),
       ],
     );
-  }
-
-  Future<MonthMatrix> fetchPricesData({required BuildContext context}) {
-    final ticketRepo = Dependencies.of(context).searchTicketRepoImpl;
-    final String currency = context.read<CurrencyCubit>().state.name;
-    final monthData = ticketRepo.getMonthMatrixPrices(
-      options: MonthMatrixQuery(
-        currency: currency,
-        origin: 'BUS',
-        destination: 'GYD',
-        month: DateTime(widget.year, widget.month),
-      ),
-    );
-
-    return monthData;
   }
 }
 
 class MonthTableView extends StatelessWidget {
   MonthTableView({
     super.key,
-    this.monthData,
+    required this.calendarData,
     required this.year,
     required this.month,
     required this.selectedDate,
@@ -138,7 +92,7 @@ class MonthTableView extends StatelessWidget {
   final Function(DateTime newDate) onDateSelected;
 
   final int startWeekDay;
-  final MonthMatrix? monthData;
+  final Map<DateTime, Text>? calendarData;
 
   static int firstDayOffset(int year, int month,
       {int firstDayOfWeek = DateTime.monday}) {
@@ -193,11 +147,7 @@ class MonthTableView extends StatelessWidget {
                 : null,
             child: MonthDay(
               isActive: isActive,
-              price: monthData?.data.firstWhereOrNull(
-                (element) {
-                  return element.departDate.day == day;
-                },
-              )?.value,
+              text: calendarData?[DateTime(year, month, day)],
               isLowestPrice: index % 2 == 0,
               day: day,
               isSelected: isSelectedDay,
@@ -212,7 +162,7 @@ class MonthTableView extends StatelessWidget {
 class MonthDay extends StatelessWidget {
   const MonthDay({
     super.key,
-    required this.price,
+    required this.text,
     required this.isActive,
     required this.isSelected,
     required this.isLowestPrice,
@@ -221,7 +171,7 @@ class MonthDay extends StatelessWidget {
 
   final bool isActive;
   final bool isSelected;
-  final int? price;
+  final Text? text;
   final bool isLowestPrice;
   final int day;
 
@@ -248,17 +198,18 @@ class MonthDay extends StatelessWidget {
                   : const Color.fromRGBO(0, 0, 0, 0.3),
             ),
           ),
-          if (isActive && !isSelected && price != null)
-            Text(
-              price.toString(),
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: isLowestPrice
-                    ? Colors.green
-                    : const Color.fromRGBO(0, 0, 0, 0.3),
-              ),
-            ),
+          text ?? const SizedBox(),
+          // if (isActive && !isSelected && text != null)
+          // Text(
+          //   text.toString(),
+          //   style: GoogleFonts.poppins(
+          //     fontSize: 12,
+          //     fontWeight: FontWeight.bold,
+          //     color: isLowestPrice
+          //         ? Colors.green
+          //         : const Color.fromRGBO(0, 0, 0, 0.3),
+          //   ),
+          // ),
         ],
       ),
     );

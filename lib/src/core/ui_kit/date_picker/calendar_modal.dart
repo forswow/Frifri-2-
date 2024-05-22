@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/datetime_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,6 +23,7 @@ class CalendarModal extends StatefulWidget {
     required this.isOneWay,
     required this.originIataCode,
     required this.destinationIataCode,
+    required this.countOfMonths,
   });
 
   final String title;
@@ -26,6 +32,8 @@ class CalendarModal extends StatefulWidget {
   final bool isOneWay;
   final String? originIataCode;
   final String? destinationIataCode;
+
+  final int countOfMonths;
 
   @override
   State<CalendarModal> createState() {
@@ -45,6 +53,8 @@ class _CalendarModalState extends State<CalendarModal> {
 
   DateTime selectedDate = DateTime.now();
 
+  late final int countOfMonths;
+
   @override
   void initState() {
     super.initState();
@@ -53,20 +63,96 @@ class _CalendarModalState extends State<CalendarModal> {
 
     originIataCode = widget.originIataCode;
     destinationIataCode = widget.destinationIataCode;
+    shouldFetchPrices = originIataCode != null && destinationIataCode != null;
+
+    countOfMonths = widget.countOfMonths;
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
-      child: Column(children: [
-        _CalendarModalHeader(title: title),
-        _CalendarModalContent(
-          availableFromDate: availableFromDate,
-          originIataCode: originIataCode,
-          destinationIataCode: destinationIataCode,
-        ),
-      ]),
+      child: Column(
+        children: [
+          _CalendarModalHeader(title: title),
+          FutureBuilder(
+            future:
+                shouldFetchPrices ? fetchPricesData(context: context) : null,
+            builder: (context, snapshot) {
+              if (shouldFetchPrices && !snapshot.hasData) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Загружаем цены для выбранного направления",
+                        style: AppStyles.textStylePoppins.copyWith(
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                      ),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
+                );
+              }
+
+              return _CalendarModalContent(
+                availableFromDate: availableFromDate,
+                originIataCode: originIataCode,
+                destinationIataCode: destinationIataCode,
+                calendarData: snapshot.data,
+              );
+            },
+          ),
+        ],
+      ),
     );
+  }
+
+  Future<Map<DateTime, Text>> fetchPricesData(
+      {required BuildContext context}) async {
+    final ticketRepo = Dependencies.of(context).searchTicketRepoImpl;
+    final String currency = context.read<CurrencyCubit>().state.name;
+    final Map<DateTime, Text> calendarData = {};
+
+    for (int i = 0; i < countOfMonths; i++) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      final monthData = await ticketRepo.getMonthMatrixPrices(
+        options: MonthMatrixQuery(
+          oneWay: widget.isOneWay,
+          currency: currency,
+          origin: originIataCode!,
+          destination: destinationIataCode!,
+          month: DateUtils.addMonthsToMonthDate(currentDate, i),
+        ),
+      );
+
+      final leastThreePrices = monthData.data.take(3).map(
+            (e) => e.value,
+          );
+
+      logger.e(leastThreePrices.toString());
+
+      for (final dayInfo in monthData.data) {
+        if (calendarData.containsKey(dayInfo.departDate)) {
+          continue;
+        }
+
+        calendarData[dayInfo.departDate] = Text(
+          dayInfo.value.toString(),
+          style: AppStyles.textStylePoppins.copyWith(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: leastThreePrices.contains(dayInfo.value)
+                ? Colors.green
+                : Colors.grey,
+          ),
+        );
+      }
+    }
+
+    return calendarData;
   }
 }
 
@@ -128,12 +214,15 @@ class _CalendarModalContent extends StatefulWidget {
     required this.availableFromDate,
     required this.originIataCode,
     required this.destinationIataCode,
+    required this.calendarData,
   });
 
   final DateTime availableFromDate;
 
   final String? originIataCode;
   final String? destinationIataCode;
+
+  final Map<DateTime, Text>? calendarData;
 
   @override
   State<_CalendarModalContent> createState() {
@@ -151,6 +240,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
 
   late final String? originIataCode;
   late final String? destinationIataCode;
+  late final Map<DateTime, Text>? calendarData;
 
   @override
   void initState() {
@@ -163,6 +253,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
 
     originIataCode = widget.originIataCode;
     destinationIataCode = widget.destinationIataCode;
+    calendarData = widget.calendarData;
   }
 
   @override
@@ -191,8 +282,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   },
                   startWeekDay: DateTime.monday,
                   availableFromDate: availableFromDate,
-                  originIataCode: originIataCode,
-                  destinationIataCode: destinationIataCode,
+                  calendarData: calendarData,
                 );
               },
             ),

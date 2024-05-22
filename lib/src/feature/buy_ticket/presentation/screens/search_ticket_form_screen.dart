@@ -420,6 +420,7 @@ class DepartureDatePicker extends StatelessWidget {
             isOneWay: true,
             originIataCode: searchModel.departureAt?.code,
             destinationIataCode: searchModel.arrivalAt?.code,
+            countOfMonths: 12,
           ),
         );
 
@@ -501,6 +502,7 @@ class ReturnDatePicker extends StatelessWidget {
             isOneWay: false,
             originIataCode: searchModel.departureAt?.code,
             destinationIataCode: searchModel.arrivalAt?.code,
+            countOfMonths: 12,
           ),
         );
 
