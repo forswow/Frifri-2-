@@ -6,6 +6,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_f
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_modal_fly_to/components/search_is_not_empty.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchFlyModalTo extends StatelessWidget {
   const SearchFlyModalTo({
@@ -182,7 +183,7 @@ class SearchFlyModalHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'ОТКУДА',
+                              AppLocalizations.of(context)!.whereFrom,
                               style: AppStyles.textStylePoppins.copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -205,7 +206,7 @@ class SearchFlyModalHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'КУДА',
+                              AppLocalizations.of(context)!.whereToFly,
                               style: AppStyles.textStylePoppins.copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

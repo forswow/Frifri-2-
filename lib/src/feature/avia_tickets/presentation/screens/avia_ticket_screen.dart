@@ -40,9 +40,10 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-          statusBarColor: Color.fromRGBO(237, 239, 244, 1),
-          systemNavigationBarColor: Color.fromRGBO(237, 239, 244, 1),
-          statusBarIconBrightness: Brightness.dark),
+        statusBarColor: Color.fromRGBO(237, 239, 244, 1),
+        systemNavigationBarColor: Color.fromRGBO(237, 239, 244, 1),
+        statusBarIconBrightness: Brightness.dark,
+      ),
       child: Scaffold(
         backgroundColor: const Color.fromRGBO(237, 239, 244, 1),
         appBar: AppBar(
@@ -57,9 +58,10 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
                   text: TextSpan(
                     text: AppLocalizations.of(context)!.directFligthsFrom,
                     style: GoogleFonts.poppins(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                     children: [
                       TextSpan(
                         text: " $currentAirport",

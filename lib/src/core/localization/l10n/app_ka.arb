@@ -43,5 +43,9 @@
     "recentSearches": "ბოლო ძიება",
     "airportCitySearch": "აეროპორტი / ქალაქის ძებნა",
     "airport": "აეროპორტი",
-    "selectDate": "აირჩიეთ თარიღი"
+    "selectDate": "აირჩიეთ თარიღი",
+
+    "cityTbilisi": "თბილისი",
+    "cityKutaisi": "ქუთაისი",
+    "cityBatumi": "ბათუმი"
 }

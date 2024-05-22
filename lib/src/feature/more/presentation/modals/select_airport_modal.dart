@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
@@ -25,8 +26,8 @@ class SelectAirportModal extends StatelessWidget {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          const DefaultModalHeader(
-            centerText: "Аэропорт вылета",
+          DefaultModalHeader(
+            centerText: AppLocalizations.of(context)!.departureAirport,
           ),
           const Divider(
             height: 1,
@@ -71,7 +72,13 @@ class _SelectAirportModalContentState
             children: [
               CustomRadioListTile(
                 value: "Tbilisi",
-                title: const Text("Тибилиси"),
+                title: Text(
+                  // "Тбилиси",
+                  AppLocalizations.of(context)!.cityTbilisi,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedAirport,
                 onChanged: (newValue) {
                   setState(
@@ -85,7 +92,12 @@ class _SelectAirportModalContentState
               ),
               CustomRadioListTile(
                 value: "Kutaisi",
-                title: const Text("Кутаиси"),
+                title: Text(
+                  AppLocalizations.of(context)!.cityKutaisi,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedAirport,
                 onChanged: (newValue) {
                   setState(
@@ -99,7 +111,12 @@ class _SelectAirportModalContentState
               ),
               CustomRadioListTile(
                 value: "Batumi",
-                title: const Text("Батуми"),
+                title: Text(
+                  AppLocalizations.of(context)!.cityBatumi,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
                 groupValue: selectedAirport,
                 onChanged: (newValue) {
                   setState(

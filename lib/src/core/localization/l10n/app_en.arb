@@ -29,19 +29,26 @@
   "when": "When",
   "back": "Back",
   "passengers": "Passengers",
-  "placeClass": "Class",
   "directFlightsOnly": "Direct flights only",
   "findTickets": "Find tickets",
+
   "children": "children",
   "adults": "Adults",
+
+  "placeClass": "Class",
   "economy": "Economy",
   "comfort": "Comfort",
   "firstClass": "First class",
   "business": "Business",
+
   "passengersAndClass": "Passengers and class",
   "nearestAirport": "Nearest airport",
   "recentSearches": "Recent searches",
   "airportCitySearch": "Airport/City search",
   "airport": "Airport",
-  "selectDate": "Select the date"
+  "selectDate": "Select the date",
+
+  "cityTbilisi": "Tbilisi",
+  "cityKutaisi": "Kutaisi",
+  "cityBatumi": "Batumi"
 }

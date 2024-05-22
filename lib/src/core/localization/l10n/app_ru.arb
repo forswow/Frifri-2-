@@ -43,5 +43,9 @@
     "recentSearches": "Недавние поиски",
     "airportCitySearch": "Поиск аэропорта/ города",
     "airport": "Аэропорт",
-    "selectDate": "Выбрать дату"
+    "selectDate": "Выбрать дату",
+
+    "cityTbilisi": "Тбилиси",
+    "cityKutaisi": "Кутаиси",
+    "cityBatumi": "Батуми"
 }

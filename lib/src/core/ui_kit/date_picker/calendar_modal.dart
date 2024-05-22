@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frifri/src/core/helpers/datetime_localizations.dart';
+import 'package:frifri/src/core/utils/datetime_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
