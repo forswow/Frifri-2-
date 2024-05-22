@@ -642,7 +642,8 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                         return ListenableBuilder(
                           listenable: searchModel,
                           builder: (context, child) {
-                            return SizedBox(
+                            return Container(
+                              alignment: Alignment.centerLeft,
                               width: 155,
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
