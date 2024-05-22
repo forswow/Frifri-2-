@@ -5,6 +5,7 @@ import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dar
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import '../../../../../core/helpers/signature/signature_helper.dart';
 import '../../../domain/entities/booking_ticket_entity.dart';
 import '../../dto/ticket_search_query.dart';
@@ -24,6 +25,11 @@ abstract interface class ISearchDataSources {
   Future<BookingTicketEntity> getABookingLink({
     required String searchId,
     required int termsUrl,
+  });
+
+  /// Get prices for calendar month.
+  Future<MonthMatrix> getMonthMatrix({
+    required MonthMatrixQuery options,
   });
 }
 
@@ -111,22 +117,19 @@ final class SearchDataSources
     }
   }
 
-  Future<void> getSearch() async {
-    try {
-      final response =
-          await dioClient.get('/v1/prices/calendar', queryParameters: {
-        'origin': 'MOW',
-        'destination': 'LED',
-        'departure_date': '2024-05-18',
-        'limit': '50',
-        'currency': 'USD',
-      });
+  @override
+  Future<MonthMatrix> getMonthMatrix({
+    required MonthMatrixQuery options,
+  }) async {
+    String endpoint = "https://api.travelpayouts.com/v2/prices/month-matrix";
 
-      logger.i(response.realUri);
+    final allOptions = options.toJson();
+    allOptions.removeWhere((key, value) => value == null);
 
-      logger.i(response);
-    } on Object catch (error, stack) {
-      logger.e('', error: error, stackTrace: stack);
-    }
+    final response = await dioClient.get(endpoint, queryParameters: allOptions);
+
+    final result = response.data as Map<String, dynamic>;
+
+    return MonthMatrix.fromJson(result);
   }
 }

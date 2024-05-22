@@ -1,6 +1,7 @@
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
 
 import 'package:frifri/src/feature/buy_ticket/domain/repository/search_tickets_repo.dart';
@@ -29,13 +30,16 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
     return await searchDataSources.getTicketsBySearchId(searchId);
   }
 
-  // Future<void> mock(final String searchId) async {
-  //   return await searchDataSources.mock(searchId);
-  // }
-
   @override
   Future<TicketsSearchIdResult> searchTickets(
       TicketsSearchQuery options) async {
     return await searchDataSources.searchTickets(options: options);
+  }
+
+  @override
+  Future<MonthMatrix> getMonthMatrixPrices({
+    required MonthMatrixQuery options,
+  }) async {
+    return await searchDataSources.getMonthMatrix(options: options);
   }
 }
