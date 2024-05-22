@@ -88,7 +88,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
   // с помощью полей ниже
   final _searchModel = SearchModel();
 
-  void onFindTicketsButtonClick() {
+  void onFindTicketsButtonClick(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -144,7 +144,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
                   builder: (context, child) {
                     return ConfirmationButton(
                       onPressed: isConfirmationButtonActive()
-                          ? onFindTicketsButtonClick
+                          ? () => onFindTicketsButtonClick(context)
                           : null,
                       child: Text(
                         AppLocalizations.of(context)!.findTickets,
@@ -416,6 +416,7 @@ class DepartureDatePicker extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) => CalendarModal(
             title: AppLocalizations.of(context)!.when,
+            initialDate: DateTime.now(),
             availableFromDate: DateTime.now(),
             isOneWay: true,
             originIataCode: searchModel.departureAt?.code,
@@ -489,8 +490,8 @@ class ReturnDatePicker extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () async {
-        final DateTime? leastAvailableDate;
-        leastAvailableDate = searchModel.departureDate;
+        final DateTime leastAvailableDate;
+        leastAvailableDate = searchModel.departureDate ?? DateTime.now();
 
         final DateTime? returnDate = await showModalBottomSheet(
           context: context,
@@ -498,7 +499,8 @@ class ReturnDatePicker extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) => CalendarModal(
             title: AppLocalizations.of(context)!.back,
-            availableFromDate: leastAvailableDate ?? DateTime.now(),
+            initialDate: leastAvailableDate,
+            availableFromDate: leastAvailableDate,
             isOneWay: false,
             originIataCode: searchModel.departureAt?.code,
             destinationIataCode: searchModel.arrivalAt?.code,

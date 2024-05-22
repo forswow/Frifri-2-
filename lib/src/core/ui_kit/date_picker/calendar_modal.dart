@@ -7,7 +7,6 @@ import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
-import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
@@ -19,6 +18,7 @@ class CalendarModal extends StatefulWidget {
   const CalendarModal({
     super.key,
     required this.title,
+    required this.initialDate,
     required this.availableFromDate,
     required this.isOneWay,
     required this.originIataCode,
@@ -34,6 +34,7 @@ class CalendarModal extends StatefulWidget {
   final String? destinationIataCode;
 
   final int countOfMonths;
+  final DateTime initialDate;
 
   @override
   State<CalendarModal> createState() {
@@ -51,7 +52,7 @@ class _CalendarModalState extends State<CalendarModal> {
   late final String? originIataCode;
   late final String? destinationIataCode;
 
-  DateTime selectedDate = DateTime.now();
+  late DateTime initialDate;
 
   late final int countOfMonths;
 
@@ -69,6 +70,8 @@ class _CalendarModalState extends State<CalendarModal> {
 
     countOfMonths = widget.countOfMonths;
     calendarData = null;
+
+    initialDate = widget.initialDate;
   }
 
   @override
@@ -108,6 +111,7 @@ class _CalendarModalState extends State<CalendarModal> {
                 originIataCode: originIataCode,
                 destinationIataCode: destinationIataCode,
                 calendarData: snapshot.data,
+                initialDate: initialDate,
               );
             },
           ),
@@ -218,9 +222,11 @@ class _CalendarModalContent extends StatefulWidget {
     required this.originIataCode,
     required this.destinationIataCode,
     required this.calendarData,
+    required this.initialDate,
   });
 
   final DateTime availableFromDate;
+  final DateTime initialDate;
 
   final String? originIataCode;
   final String? destinationIataCode;
@@ -234,8 +240,6 @@ class _CalendarModalContent extends StatefulWidget {
 }
 
 class _CalendarModalContentState extends State<_CalendarModalContent> {
-  DateTime selectedDate = DateTime.now();
-
   late final DateTime currentDate;
   late final DateTime lastMonth;
   late final int countOfMonths;
@@ -244,6 +248,8 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
   late final String? originIataCode;
   late final String? destinationIataCode;
   late final Map<DateTime, Text>? calendarData;
+
+  late DateTime selectedDate;
 
   @override
   void initState() {
@@ -257,6 +263,8 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
     originIataCode = widget.originIataCode;
     destinationIataCode = widget.destinationIataCode;
     calendarData = widget.calendarData;
+
+    selectedDate = widget.initialDate;
   }
 
   @override

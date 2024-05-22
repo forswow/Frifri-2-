@@ -10,7 +10,6 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
-import 'package:frifri/src/feature/more/domain/entities/currency_entity.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 class TicketsSearchResultScreen extends StatefulWidget {
@@ -35,7 +34,7 @@ class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
     final locale = context.read<AppLanguageCubit>().state.toLowerCase();
 
     final currencyEnum = context.read<CurrencyCubit>().state;
-    final currency = currencyToString(currencyEnum, context: context);
+    final currency = currencyEnum.name;
 
     searchBloc.add(
       StartSearchTicketEvent(

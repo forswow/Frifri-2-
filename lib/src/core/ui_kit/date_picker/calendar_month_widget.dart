@@ -198,18 +198,7 @@ class MonthDay extends StatelessWidget {
                   : const Color.fromRGBO(0, 0, 0, 0.3),
             ),
           ),
-          text ?? const SizedBox(),
-          // if (isActive && !isSelected && text != null)
-          // Text(
-          //   text.toString(),
-          //   style: GoogleFonts.poppins(
-          //     fontSize: 12,
-          //     fontWeight: FontWeight.bold,
-          //     color: isLowestPrice
-          //         ? Colors.green
-          //         : const Color.fromRGBO(0, 0, 0, 0.3),
-          //   ),
-          // ),
+          !isSelected && text != null && isActive ? text! : const SizedBox(),
         ],
       ),
     );

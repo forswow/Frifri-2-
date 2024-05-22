@@ -11,13 +11,13 @@ enum CurrencyEnum {
 String currencyToString(CurrencyEnum airport, {required BuildContext context}) {
   switch (airport) {
     case CurrencyEnum.rub:
-      return AppLocalizations.of(context)!.cityKutaisi;
+      return AppLocalizations.of(context)!.currencyRub;
     case CurrencyEnum.usd:
-      return AppLocalizations.of(context)!.cityTbilisi;
+      return AppLocalizations.of(context)!.currencyUsd;
     case CurrencyEnum.eur:
-      return AppLocalizations.of(context)!.cityBatumi;
+      return AppLocalizations.of(context)!.currencyEur;
     case CurrencyEnum.gel:
-      return AppLocalizations.of(context)!.cityBatumi;
+      return AppLocalizations.of(context)!.currencyGel;
   }
 }
 
