@@ -120,28 +120,52 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                         CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
                           value: TripClass.economy,
-                          title: const Text("Эконом"),
+                          title: Text(
+                            AppLocalizations.of(context)!.economy,
+                            style: AppStyles.textStylePoppins.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
                         CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
                           value: TripClass.comfort,
-                          title: const Text("Комфорт"),
+                          title: Text(
+                            AppLocalizations.of(context)!.comfort,
+                            style: AppStyles.textStylePoppins.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
                         CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
                           value: TripClass.first,
-                          title: const Text("Первый"),
+                          title: Text(
+                            AppLocalizations.of(context)!.firstClass,
+                            style: AppStyles.textStylePoppins.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         ),
                         CustomRadioListTile<TripClass?>(
                           fill: _checkboxGradientColor,
                           value: TripClass.business,
-                          title: const Text("Бизнес"),
+                          title: Text(
+                            AppLocalizations.of(context)!.business,
+                            style: AppStyles.textStylePoppins.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
                           groupValue: flightClass,
                           onChanged: updateFlightClass,
                         )

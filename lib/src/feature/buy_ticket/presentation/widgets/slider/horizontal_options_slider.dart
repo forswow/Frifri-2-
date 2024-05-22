@@ -104,6 +104,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
           Text(
             tripClassToString(
               searchModel.passengersAndClass!.tripClass,
+              context: context,
             ),
             style: AppStyles.textStylePoppins.copyWith(
               fontSize: _defaultChipsDefaultTextSize,

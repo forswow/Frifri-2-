@@ -642,15 +642,22 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                         return ListenableBuilder(
                           listenable: searchModel,
                           builder: (context, child) {
-                            return Text(
-                              searchModel.passengersAndClass == null
-                                  ? AppLocalizations.of(context)!.choose
-                                  : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context)!.adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context)!.children}",
-                              style: AppStyles.textStylePoppins.copyWith(
-                                color: searchModel.passengersAndClass == null
-                                    ? Colors.grey
-                                    : Colors.black,
-                                fontWeight: FontWeight.w600,
+                            return SizedBox(
+                              width: 155,
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  searchModel.passengersAndClass == null
+                                      ? AppLocalizations.of(context)!.choose
+                                      : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context)!.adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context)!.children}",
+                                  style: AppStyles.textStylePoppins.copyWith(
+                                    color:
+                                        searchModel.passengersAndClass == null
+                                            ? Colors.grey
+                                            : Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -689,6 +696,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                               ? AppLocalizations.of(context)!.choose
                               : tripClassToString(
                                   searchModel.passengersAndClass!.tripClass,
+                                  context: context,
                                 ),
                           style: AppStyles.textStylePoppins.copyWith(
                             color: searchModel.passengersAndClass == null
