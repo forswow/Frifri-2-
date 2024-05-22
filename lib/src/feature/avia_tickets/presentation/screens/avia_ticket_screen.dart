@@ -98,6 +98,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
           actions: const [],
         ),
         body: SafeArea(
+          minimum: const EdgeInsets.only(bottom: 20),
           child: ReorderableListView(
             clipBehavior: Clip.hardEdge,
             proxyDecorator: (context, index, animation) {
