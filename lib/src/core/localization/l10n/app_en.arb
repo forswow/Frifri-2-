@@ -1,8 +1,5 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
+  "departureDateSelected": "Departure date selected",
   "service": "Service",
   "airTickets": "Air tickets",
   "insurance": "Insurance",
@@ -46,5 +43,5 @@
   "recentSearches": "Recent searches",
   "airportCitySearch": "Airport/City search",
   "airport": "Airport",
-  "selectDate": "Select a date"
+  "selectDate": "Select the date"
 }

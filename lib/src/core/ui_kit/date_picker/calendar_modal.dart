@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/core/helpers/datetime_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
@@ -50,13 +54,26 @@ class _CalendarModalState extends State<CalendarModal> {
   }
 }
 
-class _CalendarModalHeader extends StatelessWidget {
+class _CalendarModalHeader extends StatefulWidget {
   const _CalendarModalHeader({required this.title});
 
-  static const weekdays = "SMTWTFS";
   static const firstDayInWeek = DateTime.monday;
 
   final String title;
+
+  @override
+  State<_CalendarModalHeader> createState() => _CalendarModalHeaderState();
+}
+
+class _CalendarModalHeaderState extends State<_CalendarModalHeader> {
+  late final String weekdays;
+
+  @override
+  void initState() {
+    super.initState();
+    final locale = context.read<AppLanguageCubit>().state;
+    weekdays = getLocalizedWeekDays(locale.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +81,7 @@ class _CalendarModalHeader extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         DefaultModalHeader(
-          centerText: title,
+          centerText: widget.title,
         ),
         GridView.count(
           padding: const EdgeInsets.symmetric(horizontal: 17),
@@ -75,7 +92,7 @@ class _CalendarModalHeader extends StatelessWidget {
             return Container(
               alignment: Alignment.center,
               child: Text(
-                weekdays[(firstDayInWeek + index) % 7],
+                weekdays[(_CalendarModalHeader.firstDayInWeek + index) % 7],
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -172,7 +189,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   ),
                 ),
                 Text(
-                  "Дата вылета выбрана",
+                  AppLocalizations.of(context)!.departureDateSelected,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                     fontSize: 12,
@@ -187,7 +204,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "Выбрать дату",
+                      AppLocalizations.of(context)!.selectDate,
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

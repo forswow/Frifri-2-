@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/extensions/string_extensions.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -205,7 +207,7 @@ class MonthDay extends StatelessWidget {
   }
 }
 
-class MonthHeader extends StatelessWidget {
+class MonthHeader extends StatefulWidget {
   const MonthHeader({
     super.key,
     required this.year,
@@ -219,14 +221,26 @@ class MonthHeader extends StatelessWidget {
   final Function(DateTime) onDateSelected;
 
   @override
-  Widget build(BuildContext context) {
-    String monthName = _getMonthShortName(year, month);
+  State<MonthHeader> createState() => _MonthHeaderState();
+}
 
+class _MonthHeaderState extends State<MonthHeader> {
+  late final String monthName;
+
+  @override
+  void initState() {
+    super.initState();
+    final String locale = context.read<AppLanguageCubit>().state;
+    monthName = _getMonthShortName(widget.year, widget.month, locale: locale);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${monthName.captialize()} $year",
+          "${monthName.captialize()} ${widget.year}",
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -243,7 +257,7 @@ class MonthHeader extends StatelessWidget {
     );
   }
 
-  String _getMonthShortName(int year, int month) {
-    return DateFormat("MMM", "ru").format(DateTime(year, month));
+  String _getMonthShortName(int year, int month, {String locale = "ru"}) {
+    return DateFormat("MMM", locale).format(DateTime(year, month));
   }
 }
