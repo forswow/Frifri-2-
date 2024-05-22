@@ -26,7 +26,7 @@ class AviaTicketScreen extends StatefulWidget {
 /// State for widget AviaTicketScreen.
 class _AviaTicketScreenState extends State<AviaTicketScreen> {
   final List<DirectFligthsEntity> _items = List<DirectFligthsEntity>.generate(
-    4,
+    12,
     (index) => DirectFligthsEntity(
         uuid: '200',
         departureLocation: 'Тбилиси',
