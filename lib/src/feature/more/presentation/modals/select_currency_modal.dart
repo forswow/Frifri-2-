@@ -25,8 +25,8 @@ class SelectCurrencyModal extends StatelessWidget {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          const DefaultModalHeader(
-            centerText: "Валюта",
+          DefaultModalHeader(
+            centerText: AppLocalizations.of(context)!.currency,
           ),
           const Divider(
             height: 1,

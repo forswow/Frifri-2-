@@ -9,6 +9,7 @@ import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const _contentPadding = 24.0;
 
@@ -17,17 +18,16 @@ class SettingsModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultModalWrapper(
+    return DefaultModalWrapper(
       child: Column(
         children: [
           DefaultModalHeader(
-            centerText: "Настройки",
-          ),
-          Divider(
+              centerText: AppLocalizations.of(context)!.settings),
+          const Divider(
             height: 1,
             thickness: 0.5,
           ),
-          _SettingsModalContent(),
+          const _SettingsModalContent(),
         ],
       ),
     );
