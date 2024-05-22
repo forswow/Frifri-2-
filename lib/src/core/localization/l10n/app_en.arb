@@ -1,4 +1,6 @@
 {
+  "@@locale": "en",
+
   "departureDateSelected": "Departure date selected",
   "service": "Service",
   "airTickets": "Air tickets",

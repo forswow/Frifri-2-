@@ -1,4 +1,6 @@
 {
+    "@@locale": "ka",
+
     "departureDateSelected": "არჩეულია გამგზავრების თარიღი",
     "service": "სერვისი",
     "airTickets": "საჰაერო ბილეთები",

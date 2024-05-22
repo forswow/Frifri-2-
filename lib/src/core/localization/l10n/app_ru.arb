@@ -1,4 +1,6 @@
 {
+    "@@locale": "ru",
+
     "departureDateSelected": "Дата вылета выбрана",
     "service": "Сервис",
     "airTickets": "Авиабилеты",
