@@ -91,7 +91,7 @@ class _SelectLanguageModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "ge",
+                value: "ka",
                 title: const Text("Georgian"),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
