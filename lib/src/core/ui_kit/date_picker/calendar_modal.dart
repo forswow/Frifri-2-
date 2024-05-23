@@ -85,21 +85,41 @@ class _CalendarModalState extends State<CalendarModal> {
                 ? fetchPricesData(context: context)
                 : null,
             builder: (context, snapshot) {
-              if (shouldFetchPrices && !snapshot.hasData) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Загружаем цены для выбранного направления",
-                        style: AppStyles.textStylePoppins.copyWith(
-                          color: Colors.black,
-                          fontSize: 12,
-                        ),
+              if (snapshot.hasError) {
+                return Expanded(
+                  child: Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "При поиске произошла ошибка, пожалуйста выберите другую локацию и попробуйте ещё раз",
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.black,
+                        fontSize: 12,
                       ),
-                      const CircularProgressIndicator(),
-                    ],
+                    ),
+                  ),
+                );
+              }
+
+              if (shouldFetchPrices && !snapshot.hasData) {
+                return Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Загружаем цены для выбранного направления",
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const CircularProgressIndicator(),
+                      ],
+                    ),
                   ),
                 );
               }
