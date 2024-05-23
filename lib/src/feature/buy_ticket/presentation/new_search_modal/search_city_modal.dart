@@ -8,6 +8,7 @@ import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_airport.component.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/module/country_search/domain/entity/country_search_entity.dart';
 import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
 import 'package:frifri/src/module/country_search/presentation/bloc/recent_searches_bloc.dart';
@@ -125,7 +126,10 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
 
   void onSearchFieldChanged(String newText) {
     searchText = newText;
-    context.read<SearchCityBloc>().add(StartCitySearchEvent(text: newText));
+    final locale = context.read<AppLanguageCubit>().state;
+    context
+        .read<SearchCityBloc>()
+        .add(StartCitySearchEvent(text: newText, locale: locale));
   }
 
   // return EmptyStringListFrom(airlinesList: filteredAirlines);

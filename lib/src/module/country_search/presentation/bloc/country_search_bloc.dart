@@ -43,7 +43,7 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
       final countrySearchList = await _countrySearchRepo.fetchCountrySearch(
         InputDto(
           term: event.text,
-          locale: "ru",
+          locale: event.locale,
         ),
       );
 
@@ -92,9 +92,10 @@ final class SearchFailure extends SearchCityState {
 abstract class CitySearchEvent extends Equatable {}
 
 final class StartCitySearchEvent extends CitySearchEvent {
-  StartCitySearchEvent({required this.text});
+  StartCitySearchEvent({required this.text, required this.locale});
 
   final String text;
+  final String locale;
 
   @override
   List<Object> get props => [text];
