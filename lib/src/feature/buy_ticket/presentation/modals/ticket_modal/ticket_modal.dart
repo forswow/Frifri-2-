@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
@@ -150,19 +152,28 @@ class _TicketModalHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                ticketEntity.originAirport.code,
-                style: AppStyles.textStylePoppins
-                    .copyWith(fontSize: 22, fontWeight: FontWeight.w600),
-              ),
-              Text(
-                ticketEntity.originAirport.name,
-                style: AppStyles.textStylePoppins,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    ticketEntity.originAirport.code,
+                    style: AppStyles.textStylePoppins
+                        .copyWith(fontSize: 22, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+            
+                    ticketEntity.originAirport.name,
+                    style: AppStyles.textStylePoppins,
+                  ),
+                ),
+              ],
+            ),
           ),
           Column(
             children: <Widget>[
@@ -178,21 +189,23 @@ class _TicketModalHeader extends StatelessWidget {
               )
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                ticketEntity.destinationAirport.code,
-                style: AppStyles.textStylePoppins.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text(
+                  ticketEntity.destinationAirport.code,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              Text(
-                ticketEntity.destinationAirport.name,
-                style: AppStyles.textStylePoppins,
-              ),
-            ],
+                Text(
+                  ticketEntity.destinationAirport.name,
+                  style: AppStyles.textStylePoppins,
+                ),
+              ],
+            ),
           ),
         ],
       ),

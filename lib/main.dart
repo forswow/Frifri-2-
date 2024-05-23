@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/application/initialization/runner/runner.dart';
 
 void main() {
@@ -9,10 +10,7 @@ void main() {
       await Runner.startApplication();
     },
     (error, stack) {
-      debugPrintStack(
-        stackTrace: stack,
-        label: error.toString(),
-      );
+      logger.e('Zoned', error: error, stackTrace: stack);
     },
   );
 }

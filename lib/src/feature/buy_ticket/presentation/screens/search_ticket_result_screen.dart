@@ -11,6 +11,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizo
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class TicketsSearchResultScreen extends StatefulWidget {
   const TicketsSearchResultScreen({super.key, required this.searchModel});
@@ -104,33 +105,7 @@ class _ResultedTicketsList extends StatelessWidget {
               },
             );
           } else if (state is SearchingInProgress) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Собираем билетики, будьте терпеливы!",
-                    style: AppStyles.textStylePoppins.copyWith(
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    "Это займёт примерно 30-35 секунд",
-                    style: AppStyles.textStylePoppins.copyWith(
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  const CircularProgressIndicator(),
-                ],
-              ),
-            );
+            return CircularProgressIndicator();
           }
 
           return Container();

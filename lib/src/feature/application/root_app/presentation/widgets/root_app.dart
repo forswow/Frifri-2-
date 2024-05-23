@@ -52,7 +52,10 @@ class RootApp extends StatelessWidget {
                 value: dependencies.recentSearchesCubit,
               )
             ],
-            child: const App(),
+            child: MediaQuery(
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: TextScaler.noScaling),
+                child: const App()),
           );
         },
       ),

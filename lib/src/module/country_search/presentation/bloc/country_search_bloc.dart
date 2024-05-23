@@ -19,12 +19,10 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
       _searchCountry,
       transformer: (event, mapper) => event
           .throttleTime(
-            const Duration(milliseconds: 500),
+            const Duration(milliseconds: 200),
           )
           .debounceTime(
-            const Duration(
-              milliseconds: 800,
-            ),
+            const Duration(milliseconds: 200),
           )
           .switchMap(mapper),
     );

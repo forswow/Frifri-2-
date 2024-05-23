@@ -37,7 +37,7 @@ class NavigationManager {
               GoRoute(
                 path: hotels,
                 builder: (context, state) {
-                  return const Placeholder();
+                  return const Scaffold();
                 },
               ),
             ],
