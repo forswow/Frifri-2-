@@ -109,6 +109,9 @@ class _ResultedTicketsList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     "Собираем билетики, будьте терпеливы!",
                     style: AppStyles.textStylePoppins.copyWith(
@@ -120,6 +123,9 @@ class _ResultedTicketsList extends StatelessWidget {
                     style: AppStyles.textStylePoppins.copyWith(
                       fontSize: 16,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 14,
                   ),
                   const CircularProgressIndicator(),
                 ],
