@@ -4,11 +4,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_airport.component.dart';
 import 'package:frifri/src/module/country_search/domain/entity/country_search_entity.dart';
 import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
+import 'package:frifri/src/module/country_search/presentation/bloc/recent_searches_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -91,14 +93,23 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
               builder: (BuildContext context, state) {
                 switch (state) {
                   case Idle():
-                    // TODO: Отображать недавние поиски с локалки
-                    return Container();
+                    return BlocBuilder<RecentSearchesCubit,
+                        List<CountrySearchEntity>>(
+                      builder: (context, state) {
+                        logger.i(state.toString());
+                        return SearchCityResult(
+                          title: "Ранее искали",
+                          searchResult: state,
+                        );
+                      },
+                    );
                   case SearchInProgress():
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   case SearchCompleted():
                     return SearchCityResult(
+                      title: "Результаты поиска",
                       searchResult: state.countrySearchList,
                     );
                   case SearchFailure():
@@ -126,14 +137,28 @@ class SearchCityResult extends StatelessWidget {
   const SearchCityResult({
     super.key,
     required this.searchResult,
+    required this.title,
   });
 
   final List<CountrySearchEntity> searchResult;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
+            child: Text(
+              title,
+              style: AppStyles.textStylePoppins.copyWith(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
@@ -145,12 +170,18 @@ class SearchCityResult extends StatelessWidget {
                 child: AirportComponentCard(
                   name: name,
                   shortName: code,
-                  callback: () => context.pop(
-                    AirportEntity(
-                      name: name,
-                      code: code,
-                    ),
-                  ),
+                  callback: () {
+                    context
+                        .read<RecentSearchesCubit>()
+                        .addRecentSearch(searchResult[index]);
+
+                    context.pop(
+                      AirportEntity(
+                        name: name,
+                        code: code,
+                      ),
+                    );
+                  },
                 ),
               );
             },

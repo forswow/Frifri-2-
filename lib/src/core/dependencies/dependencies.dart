@@ -12,7 +12,9 @@ import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:frifri/src/module/country_search/data/data_sources/country_search_data_sources.dart';
 import 'package:frifri/src/module/country_search/data/repos/country_search_repo_impl.dart';
+import 'package:frifri/src/module/country_search/data/repos/recent_search_repo_impl.dart';
 import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
+import 'package:frifri/src/module/country_search/presentation/bloc/recent_searches_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template dependencies}
@@ -41,6 +43,8 @@ base class Dependencies {
   late final SearchCityRepoImpl searchCityRepo;
   late final SearchCityBloc searchCityBloc;
 
+  late final recentSearchesCubit;
+
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
     logger.i("Initializing dependencies...");
@@ -63,6 +67,13 @@ base class Dependencies {
     searchCityRepo =
         SearchCityRepoImpl(searchCityDataSources: searchCityDataSource);
     searchCityBloc = SearchCityBloc(searchCityRepo);
+
+    RecentSearchRepoImpl recentSearchRepoImpl = RecentSearchRepoImpl(
+      db: appDatabase,
+    );
+    recentSearchesCubit = RecentSearchesCubit(
+      recentSearchRepo: recentSearchRepoImpl,
+    );
 
     logger.i("Dependencies initialized.");
   }

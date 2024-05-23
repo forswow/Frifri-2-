@@ -3,15 +3,29 @@ import 'package:frifri/src/module/country_search/domain/entity/country_search_en
 import 'package:frifri/src/module/country_search/domain/repos/recent_search_repo.dart';
 
 final class RecentSearchRepoImpl implements IRecentSearchRepo {
+  RecentSearchRepoImpl({
+    required this.db,
+  });
+
+  AppDatabase db;
+
   @override
-  Future<void> addRecentSearch(CountrySearchEntity countrySearchEntity) {
-    // TODO: implement addRecentSearch
-    throw UnimplementedError();
+  Future<void> addRecentSearch(CountrySearchEntity countrySearchEntity) async {
+    await db.addRecentSearch(
+      RecentSearchData(
+          countryName: countrySearchEntity.countryName,
+          countryCode: countrySearchEntity.code,
+          airport: countrySearchEntity.name),
+    );
   }
 
   @override
-  Future<List<RecentSearch>> fetchRecentSearch() {
-    // TODO: implement fetchRecentSearch
-    throw UnimplementedError();
+  Future<List<RecentSearchData>> fetchRecentSearch() async {
+    return await db.getRecentSearches();
+  }
+
+  @override
+  Future<bool> hasRecentSearch(String countryCode) async {
+    return await db.hasRecentSearches(countryCode);
   }
 }

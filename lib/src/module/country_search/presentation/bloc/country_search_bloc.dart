@@ -33,6 +33,11 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   FutureOr<void> _searchCountry(
       StartCitySearchEvent event, Emitter<SearchCityState> emit) async {
     try {
+      if (event.text.isEmpty) {
+        emit(Idle());
+        return;
+      }
+
       emit(SearchInProgress());
 
       final countrySearchList = await _countrySearchRepo.fetchCountrySearch(

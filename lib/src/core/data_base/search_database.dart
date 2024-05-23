@@ -15,6 +15,21 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Future<int> addRecentSearch(RecentSearchData data) async {
+    return await into(recentSearch).insert(data);
+  }
+
+  Future<List<RecentSearchData>> getRecentSearches() async {
+    return await select(recentSearch).get();
+  }
+
+  Future<bool> hasRecentSearches(String countryCode) async {
+    return await (select(recentSearch)
+              ..where((tbl) => tbl.countryCode.equals(countryCode)))
+            .getSingleOrNull() !=
+        null;
+  }
 }
 
 class RecentSearch extends Table {
