@@ -11,19 +11,6 @@ import 'package:rxdart/rxdart.dart';
 import '../../domain/entity/country_search_entity.dart';
 import '../../domain/repos/country_search_repo.dart';
 
-// EventTransformer<E> throttleDroppable<E>() {
-//   return (events, mapper) {
-//     return throttleDroppable<E>().call(
-//       events.throttle(
-//         const Duration(
-//           milliseconds: 200,
-//         ),
-//       ),
-//       mapper,
-//     );
-//   };
-// }
-
 class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   final ICountrySearchRepo _countrySearchRepo;
 
@@ -31,6 +18,9 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
     on<StartCitySearchEvent>(
       _searchCountry,
       transformer: (event, mapper) => event
+          .throttleTime(
+            const Duration(milliseconds: 500),
+          )
           .debounceTime(
             const Duration(
               milliseconds: 800,
