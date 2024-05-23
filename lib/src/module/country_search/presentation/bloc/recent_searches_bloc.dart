@@ -26,10 +26,9 @@ class RecentSearchesCubit extends Cubit<List<CountrySearchEntity>> {
   Future<void> addRecentSearch(CountrySearchEntity countrySearchEntity) async {
     if (!await recentSearchRepo.hasRecentSearch(countrySearchEntity.code)) {
       recentSearchRepo.addRecentSearch(countrySearchEntity);
+      emit(
+        List.from(state)..add(countrySearchEntity),
+      );
     }
-
-    emit(
-      List.from(state)..add(countrySearchEntity),
-    );
   }
 }
