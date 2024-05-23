@@ -6,28 +6,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/module/country_search/domain/dto/input_dto.dart';
-import 'package:stream_transform/stream_transform.dart';
+import 'package:rxdart/rxdart.dart';
+
 import '../../domain/entity/country_search_entity.dart';
 import '../../domain/repos/country_search_repo.dart';
 
-EventTransformer<E> throttleDroppable<E>() {
-  return (events, mapper) {
-    return throttleDroppable<E>().call(
-      events.throttle(
-        const Duration(
-          milliseconds: 200,
-        ),
-      ),
-      mapper,
-    );
-  };
-}
+// EventTransformer<E> throttleDroppable<E>() {
+//   return (events, mapper) {
+//     return throttleDroppable<E>().call(
+//       events.throttle(
+//         const Duration(
+//           milliseconds: 200,
+//         ),
+//       ),
+//       mapper,
+//     );
+//   };
+// }
 
 class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   final ICountrySearchRepo _countrySearchRepo;
 
   SearchCityBloc(this._countrySearchRepo) : super(Idle()) {
-    on<StartCitySearchEvent>(_searchCountry);
+    on<StartCitySearchEvent>(
+      _searchCountry,
+      transformer: (event, mapper) => event
+          .debounceTime(
+            const Duration(
+              milliseconds: 800,
+            ),
+          )
+          .switchMap(mapper),
+    );
   }
 
   FutureOr<void> _searchCountry(
