@@ -7,7 +7,7 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
-import 'package:frifri/src/feature/service/data/helpers/url_launcher_helper.dart';
+import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 
 class TicketModal extends StatelessWidget {
   const TicketModal({
