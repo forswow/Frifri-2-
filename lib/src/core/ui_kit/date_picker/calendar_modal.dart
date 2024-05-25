@@ -342,7 +342,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   ),
                 ),
                 Text(
-                  AppLocalizations.of(context)!.departureDateSelected,
+                  AppLocalizations.of(context).departureDateSelected,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                     fontSize: 12,
@@ -357,7 +357,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      AppLocalizations.of(context)!.selectDate,
+                      AppLocalizations.of(context).selectDate,
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

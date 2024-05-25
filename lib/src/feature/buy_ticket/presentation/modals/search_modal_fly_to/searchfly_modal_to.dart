@@ -183,7 +183,7 @@ class SearchFlyModalHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              AppLocalizations.of(context)!.whereFrom,
+                              AppLocalizations.of(context).whereFrom,
                               style: AppStyles.textStylePoppins.copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -206,7 +206,7 @@ class SearchFlyModalHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              AppLocalizations.of(context)!.whereToFly,
+                              AppLocalizations.of(context).whereToFly,
                               style: AppStyles.textStylePoppins.copyWith(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

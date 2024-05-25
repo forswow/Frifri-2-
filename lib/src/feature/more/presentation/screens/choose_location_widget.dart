@@ -37,7 +37,7 @@ class _ChooseAirportState extends State<ChooseAirport> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        AppLocalizations.of(context)!.departureAirport,
+                        AppLocalizations.of(context).departureAirport,
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,

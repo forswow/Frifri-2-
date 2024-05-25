@@ -32,7 +32,6 @@ dependencies:
   logger: ^2.3.0
   equatable: ^2.0.5
   flutter_lints: ^4.0.0
-  intl: any
   drift: ^2.18.0
   sqlite3_flutter_libs: ^0.5.21
   path_provider: ^2.1.3

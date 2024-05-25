@@ -28,7 +28,7 @@ class SelectCurrencyModal extends StatelessWidget {
       child: Column(
         children: [
           DefaultModalHeader(
-            centerText: AppLocalizations.of(context)!.currency,
+            centerText: AppLocalizations.of(context).currency,
           ),
           const Divider(
             height: 1,
@@ -74,7 +74,7 @@ class _SelectCurrencyModalContentState
               CustomRadioListTile(
                 value: CurrencyEnum.rub,
                 title: Text(
-                  AppLocalizations.of(context)!.currencyRub,
+                  AppLocalizations.of(context).currencyRub,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -90,7 +90,7 @@ class _SelectCurrencyModalContentState
               CustomRadioListTile(
                 value: CurrencyEnum.usd,
                 title: Text(
-                  AppLocalizations.of(context)!.currencyUsd,
+                  AppLocalizations.of(context).currencyUsd,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -106,7 +106,7 @@ class _SelectCurrencyModalContentState
               CustomRadioListTile(
                 value: CurrencyEnum.eur,
                 title: Text(
-                  AppLocalizations.of(context)!.currencyEur,
+                  AppLocalizations.of(context).currencyEur,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -122,7 +122,7 @@ class _SelectCurrencyModalContentState
               CustomRadioListTile(
                 value: CurrencyEnum.gel,
                 title: Text(
-                  AppLocalizations.of(context)!.currencyGel,
+                  AppLocalizations.of(context).currencyGel,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -151,7 +151,7 @@ class _SelectCurrencyModalContentState
                     }
                   : null,
               child: Text(
-                AppLocalizations.of(context)!.confirm,
+                AppLocalizations.of(context).confirm,
                 style: GoogleFonts.inter(
                   color: Colors.white,
                 ),

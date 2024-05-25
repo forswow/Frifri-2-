@@ -67,7 +67,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
                 BlocBuilder<AirportCubit, AirportEnum>(
                   builder: (context, currentAirport) => RichText(
                     text: TextSpan(
-                      text: AppLocalizations.of(context)!.directFligthsFrom,
+                      text: AppLocalizations.of(context).directFligthsFrom,
                       style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,

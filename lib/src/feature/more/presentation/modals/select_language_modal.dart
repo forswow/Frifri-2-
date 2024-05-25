@@ -26,7 +26,7 @@ class SelectLanguageModal extends StatelessWidget {
       child: Column(
         children: [
           DefaultModalHeader(
-            centerText: AppLocalizations.of(context)!.language,
+            centerText: AppLocalizations.of(context).language,
           ),
           const Divider(
             height: 1,
@@ -120,7 +120,7 @@ class _SelectLanguageModalContentState
                     }
                   : null,
               child: Text(
-                AppLocalizations.of(context)!.confirm,
+                AppLocalizations.of(context).confirm,
                 style: GoogleFonts.inter(
                   color: Colors.white,
                 ),

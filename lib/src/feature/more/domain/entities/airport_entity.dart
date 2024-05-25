@@ -10,11 +10,11 @@ enum AirportEnum {
 String airportToString(AirportEnum airport, {required BuildContext context}) {
   switch (airport) {
     case AirportEnum.kutaisi:
-      return AppLocalizations.of(context)!.cityKutaisi;
+      return AppLocalizations.of(context).cityKutaisi;
     case AirportEnum.tbilisi:
-      return AppLocalizations.of(context)!.cityTbilisi;
+      return AppLocalizations.of(context).cityTbilisi;
     case AirportEnum.batumi:
-      return AppLocalizations.of(context)!.cityBatumi;
+      return AppLocalizations.of(context).cityBatumi;
   }
 }
 

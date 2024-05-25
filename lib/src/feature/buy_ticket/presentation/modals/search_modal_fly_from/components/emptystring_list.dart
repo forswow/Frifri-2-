@@ -18,7 +18,7 @@ class EmptyStringListFrom extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Text(
-              AppLocalizations.of(context)!.nearestAirport.toUpperCase(),
+              AppLocalizations.of(context).nearestAirport.toUpperCase(),
               style: AppStyles.textStylePoppins
                   .copyWith(fontWeight: FontWeight.w500, fontSize: 12)),
         ),
@@ -49,7 +49,7 @@ class EmptyStringListFrom extends StatelessWidget {
         const SliverToBoxAdapter(child: SizedBox(height: 36)),
         SliverToBoxAdapter(
           child: Text(
-            AppLocalizations.of(context)!.recentSearches.toUpperCase(),
+            AppLocalizations.of(context).recentSearches.toUpperCase(),
             style: GoogleFonts.poppins(
               fontSize: 12,
               fontWeight: FontWeight.w500,

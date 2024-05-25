@@ -33,7 +33,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
           title: Padding(
             padding: const EdgeInsets.only(left: 24.0),
             child: Text(
-              AppLocalizations.of(context)!.service,
+              AppLocalizations.of(context).service,
               style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
           ),

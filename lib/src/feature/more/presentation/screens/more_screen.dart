@@ -45,7 +45,7 @@ class _MoreScreenState extends State<MoreScreen> {
           title: Padding(
             padding: const EdgeInsets.only(left: 24),
             child: Text(
-              AppLocalizations.of(context)!.more,
+              AppLocalizations.of(context).more,
               style: GoogleFonts.poppins(
                   fontSize: 20, fontWeight: FontWeight.w600),
             ),

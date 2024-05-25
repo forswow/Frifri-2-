@@ -10,10 +10,10 @@ enum TripClass {
 
 String tripClassToString(TripClass tripClass, {required BuildContext context}) {
   return switch (tripClass) {
-    TripClass.economy => AppLocalizations.of(context)!.economy,
-    TripClass.comfort => AppLocalizations.of(context)!.comfort,
-    TripClass.first => AppLocalizations.of(context)!.firstClass,
-    TripClass.business => AppLocalizations.of(context)!.business,
+    TripClass.economy => AppLocalizations.of(context).economy,
+    TripClass.comfort => AppLocalizations.of(context).comfort,
+    TripClass.first => AppLocalizations.of(context).firstClass,
+    TripClass.business => AppLocalizations.of(context).business,
   };
 }
 

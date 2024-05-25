@@ -81,7 +81,7 @@ class AviaTicketWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.flightCost,
+                  AppLocalizations.of(context).flightCost,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: devicePixelRatio * _aboutPriceTextScaleFactor,

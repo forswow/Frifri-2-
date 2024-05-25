@@ -28,7 +28,7 @@ class SelectAirportModal extends StatelessWidget {
       child: Column(
         children: [
           DefaultModalHeader(
-            centerText: AppLocalizations.of(context)!.departureAirport,
+            centerText: AppLocalizations.of(context).departureAirport,
           ),
           const Divider(
             height: 1,
@@ -75,7 +75,7 @@ class _SelectAirportModalContentState
                 value: AirportEnum.tbilisi,
                 title: Text(
                   // "Тбилиси",
-                  AppLocalizations.of(context)!.cityTbilisi,
+                  AppLocalizations.of(context).cityTbilisi,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -94,7 +94,7 @@ class _SelectAirportModalContentState
               CustomRadioListTile(
                 value: AirportEnum.kutaisi,
                 title: Text(
-                  AppLocalizations.of(context)!.cityKutaisi,
+                  AppLocalizations.of(context).cityKutaisi,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -113,7 +113,7 @@ class _SelectAirportModalContentState
               CustomRadioListTile(
                 value: AirportEnum.batumi,
                 title: Text(
-                  AppLocalizations.of(context)!.cityBatumi,
+                  AppLocalizations.of(context).cityBatumi,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black,
                   ),
@@ -145,7 +145,7 @@ class _SelectAirportModalContentState
                     }
                   : null,
               child: Text(
-                AppLocalizations.of(context)!.confirm,
+                AppLocalizations.of(context).confirm,
                 style: GoogleFonts.inter(
                   color: Colors.white,
                 ),

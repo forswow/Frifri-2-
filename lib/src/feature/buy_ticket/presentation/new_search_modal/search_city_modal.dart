@@ -77,7 +77,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                 color: Colors.grey,
               ),
               filled: true,
-              labelText: AppLocalizations.of(context)!.airportCitySearch,
+              labelText: AppLocalizations.of(context).airportCitySearch,
               labelStyle: AppStyles.textStylePoppins,
               fillColor: const Color(0xFFF1F3F8),
               border: OutlineInputBorder(

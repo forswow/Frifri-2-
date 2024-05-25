@@ -52,7 +52,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           child: Row(
             children: [
               CustomNavigationBarItem(
-                title: AppLocalizations.of(context)!.avia,
+                title: AppLocalizations.of(context).avia,
                 assetPath: 'assets/icons/home.svg',
                 activeAssetPath: 'assets/icons/home_active.svg',
                 isActive: navigationIndex == 0,
@@ -61,7 +61,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 },
               ),
               CustomNavigationBarItem(
-                title: AppLocalizations.of(context)!.hotel,
+                title: AppLocalizations.of(context).hotel,
                 assetPath: 'assets/icons/book-open.svg',
                 activeAssetPath: 'assets/icons/book_open_active.svg',
                 isActive: navigationIndex == 1,
@@ -71,7 +71,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               ),
               const Spacer(),
               CustomNavigationBarItem(
-                title: AppLocalizations.of(context)!.service,
+                title: AppLocalizations.of(context).service,
                 assetPath: 'assets/icons/fire.svg',
                 activeAssetPath: 'assets/icons/active_fire.svg',
                 isActive: navigationIndex == 2,
@@ -80,7 +80,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 },
               ),
               CustomNavigationBarItem(
-                title: AppLocalizations.of(context)!.moreFirstUpCase,
+                title: AppLocalizations.of(context).moreFirstUpCase,
                 assetPath: 'assets/icons/more-horizontal.svg',
                 activeAssetPath: 'assets/icons/active_more.svg',
                 isActive: navigationIndex == 3,

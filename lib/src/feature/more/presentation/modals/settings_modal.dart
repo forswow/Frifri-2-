@@ -21,7 +21,7 @@ class SettingsModal extends StatelessWidget {
       child: Column(
         children: [
           DefaultModalHeader(
-              centerText: AppLocalizations.of(context)!.settings),
+              centerText: AppLocalizations.of(context).settings),
           const Divider(
             height: 1,
             thickness: 0.5,
@@ -66,7 +66,7 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.pushNotification,
+                  AppLocalizations.of(context).pushNotification,
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -101,7 +101,7 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
                       }
                     : null,
                 child: Text(
-                  AppLocalizations.of(context)!.confirm,
+                  AppLocalizations.of(context).confirm,
                   style: GoogleFonts.inter(
                     color: Colors.white,
                   ),

@@ -161,7 +161,7 @@ class _TicketsSearchResultHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 60, 24, 0),
       child: Text(
-        AppLocalizations.of(context)!.whereToFly,
+        AppLocalizations.of(context).whereToFly,
         style: AppStyles.textStylePoppins.copyWith(
           fontSize: 20,
           fontWeight: FontWeight.w600,

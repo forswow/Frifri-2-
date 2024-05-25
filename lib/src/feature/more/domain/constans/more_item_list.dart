@@ -19,7 +19,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SettingsModal(),
           );
         },
-        name: AppLocalizations.of(context)!.settings,
+        name: AppLocalizations.of(context).settings,
         assetPath: 'assets/icons/Settings.svg'),
     MoreItemEntity(
         onPreseed: () {
@@ -30,7 +30,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SelectAirportModal(),
           );
         },
-        name: AppLocalizations.of(context)!.departureAirport,
+        name: AppLocalizations.of(context).departureAirport,
         assetPath: 'assets/icons/plane-fly.svg'),
     MoreItemEntity(
         onPreseed: () {
@@ -41,7 +41,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SelectLanguageModal(),
           );
         },
-        name: AppLocalizations.of(context)!.language,
+        name: AppLocalizations.of(context).language,
         assetPath: 'assets/icons/Frame 624659.svg'),
     MoreItemEntity(
         onPreseed: () {
@@ -52,7 +52,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SelectCurrencyModal(),
           );
         },
-        name: AppLocalizations.of(context)!.currency,
+        name: AppLocalizations.of(context).currency,
         assetPath: 'assets/icons/usd-circle.svg'),
     MoreItemEntity(
         onPreseed: () {
@@ -63,7 +63,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const HelpModal(),
           );
         },
-        name: AppLocalizations.of(context)!.help,
+        name: AppLocalizations.of(context).help,
         assetPath: 'assets/icons/help.svg'),
     MoreItemEntity(
         onPreseed: () {
@@ -74,7 +74,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const ConfidentialityModal(),
           );
         },
-        name: AppLocalizations.of(context)!.confidentiality,
+        name: AppLocalizations.of(context).confidentiality,
         assetPath: 'assets/icons/circle-info.svg'),
   ];
 }

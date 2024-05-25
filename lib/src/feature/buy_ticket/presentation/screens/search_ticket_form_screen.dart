@@ -146,7 +146,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
                           ? () => onFindTicketsButtonClick(context)
                           : null,
                       child: Text(
-                        AppLocalizations.of(context)!.findTickets,
+                        AppLocalizations.of(context).findTickets,
                         style: AppStyles.textStylePoppins.copyWith(
                           color: Colors.white,
                         ),
@@ -250,7 +250,7 @@ class ToLocationPicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                AppLocalizations.of(context)!.where,
+                AppLocalizations.of(context).where,
                 style: AppStyles.textStylePoppins.copyWith(
                   fontSize: 16,
                   color: Colors.grey,
@@ -331,7 +331,7 @@ class FromLocationPicker extends StatelessWidget {
           Row(
             children: [
               Text(
-                AppLocalizations.of(context)!.whereFrom,
+                AppLocalizations.of(context).whereFrom,
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.grey,
                   fontSize: 16,
@@ -351,7 +351,7 @@ class FromLocationPicker extends StatelessWidget {
             builder: (context, child) {
               return Text(
                 searchModel.departureAt == null
-                    ? AppLocalizations.of(context)!.choose
+                    ? AppLocalizations.of(context).choose
                     : searchModel.departureAt!.name,
                 style: AppStyles.textStylePoppins.copyWith(
                   color: searchModel.departureAt == null
@@ -416,7 +416,7 @@ class DepartureDatePicker extends StatelessWidget {
           useRootNavigator: true,
           isScrollControlled: true,
           builder: (context) => CalendarModal(
-            title: AppLocalizations.of(context)!.when,
+            title: AppLocalizations.of(context).when,
             initialDate: DateTime.now(),
             availableFromDate: DateTime.now(),
             isOneWay: true,
@@ -440,7 +440,7 @@ class DepartureDatePicker extends StatelessWidget {
           Row(
             children: [
               Text(
-                AppLocalizations.of(context)!.when,
+                AppLocalizations.of(context).when,
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.grey,
                   fontSize: 16,
@@ -460,7 +460,7 @@ class DepartureDatePicker extends StatelessWidget {
             builder: (context, child) {
               return Text(
                 searchModel.departureDate == null
-                    ? AppLocalizations.of(context)!.choose
+                    ? AppLocalizations.of(context).choose
                     : DateFormat('dd MMMM yyyy')
                         .format(searchModel.departureDate!),
                 style: AppStyles.textStylePoppins.copyWith(
@@ -499,7 +499,7 @@ class ReturnDatePicker extends StatelessWidget {
           useRootNavigator: true,
           isScrollControlled: true,
           builder: (context) => CalendarModal(
-            title: AppLocalizations.of(context)!.back,
+            title: AppLocalizations.of(context).back,
             initialDate: leastAvailableDate,
             availableFromDate: leastAvailableDate,
             isOneWay: false,
@@ -517,7 +517,7 @@ class ReturnDatePicker extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            AppLocalizations.of(context)!.back,
+            AppLocalizations.of(context).back,
             style: AppStyles.textStylePoppins.copyWith(
               color: Colors.grey,
               fontSize: 16,
@@ -529,7 +529,7 @@ class ReturnDatePicker extends StatelessWidget {
             builder: (context, child) {
               return Text(
                 searchModel.returnDate == null
-                    ? AppLocalizations.of(context)!.choose
+                    ? AppLocalizations.of(context).choose
                     : DateFormat('dd MMMM yyyy')
                         .format(searchModel.returnDate!),
                 style: AppStyles.textStylePoppins.copyWith(
@@ -575,7 +575,7 @@ class DirectFlightCheckZone extends StatelessWidget {
               },
             ),
             Text(
-              AppLocalizations.of(context)!.directFlightsOnly,
+              AppLocalizations.of(context).directFlightsOnly,
               style: AppStyles.textStylePoppins.copyWith(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -631,7 +631,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.passengers,
+                          AppLocalizations.of(context).passengers,
                           style: AppStyles.textStylePoppins.copyWith(
                             color: Colors.grey,
                             fontSize: 16,
@@ -660,8 +660,8 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   searchModel.passengersAndClass == null
-                                      ? AppLocalizations.of(context)!.choose
-                                      : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context)!.adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context)!.children}",
+                                      ? AppLocalizations.of(context).choose
+                                      : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context).adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context).children}",
                                   style: AppStyles.textStylePoppins.copyWith(
                                     color:
                                         searchModel.passengersAndClass == null
@@ -684,7 +684,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.placeClass,
+                          AppLocalizations.of(context).placeClass,
                           style: AppStyles.textStylePoppins.copyWith(
                             color: Colors.grey,
                             fontSize: 16,
@@ -705,7 +705,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                       builder: (context, child) {
                         return Text(
                           searchModel.passengersAndClass == null
-                              ? AppLocalizations.of(context)!.choose
+                              ? AppLocalizations.of(context).choose
                               : tripClassToString(
                                   searchModel.passengersAndClass!.tripClass,
                                   context: context,
@@ -762,7 +762,7 @@ class _SearchTicketScreenHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      AppLocalizations.of(context)!.whereToFly,
+      AppLocalizations.of(context).whereToFly,
       style: AppStyles.textStylePoppins.copyWith(
         fontSize: 20,
         fontWeight: FontWeight.w600,

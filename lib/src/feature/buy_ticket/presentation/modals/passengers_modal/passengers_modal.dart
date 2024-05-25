@@ -39,7 +39,7 @@ class PassengersModal extends StatelessWidget {
       child: Column(
         children: [
           DefaultModalHeader(
-            centerText: AppLocalizations.of(context)!.passengersAndClass,
+            centerText: AppLocalizations.of(context).passengersAndClass,
           ),
           const Divider(
             height: 0,
@@ -103,14 +103,14 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                     Counter(
                       onCountChange: updateOldCount,
                       count: adultPassengersCount,
-                      titleText: AppLocalizations.of(context)!.adults,
+                      titleText: AppLocalizations.of(context).adults,
                       limit: 9,
                     ),
                     const SizedBox(
                       height: 24,
                     ),
                     Counter(
-                      titleText: AppLocalizations.of(context)!.children,
+                      titleText: AppLocalizations.of(context).children,
                       count: childCount,
                       onCountChange: updateChildCount,
                       limit: 6,
@@ -121,7 +121,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                           fill: _checkboxGradientColor,
                           value: TripClass.economy,
                           title: Text(
-                            AppLocalizations.of(context)!.economy,
+                            AppLocalizations.of(context).economy,
                             style: AppStyles.textStylePoppins.copyWith(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -134,7 +134,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                           fill: _checkboxGradientColor,
                           value: TripClass.comfort,
                           title: Text(
-                            AppLocalizations.of(context)!.comfort,
+                            AppLocalizations.of(context).comfort,
                             style: AppStyles.textStylePoppins.copyWith(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -147,7 +147,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                           fill: _checkboxGradientColor,
                           value: TripClass.first,
                           title: Text(
-                            AppLocalizations.of(context)!.firstClass,
+                            AppLocalizations.of(context).firstClass,
                             style: AppStyles.textStylePoppins.copyWith(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -160,7 +160,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                           fill: _checkboxGradientColor,
                           value: TripClass.business,
                           title: Text(
-                            AppLocalizations.of(context)!.business,
+                            AppLocalizations.of(context).business,
                             style: AppStyles.textStylePoppins.copyWith(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
@@ -183,7 +183,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
               child: ConfirmationButton(
                 onPressed: isConfirmationButtonActive ? commitUserChoice : null,
                 child: Text(
-                  AppLocalizations.of(context)!.confirm,
+                  AppLocalizations.of(context).confirm,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.white,
                   ),

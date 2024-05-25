@@ -3,7 +3,7 @@ import 'package:frifri/src/feature/service/domain/entity/service_entity.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 List<ServiceEntity> serviceList(BuildContext context) {
-  final localiztion = AppLocalizations.of(context)!;
+  final localiztion = AppLocalizations.of(context);
   return [
     ServiceEntity(
       name: localiztion.insurance,

@@ -16,7 +16,7 @@ class ChooseflyTextController extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide.none,
         ),
-        hintText: AppLocalizations.of(context)!.airportCitySearch,
+        hintText: AppLocalizations.of(context).airportCitySearch,
         prefixIcon: const Icon(
           Icons.search,
           size: 20,
