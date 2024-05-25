@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frifri/src/core/skeleton/skeleton.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 /// {@template app}
 /// App widget.

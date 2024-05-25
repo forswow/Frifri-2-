@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:isolate';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';

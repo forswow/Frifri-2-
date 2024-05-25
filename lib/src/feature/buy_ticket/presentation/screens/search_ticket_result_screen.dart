@@ -11,7 +11,6 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizo
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class TicketsSearchResultScreen extends StatefulWidget {
   const TicketsSearchResultScreen({super.key, required this.searchModel});
@@ -105,7 +104,7 @@ class _ResultedTicketsList extends StatelessWidget {
               },
             );
           } else if (state is SearchingInProgress) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
 
           return Container();
