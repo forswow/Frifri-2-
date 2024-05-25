@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
-import 'package:frifri/src/module/country_search/data/interceptor/country_search_interceptor.dart';
 
 import '../../domain/dto/input_dto.dart';
-import '../../domain/entity/country_search_entity.dart';
+import '../../domain/entities/country_search_entity.dart';
 
 abstract interface class ICountrySearchDataSources {
   Future<List<CountrySearchEntity>> fetchCountrySearch(InputDto inputDto);
@@ -18,10 +17,11 @@ base class SearchCityDataSources
     InputDto inputDto,
   ) async {
     try {
-      dioClient.interceptors.add(CountrySearchInterceptor());
+      // dioClient.interceptors.add(CountrySearchInterceptor());
 
-      final response =
-          await dioClient.get('/places2?', queryParameters: inputDto.toMap());
+      final response = await dioClient.get(
+          'http://autocomplete.travelpayouts.com/places2?',
+          queryParameters: inputDto.toMap());
 
       if (response.statusCode == 200) {
         return (response.data as List<dynamic>)

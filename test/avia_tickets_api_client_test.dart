@@ -161,11 +161,30 @@ void main() async {
       options: MonthMatrixQuery(
         origin: "MOW",
         destination: "GOJ",
-        month: DateTime(2024, 5, 1),
+        month: DateTime(2024, 5),
         currency: "RUB",
         showToAffiliates: true,
       ),
     );
+
+    result.data.sort((a, b) => a.departDate.compareTo(b.departDate));
+    final map = <DateTime, MonthMatrixDayInfo>{};
+    for (final element in result.data) {
+      if (map.containsKey(element.departDate)) {
+        if (element.value < map[element.departDate]!.value) {
+          map[element.departDate] = element;
+        }
+      } else {
+        map[element.departDate] = element;
+      }
+    }
+
+    for (var element in result.data) {
+      logger.i('----------------');
+      logger.i(element.departDate);
+      logger.i(element.value);
+      logger.i('----------------');
+    }
 
     expect(result, isNotNull);
     expect(result, isA<MonthMatrix>());

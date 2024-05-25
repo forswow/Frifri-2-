@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_radiobutton.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
 
 class ClasslistRow extends StatelessWidget {
   const ClasslistRow({

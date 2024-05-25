@@ -7,11 +7,11 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_airport.component.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_airport.component.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:frifri/src/module/country_search/domain/entity/country_search_entity.dart';
-import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
-import 'package:frifri/src/module/country_search/presentation/bloc/recent_searches_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/country_search_entity.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 

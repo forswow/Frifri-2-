@@ -5,11 +5,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/module/country_search/domain/dto/input_dto.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/dto/input_dto.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../domain/entity/country_search_entity.dart';
-import '../../domain/repos/country_search_repo.dart';
+import '../../../domain/entities/country_search_entity.dart';
+import '../../../domain/repository/country_search_repo.dart';
 
 class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   final ICountrySearchRepo _countrySearchRepo;

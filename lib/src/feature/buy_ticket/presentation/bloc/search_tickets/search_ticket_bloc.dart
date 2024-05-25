@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
-import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/data/repository/search_ticket_repository_impl.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_events.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc_states.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_states.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:intl/intl.dart';
 

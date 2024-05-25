@@ -9,9 +9,9 @@ import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/new_search_modal/search_city_modal.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choosefly_radiobutton.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
 import 'package:intl/intl.dart';
 
 class SearchModel with ChangeNotifier {

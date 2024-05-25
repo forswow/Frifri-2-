@@ -4,17 +4,17 @@ import 'package:frifri/src/core/data_base/search_database.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
-import 'package:frifri/src/feature/buy_ticket/data/repositories/search_ticket_repository_impl.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/true_search_ticket_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/data/repository/search_ticket_repository_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
-import 'package:frifri/src/module/country_search/data/data_sources/country_search_data_sources.dart';
-import 'package:frifri/src/module/country_search/data/repos/country_search_repo_impl.dart';
-import 'package:frifri/src/module/country_search/data/repos/recent_search_repo_impl.dart';
-import 'package:frifri/src/module/country_search/presentation/bloc/country_search_bloc.dart';
-import 'package:frifri/src/module/country_search/presentation/bloc/recent_searches_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/country_search_data_sources.dart';
+import 'package:frifri/src/feature/buy_ticket/data/repository/country_search_repo_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/data/repository/recent_search_repo_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template dependencies}
@@ -43,7 +43,7 @@ base class Dependencies {
   late final SearchCityRepoImpl searchCityRepo;
   late final SearchCityBloc searchCityBloc;
 
-  late final recentSearchesCubit;
+  late final RecentSearchesCubit recentSearchesCubit;
 
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');

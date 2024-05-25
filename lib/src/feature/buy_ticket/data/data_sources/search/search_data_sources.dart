@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
-import '../../../../../core/helpers/signature/signature_helper.dart';
+import '../../../../../core/helpers/signature_helper.dart';
 import '../../../domain/entities/booking_ticket_entity.dart';
 import '../../dto/ticket_search_query.dart';
 

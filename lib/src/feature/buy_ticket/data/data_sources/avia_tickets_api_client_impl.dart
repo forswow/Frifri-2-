@@ -12,7 +12,7 @@ import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
 
-import '../../../../core/helpers/signature/signature_helper.dart';
+import '../../../../core/helpers/signature_helper.dart';
 import '../dto/ticket_search_query.dart';
 
 class AviaTicketsApiClientImpl implements IAviaTicketsApiClient {
