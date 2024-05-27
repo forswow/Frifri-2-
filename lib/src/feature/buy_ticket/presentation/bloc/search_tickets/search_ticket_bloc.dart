@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
@@ -17,15 +18,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchTicketRepoImpl ticketRepo;
 
   SearchBloc(this.ticketRepo) : super(SearchInitial()) {
-    on<StartSearchTicketEvent>(_onStartSearchTicketEvent);
+    on<StartSearchTicketEvent>(
+      _onStartSearchTicketEvent,
+      transformer: restartable(),
+    );
   }
 
   @override
   void onChange(Change<SearchState> change) {
     super.onChange(change);
-    logger.i("BLOC: ${change.currentState} -> ${change.nextState}");
   }
 
+  // TODO: Перенести логику сборки модели в репозиторий + стримы
   FutureOr<void> _onStartSearchTicketEvent(
       StartSearchTicketEvent event, Emitter<SearchState> emit) async {
     emit(SearchingInProgress(tickets: const []));
@@ -44,6 +48,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       // Step 2: get tickets by search id
       await Future.delayed(const Duration(seconds: 15));
+
+      // Убеждаемся, что ивент не отменили новым
+      if (emit.isDone) {
+        logger.i("EMIT IS DONE");
+        return;
+      }
+
+      logger.i("SearchTicketsBloc: Sent search request");
       var result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
 
       // Bang операторы используются по причине того, что
@@ -58,15 +70,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       // searchId, из которого собрать чанк нельзя
       while (result.data.length != 1) {
         for (final chunk in result.data) {
-          logger.i("chunk loaded");
-          logger.i("proposals count: ${chunk.proposals}");
+          // logger.i("chunk loaded");
+          // logger.i("proposals count: ${chunk.proposals}");
 
-          int proposalN = 0;
+          // int proposalN = 0;
 
           for (final proposal in chunk.proposals) {
-            proposalN++;
-            logger
-                .i("Loading proposal: $proposalN / ${chunk.proposals.length}");
+            // proposalN++;
+            // logger
+            // .i("Loading proposal: $proposalN / ${chunk.proposals.length}");
 
             if (searchModel.isDirectFlightOnly && !proposal.isDirect) {
               continue;
