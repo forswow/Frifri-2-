@@ -54,5 +54,7 @@
     "currencyRub": "რუბლი",
     "currencyUsd": "დოლარი",
     "currencyEur": "ევრო",
-    "currencyGel": "ლარი"
+    "currencyGel": "ლარი",
+
+    "countOfLayovers": "დასვენების რაოდენობა"
 }

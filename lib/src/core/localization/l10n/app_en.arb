@@ -57,5 +57,7 @@
   "currencyRub": "Rubles",
   "currencyUsd": "Dollars",
   "currencyEur": "Euros",
-  "currencyGel": "Lari"
+  "currencyGel": "Lari",
+
+  "countOfLayovers": "Count of layovers"
 }

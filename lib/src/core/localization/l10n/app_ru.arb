@@ -54,5 +54,7 @@
     "currencyRub": "Рубли",
     "currencyUsd": "Доллары",
     "currencyEur": "Евро",
-    "currencyGel": "Лари"
+    "currencyGel": "Лари",
+
+    "countOfLayovers": "Количество пересадок"
 }
