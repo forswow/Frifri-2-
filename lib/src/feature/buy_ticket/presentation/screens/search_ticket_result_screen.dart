@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_states.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_inputs.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/cities_inputs/cities_input_widget.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizontal_options_slider.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-class TicketsSearchResultScreen extends StatefulWidget {
-  const TicketsSearchResultScreen({super.key, required this.searchModel});
+class SearchTicketsResultScreen extends StatefulWidget {
+  const SearchTicketsResultScreen({super.key, required this.searchModel});
 
   final SearchModel searchModel;
 
   @override
-  State<TicketsSearchResultScreen> createState() =>
-      _TicketsSearchResultScreenState();
+  State<SearchTicketsResultScreen> createState() =>
+      _SearchTicketsResultScreenState();
 }
 
-class _TicketsSearchResultScreenState extends State<TicketsSearchResultScreen> {
+class _SearchTicketsResultScreenState extends State<SearchTicketsResultScreen> {
   late final SearchModel _searchModel;
   late final SearchBloc searchBloc;
 
@@ -142,11 +146,134 @@ class _LocationPickerZone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-      child: CitiesInputs(
-        searchModel: searchModel,
-        citiesNames: {
-          "flyFrom": searchModel.departureAt!.name,
-          "flyTo": searchModel.arrivalAt!.name,
+      child: ListenableBuilder(
+        listenable: searchModel,
+        builder: (context, _) {
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              children: <Widget>[
+                CitiesInput(
+                  cityName: searchModel.departureAt?.name ?? "Укажите город",
+                  onTitlePressed: () async {
+                    final AirportEntity? location = await showModalBottomSheet(
+                      context: context,
+                      useRootNavigator: true,
+                      isScrollControlled: true,
+                      builder: (context) => SearchCityModal(
+                        searchModel: searchModel,
+                        mode: SearchCityModalModeEnum.from,
+                      ),
+                    );
+
+                    if (location == null) {
+                      return;
+                    }
+
+                    if (searchModel.arrivalAt != null) {
+                      if (location.code == searchModel.arrivalAt!.code) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Вы выбрали одну и ту же локацию"),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                        return;
+                      }
+                    }
+
+                    searchModel.departureAt = location;
+                    if (context.mounted) {
+                      final locale = context.read<AppLanguageCubit>().state;
+                      final currency = context.read<CurrencyCubit>().state.name;
+                      context.read<SearchBloc>().add(
+                            StartSearchTicketEvent(
+                              searchModelForm: searchModel,
+                              locale: locale,
+                              currency: currency,
+                            ),
+                          );
+                    }
+                  },
+                  onIconPressed: () async {
+                    var tmp = searchModel.departureAt;
+                    searchModel.departureAt = searchModel.arrivalAt;
+                    searchModel.arrivalAt = tmp;
+                    final locale = context.read<AppLanguageCubit>().state;
+                    final currency = context.read<CurrencyCubit>().state.name;
+                    context.read<SearchBloc>().add(
+                          StartSearchTicketEvent(
+                            searchModelForm: searchModel,
+                            locale: locale,
+                            currency: currency,
+                          ),
+                        );
+                  },
+                  iconPath: 'assets/icons/arrow-up-down.svg',
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 0.5,
+                  indent: 20,
+                ),
+                CitiesInput(
+                  cityName: searchModel.arrivalAt?.name ?? "Укажите город",
+                  onTitlePressed: () async {
+                    final AirportEntity? location = await showModalBottomSheet(
+                      context: context,
+                      useRootNavigator: true,
+                      isScrollControlled: true,
+                      builder: (context) => SearchCityModal(
+                        searchModel: searchModel,
+                        mode: SearchCityModalModeEnum.to,
+                      ),
+                    );
+
+                    if (location == null) {
+                      return;
+                    }
+
+                    if (searchModel.departureAt != null) {
+                      if (location.code == searchModel.departureAt!.code) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Вы выбрали одну и ту же локацию"),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                        return;
+                      }
+                    }
+
+                    searchModel.arrivalAt = location;
+                    if (context.mounted) {
+                      final locale = context.read<AppLanguageCubit>().state;
+                      final currency = context.read<CurrencyCubit>().state.name;
+                      context.read<SearchBloc>().add(
+                            StartSearchTicketEvent(
+                              searchModelForm: searchModel,
+                              locale: locale,
+                              currency: currency,
+                            ),
+                          );
+                    }
+                  },
+                  onIconPressed: () {
+                    context.pop();
+                  },
+                  iconPath: 'assets/icons/x.svg',
+                ),
+              ],
+            ),
+          );
         },
       ),
     );

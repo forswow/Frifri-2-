@@ -4,14 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class SearchModel with ChangeNotifier {
@@ -88,15 +89,9 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
   final _searchModel = SearchModel();
 
   void onFindTicketsButtonClick(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return TicketsSearchResultScreen(
-            searchModel: _searchModel,
-          );
-        },
-      ),
+    context.push(
+      NavigationManager.searchResult,
+      extra: _searchModel,
     );
   }
 

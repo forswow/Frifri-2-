@@ -41,6 +41,7 @@ dependencies:
   sqlite3: any
   collection: ^1.18.0
   skeletonizer: ^1.1.2+1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

@@ -12,7 +12,6 @@ import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/country_search_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum SearchCityModalModeEnum {
@@ -179,7 +178,11 @@ class SearchCityResult extends StatelessWidget {
                         .read<RecentSearchesCubit>()
                         .addRecentSearch(searchResult[index]);
 
-                    context.pop(
+                    // Здесь НЕЛЬЗЯ использовать context.pop
+                    // т.к. он использует неверный контекст и закрывает
+                    // последний экран вместо модального окна, в котором мы находимся
+                    // (так происходит только если в стеке 2 окна, с 1 всё нормально :/)
+                    Navigator.of(context).pop(
                       AirportEntity(
                         name: name,
                         code: code,
@@ -221,7 +224,7 @@ class SearchFlyModalHeader extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      context.pop();
+                      Navigator.of(context).pop();
                     },
                     child: SvgPicture.asset(
                       "assets/icons/close.svg",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
@@ -12,8 +13,10 @@ class NavigationManager {
   static const String services = '/services';
   static const String more = '/more';
   static const String search = '/search';
+  static const String searchResult = "/search/result";
 
   static final GoRouter router = GoRouter(
+    navigatorKey: GlobalKey<NavigatorState>(),
     initialLocation: aviaTickets,
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
@@ -68,6 +71,18 @@ class NavigationManager {
                 path: search,
                 builder: (context, state) {
                   return const SearchTicketFormScreen();
+                },
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: searchResult,
+                builder: (context, state) {
+                  return SearchTicketsResultScreen(
+                    searchModel: state.extra as SearchModel,
+                  );
                 },
               ),
             ],
