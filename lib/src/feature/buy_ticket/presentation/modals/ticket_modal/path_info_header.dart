@@ -44,23 +44,6 @@ class SegmentInfoHeader extends StatelessWidget {
             )
           ],
         ),
-        InkWell(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
-            decoration: const BoxDecoration(
-              color: Color(0xFFEEF3FD),
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-            ),
-            child: Text(
-              "Подробнее",
-              style: AppStyles.textStylePoppins.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-              ),
-            ),
-          ),
-        )
       ],
     );
   }
