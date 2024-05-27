@@ -267,6 +267,7 @@ class _LocationPickerZone extends StatelessWidget {
                     }
                   },
                   onIconPressed: () {
+                    searchModel.arrivalAt = null;
                     context.pop();
                   },
                   iconPath: 'assets/icons/x.svg',
