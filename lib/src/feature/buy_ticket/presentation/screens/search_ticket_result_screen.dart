@@ -106,6 +106,21 @@ class _ResultedTicketsList extends StatelessWidget {
               );
             }
 
+            final hasDirect = state.tickets.any(
+              (element) => element.isDirect,
+            );
+
+            if (!hasDirect && searchModel.isDirectFlightOnly) {
+              return Center(
+                child: Text(
+                  "По выбранному рейсу не найдено прямых отправлений",
+                  style: AppStyles.textStylePoppins.copyWith(
+                    fontSize: 16,
+                  ),
+                ),
+              );
+            }
+
             return ListView.builder(
               itemCount: state.tickets.length,
               shrinkWrap: true,
