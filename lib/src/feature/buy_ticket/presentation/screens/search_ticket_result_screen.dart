@@ -94,57 +94,77 @@ class _ResultedTicketsList extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
-          if (state is SearchComplete) {
-            if (state.tickets.isEmpty) {
-              return Center(
-                child: Text(
-                  "К сожалению билеты по вашему запросу не найдены",
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
-              );
-            }
-
-            final hasDirect = state.tickets.any(
-              (element) => element.isDirect,
-            );
-
-            if (!hasDirect && searchModel.isDirectFlightOnly) {
-              return Center(
-                child: Text(
-                  "По выбранному рейсу не найдено прямых отправлений",
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
-              );
-            }
-
-            return ListView.builder(
-              itemCount: state.tickets.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                if (searchModel.isDirectFlightOnly &&
-                    !state.tickets[index].isDirect) {
-                  return null;
-                }
-
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: TicketPreviewCard(
-                    ticketEntity: state.tickets[index],
-                    isCheapestTicket: index == 0,
+          switch (state) {
+            case SearchComplete():
+              if (state.tickets.isEmpty) {
+                return Center(
+                  child: Text(
+                    "К сожалению билеты по вашему запросу не найдены",
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontSize: 16,
+                    ),
                   ),
                 );
-              },
-            );
-          } else if (state is SearchingInProgress) {
-            return const Center(child: CircularProgressIndicator());
-          }
+              }
 
-          return Container();
+              final directOnlyTickets =
+                  state.tickets.where((element) => element.isDirect).toList();
+
+              if (directOnlyTickets.isEmpty && searchModel.isDirectFlightOnly) {
+                return Center(
+                  child: Text(
+                    "По выбранному рейсу не найдено прямых отправлений",
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
+                );
+              }
+
+              if (searchModel.isDirectFlightOnly) {
+                return ListView.builder(
+                  itemCount: directOnlyTickets.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: TicketPreviewCard(
+                        ticketEntity: directOnlyTickets[index],
+                        isCheapestTicket: index == 0,
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: state.tickets.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    if (searchModel.isDirectFlightOnly &&
+                        !state.tickets[index].isDirect) {
+                      return null;
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: TicketPreviewCard(
+                        ticketEntity: state.tickets[index],
+                        isCheapestTicket: index == 0,
+                      ),
+                    );
+                  },
+                );
+              }
+
+            case SearchingInProgress():
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case SearchInitial():
+              return Container();
+          }
         },
       ),
     );
