@@ -107,8 +107,11 @@ class _ResultedTicketsList extends StatelessWidget {
                 );
               }
 
-              final directOnlyTickets =
-                  state.tickets.where((element) => element.isDirect).toList();
+              final directOnlyTickets = state.tickets
+                  .where(
+                    (element) => element.isDirect,
+                  )
+                  .toList();
 
               if (directOnlyTickets.isEmpty && searchModel.isDirectFlightOnly) {
                 return Center(
@@ -128,6 +131,7 @@ class _ResultedTicketsList extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Padding(
+                      key: ValueKey(index),
                       padding: const EdgeInsets.only(bottom: 16),
                       child: TicketPreviewCard(
                         ticketEntity: directOnlyTickets[index],
@@ -142,11 +146,6 @@ class _ResultedTicketsList extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    if (searchModel.isDirectFlightOnly &&
-                        !state.tickets[index].isDirect) {
-                      return null;
-                    }
-
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: TicketPreviewCard(
