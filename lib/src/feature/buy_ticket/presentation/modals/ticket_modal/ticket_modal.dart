@@ -21,14 +21,16 @@ class TicketModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultModalWrapper(
-      child: Column(children: [
-        _TicketModalHeader(
-          ticketEntity: ticketEntity,
-        ),
-        _TicketModalContent(
-          ticketEntity: ticketEntity,
-        )
-      ]),
+      child: Column(
+        children: [
+          _TicketModalHeader(
+            ticketEntity: ticketEntity,
+          ),
+          _TicketModalContent(
+            ticketEntity: ticketEntity,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -183,6 +185,7 @@ class _TicketModalHeader extends StatelessWidget {
                   fit: BoxFit.contain,
                   child: Text(
                     ticketEntity.originAirport.name,
+                    textAlign: TextAlign.right,
                     style: AppStyles.textStylePoppins,
                   ),
                 ),
@@ -216,6 +219,7 @@ class _TicketModalHeader extends StatelessWidget {
                 ),
                 Text(
                   ticketEntity.destinationAirport.name,
+                  textAlign: TextAlign.right,
                   style: AppStyles.textStylePoppins,
                 ),
               ],
