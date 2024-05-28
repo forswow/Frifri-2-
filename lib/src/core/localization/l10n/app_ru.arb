@@ -56,5 +56,10 @@
     "currencyEur": "Евро",
     "currencyGel": "Лари",
 
-    "countOfLayovers": "Количество пересадок"
+    "countOfLayovers": "Количество пересадок",
+
+    "withLayovers": "С пересадками",
+    "directFlight": "Прямой рейс",
+
+    "theCheapest": "Самый дешёвый"
 }

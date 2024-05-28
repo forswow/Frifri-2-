@@ -59,5 +59,10 @@
   "currencyEur": "Euros",
   "currencyGel": "Lari",
 
-  "countOfLayovers": "Count of layovers"
+  "countOfLayovers": "Count of layovers",
+
+  "withLayovers": "With layovers",
+  "directFlight": "Direct flight",
+
+  "theCheapest": "The cheapest"
 }

@@ -155,7 +155,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Text(
-                    'Самый дешёвый',
+                    AppLocalizations.of(context).theCheapest,
                     textAlign: TextAlign.center,
                     style: AppStyles.textStylePoppins.copyWith(
                       fontSize: 14,

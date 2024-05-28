@@ -56,5 +56,10 @@
     "currencyEur": "ევრო",
     "currencyGel": "ლარი",
 
-    "countOfLayovers": "დასვენების რაოდენობა"
+    "countOfLayovers": "დასვენების რაოდენობა",
+
+    "withLayovers": "გადასაფარებლებით",
+    "directFlight": "Პირდაპირი ფრენა",
+
+    "theCheapest": "Ყველაზე იაფი"
 }

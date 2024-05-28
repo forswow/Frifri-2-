@@ -10,6 +10,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/options_chips_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class HorizontalOptionsSlider extends StatelessWidget {
@@ -195,7 +196,9 @@ class LayoverInfoChip extends StatelessWidget {
             width: 6,
           ),
           Text(
-            searchModel.isDirectFlightOnly ? "Прямой перелёт" : "С пересадками",
+            searchModel.isDirectFlightOnly
+                ? AppLocalizations.of(context).directFlight
+                : AppLocalizations.of(context).withLayovers,
             style: AppStyles.textStylePoppins.copyWith(
               fontSize: _defaultChipsDefaultTextSize,
               fontWeight: FontWeight.w600,
