@@ -222,10 +222,12 @@ class DateChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.read<AppLanguageCubit>().state;
+
     return OptionsChipsCard(
       child: RichText(
         text: TextSpan(
-          text: DateFormat("dd MMM, ")
+          text: DateFormat("dd MMM, ", locale)
               .format(searchModel.departureDate!)
               .replaceAll(".", ""),
           style: AppStyles.textStylePoppins.copyWith(
@@ -234,7 +236,8 @@ class DateChip extends StatelessWidget {
           ),
           children: [
             TextSpan(
-              text: DateFormat("EEE").format(searchModel.departureDate!),
+              text:
+                  DateFormat("EEE", locale).format(searchModel.departureDate!),
               style: AppStyles.textStylePoppins.copyWith(
                 fontSize: _defaultChipsDefaultTextSize,
                 fontWeight: FontWeight.w600,
