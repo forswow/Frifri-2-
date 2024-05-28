@@ -8,6 +8,7 @@ import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
 
 class TicketModal extends StatelessWidget {
   const TicketModal({
@@ -99,6 +100,19 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                           const SizedBox(
                             height: 20,
                           ),
+                          if (index <= allSegments.length - 2) ...[
+                            SegmentLayoverInfo(
+                              cityName:
+                                  allSegments[index + 1].departureAirportName,
+                              firstSegmentArrivalTimestamp:
+                                  allSegments[index].arrivalTimestamp,
+                              secondSegmentDepartureTimestamp:
+                                  allSegments[index + 1].departureTimestamp,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ]
                         ],
                       ),
                     ),

@@ -278,6 +278,9 @@ class Flight {
 
   final String operatedByAirlineIataCode;
 
+  final int departureTimestamp;
+  final int arrivalTimestamp;
+
   Flight({
     required this.aircraftName,
     required this.arrivalAt,
@@ -290,6 +293,8 @@ class Flight {
     required this.delay,
     required this.tripClass,
     required this.operatedByAirlineIataCode,
+    required this.departureTimestamp,
+    required this.arrivalTimestamp,
   });
 
   factory Flight.fromJson(Map<String, dynamic> json) {
@@ -305,6 +310,8 @@ class Flight {
       delay: json["delay"],
       tripClass: json["trip_class"],
       operatedByAirlineIataCode: json["operated_by"],
+      departureTimestamp: json["departure_timestamp"],
+      arrivalTimestamp: json["arrival_timestamp"],
     );
   }
 
@@ -320,5 +327,7 @@ class Flight {
         "delay": delay,
         "trip_class": tripClass,
         "operated_by": operatedByAirlineIataCode,
+        "departure_timestamp": departureTimestamp,
+        "arrival_timestamp": arrivalTimestamp,
       };
 }

@@ -56,6 +56,9 @@ class SegmentEntity {
 
   final String segmentFormattedDuration;
 
+  final int arrivalTimestamp;
+  final int departureTimestamp;
+
   SegmentEntity({
     required this.airlineLogo,
     required this.airlineName,
@@ -68,5 +71,7 @@ class SegmentEntity {
     required this.arrivalCityName,
     required this.arrivalAirportName,
     required this.segmentFormattedDuration,
+    required this.arrivalTimestamp,
+    required this.departureTimestamp,
   });
 }

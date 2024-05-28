@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
+// import 'package:frifri/src/feature/buy_ticket/data/dto/search_tickets_result.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repository/search_ticket_repository_impl.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
@@ -111,6 +112,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               final segmentFormattedDuration =
                   "${segmentDuration ~/ 60}h ${segmentDuration % 60}m";
 
+              final departureTimestamp = proposalSegment.departureTimestamp;
+              final arrivalTimestamp = proposalSegment.arrivalTimestamp;
+
               ticketSegments.add(
                 SegmentEntity(
                   airlineLogo: getAirlineLogoUrl(
@@ -127,6 +131,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                   arrivalDate: arrivalDate,
                   arrivalTime: arrivalTime,
                   segmentFormattedDuration: segmentFormattedDuration,
+                  arrivalTimestamp: arrivalTimestamp,
+                  departureTimestamp: departureTimestamp,
                 ),
               );
             }
