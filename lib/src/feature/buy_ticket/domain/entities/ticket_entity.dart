@@ -14,6 +14,7 @@ class TicketEntity {
     required this.price,
     required this.termsUrl,
     required this.searchId,
+    required this.isDirect,
   });
 
   final AirportEntity originAirport;
@@ -33,6 +34,8 @@ class TicketEntity {
 
   final int termsUrl;
   final String searchId;
+
+  final bool isDirect;
 }
 
 class SegmentEntity {

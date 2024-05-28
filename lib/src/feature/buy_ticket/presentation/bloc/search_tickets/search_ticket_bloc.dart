@@ -80,9 +80,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             // logger
             // .i("Loading proposal: $proposalN / ${chunk.proposals.length}");
 
-            if (searchModel.isDirectFlightOnly && !proposal.isDirect) {
-              continue;
-            }
+            // if (searchModel.isDirectFlightOnly && !proposal.isDirect) {
+            //   continue;
+            // }
 
             final List<SegmentEntity> ticketSegments = [];
 
@@ -155,6 +155,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
               formattedPrice: formattedTicketPrice,
               price: finalPrice,
+
+              isDirect: proposal.isDirect,
 
               // For forming url for booking
               searchId: searchId,

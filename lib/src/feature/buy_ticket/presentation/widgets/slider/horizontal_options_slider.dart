@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/options_chips_card.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:intl/intl.dart';
 
 class HorizontalOptionsSlider extends StatelessWidget {
@@ -14,48 +23,115 @@ class HorizontalOptionsSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List cardsContent = <Widget>[
-      ListenableBuilder(
-        listenable: searchModel,
-        builder: (context, child) {
-          return Text(
-            DateFormat("EEE, dd MMM").format(searchModel.departureDate!),
-            style: AppStyles.textStylePoppins.copyWith(
-              fontSize: _defaultChipsDefaultTextSize,
-              fontWeight: FontWeight.w600,
-            ),
-          );
-        },
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: [
+        GestureDetector(
+          onTap: () {
+            onDateChange(context);
+          },
+          child: DateChip(
+            searchModel: searchModel,
+            defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            onLayoverChange(context);
+          },
+          child: LayoverInfoChip(
+            searchModel: searchModel,
+            defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            onPassengersChange(context);
+          },
+          child: PassengersInfoChip(
+            searchModel: searchModel,
+            defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void onDateChange(BuildContext context) async {
+    final newDepartureDate = await showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      builder: (context) => CalendarModal(
+        initialDate: searchModel.departureDate!,
+        availableFromDate: DateTime.now(),
+        countOfMonths: 12,
+        originIataCode: searchModel.departureAt!.code,
+        destinationIataCode: searchModel.arrivalAt!.code,
+        isOneWay: true,
+        title: "Выберите дату отправления",
       ),
-      ListenableBuilder(
-        listenable: searchModel,
-        builder: (context, child) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Icon(
-                Icons.flight,
-                color: Colors.grey,
-                size: 20,
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              Text(
-                searchModel.isDirectFlightOnly
-                    ? "Прямой перелёт"
-                    : "С пересадками",
-                style: AppStyles.textStylePoppins.copyWith(
-                  fontSize: _defaultChipsDefaultTextSize,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-      Row(
+    );
+
+    if (newDepartureDate == null) return;
+
+    searchModel.departureDate = newDepartureDate;
+    searchModel.returnDate = null;
+
+    if (context.mounted) {
+      startTicketsSearch(context);
+    }
+  }
+
+  void onLayoverChange(BuildContext context) {
+    searchModel.isDirectFlightOnly = !searchModel.isDirectFlightOnly;
+  }
+
+  void onPassengersChange(BuildContext context) async {
+    final passengersData = await showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      builder: (context) => const PassengersModal(),
+    );
+
+    if (passengersData == null) return;
+
+    searchModel.passengersAndClass = passengersData;
+
+    if (context.mounted) {
+      startTicketsSearch(context);
+    }
+  }
+
+  void startTicketsSearch(BuildContext context) async {
+    final locale = context.read<AppLanguageCubit>().state;
+    final currency = context.read<CurrencyCubit>().state.name;
+
+    context.read<SearchBloc>().add(
+          StartSearchTicketEvent(
+            searchModelForm: searchModel,
+            locale: locale,
+            currency: currency,
+          ),
+        );
+  }
+}
+
+class PassengersInfoChip extends StatelessWidget {
+  const PassengersInfoChip({
+    super.key,
+    required this.searchModel,
+    required double defaultChipsDefaultTextSize,
+  }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
+
+  final SearchModel searchModel;
+  final double _defaultChipsDefaultTextSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return OptionsChipsCard(
+      child: Row(
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -68,7 +144,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
                 width: 6,
               ),
               Text(
-                "${searchModel.passengersAndClass!.passengers.adults}",
+                "${searchModel.passengersAndClass!.passengers.adults} ,",
                 style: AppStyles.textStylePoppins.copyWith(
                   fontSize: _defaultChipsDefaultTextSize,
                   fontWeight: FontWeight.w600,
@@ -77,29 +153,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            width: 12,
-          ),
-          Row(
-            children: <Widget>[
-              const Icon(
-                Icons.child_care,
-                color: Colors.grey,
-                size: 20,
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Text(
-                "${searchModel.passengersAndClass!.passengers.children}",
-                style: AppStyles.textStylePoppins.copyWith(
-                  fontSize: _defaultChipsDefaultTextSize,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 10,
+            width: 4,
           ),
           Text(
             tripClassToString(
@@ -112,22 +166,83 @@ class HorizontalOptionsSlider extends StatelessWidget {
             ),
           ),
         ],
-      )
-    ];
-    return CustomScrollView(
-      scrollDirection: Axis.horizontal,
-      slivers: <Widget>[
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return OptionsChipsCard(
-                cardContent: cardsContent[index],
-              );
-            },
-            childCount: cardsContent.length,
+      ),
+    );
+  }
+}
+
+class LayoverInfoChip extends StatelessWidget {
+  const LayoverInfoChip({
+    super.key,
+    required this.searchModel,
+    required double defaultChipsDefaultTextSize,
+  }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
+
+  final SearchModel searchModel;
+  final double _defaultChipsDefaultTextSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return OptionsChipsCard(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Icon(
+            Icons.flight,
+            color: Colors.grey,
+            size: 20,
           ),
+          const SizedBox(
+            width: 6,
+          ),
+          Text(
+            searchModel.isDirectFlightOnly ? "Прямой перелёт" : "С пересадками",
+            style: AppStyles.textStylePoppins.copyWith(
+              fontSize: _defaultChipsDefaultTextSize,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DateChip extends StatelessWidget {
+  const DateChip({
+    super.key,
+    required this.searchModel,
+    required double defaultChipsDefaultTextSize,
+  }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
+
+  final SearchModel searchModel;
+  final double _defaultChipsDefaultTextSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return OptionsChipsCard(
+      child: RichText(
+        text: TextSpan(
+          text: DateFormat("dd MMM, ")
+              .format(searchModel.departureDate!)
+              .replaceAll(".", ""),
+          style: AppStyles.textStylePoppins.copyWith(
+            fontSize: _defaultChipsDefaultTextSize,
+            fontWeight: FontWeight.w600,
+          ),
+          children: [
+            TextSpan(
+              text: DateFormat("EEE").format(searchModel.departureDate!),
+              style: AppStyles.textStylePoppins.copyWith(
+                fontSize: _defaultChipsDefaultTextSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

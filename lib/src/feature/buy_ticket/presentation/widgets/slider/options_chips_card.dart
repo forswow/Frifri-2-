@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class OptionsChipsCard extends StatelessWidget {
-  const OptionsChipsCard({super.key, required this.cardContent});
+  const OptionsChipsCard({super.key, required this.child});
 
-  final Widget cardContent;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class OptionsChipsCard extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       alignment: Alignment.center,
       margin: const EdgeInsets.only(right: 10),
-      child: cardContent,
+      child: child,
     );
   }
 }
