@@ -197,11 +197,14 @@ class TicketDurationAndTransfersSection extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        Text(
-          "${AppLocalizations.of(context).countOfLayovers}: ${countOfTransfers - 1}",
-          style: AppStyles.textStylePoppins.copyWith(
-            color: Colors.grey,
-            fontSize: 12,
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            "${AppLocalizations.of(context).countOfLayovers}: ${countOfTransfers - 1}",
+            style: AppStyles.textStylePoppins.copyWith(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
           ),
         ),
       ],
