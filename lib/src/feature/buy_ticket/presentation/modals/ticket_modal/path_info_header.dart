@@ -37,7 +37,7 @@ class SegmentInfoHeader extends StatelessWidget {
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  '2ч 50м в полете',
+                  segmentEntity.segmentFormattedDuration,
                   style: AppStyles.textStylePoppins.copyWith(fontSize: 12),
                 ),
               ],

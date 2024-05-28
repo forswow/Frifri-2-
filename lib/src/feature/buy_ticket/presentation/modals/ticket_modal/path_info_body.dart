@@ -4,8 +4,8 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:intl/intl.dart';
 
-class PathInfoBody extends StatelessWidget {
-  const PathInfoBody({
+class SegmentInfoBody extends StatelessWidget {
+  const SegmentInfoBody({
     super.key,
     required this.segmentEntity,
   });

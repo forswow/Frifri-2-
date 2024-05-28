@@ -78,9 +78,12 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(16, 17, 16, 0),
                   decoration: BoxDecoration(
-                      border:
-                          Border.all(width: 1, color: const Color(0xffEDEDEE)),
-                      borderRadius: BorderRadius.circular(12)),
+                    border: Border.all(
+                      width: 1,
+                      color: const Color(0xffEDEDEE),
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: Column(
                     children: List<Widget>.generate(
                       allSegments.length,
@@ -90,7 +93,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                             segmentEntity: allSegments[index],
                           ),
                           const SizedBox(height: 16),
-                          PathInfoBody(
+                          SegmentInfoBody(
                             segmentEntity: allSegments[index],
                           ),
                           const SizedBox(
@@ -165,7 +168,6 @@ class _TicketModalHeader extends StatelessWidget {
                 FittedBox(
                   fit: BoxFit.contain,
                   child: Text(
-            
                     ticketEntity.originAirport.name,
                     style: AppStyles.textStylePoppins,
                   ),

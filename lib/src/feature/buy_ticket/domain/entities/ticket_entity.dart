@@ -54,6 +54,8 @@ class SegmentEntity {
   final String arrivalCityName;
   final String arrivalAirportName;
 
+  final String segmentFormattedDuration;
+
   SegmentEntity({
     required this.airlineLogo,
     required this.airlineName,
@@ -65,5 +67,6 @@ class SegmentEntity {
     required this.arrivalTime,
     required this.arrivalCityName,
     required this.arrivalAirportName,
+    required this.segmentFormattedDuration,
   });
 }

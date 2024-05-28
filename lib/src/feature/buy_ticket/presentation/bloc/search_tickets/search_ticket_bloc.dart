@@ -107,6 +107,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               final arrivalDate = DateTime.parse(proposalSegment.arrivalDate);
               final arrivalTime = proposalSegment.arrivalTime;
 
+              final segmentDuration = proposalSegment.duration;
+              final segmentFormattedDuration =
+                  "${segmentDuration ~/ 60}h ${segmentDuration % 60}m";
+
               ticketSegments.add(
                 SegmentEntity(
                   airlineLogo: getAirlineLogoUrl(
@@ -122,6 +126,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                   departureTime: departureTime,
                   arrivalDate: arrivalDate,
                   arrivalTime: arrivalTime,
+                  segmentFormattedDuration: segmentFormattedDuration,
                 ),
               );
             }
