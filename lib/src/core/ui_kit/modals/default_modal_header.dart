@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
 class DefaultModalHeader extends StatelessWidget {
   const DefaultModalHeader({required this.centerText, super.key});
@@ -17,7 +16,7 @@ class DefaultModalHeader extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: GestureDetector(
               onTap: () {
-                context.pop();
+                Navigator.of(context).pop();
               },
               child: SvgPicture.asset(
                 "assets/icons/close.svg",
