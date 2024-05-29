@@ -37,7 +37,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 0, 8, 20),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: SafeArea(
         child: Container(
           height: MediaQuery.sizeOf(context).height * 0.10,
