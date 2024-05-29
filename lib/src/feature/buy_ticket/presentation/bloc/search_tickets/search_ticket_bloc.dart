@@ -58,6 +58,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         currencyRates: currencyRates,
       );
 
+      logger.i("Got tickets: ${newTickets.length}");
+
       sortTicketsByPrice(newTickets);
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {

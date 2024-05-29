@@ -121,6 +121,8 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
           newTickets.add(ticket);
         }
       }
+
+      break;
     }
 
     return newTickets;
