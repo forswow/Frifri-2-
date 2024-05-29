@@ -43,6 +43,7 @@ dependencies:
   skeletonizer: ^1.1.2+1
   intl: ^0.18.1
   bloc_concurrency: ^0.2.5
+  supabase_flutter: ^2.5.4
 
 dev_dependencies:
   flutter_test:
