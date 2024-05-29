@@ -9,6 +9,7 @@ import 'package:sqlite3/sqlite3.dart';
 
 part 'search_database.g.dart';
 
+
 @DriftDatabase(tables: [RecentSearch])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
