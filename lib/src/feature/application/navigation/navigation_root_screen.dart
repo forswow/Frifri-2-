@@ -103,8 +103,8 @@ class _CustomFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.sizeOf(context).height * 0.057),
-      width: MediaQuery.sizeOf(context).width * 0.135,
-      height: MediaQuery.sizeOf(context).height * 0.135,
+      width: MediaQuery.sizeOf(context).width * 0.155,
+      height: MediaQuery.sizeOf(context).height * 0.155,
       child: FloatingActionButton(
         onPressed: () {
           context.go(NavigationManager.search);
@@ -112,7 +112,11 @@ class _CustomFloatingActionButton extends StatelessWidget {
         backgroundColor: kPrimaryAppColor,
         shape: const CircleBorder(),
         elevation: 0,
-        child: SvgPicture.asset('assets/icons/Search.svg'),
+        child: FractionallySizedBox(
+          widthFactor: 0.6,
+          heightFactor: 0.6,
+          child: SvgPicture.asset('assets/icons/Search.svg'),
+        ),
       ),
     );
   }
