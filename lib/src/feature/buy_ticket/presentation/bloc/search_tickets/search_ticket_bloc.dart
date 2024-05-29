@@ -51,10 +51,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       await Future.delayed(const Duration(seconds: 15));
 
       // Убеждаемся, что ивент не отменили новым
-      if (emit.isDone) {
-        logger.i("EMIT IS DONE");
-        return;
-      }
+      if (emit.isDone) return;
 
       logger.i("SearchTicketsBloc: Sent search request");
       var result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
@@ -71,20 +68,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       // searchId, из которого собрать чанк нельзя
       while (result.data.length != 1) {
         for (final chunk in result.data) {
-          // logger.i("chunk loaded");
-          // logger.i("proposals count: ${chunk.proposals}");
-
-          // int proposalN = 0;
-
           for (final proposal in chunk.proposals) {
-            // proposalN++;
-            // logger
-            // .i("Loading proposal: $proposalN / ${chunk.proposals.length}");
-
-            // if (searchModel.isDirectFlightOnly && !proposal.isDirect) {
-            //   continue;
-            // }
-
             final List<SegmentEntity> ticketSegments = [];
 
             for (var proposalSegment in proposal.segments.first.flight) {
@@ -182,7 +166,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
         // logger.i("Requesting next chunk...");
         // result = await ticketRepo.getTicketsBySearchId(searchId: searchId);
-
         // Дедлайн...
         break;
       }
