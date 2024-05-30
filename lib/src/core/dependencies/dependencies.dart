@@ -74,7 +74,7 @@ base class Dependencies {
 
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
-    final String baseUrl = dotenv.get('BASE_URL');
+    final String baseUrl = dotenv.get('API_BASE_URL');
     final String apiKey = dotenv.get('API_KEY');
 
     logger.i("Initializing dependencies...");
