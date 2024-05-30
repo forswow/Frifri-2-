@@ -62,4 +62,8 @@ class UserLocation {
         "country_name": countryName,
         "coordinates": coordinates,
       };
+
+  @override
+  String toString() =>
+      "{iata: $iata, cityName: $cityName, countryName: $countryName, coordinates: $coordinates}";
 }

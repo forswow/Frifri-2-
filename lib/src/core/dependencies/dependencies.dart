@@ -9,6 +9,7 @@ import 'package:frifri/src/feature/buy_ticket/data/data_sources/autocomplete.dar
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/booking.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/prices.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/search_tickets.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/user_location.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repository/autocomplete_repository.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repository/calendar_prices_repository.dart';
 import 'package:frifri/src/feature/buy_ticket/data/repository/search_ticket_repository_impl.dart';
@@ -71,6 +72,8 @@ base class Dependencies {
   // Всё, связанное с ценами
   late final IPricesDataSource pricesDataSource;
   late final ICalendarPricesRepository calendarPricesRepository;
+
+  late final IUserLocationDataSource userLocationDataSource;
 
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
@@ -135,6 +138,10 @@ base class Dependencies {
     );
     calendarPricesRepository = CalendarPricesRepositoryImpl(
       pricesDataSource: pricesDataSource,
+    );
+
+    userLocationDataSource = UserLocationDataSourceImpl(
+      dioClient: mainDioClient,
     );
 
     logger.i("Dependencies initialized.");

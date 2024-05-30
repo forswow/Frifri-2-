@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/user_location.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers_and_class.dart';
@@ -12,6 +16,7 @@ import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -87,6 +92,30 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
   // формироваться она будет при submit-е
   // с помощью полей ниже
   final _searchModel = SearchModel();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final String locale = context.read<AppLanguageSettingsCubit>().state;
+
+    // TODO: возможно не самый лучший (если не самый плохой) способ
+    // обратиться напрямую к источнику данных в UI
+    // Нужно разобраться как это сделать лучше всего
+    // вероятно через кубит, но сейчас нужно всё срочно сделать.
+    Dependencies.of(context)
+        .userLocationDataSource
+        .getUserLocation(
+          options: UserLocationQuery(locale: locale),
+        )
+        .then((value) {
+      _searchModel.departureAt =
+          AirportEntity(name: value.cityName, code: value.iata);
+    }).catchError((err, stack) {
+      logger.e(err.toString());
+      logger.e(stack.toString());
+    });
+  }
 
   void onFindTicketsButtonClick(BuildContext context) {
     context.push(
