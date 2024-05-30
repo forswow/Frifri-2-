@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({
@@ -119,46 +121,99 @@ class FlightPricesModalContent extends StatefulWidget {
 class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(14),
-      child: Table(
-        columnWidths: const {
-          0: FlexColumnWidth(), // Тут можно регулировать размеры столбцов
-          1: FlexColumnWidth(),
-          2: FlexColumnWidth(),
-        },
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Заголовок таблицы
-          TableRow(
-            children: [
-              Text(
-                "Когда",
-                style: AppStyles.textStylePoppins.copyWith(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(14),
+              child: Table(
+                columnWidths: const {
+                  0: FlexColumnWidth(), // Тут можно регулировать размеры столбцов
+                  1: FlexColumnWidth(),
+                  2: FlexColumnWidth(),
+                },
+                children: [
+                  // Заголовок таблицы
+                  TableRow(
+                    children: [
+                      Text(
+                        "Когда",
+                        style: AppStyles.textStylePoppins.copyWith(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        "Обратно",
+                        style: AppStyles.textStylePoppins.copyWith(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        "Цена",
+                        textAlign: TextAlign.end,
+                        style: AppStyles.textStylePoppins.copyWith(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // -------------------------------------
+                  // Тут формировать строки с результатами
+                  // с помощью FutureBuilder / BlocBuilder
+                  // -------------------------------------
+                ],
               ),
-              Text(
-                "Обратно",
-                style: AppStyles.textStylePoppins.copyWith(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-              ),
-              Text(
-                "Цена",
-                textAlign: TextAlign.end,
-                style: AppStyles.textStylePoppins.copyWith(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
-              ),
-            ],
+            ),
           ),
-          // -------------------------------------
-          // Тут формировать строки с результатами
-          // с помощью FutureBuilder / BlocBuilder
-          // -------------------------------------
+          const Divider(
+            color: Colors.grey,
+            height: 1,
+            thickness: 0.5,
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset("assets/icons/prices_calendar.svg"),
+                      const Text(
+                        "Перейти в календарь цен",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 48,
+                  child: ConfirmationButton(
+                    child: Text(
+                      "Сделать что-то важное за X руб.",
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      logger.i("Вы сделали что-то важное");
+                    },
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
