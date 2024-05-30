@@ -1,4 +1,3 @@
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
