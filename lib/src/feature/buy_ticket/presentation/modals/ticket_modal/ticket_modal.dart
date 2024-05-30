@@ -144,7 +144,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
 
   void _onBookingPressed() async {
     final bookingUrlResult = await Dependencies.of(context)
-        .searchDataSources
+        .bookingDataSources
         .getABookingLink(
             searchId: ticketEntity.searchId, termsUrl: ticketEntity.termsUrl);
 

@@ -1,18 +1,22 @@
-import 'dart:developer';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/month_matrix.dart';
 import 'package:frifri/src/feature/buy_ticket/data/DTO/prices_for_dates.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/user_location.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client_impl.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/user_location.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/airline_logo.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/autocomplete.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/prices.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/search_tickets.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/user_location.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/autocomplete.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
 
+// TODO: Сделать датонезависимые тесты!
+// TODO: Разнести тесты разных источников данных по разным модулям!
 void main() async {
   await dotenv.load(fileName: ".env");
   final baseUrl = dotenv.get("API_BASE_URL");
@@ -20,13 +24,25 @@ void main() async {
   final marker = dotenv.get("API_MARKER");
   final apiClient = getBasicDioClient(baseUrl, apiKey);
 
-  final aviaApiClient = AviaTicketsApiClientImpl();
-  log("AviaTicketsApiClient initialized");
+  final autocompleteDataSource = AutocompleteDataSourceImpl(
+    dioClient: apiClient,
+  );
+  final ticketsDataSource = TicketsDataSourceImpl(
+    dioClient: apiClient,
+  );
+
+  final pricesDataSource = PricesDataSourceImpl(
+    dioClient: apiClient,
+  );
+
+  final userLocationDataSource = UserLocationDataSourceImpl(
+    dioClient: apiClient,
+  );
 
   test(
     'Get TicketsInfo',
     () async {
-      final result = await aviaApiClient.getLatestPrices(
+      final result = await pricesDataSource.getLatestPrices(
           options: LatestPricesQuery(
         origin: "MOW",
         destination: "HKT",
@@ -41,7 +57,7 @@ void main() async {
   );
 
   test('Get user location', () async {
-    final result = await aviaApiClient.getUserLocation(
+    final result = await userLocationDataSource.getUserLocation(
         options: UserLocationQuery(
       locale: 'RU',
     ));
@@ -61,23 +77,23 @@ void main() async {
   });
 
   test("Get user autocomplete", () async {
-    final result = await aviaApiClient.getAutocomplete(
+    final result = await autocompleteDataSource.getAutocomplete(
       options: AutocompleteQuery(
         term: "Шереметьево",
-        types: ["airport"],
         locale: "ru",
+        types: ["airport", "city"],
       ),
     );
 
     expect(result[0].name, "Шереметьево");
-    expect(result[0].cityCode, "MOW");
+    expect(result[0].code, "SVO");
   });
 
   test("Get tickets with links", () async {
-    final result = await aviaApiClient.getPricesForDates(
+    final result = await pricesDataSource.getPricesForDates(
       options: PricesForDatesQuery(
         origin: "MOW",
-        departureAt: "2024-05-20",
+        departureAt: "2024-06-20",
       ),
     );
 
@@ -89,7 +105,7 @@ void main() async {
 
   test("Search tickets with SearchID",
       timeout: const Timeout(Duration(days: 1)), () async {
-    final result = await aviaApiClient.searchTickets(
+    final result = await ticketsDataSource.searchTickets(
       options: TicketsSearchQuery(
         host: "frifri.ge",
         locale: "en",
@@ -117,7 +133,7 @@ void main() async {
 
     await Future.delayed(const Duration(seconds: 40));
 
-    final searchResult = await aviaApiClient.getTicketsBySearchId(
+    final searchResult = await ticketsDataSource.getTicketsBySearchId(
       searchId: result.searchId,
     );
 
@@ -157,7 +173,7 @@ void main() async {
   });
 
   test("Get month matrix", () async {
-    final result = await aviaApiClient.getMonthMatrix(
+    final result = await pricesDataSource.getMonthMatrix(
       options: MonthMatrixQuery(
         origin: "MOW",
         destination: "GOJ",

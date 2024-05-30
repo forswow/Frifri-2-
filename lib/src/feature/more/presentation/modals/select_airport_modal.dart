@@ -58,7 +58,7 @@ class _SelectAirportModalContentState
   void initState() {
     super.initState();
 
-    initialAirport = context.read<AirportCubit>().state;
+    initialAirport = context.read<AirportSettingsCubit>().state;
     selectedAirport = initialAirport;
     isConfirmButtonEnabled = false;
   }
@@ -139,7 +139,7 @@ class _SelectAirportModalContentState
               onPressed: isConfirmButtonEnabled
                   ? () {
                       context
-                          .read<AirportCubit>()
+                          .read<AirportSettingsCubit>()
                           .selectAirport(selectedAirport);
                       context.pop();
                     }

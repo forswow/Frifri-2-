@@ -64,7 +64,7 @@ class _AviaTicketScreenState extends State<AviaTicketScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BlocBuilder<AirportCubit, AirportEnum>(
+                BlocBuilder<AirportSettingsCubit, AirportEnum>(
                   builder: (context, currentAirport) => RichText(
                     text: TextSpan(
                       text: AppLocalizations.of(context).directFligthsFrom,

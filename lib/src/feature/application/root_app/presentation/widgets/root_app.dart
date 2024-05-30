@@ -30,19 +30,19 @@ class RootApp extends StatelessWidget {
         builder: (context) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider<PushNotificationCubit>.value(
+              BlocProvider<PushNotificationSettingsCubit>.value(
                 value: dependencies.pushNotificationCubit,
               ),
-              BlocProvider<AirportCubit>.value(
+              BlocProvider<AirportSettingsCubit>.value(
                 value: dependencies.airportCubit,
               ),
-              BlocProvider<AppLanguageCubit>.value(
+              BlocProvider<AppLanguageSettingsCubit>.value(
                 value: dependencies.languageCubit,
               ),
-              BlocProvider<CurrencyCubit>.value(
+              BlocProvider<CurrencySettingsCubit>.value(
                 value: dependencies.currencyCubit,
               ),
-              BlocProvider<SearchBloc>.value(
+              BlocProvider<SearchTicketsBloc>.value(
                 value: dependencies.searchBloc,
               ),
               BlocProvider<SearchCityBloc>.value(

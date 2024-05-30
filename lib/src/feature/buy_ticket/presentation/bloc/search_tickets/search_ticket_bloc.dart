@@ -12,10 +12,11 @@ import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/s
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_states.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final ISearchTicketsRepo ticketRepo;
+class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
+  final ISearchTicketsRepo searchTicketsRepository;
 
-  SearchBloc(this.ticketRepo) : super(SearchInitial()) {
+  SearchTicketsBloc({required this.searchTicketsRepository})
+      : super(SearchInitial()) {
     on<StartSearchTicketEvent>(
       _onStartSearchTicketEvent,
       transformer: restartable(),
@@ -38,7 +39,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           searchModel: searchModel, locale: event.locale);
 
       // Step 1: get search id
-      final searchResult = await ticketRepo.searchTickets(query);
+      final searchResult = await searchTicketsRepository.searchTickets(query);
       final currencyRates = searchResult.currencyRates;
       final searchId = searchResult.searchId;
 
@@ -49,7 +50,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       if (emit.isDone) return;
 
       logger.i("SearchTicketsBloc: Sent search request");
-      var newTickets = await ticketRepo.getTicketsBySearchId(
+      var newTickets = await searchTicketsRepository.getTicketsBySearchId(
         searchId: searchId,
         originAirport: event.searchModelForm.departureAt!,
         destinationAirport: event.searchModelForm.arrivalAt!,

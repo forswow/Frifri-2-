@@ -1,9 +1,9 @@
-final class CountrySearchEntity {
-  CountrySearchEntity({
+final class AutocompleteEntity {
+  AutocompleteEntity({
     required this.name,
     required this.airport,
     required this.code,
-    required this.countryName
+    required this.countryName,
   });
 
   final String name;
@@ -11,13 +11,12 @@ final class CountrySearchEntity {
   final String code;
   final String countryName;
 
-  factory CountrySearchEntity.fromJson(Map<String, dynamic> json) {
-    return CountrySearchEntity(
-      name: json['name'],
-      airport: json['main_airport_name'] ?? '',
-      code: json['code'],
-      countryName: json['country_name']
-    );
+  factory AutocompleteEntity.fromJson(Map<String, dynamic> json) {
+    return AutocompleteEntity(
+        name: json['name'],
+        airport: json['main_airport_name'] ?? '',
+        code: json['code'],
+        countryName: json['country_name']);
   }
 
   @override

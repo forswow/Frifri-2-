@@ -94,7 +94,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                 switch (state) {
                   case Idle():
                     return BlocBuilder<RecentSearchesCubit,
-                        List<CountrySearchEntity>>(
+                        List<AutocompleteEntity>>(
                       builder: (context, state) {
                         logger.i(state.toString());
                         return SearchCityResult(
@@ -125,7 +125,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
 
   void onSearchFieldChanged(String newText) {
     searchText = newText;
-    final locale = context.read<AppLanguageCubit>().state;
+    final locale = context.read<AppLanguageSettingsCubit>().state;
     context
         .read<SearchCityBloc>()
         .add(StartCitySearchEvent(text: newText, locale: locale));
@@ -143,7 +143,7 @@ class SearchCityResult extends StatelessWidget {
     required this.title,
   });
 
-  final List<CountrySearchEntity> searchResult;
+  final List<AutocompleteEntity> searchResult;
   final String title;
 
   @override

@@ -20,8 +20,7 @@ class SettingsModal extends StatelessWidget {
     return DefaultModalWrapper(
       child: Column(
         children: [
-          DefaultModalHeader(
-              centerText: AppLocalizations.of(context).settings),
+          DefaultModalHeader(centerText: AppLocalizations.of(context).settings),
           const Divider(
             height: 1,
             thickness: 0.5,
@@ -49,7 +48,7 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
   void initState() {
     super.initState();
     initialPushNotificationEnabled =
-        context.read<PushNotificationCubit>().state;
+        context.read<PushNotificationSettingsCubit>().state;
     pushNotificationEnabled = initialPushNotificationEnabled;
 
     commitButtonEnabled = false;
@@ -95,7 +94,7 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
                 onPressed: commitButtonEnabled
                     ? () {
                         context
-                            .read<PushNotificationCubit>()
+                            .read<PushNotificationSettingsCubit>()
                             .setPushEnabled(pushNotificationEnabled);
                         context.pop();
                       }

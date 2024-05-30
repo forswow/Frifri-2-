@@ -1,31 +1,34 @@
 import 'package:dio/dio.dart';
-import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/autocomplete.dart';
 
-import '../../domain/dto/input_dto.dart';
 import '../../domain/entities/country_search_entity.dart';
 
-abstract interface class ICountrySearchDataSources {
-  Future<List<CountrySearchEntity>> fetchCountrySearch(InputDto inputDto);
+abstract interface class IAutocompleteDataSource {
+  Future<List<AutocompleteEntity>> getAutocomplete({
+    required AutocompleteQuery options,
+  });
 }
 
-base class SearchCityDataSources
-    with Network
-    implements ICountrySearchDataSources {
-  @override
-  Future<List<CountrySearchEntity>> fetchCountrySearch(
-    InputDto inputDto,
-  ) async {
-    try {
-      // dioClient.interceptors.add(CountrySearchInterceptor());
+class AutocompleteDataSourceImpl implements IAutocompleteDataSource {
+  AutocompleteDataSourceImpl({
+    required Dio dioClient,
+  }) : _dio = dioClient;
 
-      final response = await dioClient.get(
+  final Dio _dio;
+
+  @override
+  Future<List<AutocompleteEntity>> getAutocomplete({
+    required AutocompleteQuery options,
+  }) async {
+    try {
+      final response = await _dio.get(
           'http://autocomplete.travelpayouts.com/places2?',
-          queryParameters: inputDto.toMap());
+          queryParameters: options.toJson());
 
       if (response.statusCode == 200) {
         return (response.data as List<dynamic>)
-            .map((e) => CountrySearchEntity.fromJson(e))
+            .map((e) => AutocompleteEntity.fromJson(e))
             .toList();
       }
       throw NetworkException(message: 'message', statusCode: 'statusCode');

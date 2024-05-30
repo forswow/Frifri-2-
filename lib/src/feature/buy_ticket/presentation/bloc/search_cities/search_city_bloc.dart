@@ -9,12 +9,12 @@ import 'package:frifri/src/feature/buy_ticket/domain/dto/input_dto.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../domain/entities/country_search_entity.dart';
-import '../../../domain/repository/country_search_repo.dart';
+import '../../../domain/repository/autocomplete_repository.dart';
 
 class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
-  final ICountrySearchRepo _countrySearchRepo;
+  final IAutocompleteRepository autocompleteRepo;
 
-  SearchCityBloc(this._countrySearchRepo) : super(Idle()) {
+  SearchCityBloc(this.autocompleteRepo) : super(Idle()) {
     on<StartCitySearchEvent>(
       _searchCountry,
       transformer: (event, mapper) => event
@@ -38,8 +38,8 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
 
       emit(SearchInProgress());
 
-      final countrySearchList = await _countrySearchRepo.fetchCountrySearch(
-        InputDto(
+      final countrySearchList = await autocompleteRepo.getAutocomplete(
+        autocompleteInputDTO: AutocompleteInputDTO(
           term: event.text,
           locale: event.locale,
         ),
@@ -71,7 +71,7 @@ final class SearchInProgress extends SearchCityState {
 final class SearchCompleted extends SearchCityState {
   SearchCompleted({required this.countrySearchList});
 
-  final List<CountrySearchEntity> countrySearchList;
+  final List<AutocompleteEntity> countrySearchList;
 
   @override
   List<Object> get props => [countrySearchList];

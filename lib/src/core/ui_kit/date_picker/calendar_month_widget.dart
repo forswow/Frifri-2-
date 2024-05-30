@@ -228,7 +228,7 @@ class _MonthHeaderState extends State<MonthHeader> {
   @override
   void initState() {
     super.initState();
-    final String locale = context.read<AppLanguageCubit>().state;
+    final String locale = context.read<AppLanguageSettingsCubit>().state;
     monthName = _getMonthShortName(widget.year, widget.month, locale: locale);
   }
 

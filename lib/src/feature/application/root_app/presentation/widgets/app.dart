@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       value: const SystemUiOverlayStyle(
         systemNavigationBarColor: kPrimaryBackgroundColor,
       ),
-      child: BlocBuilder<AppLanguageCubit, String>(
+      child: BlocBuilder<AppLanguageSettingsCubit, String>(
         builder: (context, state) {
           return MaterialApp.router(
             locale: Locale(state),

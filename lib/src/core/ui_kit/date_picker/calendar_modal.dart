@@ -142,13 +142,14 @@ class _CalendarModalState extends State<CalendarModal> {
 
   Future<Map<DateTime, Text>> fetchPricesData(
       {required BuildContext context}) async {
-    final ticketRepo = Dependencies.of(context).searchTicketRepoImpl;
-    final String currency = context.read<CurrencyCubit>().state.name;
+    final calendarPricesRepo =
+        Dependencies.of(context).calendarPricesRepository;
+    final String currency = context.read<CurrencySettingsCubit>().state.name;
     final Map<DateTime, Text> calendarData = {};
 
     for (int i = 0; i < countOfMonths; i++) {
       // await Future.delayed(const Duration(milliseconds: 200));
-      final monthData = await ticketRepo.getMonthMatrixPrices(
+      final monthData = await calendarPricesRepo.getMonthMatrixPrices(
         options: MonthMatrixQuery(
           oneWay: widget.isOneWay,
           currency: currency,
@@ -200,7 +201,7 @@ class _CalendarModalHeaderState extends State<_CalendarModalHeader> {
   @override
   void initState() {
     super.initState();
-    final locale = context.read<AppLanguageCubit>().state;
+    final locale = context.read<AppLanguageSettingsCubit>().state;
     weekdays = getLocalizedWeekDays(locale.toString());
   }
 

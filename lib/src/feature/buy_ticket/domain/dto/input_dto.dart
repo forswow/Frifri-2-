@@ -1,5 +1,5 @@
-class InputDto {
-  InputDto({required this.locale, required this.term});
+class AutocompleteInputDTO {
+  AutocompleteInputDTO({required this.locale, required this.term});
 
   final String locale;
   final String term;

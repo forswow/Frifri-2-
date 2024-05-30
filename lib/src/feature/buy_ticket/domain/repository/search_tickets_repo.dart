@@ -25,8 +25,4 @@ abstract interface class ISearchTicketsRepo {
     required String searchId,
     required int termsUrl,
   });
-
-  Future<MonthMatrix> getMonthMatrixPrices({
-    required MonthMatrixQuery options,
-  });
 }

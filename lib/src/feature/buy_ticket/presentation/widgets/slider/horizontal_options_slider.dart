@@ -104,10 +104,10 @@ class HorizontalOptionsSlider extends StatelessWidget {
   }
 
   void startTicketsSearch(BuildContext context) async {
-    final locale = context.read<AppLanguageCubit>().state;
-    final currency = context.read<CurrencyCubit>().state.name;
+    final locale = context.read<AppLanguageSettingsCubit>().state;
+    final currency = context.read<CurrencySettingsCubit>().state.name;
 
-    context.read<SearchBloc>().add(
+    context.read<SearchTicketsBloc>().add(
           StartSearchTicketEvent(
             searchModelForm: searchModel,
             locale: locale,
@@ -222,7 +222,7 @@ class DateChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = context.read<AppLanguageCubit>().state;
+    final locale = context.read<AppLanguageSettingsCubit>().state;
 
     return OptionsChipsCard(
       child: RichText(

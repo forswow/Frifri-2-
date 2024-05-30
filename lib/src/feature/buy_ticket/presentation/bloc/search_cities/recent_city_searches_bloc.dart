@@ -4,18 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/country_search_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/repository/recent_search_repo.dart';
 
-class RecentSearchesCubit extends Cubit<List<CountrySearchEntity>> {
-  final IRecentSearchRepo recentSearchRepo;
+class RecentSearchesCubit extends Cubit<List<AutocompleteEntity>> {
+  final IRecentSearchRepo recentSearchRepository;
 
-  RecentSearchesCubit({required this.recentSearchRepo}) : super([]) {
+  RecentSearchesCubit({required this.recentSearchRepository}) : super([]) {
     fetchRecentSearches().then((value) => emit(value));
   }
 
-  Future<List<CountrySearchEntity>> fetchRecentSearches() async {
-    final data = await recentSearchRepo.fetchRecentSearch();
+  Future<List<AutocompleteEntity>> fetchRecentSearches() async {
+    final data = await recentSearchRepository.fetchRecentSearch();
     final recentSearches = data
         .map(
-          (e) => CountrySearchEntity(
+          (e) => AutocompleteEntity(
               airport: e.airport,
               code: e.countryCode,
               countryName: e.countryName,
@@ -25,9 +25,10 @@ class RecentSearchesCubit extends Cubit<List<CountrySearchEntity>> {
     return recentSearches;
   }
 
-  Future<void> addRecentSearch(CountrySearchEntity countrySearchEntity) async {
-    if (!await recentSearchRepo.hasRecentSearch(countrySearchEntity.code)) {
-      recentSearchRepo.addRecentSearch(countrySearchEntity);
+  Future<void> addRecentSearch(AutocompleteEntity countrySearchEntity) async {
+    if (!await recentSearchRepository
+        .hasRecentSearch(countrySearchEntity.code)) {
+      recentSearchRepository.addRecentSearch(countrySearchEntity);
       emit(
         List.from(state)..add(countrySearchEntity),
       );

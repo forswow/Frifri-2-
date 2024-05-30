@@ -55,7 +55,7 @@ class _SelectLanguageModalContentState
   @override
   void initState() {
     super.initState();
-    initialLanguage = context.read<AppLanguageCubit>().state;
+    initialLanguage = context.read<AppLanguageSettingsCubit>().state;
     selectedLanguage = initialLanguage;
     isConfirmButtonActive = false;
   }
@@ -114,7 +114,7 @@ class _SelectLanguageModalContentState
               onPressed: isConfirmButtonActive
                   ? () {
                       context
-                          .read<AppLanguageCubit>()
+                          .read<AppLanguageSettingsCubit>()
                           .selectNewLanguage(selectedLanguage);
                       context.pop();
                     }

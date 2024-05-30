@@ -58,7 +58,7 @@ class _SelectCurrencyModalContentState
   void initState() {
     super.initState();
 
-    initialCurrency = context.read<CurrencyCubit>().state;
+    initialCurrency = context.read<CurrencySettingsCubit>().state;
     selectedCurrency = initialCurrency;
     isConfirmButtonActive = false;
   }
@@ -145,7 +145,7 @@ class _SelectCurrencyModalContentState
               onPressed: isConfirmButtonActive
                   ? () {
                       context
-                          .read<CurrencyCubit>()
+                          .read<CurrencySettingsCubit>()
                           .selectCurrency(selectedCurrency);
                       context.pop();
                     }

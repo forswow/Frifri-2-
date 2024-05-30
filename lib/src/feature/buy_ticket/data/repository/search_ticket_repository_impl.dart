@@ -1,6 +1,7 @@
 import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/avia_tickets_api_client.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/search/search_data_sources.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/airline_logo.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/booking.dart';
+import 'package:frifri/src/feature/buy_ticket/data/data_sources/search_tickets.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
@@ -12,16 +13,20 @@ import 'package:intl/intl.dart';
 import '../dto/ticket_search_query.dart';
 
 base class SearchTicketRepoImpl implements ISearchTicketsRepo {
-  SearchTicketRepoImpl({required this.searchDataSources});
+  SearchTicketRepoImpl({
+    required this.searchDataSources,
+    required this.bookingDataSources,
+  });
 
-  final ISearchDataSources searchDataSources;
+  final ITicketsDataSource searchDataSources;
+  final IBookingDataSource bookingDataSources;
 
   @override
   Future<BookingTicketEntity> getABookingLink({
     required String searchId,
     required int termsUrl,
   }) async {
-    return await searchDataSources.getABookingLink(
+    return await bookingDataSources.getABookingLink(
       searchId: searchId,
       termsUrl: termsUrl,
     );
@@ -38,7 +43,8 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   }) async {
     final List<TicketEntity> newTickets = [];
 
-    final result = await searchDataSources.getTicketsBySearchId(searchId);
+    final result =
+        await searchDataSources.getTicketsBySearchId(searchId: searchId);
 
     // Bang операторы используются по причине того, что
     // API всегда содержит вместе с собой airlines мапу
@@ -50,6 +56,9 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
     //
     // А пришлёт она только 1 элемент в массиве, который будет содержать
     // searchId, из которого собрать чанк нельзя
+    //
+    // UPD: Скорее всего это всё равно бред безумца и надо всё исправить
+    // я извиняюсь за содеянное, но теперь оно хотя бы не в блоке :O
     while (result.data.length != 1) {
       for (final chunk in result.data) {
         for (final proposal in chunk.proposals) {
@@ -132,12 +141,5 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   Future<TicketsSearchIdResult> searchTickets(
       TicketsSearchQuery options) async {
     return await searchDataSources.searchTickets(options: options);
-  }
-
-  @override
-  Future<MonthMatrix> getMonthMatrixPrices({
-    required MonthMatrixQuery options,
-  }) async {
-    return await searchDataSources.getMonthMatrix(options: options);
   }
 }

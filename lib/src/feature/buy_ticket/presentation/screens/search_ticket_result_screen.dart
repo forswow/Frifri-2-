@@ -27,16 +27,16 @@ class SearchTicketsResultScreen extends StatefulWidget {
 
 class _SearchTicketsResultScreenState extends State<SearchTicketsResultScreen> {
   late final SearchModel _searchModel;
-  late final SearchBloc searchBloc;
+  late final SearchTicketsBloc searchBloc;
 
   @override
   void initState() {
     super.initState();
     _searchModel = widget.searchModel;
-    searchBloc = context.read<SearchBloc>();
-    final locale = context.read<AppLanguageCubit>().state.toLowerCase();
+    searchBloc = context.read<SearchTicketsBloc>();
+    final locale = context.read<AppLanguageSettingsCubit>().state.toLowerCase();
 
-    final currencyEnum = context.read<CurrencyCubit>().state;
+    final currencyEnum = context.read<CurrencySettingsCubit>().state;
     final currency = currencyEnum.name;
 
     searchBloc.add(
@@ -92,7 +92,7 @@ class _ResultedTicketsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-      child: BlocBuilder<SearchBloc, SearchState>(
+      child: BlocBuilder<SearchTicketsBloc, SearchState>(
         builder: (context, state) {
           switch (state) {
             case SearchComplete():
@@ -239,9 +239,10 @@ class _LocationPickerZone extends StatelessWidget {
 
                 searchModel.departureAt = location;
                 if (context.mounted) {
-                  final locale = context.read<AppLanguageCubit>().state;
-                  final currency = context.read<CurrencyCubit>().state.name;
-                  context.read<SearchBloc>().add(
+                  final locale = context.read<AppLanguageSettingsCubit>().state;
+                  final currency =
+                      context.read<CurrencySettingsCubit>().state.name;
+                  context.read<SearchTicketsBloc>().add(
                         StartSearchTicketEvent(
                           searchModelForm: searchModel,
                           locale: locale,
@@ -254,9 +255,10 @@ class _LocationPickerZone extends StatelessWidget {
                 var tmp = searchModel.departureAt;
                 searchModel.departureAt = searchModel.arrivalAt;
                 searchModel.arrivalAt = tmp;
-                final locale = context.read<AppLanguageCubit>().state;
-                final currency = context.read<CurrencyCubit>().state.name;
-                context.read<SearchBloc>().add(
+                final locale = context.read<AppLanguageSettingsCubit>().state;
+                final currency =
+                    context.read<CurrencySettingsCubit>().state.name;
+                context.read<SearchTicketsBloc>().add(
                       StartSearchTicketEvent(
                         searchModelForm: searchModel,
                         locale: locale,
@@ -304,9 +306,10 @@ class _LocationPickerZone extends StatelessWidget {
 
                 searchModel.arrivalAt = location;
                 if (context.mounted) {
-                  final locale = context.read<AppLanguageCubit>().state;
-                  final currency = context.read<CurrencyCubit>().state.name;
-                  context.read<SearchBloc>().add(
+                  final locale = context.read<AppLanguageSettingsCubit>().state;
+                  final currency =
+                      context.read<CurrencySettingsCubit>().state.name;
+                  context.read<SearchTicketsBloc>().add(
                         StartSearchTicketEvent(
                           searchModelForm: searchModel,
                           locale: locale,
