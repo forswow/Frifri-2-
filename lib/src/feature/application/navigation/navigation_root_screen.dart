@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -107,7 +108,17 @@ class _CustomFloatingActionButton extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * 0.155,
       child: FloatingActionButton(
         onPressed: () {
-          context.go(NavigationManager.search);
+          showModalBottomSheet(
+            context: context,
+            useRootNavigator: true,
+            isScrollControlled: true,
+            builder: (context) => const FlightPricesModal(
+              destinationAirportName: "Владивосток",
+              originAirportName: "Хуяндок",
+            ),
+          );
+          // Раскоментить после добавления модального окна
+          // context.go(NavigationManager.search);
         },
         backgroundColor: kPrimaryAppColor,
         shape: const CircleBorder(),
