@@ -102,6 +102,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
           onTap: () {
             showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
               useRootNavigator: true,
               builder: (BuildContext context) {
                 return const SelectAirportModal();
