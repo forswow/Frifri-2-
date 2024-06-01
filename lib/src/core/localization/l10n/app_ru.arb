@@ -23,7 +23,7 @@
     "hotel": "Отели",
     "moreFirstUpCase": "Еще",
     "flightCost": "Стоимость перелета",
-    "directFligthsFrom": "Прямые вылеты из ",
+    "directFligthsFrom": "Прямые рейсы из ",
     "whereToFly": "Куда летим?",
     "whereFrom": "Откуда",
     "where": "Куда",
@@ -61,5 +61,10 @@
     "withLayovers": "С пересадками",
     "directFlight": "Прямой рейс",
 
-    "theCheapest": "Самый дешёвый"
+    "theCheapest": "Самый дешёвый",
+"hours" : "ч",
+"minutes" : "м",
+ "price" : "Цена",
+"goToPriceCalendar" : "Перейти в календарь цен",
+                                                                  "from" : "от"
 }

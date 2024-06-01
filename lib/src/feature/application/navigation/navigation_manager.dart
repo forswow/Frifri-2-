@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
-import 'package:frifri/src/feature/avia_tickets/presentation/screens/avia_ticket_screen.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/screens/direct_flight_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
@@ -31,7 +31,7 @@ class NavigationManager {
               GoRoute(
                 name: aviaTickets,
                 path: aviaTickets,
-                builder: (context, state) => const AviaTicketScreen(),
+                builder: (context, state) => const DirectFlightScreen(),
               ),
             ],
           ),

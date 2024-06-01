@@ -36,10 +36,15 @@ class SearchModel with ChangeNotifier {
 
   // Getters
   AirportEntity? get departureAt => _departureAt;
+
   AirportEntity? get arrivalAt => _arrivalAt;
+
   DateTime? get departureDate => _departureDate;
+
   DateTime? get returnDate => _returnDate;
+
   PassengersAndClass? get passengersAndClass => _passengers;
+
   bool get isDirectFlightOnly => _isDirectFlight;
 
   // Setters with notifyListeners

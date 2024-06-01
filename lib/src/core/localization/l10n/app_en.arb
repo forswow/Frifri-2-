@@ -64,5 +64,10 @@
   "withLayovers": "With layovers",
   "directFlight": "Direct flight",
 
-  "theCheapest": "The cheapest"
-}
+  "theCheapest": "The cheapest",
+  "hours" : "h",
+  "minutes" : "m"
+ ,
+ "price" : "price",
+                  "goToPriceCalendar" : "Go to price calendar",
+                  "from" : "from"}

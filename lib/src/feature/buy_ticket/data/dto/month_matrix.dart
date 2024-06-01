@@ -66,10 +66,15 @@ class MonthMatrix {
   final String currency;
   final bool success;
 
+  final String origin;
+  final String destination;
+
   MonthMatrix({
     required this.data,
     required this.currency,
     required this.success,
+    required this.origin,
+    required this.destination,
   });
 
   factory MonthMatrix.fromJson(Map<String, dynamic> json) => MonthMatrix(
@@ -77,6 +82,8 @@ class MonthMatrix {
             json["data"].map((x) => MonthMatrixDayInfo.fromJson(x))),
         currency: json["currency"],
         success: json["success"],
+    origin: '',
+    destination: ''
       );
 
   Map<String, dynamic> toJson() => {
@@ -84,6 +91,22 @@ class MonthMatrix {
         "currency": currency,
         "success": success,
       };
+
+  MonthMatrix copyWith({
+    List<MonthMatrixDayInfo>? data,
+    String? currency,
+    bool? success,
+    String? origin,
+    String? destination,
+  }) {
+    return MonthMatrix(
+      data: data ?? this.data,
+      currency: currency ?? this.currency,
+      success: success ?? this.success,
+      origin: origin ?? this.origin,
+      destination: destination ?? this.destination,
+    );
+  }
 }
 
 class MonthMatrixDayInfo {
@@ -150,4 +173,6 @@ class MonthMatrixDayInfo {
         "show_to_affiliates": showToAffiliates,
         "actual": actual,
       };
+
+
 }

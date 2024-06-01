@@ -5,6 +5,13 @@ import 'package:frifri/src/core/data_base/search_database.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/avia_tickets/data/data_sources/destination_country_data_sources.dart';
+import 'package:frifri/src/feature/avia_tickets/data/data_sources/monthly_prices_data_sources.dart';
+import 'package:frifri/src/feature/avia_tickets/data/repositories/destination_country_repo_impl.dart';
+import 'package:frifri/src/feature/avia_tickets/data/repositories/monthly_prices_repo_impl.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/booking.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/prices.dart';
@@ -75,6 +82,14 @@ base class Dependencies {
 
   late final IUserLocationDataSource userLocationDataSource;
 
+  late final IDestinationCountryDataSources destinationCountryDataSources;
+  late final IMonthlyTicketPriceDataSources monthlyTicketPriceDataSources;
+
+  late final IMonthlyPricesRepo monthlyPricesRepo;
+  late final IDestinationCountryRepo destinationCountryRepo;
+
+  late final DirectFlightBloc directFlightBloc;
+
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
     final String baseUrl = dotenv.get('API_BASE_URL');
@@ -92,6 +107,7 @@ base class Dependencies {
     );
 
     // Настройки приложения (работают через shared_preferences)
+
     pushNotificationCubit =
         PushNotificationSettingsCubit(prefHelper: globalPrefHelper);
     airportCubit = AirportSettingsCubit(prefHelper: globalPrefHelper);
@@ -134,8 +150,7 @@ base class Dependencies {
     );
 
     pricesDataSource = PricesDataSourceImpl(
-      dioClient: mainDioClient,
-    );
+        autocompleteDataSourceImpl: autocompleteDataSource);
     calendarPricesRepository = CalendarPricesRepositoryImpl(
       pricesDataSource: pricesDataSource,
     );
@@ -143,6 +158,19 @@ base class Dependencies {
     userLocationDataSource = UserLocationDataSourceImpl(
       dioClient: mainDioClient,
     );
+
+    destinationCountryDataSources = DestinationCountryDataSources();
+
+    monthlyTicketPriceDataSources = MonthlyTicketPriceDataSources();
+
+    destinationCountryRepo = DestinationCountryRepoImpl(
+        destinationCountryDataSources: destinationCountryDataSources);
+
+    monthlyPricesRepo = MonthlyPricesRepoImpl(
+        monthlyTicketPriceDataSources: monthlyTicketPriceDataSources);
+
+    directFlightBloc = DirectFlightBloc(
+        destinationCountryRepo, monthlyPricesRepo, pricesDataSource);
 
     logger.i("Dependencies initialized.");
   }

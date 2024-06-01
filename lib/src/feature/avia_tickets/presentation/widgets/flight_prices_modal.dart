@@ -1,19 +1,34 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/helpers/signature_helper.dart';
+import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../core/extensions/formatters.dart';
+import '../../../buy_ticket/data/dto/month_matrix.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({
     super.key,
     required this.originAirportName,
     required this.destinationAirportName,
+    required this.monthMatrixDayInfo,
   });
 
   final String originAirportName;
   final String destinationAirportName;
+
+  final List<MonthMatrixDayInfo> monthMatrixDayInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +38,16 @@ class FlightPricesModal extends StatelessWidget {
           FlightPricesModalHeader(
             destinationAirportName: destinationAirportName,
             originAirportName: originAirportName,
+            monthMatrixDayInfo: monthMatrixDayInfo,
           ),
           const Divider(
             height: 1,
             thickness: 0.5,
           ),
-          const FlightPricesModalContent(),
+          FlightPricesModalContent(
+            monthMatrixDayInfo: monthMatrixDayInfo,
+            destination: destinationAirportName,
+          ),
         ],
       ),
     );
@@ -40,10 +59,12 @@ class FlightPricesModalHeader extends StatelessWidget {
     super.key,
     required this.originAirportName,
     required this.destinationAirportName,
+    required this.monthMatrixDayInfo,
   });
 
   final String originAirportName;
   final String destinationAirportName;
+  final List<MonthMatrixDayInfo> monthMatrixDayInfo;
 
   static const _headerTextScaleFactor = 0.27;
 
@@ -63,38 +84,37 @@ class FlightPricesModalHeader extends StatelessWidget {
               SizedBox(
                 width:
                     MediaQuery.sizeOf(context).width * _headerTextScaleFactor,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    originAirportName,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  originAirportName,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                  horizontal: 10,
                 ),
                 child: SvgPicture.asset(
                   "assets/icons/searchfly-airplane.svg",
+                  fit: BoxFit.contain,
+                  height: 25,
+                  width: 25,
                 ),
               ),
               SizedBox(
                 width:
                     MediaQuery.sizeOf(context).width * _headerTextScaleFactor,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    destinationAirportName,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                    ),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  destinationAirportName,
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
                   ),
                 ),
               ),
@@ -102,7 +122,12 @@ class FlightPricesModalHeader extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: SvgPicture.asset("assets/icons/close.svg"),
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: SvgPicture.asset("assets/icons/close.svg"),
+            ),
           ),
         ],
       ),
@@ -111,7 +136,10 @@ class FlightPricesModalHeader extends StatelessWidget {
 }
 
 class FlightPricesModalContent extends StatefulWidget {
-  const FlightPricesModalContent({super.key});
+  const FlightPricesModalContent({super.key, required this.monthMatrixDayInfo, required this.destination});
+
+  final List<MonthMatrixDayInfo> monthMatrixDayInfo;
+  final String destination;
 
   @override
   State<FlightPricesModalContent> createState() =>
@@ -121,57 +149,78 @@ class FlightPricesModalContent extends StatefulWidget {
 class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
   @override
   Widget build(BuildContext context) {
+    final currency = context.watch<CurrencySettingsCubit>().state;
+    final language = context.watch<AppLanguageSettingsCubit>().state;
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(14),
-              child: Table(
-                columnWidths: const {
-                  0: FlexColumnWidth(), // Тут можно регулировать размеры столбцов
-                  1: FlexColumnWidth(),
-                  2: FlexColumnWidth(),
-                },
+              child: ListView(
+            padding: const EdgeInsets.all(24),
+            children: [
+              Row(
                 children: [
-                  // Заголовок таблицы
-                  TableRow(
-                    children: [
-                      Text(
-                        "Когда",
-                        style: AppStyles.textStylePoppins.copyWith(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        "Обратно",
-                        style: AppStyles.textStylePoppins.copyWith(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        "Цена",
-                        textAlign: TextAlign.end,
-                        style: AppStyles.textStylePoppins.copyWith(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    AppLocalizations.of(context).when,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
                   ),
-                  // -------------------------------------
-                  // Тут формировать строки с результатами
-                  // с помощью FutureBuilder / BlocBuilder
-                  // -------------------------------------
+                  const Spacer(),
+                  Text(
+                    AppLocalizations.of(context).back,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    AppLocalizations.of(context).price,
+                    textAlign: TextAlign.end,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ),
-          const Divider(
-            color: Colors.grey,
+              ...widget.monthMatrixDayInfo.map((e) => Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: [
+                        TimeWidget(
+                            date: dateFormatDay(e.departDate, language),
+                            time: ''),
+                        const Spacer(),
+                        TimeWidget(
+                            date: dateFormatDay(
+                                DateTime.parse(e.returnDate), language),
+                            time: formatMinutesToHoursAndMinutes(
+                              e.duration,
+                              context,
+                            )),
+                        const Spacer(),
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            'от ${formatNumberWithSpaces(e.value, currency)}',
+                            style: GoogleFonts.rubik(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xff5B9CEC)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+            ],
+          )),
+          const SizedBox(height: 20),
+          Divider(
+            color: const Color(0xff000000).withOpacity(0.2),
             height: 1,
             thickness: 0.5,
           ),
@@ -186,9 +235,9 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset("assets/icons/prices_calendar.svg"),
-                      const Text(
-                        "Перейти в календарь цен",
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context).goToPriceCalendar,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
@@ -200,14 +249,17 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "Сделать что-то важное за X руб.",
+                      "${AppLocalizations.of(context).from} ${formatNumberWithSpaces(
+                        widget.monthMatrixDayInfo.first.value,
+                        currency,
+                      )}",
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     onPressed: () {
-                      logger.i("Вы сделали что-то важное");
+              UrlLauncherHelper.launchInWeb('https://frifri.ge/${language}/${widget.destination}');
                     },
                   ),
                 )
@@ -218,4 +270,42 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
       ),
     );
   }
+}
+
+class TimeWidget extends StatelessWidget {
+  const TimeWidget({super.key, required this.date, required this.time});
+
+  final String date;
+  final String time;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          date,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          time,
+          style: GoogleFonts.roboto(
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+            fontSize: 12,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+String formatDate(DateTime date) {
+  final DateFormat formatter = DateFormat('d MMMM', 'ru');
+
+  return formatter.format(date);
 }

@@ -9,17 +9,13 @@ abstract interface class IDestinationCountryDataSources {
   );
 }
 
-
-/// Поле [table] является названием таблицы.
-///
-/// Доступные таблицы TBS KTS BTM
-
 final class DestinationCountryDataSources
     with SupaBaseAppClient
     implements IDestinationCountryDataSources {
   @override
   Future<List<DestinationCountryEntity>> fetchDestinationCountries(
-      String table) async {
+    String table,
+  ) async {
     try {
       final response = await supaBaseClient.from(table).select();
 
@@ -29,10 +25,3 @@ final class DestinationCountryDataSources
     }
   }
 }
-
-/// Возвращаем список стран
-///
-/// Получаем язык для запроса названия города
-/// Получаем список стран для поиска
-/// Отправляем запроос на получение цен получения списка
-/// отправляем запрос

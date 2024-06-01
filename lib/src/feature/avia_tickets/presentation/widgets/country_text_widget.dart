@@ -30,24 +30,29 @@ class CountryTextWidget extends StatelessWidget {
   final String subTitle;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
-      child: Column(
-        crossAxisAlignment: crossAxisAlignment,
-        children: [
-          FittedBox(
-            child: Text(
-              title,
-              style: countryTopTextStyle,
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment,
+          children: [
+            FittedBox(
+      
+              fit: BoxFit.scaleDown,
+              child: Text(
+                title,
+                style: countryTopTextStyle,
+              ),
             ),
-          ),
-          FittedBox(
-            child: Text(
-              subTitle,
-              style: countryBottomTextStyle,
-            ),
-          )
-        ],
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                subTitle,
+                style: countryBottomTextStyle,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

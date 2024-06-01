@@ -61,5 +61,10 @@
     "withLayovers": "გადასაფარებლებით",
     "directFlight": "Პირდაპირი ფრენა",
 
-    "theCheapest": "Ყველაზე იაფი"
+    "theCheapest": "Ყველაზე იაფი",
+    "hours" : "თ",
+     "minutes" : "წ",
+     "price": "ფასი",
+                       "goToPriceCalendar": "ფასების კალენდარში გადასვლა",
+                       "from": "დან"
 }

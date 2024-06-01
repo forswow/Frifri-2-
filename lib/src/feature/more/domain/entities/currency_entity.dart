@@ -26,3 +26,20 @@ CurrencyEnum getCurrencyFromString(String currencyName) {
     (e) => e.toString().split('.').last == currencyName.toLowerCase(),
   );
 }
+
+String getCurrencySymbol(CurrencyEnum currency) {
+  switch (currency) {
+    case CurrencyEnum.rub:
+      return '₽';
+    case CurrencyEnum.usd:
+      return '\$';
+    case CurrencyEnum.eur:
+      return '€';
+    case CurrencyEnum.gel:
+      return '₾';
+
+
+    default: return '0';
+
+  }
+}

@@ -108,17 +108,17 @@ class _CustomFloatingActionButton extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height * 0.155,
       child: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const FlightPricesModal(
-              destinationAirportName: "Владивосток",
-              originAirportName: "Хуяндок",
-            ),
-          );
+          // showModalBottomSheet(
+          //   context: context,
+          //   useRootNavigator: true,
+          //   isScrollControlled: true,
+          //   builder: (context) => const FlightPricesModal(
+          //     destinationAirportName: "Владивосток",
+          //     originAirportName: "Хуяндок",
+          //   ),
+          // );
           // Раскоментить после добавления модального окна
-          // context.go(NavigationManager.search);
+          context.go(NavigationManager.search);
         },
         backgroundColor: kPrimaryAppColor,
         shape: const CircleBorder(),
