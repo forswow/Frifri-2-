@@ -90,7 +90,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
       emit(DirectFlight$MonthSuccess(monthMatrix: dataList));
     } on PostgrestException catch (err) {
       emit(DirectFlight$Error(message: err.message));
-    } on DioException catch (e, s) {
+    } on DioException catch (e) {
       emit(DirectFlight$Error(message: e.message!));
     }
   }

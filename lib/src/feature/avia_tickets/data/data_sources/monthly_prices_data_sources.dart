@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
 import 'package:frifri/src/feature/avia_tickets/data/iterceptors/countries_fetch_interceptor.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/monthly_ticket_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/tranfers/direct_flight_transfer.dart';
 

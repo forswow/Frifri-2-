@@ -1,5 +1,3 @@
-import 'package:frifri/src/core/extensions/date_time.dart';
-
 final class DirectFlightTransfer {
   DirectFlightTransfer({
     required this.origin,
@@ -28,7 +26,6 @@ final class DirectFlightTransfer {
 
         departureAt = '2024-06-01',
         returnAt = '2024-06-30',
-
         oneWay = true,
         direct = true,
         market = 'ru',

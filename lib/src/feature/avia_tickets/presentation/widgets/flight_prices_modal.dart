@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/core/helpers/signature_helper.dart';
 import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -259,7 +255,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                       ),
                     ),
                     onPressed: () {
-              UrlLauncherHelper.launchInWeb('https://frifri.ge/${language}/${widget.destination}');
+              UrlLauncherHelper.launchInWeb('https://frifri.ge/$language/${widget.destination}');
                     },
                   ),
                 )

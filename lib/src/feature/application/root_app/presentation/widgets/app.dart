@@ -7,7 +7,6 @@ import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../avia_tickets/presentation/screens/direct_flight_screen.dart';
 import '../../../navigation/navigation_manager.dart';
 
 /// {@template app}

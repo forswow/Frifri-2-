@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
-import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket_widget.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
-import 'package:frifri/src/feature/more/domain/entities/currency_entity.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../core/extensions/formatters.dart';
 import '../../../more/domain/entities/airport_entity.dart';
 import '../bloc/direct_flight_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -173,7 +170,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   DirectFlight$TicketSuccess() => ListView.builder(
                       itemCount: state.tickets.length,
                       itemBuilder: (context, index) {
-                        return Text('s');
+                        return const Text('s');
                       }),
                   DirectFlight$CountriesFetch() =>
                     const Text('Получаем гороода вылета'),
@@ -286,7 +283,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final double height;
 
-  const CustomAppBar({
+  const CustomAppBar({super.key, 
     required this.child,
     this.height = kToolbarHeight,
   });
