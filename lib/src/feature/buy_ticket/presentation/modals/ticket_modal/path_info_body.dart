@@ -44,14 +44,15 @@ class SegmentInfoBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'departure time ${segmentEntity.departureTime}',
+                  segmentEntity.departureTime,
                   style: AppStyles.textStylePoppins.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-
-                  DateFormat("EEE, dd MMM").format(segmentEntity.departureDate,),
+                  DateFormat("EEE, dd MMM").format(
+                    segmentEntity.departureDate,
+                  ),
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black45,
                     fontSize: 12,
@@ -93,20 +94,28 @@ class SegmentInfoBody extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
                   width: 180,
-                  child: Text(
-                    segmentEntity.departureCityName,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      fontWeight: FontWeight.w600,
+                  child: FittedBox(
+                    alignment: Alignment.centerLeft,
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      segmentEntity.departureCityName,
+                      style: AppStyles.textStylePoppins.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: 180,
-                  child: Text(
-                    segmentEntity.departureAirportName,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.black45,
-                      fontSize: 12,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      segmentEntity.departureAirportName,
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.black45,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
