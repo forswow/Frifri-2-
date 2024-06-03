@@ -132,7 +132,8 @@ class FlightPricesModalHeader extends StatelessWidget {
 }
 
 class FlightPricesModalContent extends StatefulWidget {
-  const FlightPricesModalContent({super.key, required this.monthMatrixDayInfo, required this.destination});
+  const FlightPricesModalContent(
+      {super.key, required this.monthMatrixDayInfo, required this.destination});
 
   final List<MonthMatrixDayInfo> monthMatrixDayInfo;
   final String destination;
@@ -202,7 +203,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                         FittedBox(
                           fit: BoxFit.contain,
                           child: Text(
-                            'от ${formatNumberWithSpaces(e.value, currency)}',
+                            'от ${formatCurrencyWithSpaces(e.value, currency)}',
                             style: GoogleFonts.rubik(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -245,7 +246,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "${AppLocalizations.of(context).from} ${formatNumberWithSpaces(
+                      "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
                         widget.monthMatrixDayInfo.first.value,
                         currency,
                       )}",
@@ -255,7 +256,8 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                       ),
                     ),
                     onPressed: () {
-              UrlLauncherHelper.launchInWeb('https://frifri.ge/$language/${widget.destination}');
+                      UrlLauncherHelper.launchInWeb(
+                          'https://frifri.ge/$language/${widget.destination}');
                     },
                   ),
                 )

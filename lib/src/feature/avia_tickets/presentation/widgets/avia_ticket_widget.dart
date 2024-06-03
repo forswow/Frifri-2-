@@ -101,7 +101,7 @@ class AviaTicketWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${formatNumberWithSpaces(data.data.first.value, currency)} ',
+                  '${formatCurrencyWithSpaces(data.data.first.value, currency)} ',
                   style: GoogleFonts.roboto(
                     fontWeight: FontWeight.bold,
                     fontSize: devicePixelRatio * _priceTextScaleFactor,

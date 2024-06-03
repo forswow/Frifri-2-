@@ -61,7 +61,7 @@ class SegmentLayoverInfo extends StatelessWidget {
               computeLayoverDuration(
                 firstSegmentArrivalTimestamp,
                 secondSegmentDepartureTimestamp,
-                context
+                context,
               ),
               textAlign: TextAlign.center,
               style: AppStyles.textStylePoppins.copyWith(
@@ -90,7 +90,8 @@ class SegmentLayoverInfo extends StatelessWidget {
     int hours = difference.inHours;
     int minutes = difference.inMinutes.remainder(60);
 
-    String formattedDifference = '${hours}${word.hours}  ${minutes}${word.minutes}';
+    String formattedDifference =
+        '$hours${word.hoursSymbol}  $minutes${word.minutesSymbol}';
 
     return formattedDifference;
   }

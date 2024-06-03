@@ -70,7 +70,9 @@ class _SelectLanguageModalContentState
             children: [
               CustomRadioListTile(
                 value: "ru",
-                title: const Text("Russian"),
+                title: const Text(
+                  "Russian",
+                ),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
                   setState(() {
@@ -81,7 +83,9 @@ class _SelectLanguageModalContentState
               ),
               CustomRadioListTile(
                 value: "en",
-                title: const Text("English"),
+                title: const Text(
+                  "English",
+                ),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
                   setState(() {
@@ -92,7 +96,9 @@ class _SelectLanguageModalContentState
               ),
               CustomRadioListTile(
                 value: "ka",
-                title: const Text("Georgian"),
+                title: const Text(
+                  "Georgian",
+                ),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
                   setState(
