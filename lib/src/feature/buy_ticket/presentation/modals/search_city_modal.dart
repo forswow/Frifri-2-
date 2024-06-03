@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/extensions/string_extensions.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
@@ -98,7 +99,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                       builder: (context, state) {
                         logger.i(state.toString());
                         return SearchCityResult(
-                          title: "Ранее искали",
+                          title: AppLocalizations.of(context).recentSearches,
                           searchResult: state,
                         );
                       },
@@ -244,7 +245,9 @@ class SearchFlyModalHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'ОТКУДА',
+                              AppLocalizations.of(context)
+                                  .whereFrom
+                                  .captialize(),
                               style: GoogleFonts.poppins(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -270,7 +273,9 @@ class SearchFlyModalHeader extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'КУДА',
+                              AppLocalizations.of(context)
+                                  .whereToFly
+                                  .captialize(),
                               style: GoogleFonts.poppins(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,

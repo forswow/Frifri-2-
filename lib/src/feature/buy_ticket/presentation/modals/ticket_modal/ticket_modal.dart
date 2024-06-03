@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
@@ -10,6 +11,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/p
 import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class TicketModal extends StatelessWidget {
   const TicketModal({
     super.key,
@@ -125,8 +127,6 @@ class __TicketModalContentState extends State<_TicketModalContent> {
             const SizedBox(
               height: 10,
             ),
-
-
             SizedBox(
               height: 48,
               child: ConfirmationButton(
@@ -201,7 +201,10 @@ class _TicketModalHeader extends StatelessWidget {
                 width: 150,
               ),
               Text(
-                ticketEntity.flightDuration,
+                formatMinutesToHoursAndMinutes(
+                  ticketEntity.durationInMinutes,
+                  AppLocalizations.of(context),
+                ),
                 style: AppStyles.textStylePoppins.copyWith(
                   fontWeight: FontWeight.w600,
                 ),

@@ -86,10 +86,9 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
                 departureTime: proposalSegment.departureTime,
                 arrivalDate: DateTime.parse(proposalSegment.arrivalDate),
                 arrivalTime: proposalSegment.arrivalTime,
-                segmentFormattedDuration:
-                    "${segmentDuration ~/ 60}h ${segmentDuration % 60}m",
                 arrivalTimestamp: proposalSegment.arrivalTimestamp,
                 departureTimestamp: proposalSegment.departureTimestamp,
+                durationInMinutes: segmentDuration,
               ),
             );
           }
@@ -106,12 +105,12 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
           final ticket = TicketEntity(
             originAirport: originAirport,
             destinationAirport: destinationAirport,
-            flightDuration:
-                "${proposal.totalDurationInMinutes ~/ 60}h ${proposal.totalDurationInMinutes % 60}m",
+            durationInMinutes: proposal.totalDurationInMinutes,
             segmentsList: ticketSegments,
             departureTime: ticketSegments.first.departureTime,
             arrivalTime: ticketSegments.last.arrivalTime,
 
+            // TODO: Вынести форматирование цены наружу?
             formattedPrice: priceFormatter
                 .format(
                   priceInRubles ~/ currencyRate,

@@ -6,7 +6,7 @@ class TicketEntity {
   TicketEntity({
     required this.originAirport,
     required this.destinationAirport,
-    required this.flightDuration,
+    required this.durationInMinutes,
     required this.segmentsList,
     required this.departureTime,
     required this.arrivalTime,
@@ -21,7 +21,7 @@ class TicketEntity {
   final AirportEntity destinationAirport;
 
   // In [2h 45m] format
-  final String flightDuration;
+  final int durationInMinutes;
 
   // In [HH:mm] format
   final String departureTime;
@@ -54,7 +54,7 @@ class SegmentEntity {
   final String arrivalCityName;
   final String arrivalAirportName;
 
-  final String segmentFormattedDuration;
+  final int durationInMinutes;
 
   final int arrivalTimestamp;
   final int departureTimestamp;
@@ -70,7 +70,7 @@ class SegmentEntity {
     required this.arrivalTime,
     required this.arrivalCityName,
     required this.arrivalAirportName,
-    required this.segmentFormattedDuration,
+    required this.durationInMinutes,
     required this.arrivalTimestamp,
     required this.departureTimestamp,
   });

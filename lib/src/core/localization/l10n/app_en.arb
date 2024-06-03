@@ -65,8 +65,8 @@
   "from": "from",
   "transferTo": "Transfer to",
   "buyATicketFor" : "Buy a ticket for",
-
   "mostFrequentQuestions": "Most frequently asked questions",
   "flightCancellation": "Flight cancellations",
-  "ticketRegistration": "Ticket registration"
+  "ticketRegistration": "Ticket registration",
+  "previouslySearched": "Previously searched"
 }

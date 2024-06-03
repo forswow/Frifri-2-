@@ -62,8 +62,12 @@ class AviaTicketWidget extends StatelessWidget {
                         'assets/icons/avia-copy.svg',
                         width: MediaQuery.sizeOf(context).width * 0.4,
                       ),
-                      Text(formatMinutesToHoursAndMinutes(
-                          data.data.first.duration, context)),
+                      Text(
+                        formatMinutesToHoursAndMinutes(
+                          data.data.first.duration,
+                          AppLocalizations.of(context),
+                        ),
+                      ),
                       // Text(data.data.first.duration.toString()),
                     ],
                   ),

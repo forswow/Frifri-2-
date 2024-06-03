@@ -193,12 +193,13 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                             time: ''),
                         const Spacer(),
                         TimeWidget(
-                            date: dateFormatDay(
-                                DateTime.parse(e.returnDate), language),
-                            time: formatMinutesToHoursAndMinutes(
-                              e.duration,
-                              context,
-                            )),
+                          date: dateFormatDay(
+                              DateTime.parse(e.returnDate), language),
+                          time: formatMinutesToHoursAndMinutes(
+                            e.duration,
+                            AppLocalizations.of(context),
+                          ),
+                        ),
                         const Spacer(),
                         FittedBox(
                           fit: BoxFit.contain,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/ticket_modal.dart';
@@ -23,7 +24,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
   late final String iconPath;
   late final String companyName;
   late final String price;
-  late final String time;
+  late final int durationInMinutes;
   late final bool isCheapestTicket;
 
   late final String formattedPrice;
@@ -33,7 +34,6 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
   late final String arrivalTime;
 
   late final int countOfTransfers;
-
 
   /// detection
   @override
@@ -45,7 +45,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
     companyName = ticketEntity.segmentsList.first.airlineName;
     iconPath = ticketEntity.segmentsList.first.airlineLogo;
     formattedPrice = ticketEntity.formattedPrice;
-    time = ticketEntity.flightDuration;
+    durationInMinutes = ticketEntity.durationInMinutes;
     departureAtIataCode = ticketEntity.originAirport.code;
     arrivalAtIataCode = ticketEntity.destinationAirport.code;
     departureTime = ticketEntity.segmentsList.first.departureTime;
@@ -132,7 +132,10 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                             width: 20,
                           ),
                           TicketDurationAndTransfersSection(
-                            time: time,
+                            time: formatMinutesToHoursAndMinutes(
+                              durationInMinutes,
+                              AppLocalizations.of(context),
+                            ),
                             countOfTransfers: countOfTransfers,
                           ),
                         ],

@@ -65,8 +65,8 @@
   "from": "დან",
   "transferTo": "გადაცემას",
   "buyATicketFor" : "ყიდვა ბილეთი",
-
   "mostFrequentQuestions": "ყველაზე ხშირად დასმული კითხვები",
   "flightCancellation": "ფრენების გაუქმება",
-  "ticketRegistration": "ბილეთების გაყიდვა"
+  "ticketRegistration": "ბილეთების გაყიდვა",
+  "previouslySearched": "ადრე მოძებნილი"
 }

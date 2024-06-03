@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SegmentInfoHeader extends StatelessWidget {
   const SegmentInfoHeader({
@@ -37,7 +39,10 @@ class SegmentInfoHeader extends StatelessWidget {
                       .copyWith(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  segmentEntity.segmentFormattedDuration,
+                  formatMinutesToHoursAndMinutes(
+                    segmentEntity.durationInMinutes,
+                    AppLocalizations.of(context),
+                  ),
                   style: AppStyles.textStylePoppins.copyWith(fontSize: 12),
                 ),
               ],
