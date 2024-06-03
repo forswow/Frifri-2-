@@ -14,6 +14,8 @@
   "language": "Language",
   "currency": "Currency",
   "confidentiality": "Confidentiality",
+  "privacyPolicy": "Privacy Policy",
+  "licenseAgreement": "License Agreement",
   "help": "Help",
   "more": "More",
   "pushNotification": "Push-notification",
@@ -62,5 +64,9 @@
   "goToPriceCalendar": "Go to price calendar",
   "from": "from",
   "transferTo": "Transfer to",
-  "buyATicketFor" : "Buy a ticket for"
+  "buyATicketFor" : "Buy a ticket for",
+
+  "mostFrequentQuestions": "Most frequently asked questions",
+  "flightCancellation": "Flight cancellations",
+  "ticketRegistration": "Ticket registration"
 }

@@ -3,6 +3,7 @@ import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/presentation/modals/faq_modal.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const TextStyle _listTileTextStyle = TextStyle(
   fontSize: 16.0,
@@ -19,17 +20,17 @@ class HelpModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultModalWrapper(
+    return DefaultModalWrapper(
       child: Column(
         children: [
           DefaultModalHeader(
-            centerText: "Помощь",
+            centerText: AppLocalizations.of(context).help,
           ),
-          Divider(
+          const Divider(
             height: 1,
             thickness: 0.5,
           ),
-          _HelpModalContent(),
+          const _HelpModalContent(),
         ],
       ),
     );
@@ -62,13 +63,13 @@ class _HelpModalContent extends StatelessWidget {
               ),
             );
           },
-          child: const ListTile(
-            contentPadding: EdgeInsets.only(left: 16, right: 12),
+          child: ListTile(
+            contentPadding: const EdgeInsets.only(left: 16, right: 12),
             title: Text(
-              "Самые частые вопросы",
+              AppLocalizations.of(context).mostFrequentQuestions,
               style: _listTileTextStyle,
             ),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.keyboard_arrow_right,
             ),
           ),
@@ -91,13 +92,13 @@ class _HelpModalContent extends StatelessWidget {
               ),
             );
           },
-          child: const ListTile(
-            contentPadding: EdgeInsets.only(left: 16, right: 12),
+          child: ListTile(
+            contentPadding: const EdgeInsets.only(left: 16, right: 12),
             title: Text(
-              "Отмена рейсов",
+              AppLocalizations.of(context).flightCancellation,
               style: _listTileTextStyle,
             ),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.keyboard_arrow_right,
             ),
           ),
@@ -120,13 +121,13 @@ class _HelpModalContent extends StatelessWidget {
               ),
             );
           },
-          child: const ListTile(
-            contentPadding: EdgeInsets.only(left: 16, right: 12),
+          child: ListTile(
+            contentPadding: const EdgeInsets.only(left: 16, right: 12),
             title: Text(
-              "Оформление билета",
+              AppLocalizations.of(context).ticketRegistration,
               style: _listTileTextStyle,
             ),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.keyboard_arrow_right,
             ),
           ),

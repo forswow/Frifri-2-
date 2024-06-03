@@ -14,6 +14,8 @@
   "language": "Язык",
   "currency": "Валюта",
   "confidentiality": "Конфиденциальность",
+  "privacyPolicy": "Политика конфиденциальности",
+  "licenseAgreement": "Лицензионное соглашение",
   "help": "Помощь",
   "more": "Ещё",
   "pushNotification": "Пуш-уведомления",
@@ -61,6 +63,10 @@
   "price": "Цена",
   "goToPriceCalendar": "Перейти в календарь цен",
   "from": "от",
+
+  "mostFrequentQuestions": "Самые частые вопросы",
+  "flightCancellation": "Отмена рейсов",
+  "ticketRegistration": "Оформление билета",
 
   "transferTo": "Пересадка в",
   "buyATicketFor" : "купить билет за"
