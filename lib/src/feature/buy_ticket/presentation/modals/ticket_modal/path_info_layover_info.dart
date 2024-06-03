@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/// Заменить
 class SegmentLayoverInfo extends StatelessWidget {
   const SegmentLayoverInfo({
     super.key,
@@ -37,7 +39,7 @@ class SegmentLayoverInfo extends StatelessWidget {
           Flexible(
             flex: 10,
             child: Text(
-              'Пересадка в $cityName',
+              ' ${AppLocalizations.of(context).transferTo} $cityName',
               textAlign: TextAlign.center,
               style: AppStyles.textStylePoppins.copyWith(
                 fontSize: 12,
@@ -59,6 +61,7 @@ class SegmentLayoverInfo extends StatelessWidget {
               computeLayoverDuration(
                 firstSegmentArrivalTimestamp,
                 secondSegmentDepartureTimestamp,
+                context
               ),
               textAlign: TextAlign.center,
               style: AppStyles.textStylePoppins.copyWith(
@@ -73,8 +76,10 @@ class SegmentLayoverInfo extends StatelessWidget {
     );
   }
 
-  String computeLayoverDuration(
-      int firstSegmentDepartureTimestamp, int secondSegmentArrivalTimestamp) {
+  String computeLayoverDuration(int firstSegmentDepartureTimestamp,
+      int secondSegmentArrivalTimestamp, BuildContext context) {
+    final word = AppLocalizations.of(context);
+
     DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(
         firstSegmentDepartureTimestamp * 1000);
     DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(
@@ -85,7 +90,7 @@ class SegmentLayoverInfo extends StatelessWidget {
     int hours = difference.inHours;
     int minutes = difference.inMinutes.remainder(60);
 
-    String formattedDifference = '${hours}h  ${minutes}m';
+    String formattedDifference = '${hours}${word.hours}  ${minutes}${word.minutes}';
 
     return formattedDifference;
   }

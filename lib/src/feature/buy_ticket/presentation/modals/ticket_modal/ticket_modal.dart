@@ -9,7 +9,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/p
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class TicketModal extends StatelessWidget {
   const TicketModal({
     super.key,
@@ -125,12 +125,14 @@ class __TicketModalContentState extends State<_TicketModalContent> {
             const SizedBox(
               height: 10,
             ),
+
+
             SizedBox(
               height: 48,
               child: ConfirmationButton(
                 onPressed: _onBookingPressed,
                 child: Text(
-                  "Купить билет за $formattedTicketPrice",
+                  "${AppLocalizations.of(context).buyATicketFor} $formattedTicketPrice",
                   style:
                       AppStyles.textStylePoppins.copyWith(color: Colors.white),
                 ),
