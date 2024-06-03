@@ -34,6 +34,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
   late final int countOfTransfers;
 
+
+  /// detection
   @override
   void initState() {
     super.initState();

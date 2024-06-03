@@ -44,13 +44,14 @@ class SegmentInfoBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  segmentEntity.departureTime,
+                  'departure time ${segmentEntity.departureTime}',
                   style: AppStyles.textStylePoppins.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  DateFormat("EEE, dd MMM").format(segmentEntity.departureDate),
+
+                  DateFormat("EEE, dd MMM").format(segmentEntity.departureDate,),
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black45,
                     fontSize: 12,
