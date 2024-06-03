@@ -150,7 +150,8 @@ base class Dependencies {
     );
 
     pricesDataSource = PricesDataSourceImpl(
-        autocompleteDataSourceImpl: autocompleteDataSource);
+      dioClient: mainDioClient,
+    );
     calendarPricesRepository = CalendarPricesRepositoryImpl(
       pricesDataSource: pricesDataSource,
     );
@@ -169,8 +170,8 @@ base class Dependencies {
     monthlyPricesRepo = MonthlyPricesRepoImpl(
         monthlyTicketPriceDataSources: monthlyTicketPriceDataSources);
 
-    directFlightBloc = DirectFlightBloc(
-        destinationCountryRepo, monthlyPricesRepo, pricesDataSource);
+    directFlightBloc =
+        DirectFlightBloc(destinationCountryRepo, monthlyPricesRepo);
 
     logger.i("Dependencies initialized.");
   }

@@ -39,58 +39,6 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
     final currency = context.watch<CurrencySettingsCubit>().state;
     final location = context.watch<AirportSettingsCubit>().state;
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true,
-      //   title: BlocBuilder<AirportSettingsCubit, AirportEnum>(
-      //     builder: (context, state) {
-      //       return GestureDetector(
-      //         onTap: () {
-      //           showModalBottomSheet(
-      //               useRootNavigator: true,
-      //               isScrollControlled: true,
-      //               context: context,
-      //               builder: (context) {
-      //                 return const DefaultModalWrapper(
-      //                   child: SelectAirportModal(),
-      //                 );
-      //               }).whenComplete(() {
-      //             directFlightBloc.add(FetchMonth(
-      //                 locale: locale,
-      //                 currency: currency.name,
-      //                 origin: getCountryCode(
-      //                   context.read<AirportSettingsCubit>().state,
-      //                 )));
-      //           });
-      //         },
-      //         child: FittedBox(
-      //           fit: BoxFit.fitWidth,
-      //           child: Row(
-      //             children: [
-      //               RichText(
-      //                   text: TextSpan(
-      //                       text: 'Прямые рейсы из ',
-      //                       style: Theme.of(context).appBarTheme.titleTextStyle,
-      //                       children: [
-      //                     TextSpan(
-      //                         text: '${getCountry(
-      //                           context.watch<AirportSettingsCubit>().state,
-      //                         )}',
-      //                         style: TextStyle(color: Color(0xff4B94F7))),
-      //                   ])),
-      //               IconButton(
-      //                   onPressed: () {},
-      //                   icon: Icon(
-      //                     Icons.keyboard_arrow_down,
-      //                     color: Color(0xff4B94F7),
-      //                   ))
-      //             ],
-      //           ),
-      //         ),
-      //       );
-      //     },
-      //   ),
-      //   actions: [],
-      // ),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color.fromRGBO(237, 239, 244, 1),
@@ -121,7 +69,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                     children: [
                       TextSpan(
                         text:
-                        " ${airportToString(currentAirport, context: context)}",
+                            " ${airportToString(currentAirport, context: context)}",
                         style: GoogleFonts.poppins(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -172,14 +120,20 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                       itemBuilder: (context, index) {
                         return const Text('s');
                       }),
-                  DirectFlight$CountriesFetch() =>
-                    const Text('Получаем гороода вылета'),
-                  DirectFlight$TicketFetch() => const Text('Получаем билеты'),
+                  DirectFlight$CountriesFetch() => const Text(
+                      'Получаем гороода вылета',
+                    ),
+                  DirectFlight$TicketFetch() => const Text(
+                      'Получаем билеты',
+                    ),
                   DirectFlight$CountriesSuccess() =>
                     const Text('Города полученны'),
-                  DirectFlight$Error() => Text(state.message),
-                  DirectFlight$MonthSuccess() =>
-                    AviaTicketList(state: state.monthMatrix),
+                  DirectFlight$Error() => Text(
+                      state.message,
+                    ),
+                  DirectFlight$MonthSuccess() => AviaTicketList(
+                      state: state.monthMatrix,
+                    ),
                 };
               },
             ),
@@ -232,18 +186,19 @@ class _AviaTicketListState extends State<AviaTicketList> {
             key: Key('$index'),
             onTap: () {
               showModalBottomSheet(
-                  useRootNavigator: true,
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return SafeArea(
-                      child: FlightPricesModal(
-                        originAirportName: state[index].origin,
-                        destinationAirportName: state[index].destination,
-                        monthMatrixDayInfo: state[index].data,
-                      ),
-                    );
-                  });
+                useRootNavigator: true,
+                context: context,
+                isScrollControlled: true,
+                builder: (context) {
+                  return SafeArea(
+                    child: FlightPricesModal(
+                      originAirportName: state[index].origin,
+                      destinationAirportName: state[index].destination,
+                      monthMatrixDayInfo: state[index].data,
+                    ),
+                  );
+                },
+              );
             },
             child: AviaTicketWidget(
               directFligthsEntity: state[index],
@@ -283,7 +238,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget child;
   final double height;
 
-  const CustomAppBar({super.key, 
+  const CustomAppBar({
+    super.key,
     required this.child,
     this.height = kToolbarHeight,
   });

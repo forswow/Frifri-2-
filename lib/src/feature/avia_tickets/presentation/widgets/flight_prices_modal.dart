@@ -145,6 +145,15 @@ class FlightPricesModalContent extends StatefulWidget {
 
 class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
   @override
+  void initState() {
+    super.initState();
+
+    // final priceInfoList = widget.monthMatrixDayInfo.sort(
+    //   (a, b) => a.returnDate.compareTo(b.returnDate),
+    // );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final currency = context.watch<CurrencySettingsCubit>().state;
     final language = context.watch<AppLanguageSettingsCubit>().state;
@@ -153,38 +162,39 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: ListView(
-            padding: const EdgeInsets.all(24),
-            children: [
-              Row(
-                children: [
-                  Text(
-                    AppLocalizations.of(context).when,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.grey,
-                      fontSize: 12,
+            child: ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context).when,
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    AppLocalizations.of(context).back,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.grey,
-                      fontSize: 12,
+                    const Spacer(),
+                    Text(
+                      AppLocalizations.of(context).back,
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    AppLocalizations.of(context).price,
-                    textAlign: TextAlign.end,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.grey,
-                      fontSize: 12,
+                    const Spacer(),
+                    Text(
+                      AppLocalizations.of(context).price,
+                      textAlign: TextAlign.end,
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              ...widget.monthMatrixDayInfo.map((e) => Padding(
+                  ],
+                ),
+                ...widget.monthMatrixDayInfo.map(
+                  (e) => Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Row(
                       children: [
@@ -193,8 +203,10 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                             time: ''),
                         const Spacer(),
                         TimeWidget(
-                          date: dateFormatDay(
-                              DateTime.parse(e.returnDate), language),
+                          date: "skldjf",
+                          // date: dateFormatDay(e.returnDate, language),
+                          // date: dateFormatDay(
+                          // DateTime.parse(e.returnDate), language),
                           time: formatMinutesToHoursAndMinutes(
                             e.duration,
                             AppLocalizations.of(context),
@@ -213,9 +225,11 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                         ),
                       ],
                     ),
-                  ))
-            ],
-          )),
+                  ),
+                )
+              ],
+            ),
+          ),
           const SizedBox(height: 20),
           Divider(
             color: const Color(0xff000000).withOpacity(0.2),

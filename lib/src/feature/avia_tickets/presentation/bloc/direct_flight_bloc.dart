@@ -4,26 +4,22 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/tranfers/direct_flight_transfer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../buy_ticket/data/data_sources/prices.dart';
-import '../../../buy_ticket/data/dto/month_matrix.dart';
-import '../../domain/entities/destination_country_entity.dart';
-import '../../domain/entities/monthly_ticket_prices.dart';
-import '../../domain/repo/destination_country_repo.dart';
-import '../../domain/repo/montly_prices_repo.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/monthly_ticket_prices.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';
 
 class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   final IMonthlyPricesRepo _monthlyPricesRepo;
   final IDestinationCountryRepo _destinationCountryRepo;
-  final IPricesDataSource _pricesDataSourceImpl;
 
   DirectFlightBloc(
     this._destinationCountryRepo,
     this._monthlyPricesRepo,
-    this._pricesDataSourceImpl,
   ) : super((DirectFlight$Idle())) {
     on<DirectFlight$FetchCountries>(
         (event, emit) => _fetchCounties(event, emit));
@@ -64,28 +60,28 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   ) async {
     try {
       emit(DirectFlight$CountriesFetch());
-      final countries =
-          await _destinationCountryRepo.fetchDestinationCountries(event.origin);
+      // final countries =
+      //     await _destinationCountryRepo.fetchDestinationCountries(event.origin);
 
       final dataList = <MonthMatrix>[];
       await Future.delayed(const Duration(milliseconds: 500));
       emit(DirectFlight$TicketFetch());
-      for (var element in countries) {
-        final data = await _pricesDataSourceImpl.getMonthMatrix(
-            MonthMatrixQuery(
-                currency: event.currency,
-                origin: element.origin,
-                destination: element.destination,
-                oneWay: false,
-                month: DateTime.now()),
-            event.locale);
+      // for (var element in countries) {
+      // final data = await _pricesDataSourceImpl.getMonthMatrix(
+      //     MonthMatrixQuery(
+      //         currency: event.currency,
+      //         origin: element.origin,
+      //         destination: element.destination,
+      //         oneWay: false,
+      //         month: DateTime.now()),
+      //     event.locale);
 
-        logger.i(data.data);
+      // logger.i(data.data);
 
-        if (data.data.isNotEmpty) {
-          dataList.add(data);
-        }
-      }
+      // if (data.data.isNotEmpty) {
+      //   dataList.add(data);
+      // }
+      // }
 
       emit(DirectFlight$MonthSuccess(monthMatrix: dataList));
     } on PostgrestException catch (err) {

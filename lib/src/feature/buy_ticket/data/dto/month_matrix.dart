@@ -78,13 +78,12 @@ class MonthMatrix {
   });
 
   factory MonthMatrix.fromJson(Map<String, dynamic> json) => MonthMatrix(
-        data: List<MonthMatrixDayInfo>.from(
-            json["data"].map((x) => MonthMatrixDayInfo.fromJson(x))),
-        currency: json["currency"],
-        success: json["success"],
-    origin: '',
-    destination: ''
-      );
+      data: List<MonthMatrixDayInfo>.from(
+          json["data"].map((x) => MonthMatrixDayInfo.fromJson(x))),
+      currency: json["currency"],
+      success: json["success"],
+      origin: '',
+      destination: '');
 
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
@@ -114,7 +113,7 @@ class MonthMatrixDayInfo {
   final String origin;
   final String destination;
   final String gate;
-  final String returnDate;
+  final DateTime? returnDate;
   final DateTime foundAt;
   final int tripClass;
   final int value;
@@ -146,7 +145,9 @@ class MonthMatrixDayInfo {
         origin: json["origin"],
         destination: json["destination"],
         gate: json["gate"],
-        returnDate: json["return_date"],
+        returnDate: json['return_date'] == ""
+            ? null
+            : DateTime.parse(json["return_date"]),
         foundAt: DateTime.parse(json["found_at"]),
         tripClass: json["trip_class"],
         value: json["value"],
@@ -173,6 +174,4 @@ class MonthMatrixDayInfo {
         "show_to_affiliates": showToAffiliates,
         "actual": actual,
       };
-
-
 }

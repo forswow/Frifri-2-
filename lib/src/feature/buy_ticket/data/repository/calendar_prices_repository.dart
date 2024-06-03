@@ -12,6 +12,6 @@ class CalendarPricesRepositoryImpl implements ICalendarPricesRepository {
   Future<MonthMatrix> getMonthMatrixPrices({
     required MonthMatrixQuery options,
   }) async {
-    return await _pricesDataSource.getMonthMatrix(options, 'locale');
+    return await _pricesDataSource.getMonthMatrix(options: options);
   }
 }
