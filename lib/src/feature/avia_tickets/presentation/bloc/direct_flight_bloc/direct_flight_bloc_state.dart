@@ -12,18 +12,18 @@ final class DirectFlight$Idle extends DirectFlightState {
   List<Object?> get props => [];
 }
 
-final class DirectFlight$TicketSuccess extends DirectFlightState {
-  DirectFlight$TicketSuccess({required this.tickets});
-
-  final List<PricesForDatesQuery> tickets;
-
-  @override
-  List<Object> get props => [tickets];
-}
-
 final class DirectFlight$AirportsFetchingInProgress extends DirectFlightState {
   @override
   List<Object?> get props => [];
+}
+
+final class DirectFlight$AirportsFetchingSuccess extends DirectFlightState {
+  DirectFlight$AirportsFetchingSuccess({required this.destinationIataCodes});
+
+  final List<DestinationCountryEntity> destinationIataCodes;
+
+  @override
+  List<Object> get props => [destinationIataCodes];
 }
 
 final class DirectFlight$TicketFetch extends DirectFlightState {
@@ -31,13 +31,13 @@ final class DirectFlight$TicketFetch extends DirectFlightState {
   List<Object?> get props => [];
 }
 
-final class DirectFlight$CountriesSuccess extends DirectFlightState {
-  DirectFlight$CountriesSuccess({required this.countries});
+final class DirectFlight$TicketSuccess extends DirectFlightState {
+  DirectFlight$TicketSuccess({required this.tickets});
 
-  final List<DestinationCountryEntity> countries;
+  final List<PricesForDatesQuery> tickets;
 
   @override
-  List<Object> get props => [countries];
+  List<Object> get props => [tickets];
 }
 
 final class DirectFlight$MonthSuccess extends DirectFlightState {

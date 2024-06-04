@@ -18,9 +18,11 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
     this._destinationCountryRepo,
   ) : super((DirectFlight$Idle())) {
     on<DirectFlight$FetchAirportsIataCodes>(_fetchDestinationAirportsIataCodes);
-    on<FetchMonth>(_fetchMonthPrice);
+    on<FetchTicketPrices>(_fetchMonthPrice);
   }
 
+  // Запрашиваем _только_ IATA коды из supabase (коды назначения)
+  // при этом коды вылета хранятся локально (3 города)
   Future<void> _fetchDestinationAirportsIataCodes(
     DirectFlight$FetchAirportsIataCodes event,
     Emitter<DirectFlightState> emit,
@@ -30,57 +32,29 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
 
       final airportsIataCodes =
           await _destinationCountryRepo.fetchDestinationCountries(event.table);
-      logger.i("Airports: $airportsIataCodes");
 
-      emit(DirectFlight$CountriesSuccess(countries: airportsIataCodes));
-
-      final ticketsList = <PricesForDatesQuery>[];
-      for (var element in airportsIataCodes) {
-        final pricesQuery = PricesForDatesQuery(
-          origin: element.origin,
-          destination: element.destination,
-          currency: event.price,
-        );
-
-        ticketsList.add(pricesQuery);
-
-        emit(DirectFlight$TicketSuccess(tickets: ticketsList));
-      }
+      emit(
+        DirectFlight$AirportsFetchingSuccess(
+          destinationIataCodes: airportsIataCodes,
+        ),
+      );
+      emit(
+        DirectFlight$AirportsFetchingSuccess(
+            destinationIataCodes: airportsIataCodes),
+      );
     } on PostgrestException catch (error) {
       emit(DirectFlight$Error(message: error.message));
     }
   }
 
+  // По готовым IATA кодам, переданным в ивент
+  // получаем ценнички <3
   Future<void> _fetchMonthPrice(
-    FetchMonth event,
+    FetchTicketPrices event,
     Emitter<DirectFlightState> emit,
   ) async {
     try {
-      emit(DirectFlight$AirportsFetchingInProgress());
-      // final countries =
-      //     await _destinationCountryRepo.fetchDestinationCountries(event.origin);
-
-      final dataList = <MonthMatrix>[];
-      await Future.delayed(const Duration(milliseconds: 500));
-      emit(DirectFlight$TicketFetch());
-      // for (var element in countries) {
-      // final data = await _pricesDataSourceImpl.getMonthMatrix(
-      //     MonthMatrixQuery(
-      //         currency: event.currency,
-      //         origin: element.origin,
-      //         destination: element.destination,
-      //         oneWay: false,
-      //         month: DateTime.now()),
-      //     event.locale);
-
-      // logger.i(data.data);
-
-      // if (data.data.isNotEmpty) {
-      //   dataList.add(data);
-      // }
-      // }
-
-      emit(DirectFlight$MonthSuccess(monthMatrix: dataList));
+      // Тут получаем цены на билеты по готовым IATA кодам
     } on PostgrestException catch (err) {
       emit(DirectFlight$Error(message: err.message));
     } on DioException catch (e) {

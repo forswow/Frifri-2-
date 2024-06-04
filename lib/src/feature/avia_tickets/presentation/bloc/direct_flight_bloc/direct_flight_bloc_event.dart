@@ -27,8 +27,8 @@ final class DirectFlight$FetchAirportsIataCodes extends DirectFlightEvent {
   List<Object> get props => [table, price];
 }
 
-final class FetchMonth extends DirectFlightEvent {
-  FetchMonth({
+final class FetchTicketPrices extends DirectFlightEvent {
+  FetchTicketPrices({
     required this.locale,
     required this.currency,
     required this.origin,

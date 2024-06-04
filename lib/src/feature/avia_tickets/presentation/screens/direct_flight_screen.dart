@@ -98,7 +98,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
             key: _refreshIndicatorKey,
             onRefresh: () async {
               directFlightBloc.add(
-                FetchMonth(
+                FetchTicketPrices(
                   locale: locale,
                   currency: currency.name,
                   origin: getCountryCode(location),
@@ -108,7 +108,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
             child: BlocConsumer<DirectFlightBloc, DirectFlightState>(
               bloc: directFlightBloc
                 ..add(
-                  FetchMonth(
+                  FetchTicketPrices(
                       locale: locale,
                       currency: currency.name,
                       origin: getCountryCode(location)),
@@ -128,7 +128,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   DirectFlight$TicketFetch() => const Text(
                       'Получаем билеты',
                     ),
-                  DirectFlight$CountriesSuccess() =>
+                  DirectFlight$AirportsFetchingSuccess() =>
                     const Text('Города полученны'),
                   DirectFlight$Error() => Text(
                       state.message,
