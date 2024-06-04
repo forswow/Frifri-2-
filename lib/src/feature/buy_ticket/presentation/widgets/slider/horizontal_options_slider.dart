@@ -69,7 +69,8 @@ class HorizontalOptionsSlider extends StatelessWidget {
         originIataCode: searchModel.departureAt!.code,
         destinationIataCode: searchModel.arrivalAt!.code,
         isOneWay: true,
-        title: "Выберите дату отправления",
+        title: AppLocalizations.of(context).chooseDepartureDate,
+        // title: "Выберите дату отправления",
       ),
     );
 

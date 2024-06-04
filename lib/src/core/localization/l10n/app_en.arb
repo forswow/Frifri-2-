@@ -68,5 +68,7 @@
   "mostFrequentQuestions": "Most frequently asked questions",
   "flightCancellation": "Flight cancellations",
   "ticketRegistration": "Ticket registration",
-  "previouslySearched": "Previously searched"
+  "previouslySearched": "Previously searched",
+  "chooseDepartureDate": "Choose departure date",
+  "thereAreNoDirectFlights": "There are no direct flights for the selected route"
 }

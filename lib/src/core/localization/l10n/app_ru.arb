@@ -68,5 +68,7 @@
   "ticketRegistration": "Оформление билета",
   "transferTo": "Пересадка в",
   "buyATicketFor" : "купить билет за",
-  "previouslySearched": "Ранее искали"
+  "previouslySearched": "Ранее искали",
+  "chooseDepartureDate": "Выберите дату вылета",
+  "thereAreNoDirectFlights": "Прямых вылетов для выбранного рейса не найдено"
 }

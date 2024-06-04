@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../core/extensions/formatters.dart';
-import '../../../buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
+import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({
@@ -132,8 +134,11 @@ class FlightPricesModalHeader extends StatelessWidget {
 }
 
 class FlightPricesModalContent extends StatefulWidget {
-  const FlightPricesModalContent(
-      {super.key, required this.monthMatrixDayInfo, required this.destination});
+  const FlightPricesModalContent({
+    super.key,
+    required this.monthMatrixDayInfo,
+    required this.destination,
+  });
 
   final List<MonthMatrixDayInfo> monthMatrixDayInfo;
   final String destination;
@@ -216,11 +221,12 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                         FittedBox(
                           fit: BoxFit.contain,
                           child: Text(
-                            'от ${formatCurrencyWithSpaces(e.value, currency)}',
+                            '${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(e.value, currency)}',
                             style: GoogleFonts.rubik(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xff5B9CEC)),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xff5B9CEC),
+                            ),
                           ),
                         ),
                       ],
