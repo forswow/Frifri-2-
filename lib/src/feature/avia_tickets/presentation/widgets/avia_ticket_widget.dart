@@ -10,7 +10,7 @@ import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../core/extensions/formatters.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
 
 /// {@template direct_flights_screen}
 /// AviaTicketWidget widget.

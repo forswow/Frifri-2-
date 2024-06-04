@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket_widget.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
@@ -11,7 +13,7 @@ import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../more/domain/entities/airport_entity.dart';
-import '../bloc/direct_flight_bloc.dart';
+import '../bloc/direct_flight_bloc/direct_flight_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DirectFlightScreen extends StatefulWidget {
@@ -217,7 +219,6 @@ String getCountry(AirportEnum e) {
       return 'Кутаиси';
     case AirportEnum.tbilisi:
       return 'Тбилиси';
-
     case AirportEnum.batumi:
       return 'Батуми';
   }

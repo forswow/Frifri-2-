@@ -1,7 +1,7 @@
 import 'package:frifri/src/core/supabase/client/supabase_app_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../domain/entities/destination_country_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
 
 abstract interface class IDestinationCountryDataSources {
   Future<List<DestinationCountryEntity>> fetchDestinationCountries(

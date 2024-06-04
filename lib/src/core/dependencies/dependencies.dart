@@ -11,7 +11,7 @@ import 'package:frifri/src/feature/avia_tickets/data/repositories/destination_co
 import 'package:frifri/src/feature/avia_tickets/data/repositories/monthly_prices_repo_impl.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';
-import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/autocomplete.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/booking.dart';
 import 'package:frifri/src/feature/buy_ticket/data/data_sources/prices.dart';
