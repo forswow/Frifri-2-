@@ -207,9 +207,4 @@ void main() async {
     expect(result, isNotNull);
     expect(result, isA<MonthMatrix>());
   });
-
-  test("parse", () async {
-    final result = DateTime.parse("");
-    logger.i(result);
-  });
 }
