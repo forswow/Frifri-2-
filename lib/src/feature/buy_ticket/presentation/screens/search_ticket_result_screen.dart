@@ -271,6 +271,7 @@ class _LocationPickerZone extends StatelessWidget {
             const Divider(
               color: Colors.grey,
               thickness: 0.4,
+              height: 2.8,
               indent: 20,
               endIndent: 20,
             ),

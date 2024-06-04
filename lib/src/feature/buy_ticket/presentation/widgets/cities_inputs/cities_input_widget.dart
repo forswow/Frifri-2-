@@ -22,7 +22,7 @@ class CitiesInput extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: onTitlePressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
