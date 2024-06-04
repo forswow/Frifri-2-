@@ -103,7 +103,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                     ),
                   // Как только стянули, запускаем поиск по этим кодам
                   DirectFlight$AirportsFetchingSuccess() => const Text(
-                      'Города полученны',
+                      'Города получены',
                     ),
                   // Пока ищем показываем прогресс
                   DirectFlight$TicketFetch() => const Text(

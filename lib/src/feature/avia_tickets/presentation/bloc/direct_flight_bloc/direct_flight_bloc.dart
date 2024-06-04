@@ -59,6 +59,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
     Emitter<DirectFlightState> emit,
   ) async {
     try {
+      emit(DirectFlight$TicketFetch());
       final List<DirectFlightEntity> tickets = [];
 
       // Тут получаем цены на билеты по готовым IATA кодам
