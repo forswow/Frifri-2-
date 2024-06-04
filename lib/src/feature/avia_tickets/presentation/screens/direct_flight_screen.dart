@@ -122,7 +122,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                       itemBuilder: (context, index) {
                         return const Text('s');
                       }),
-                  DirectFlight$CountriesFetch() => const Text(
+                  DirectFlight$AirportsFetchingInProgress() => const Text(
                       'Получаем гороода вылета',
                     ),
                   DirectFlight$TicketFetch() => const Text(

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
@@ -16,24 +17,25 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   DirectFlightBloc(
     this._destinationCountryRepo,
   ) : super((DirectFlight$Idle())) {
-    on<DirectFlight$FetchCountries>(
-        (event, emit) => _fetchCounties(event, emit));
+    on<DirectFlight$FetchAirportsIataCodes>(_fetchDestinationAirportsIataCodes);
     on<FetchMonth>(_fetchMonthPrice);
   }
 
-  Future<void> _fetchCounties(
-    DirectFlight$FetchCountries event,
+  Future<void> _fetchDestinationAirportsIataCodes(
+    DirectFlight$FetchAirportsIataCodes event,
     Emitter<DirectFlightState> emit,
   ) async {
     try {
-      emit(DirectFlight$CountriesFetch());
-      final countries =
-          await _destinationCountryRepo.fetchDestinationCountries(event.table);
+      emit(DirectFlight$AirportsFetchingInProgress());
 
-      emit(DirectFlight$CountriesSuccess(countries: countries));
+      final airportsIataCodes =
+          await _destinationCountryRepo.fetchDestinationCountries(event.table);
+      logger.i("Airports: $airportsIataCodes");
+
+      emit(DirectFlight$CountriesSuccess(countries: airportsIataCodes));
 
       final ticketsList = <PricesForDatesQuery>[];
-      for (var element in countries) {
+      for (var element in airportsIataCodes) {
         final pricesQuery = PricesForDatesQuery(
           origin: element.origin,
           destination: element.destination,
@@ -54,7 +56,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
     Emitter<DirectFlightState> emit,
   ) async {
     try {
-      emit(DirectFlight$CountriesFetch());
+      emit(DirectFlight$AirportsFetchingInProgress());
       // final countries =
       //     await _destinationCountryRepo.fetchDestinationCountries(event.origin);
 

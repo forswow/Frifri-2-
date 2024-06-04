@@ -14,8 +14,8 @@ final class DirectFlight$Fetch extends DirectFlightEvent {
   List<Object> get props => [transfer];
 }
 
-final class DirectFlight$FetchCountries extends DirectFlightEvent {
-  DirectFlight$FetchCountries({
+final class DirectFlight$FetchAirportsIataCodes extends DirectFlightEvent {
+  DirectFlight$FetchAirportsIataCodes({
     required this.table,
     required this.price,
   });

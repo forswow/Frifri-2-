@@ -21,7 +21,7 @@ final class DirectFlight$TicketSuccess extends DirectFlightState {
   List<Object> get props => [tickets];
 }
 
-final class DirectFlight$CountriesFetch extends DirectFlightState {
+final class DirectFlight$AirportsFetchingInProgress extends DirectFlightState {
   @override
   List<Object?> get props => [];
 }
