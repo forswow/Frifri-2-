@@ -6,11 +6,11 @@ import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket_widget.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
-import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../more/domain/entities/airport_entity.dart';
 import '../bloc/direct_flight_bloc/direct_flight_bloc.dart';
@@ -101,7 +101,9 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                 FetchTicketPrices(
                   locale: locale,
                   currency: currency.name,
-                  origin: getCountryCode(location),
+                  origin: getCountryCode(
+                    location,
+                  ),
                 ),
               );
             },
@@ -109,9 +111,12 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
               bloc: directFlightBloc
                 ..add(
                   FetchTicketPrices(
-                      locale: locale,
-                      currency: currency.name,
-                      origin: getCountryCode(location)),
+                    locale: locale,
+                    currency: currency.name,
+                    origin: getCountryCode(
+                      location,
+                    ),
+                  ),
                 ),
               listener: (context, state) {},
               builder: (context, state) {

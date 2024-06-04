@@ -1,19 +1,22 @@
 import 'package:equatable/equatable.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/tranfers/direct_flight_transfer.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
 
 abstract class DirectFlightEvent extends Equatable {}
 
+/// Ивент который передаёт данные для поиска рейсов
 final class DirectFlight$Fetch extends DirectFlightEvent {
   DirectFlight$Fetch({
     required this.transfer,
   });
 
-  final DirectFlightTransfer transfer;
+  final PricesForDatesQuery transfer;
 
   @override
   List<Object> get props => [transfer];
 }
 
+/// Ивент, который запрашивает IATA коды аэропортов
+/// для дальнейшего поиска
 final class DirectFlight$FetchAirportsIataCodes extends DirectFlightEvent {
   DirectFlight$FetchAirportsIataCodes({
     required this.table,
@@ -27,6 +30,7 @@ final class DirectFlight$FetchAirportsIataCodes extends DirectFlightEvent {
   List<Object> get props => [table, price];
 }
 
+///
 final class FetchTicketPrices extends DirectFlightEvent {
   FetchTicketPrices({
     required this.locale,
