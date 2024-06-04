@@ -1,5 +1,5 @@
-import 'package:frifri/src/feature/buy_ticket/domain/entities/passengers.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/trip_class.dart';
+import 'package:frifri/src/feature/shared/domain/entities/passengers.dart';
+import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
 
 class PassengersAndClass {
   const PassengersAndClass({

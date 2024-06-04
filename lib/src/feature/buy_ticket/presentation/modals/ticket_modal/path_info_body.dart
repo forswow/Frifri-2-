@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 import 'package:intl/intl.dart';
 
 class SegmentInfoBody extends StatelessWidget {

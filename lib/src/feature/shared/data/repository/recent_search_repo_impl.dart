@@ -1,6 +1,6 @@
 import 'package:frifri/src/core/data_base/search_database.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/country_search_entity.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/repository/recent_search_repo.dart';
+import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
+import 'package:frifri/src/feature/shared/domain/repository/recent_search_repo.dart';
 
 final class RecentSearchRepo implements IRecentSearchRepo {
   RecentSearchRepo({

@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/country_text_widget.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 

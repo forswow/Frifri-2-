@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/booking_ticket_entity.dart';
 
 abstract interface class IBookingDataSource {
   Future<BookingTicketEntity> getABookingLink({

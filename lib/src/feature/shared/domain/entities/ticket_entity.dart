@@ -1,4 +1,4 @@
-import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 
 /// Сущность билета, содержит всю необходимую инфу
 /// для отображения как миниатюр, бронирования, подробной информации

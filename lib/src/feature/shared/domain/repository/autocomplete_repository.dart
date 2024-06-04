@@ -1,5 +1,5 @@
-import 'package:frifri/src/feature/buy_ticket/domain/dto/input_dto.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/country_search_entity.dart';
+import 'package:frifri/src/feature/shared/domain/dto/input_dto.dart';
+import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
 
 abstract interface class IAutocompleteRepository {
   Future<List<AutocompleteEntity>> getAutocomplete(

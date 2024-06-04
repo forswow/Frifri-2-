@@ -6,7 +6,7 @@ import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket_widget.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/user_location.dart';
+import 'package:frifri/src/feature/shared/data/dto/user_location.dart';
 
 abstract interface class IUserLocationDataSource {
   Future<UserLocation> getUserLocation({required UserLocationQuery options});

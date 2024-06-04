@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/helpers/signature_helper.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/search_tickets_result.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
+import 'package:frifri/src/feature/shared/data/dto/search_tickets.dart';
+import 'package:frifri/src/feature/shared/data/dto/search_tickets_result.dart';
+import 'package:frifri/src/feature/shared/data/dto/ticket_search_query.dart';
 
 abstract interface class ITicketsDataSource {
   Future<TicketsSearchIdResult> searchTickets(

@@ -13,7 +13,7 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({

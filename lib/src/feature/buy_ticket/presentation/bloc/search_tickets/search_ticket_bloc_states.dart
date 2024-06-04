@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
 sealed class SearchState extends Equatable {}
 

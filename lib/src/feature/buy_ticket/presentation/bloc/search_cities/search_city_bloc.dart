@@ -5,11 +5,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/dto/input_dto.dart';
+import 'package:frifri/src/feature/shared/domain/dto/input_dto.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../domain/entities/country_search_entity.dart';
-import '../../../domain/repository/autocomplete_repository.dart';
+import '../../../../shared/domain/entities/country_search_entity.dart';
+import '../../../../shared/domain/repository/autocomplete_repository.dart';
 
 class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   final IAutocompleteRepository autocompleteRepo;

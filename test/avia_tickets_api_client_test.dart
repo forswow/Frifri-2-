@@ -3,17 +3,17 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/prices_for_dates.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/user_location.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/airline_logo.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/autocomplete.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/prices.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/search_tickets.dart';
-import 'package:frifri/src/feature/buy_ticket/data/data_sources/user_location.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/autocomplete.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/ticket_search_query.dart';
+import 'package:frifri/src/feature/shared/data/dto/latest_prices.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
+import 'package:frifri/src/feature/shared/data/dto/user_location.dart';
+import 'package:frifri/src/feature/shared/data/data_sources/airline_logo.dart';
+import 'package:frifri/src/feature/shared/data/data_sources/autocomplete.dart';
+import 'package:frifri/src/feature/shared/data/data_sources/prices.dart';
+import 'package:frifri/src/feature/shared/data/data_sources/search_tickets.dart';
+import 'package:frifri/src/feature/shared/data/data_sources/user_location.dart';
+import 'package:frifri/src/feature/shared/data/dto/autocomplete.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/ticket_search_query.dart';
 
 // TODO: Сделать датонезависимые тесты!
 // TODO: Разнести тесты разных источников данных по разным модулям!

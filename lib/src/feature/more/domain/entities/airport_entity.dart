@@ -7,6 +7,19 @@ enum AirportEnum {
   batumi,
 }
 
+extension AirportEnumExtension on AirportEnum {
+  String toIataCode() {
+    switch (this) {
+      case AirportEnum.kutaisi:
+        return 'KUT';
+      case AirportEnum.tbilisi:
+        return 'TBS';
+      case AirportEnum.batumi:
+        return 'BUS';
+    }
+  }
+}
+
 String airportToString(AirportEnum airport, {required BuildContext context}) {
   switch (airport) {
     case AirportEnum.kutaisi:

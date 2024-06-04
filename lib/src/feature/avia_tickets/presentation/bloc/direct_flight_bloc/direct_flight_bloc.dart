@@ -7,7 +7,7 @@ import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/monthly_ticket_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/latest_prices.dart';
-import 'package:frifri/src/feature/buy_ticket/data/DTO/prices_for_dates.dart';
-import 'package:frifri/src/feature/buy_ticket/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/latest_prices.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
 
 abstract interface class IPricesDataSource {
   Future<PricesForDates> getPricesForDates(

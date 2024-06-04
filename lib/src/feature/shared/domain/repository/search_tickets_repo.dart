@@ -1,9 +1,8 @@
-import 'package:frifri/src/feature/buy_ticket/domain/entities/airport_entity.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/booking_ticket_entity.dart';
-import 'package:frifri/src/feature/buy_ticket/domain/entities/ticket_entity.dart';
-
-import '../../data/DTO/search_tickets.dart';
-import '../../data/dto/ticket_search_query.dart';
+import 'package:frifri/src/feature/shared/data/dto/search_tickets.dart';
+import 'package:frifri/src/feature/shared/data/dto/ticket_search_query.dart';
+import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/booking_ticket_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
 abstract interface class ISearchTicketsRepo {
   /// Main request with params.
