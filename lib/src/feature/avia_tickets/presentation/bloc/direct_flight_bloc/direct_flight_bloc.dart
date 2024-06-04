@@ -14,21 +14,25 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   DirectFlightBloc(
     this._destinationCountryRepo,
   ) : super((DirectFlight$Idle())) {
-    on<DirectFlight$FetchAirportsIataCodes>(_fetchDestinationAirportsIataCodes);
-    on<FetchTicketPrices>(_fetchMonthPrice);
+    on<DirectFlight$FetchDestinationAirportsIataCodes>(
+      _fetchDestinationAirportsIataCodes,
+    );
+    on<DirectFlight$FetchTickets>(
+      _fetchTickets,
+    );
   }
 
   // Запрашиваем _только_ IATA коды из supabase (коды назначения)
   // при этом коды вылета хранятся локально (3 города)
   Future<void> _fetchDestinationAirportsIataCodes(
-    DirectFlight$FetchAirportsIataCodes event,
+    DirectFlight$FetchDestinationAirportsIataCodes event,
     Emitter<DirectFlightState> emit,
   ) async {
     try {
       emit(DirectFlight$AirportsFetchingInProgress());
 
-      final airportsIataCodes =
-          await _destinationCountryRepo.fetchDestinationAirports(event.table);
+      final airportsIataCodes = await _destinationCountryRepo
+          .fetchDestinationAirports(event.originIataCode);
 
       emit(
         DirectFlight$AirportsFetchingSuccess(
@@ -37,7 +41,8 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
       );
       emit(
         DirectFlight$AirportsFetchingSuccess(
-            destinationIataCodes: airportsIataCodes),
+          destinationIataCodes: airportsIataCodes,
+        ),
       );
     } on PostgrestException catch (error) {
       emit(DirectFlight$Error(message: error.message));
@@ -46,8 +51,8 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
 
   // По готовым IATA кодам, переданным в ивент
   // получаем ценнички <3
-  Future<void> _fetchMonthPrice(
-    FetchTicketPrices event,
+  Future<void> _fetchTickets(
+    DirectFlight$FetchTickets event,
     Emitter<DirectFlightState> emit,
   ) async {
     try {

@@ -36,7 +36,7 @@ base class GlobalPrefHelper {
   CurrencyEnum getCurrency() {
     final currencyName =
         sharedPreferences.getString(_currencyKey) ?? _currencyDefault;
-    final currencyEnum = getCurrencyFromString(currencyName);
+    final currencyEnum = currencyFromString(currencyName);
     return currencyEnum;
   }
 
