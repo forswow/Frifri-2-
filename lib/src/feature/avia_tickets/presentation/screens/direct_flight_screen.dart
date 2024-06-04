@@ -101,9 +101,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                 FetchTicketPrices(
                   locale: locale,
                   currency: currency.name,
-                  origin: getCountryCode(
-                    location,
-                  ),
+                  origin: location.toIataCode(),
                 ),
               );
             },
@@ -113,9 +111,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   FetchTicketPrices(
                     locale: locale,
                     currency: currency.name,
-                    origin: getCountryCode(
-                      location,
-                    ),
+                    origin: location.toIataCode(),
                   ),
                 ),
               listener: (context, state) {},
@@ -226,17 +222,6 @@ String getCountry(AirportEnum e) {
       return 'Тбилиси';
     case AirportEnum.batumi:
       return 'Батуми';
-  }
-}
-
-String getCountryCode(AirportEnum e) {
-  switch (e) {
-    case AirportEnum.kutaisi:
-      return 'KUT';
-    case AirportEnum.tbilisi:
-      return 'TBS';
-    case AirportEnum.batumi:
-      return 'BUS';
   }
 }
 
