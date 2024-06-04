@@ -64,7 +64,13 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
         child: Center(
           child: RefreshIndicator(
             key: _refreshIndicatorKey,
-            onRefresh: () async {},
+            onRefresh: () async {
+              directFlightBloc.add(
+                DirectFlight$FetchDestinationAirportsIataCodes(
+                  originIataCode: location.toIataCode(),
+                ),
+              );
+            },
             child: BlocConsumer<DirectFlightBloc, DirectFlightState>(
               // Запрашиваем сразу же аэропорты назначения
               bloc: directFlightBloc
