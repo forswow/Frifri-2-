@@ -11,10 +11,10 @@ String pricesForDatesQueryToJson(PricesForDatesQuery data) =>
     json.encode(data.toJson());
 
 class PricesForDatesQuery {
-  final String? currency;
   final String origin;
-  final String departureAt;
   final String? destination;
+  final String? currency;
+  final String? departureAt;
   final String? returnAt;
   final bool? unique;
   final String? sorting;
@@ -26,9 +26,9 @@ class PricesForDatesQuery {
 
   PricesForDatesQuery({
     required this.origin,
-    required this.departureAt,
+    required this.destination,
+    this.departureAt,
     this.currency,
-    this.destination,
     this.returnAt,
     this.unique,
     this.sorting,

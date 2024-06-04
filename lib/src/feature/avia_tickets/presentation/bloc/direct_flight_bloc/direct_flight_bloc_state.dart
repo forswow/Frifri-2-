@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/monthly_ticket_prices.dart';
 import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
 
 @immutable
 sealed class DirectFlightState extends Equatable {}
@@ -15,7 +15,7 @@ final class DirectFlight$Idle extends DirectFlightState {
 final class DirectFlight$TicketSuccess extends DirectFlightState {
   DirectFlight$TicketSuccess({required this.tickets});
 
-  final List<MonthlyTicketPricesEntity> tickets;
+  final List<PricesForDatesQuery> tickets;
 
   @override
   List<Object> get props => [tickets];

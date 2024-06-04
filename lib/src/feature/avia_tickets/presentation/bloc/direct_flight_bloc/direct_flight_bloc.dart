@@ -2,23 +2,19 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/tranfers/direct_flight_transfer.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/monthly_ticket_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';
 
 class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
-  final IMonthlyPricesRepo _monthlyPricesRepo;
   final IDestinationCountryRepo _destinationCountryRepo;
 
   DirectFlightBloc(
     this._destinationCountryRepo,
-    this._monthlyPricesRepo,
   ) : super((DirectFlight$Idle())) {
     on<DirectFlight$FetchCountries>(
         (event, emit) => _fetchCounties(event, emit));
@@ -36,15 +32,15 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
 
       emit(DirectFlight$CountriesSuccess(countries: countries));
 
-      final ticketsList = <MonthlyTicketPricesEntity>[];
+      final ticketsList = <PricesForDatesQuery>[];
       for (var element in countries) {
-        final price = await _monthlyPricesRepo
-            .fetchMonthlyTicketPrices(DirectFlightTransfer.optional(
-          currencyParam: event.price,
-          destinationParam: element.destination,
-          originParam: element.origin,
-        ));
-        ticketsList.add(price);
+        final pricesQuery = PricesForDatesQuery(
+          origin: element.origin,
+          destination: element.destination,
+          currency: event.price,
+        );
+
+        ticketsList.add(pricesQuery);
 
         emit(DirectFlight$TicketSuccess(tickets: ticketsList));
       }

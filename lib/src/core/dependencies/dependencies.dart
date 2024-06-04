@@ -6,9 +6,7 @@ import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/avia_tickets/data/data_sources/destination_country_data_sources.dart';
-import 'package:frifri/src/feature/avia_tickets/data/data_sources/monthly_prices_data_sources.dart';
 import 'package:frifri/src/feature/avia_tickets/data/repositories/destination_country_repo_impl.dart';
-import 'package:frifri/src/feature/avia_tickets/data/repositories/monthly_prices_repo_impl.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
@@ -83,7 +81,6 @@ base class Dependencies {
   late final IUserLocationDataSource userLocationDataSource;
 
   late final IDestinationCountryDataSources destinationCountryDataSources;
-  late final IMonthlyTicketPriceDataSources monthlyTicketPriceDataSources;
 
   late final IMonthlyPricesRepo monthlyPricesRepo;
   late final IDestinationCountryRepo destinationCountryRepo;
@@ -162,16 +159,10 @@ base class Dependencies {
 
     destinationCountryDataSources = DestinationCountryDataSources();
 
-    monthlyTicketPriceDataSources = MonthlyTicketPriceDataSources();
-
     destinationCountryRepo = DestinationCountryRepoImpl(
         destinationCountryDataSources: destinationCountryDataSources);
 
-    monthlyPricesRepo = MonthlyPricesRepoImpl(
-        monthlyTicketPriceDataSources: monthlyTicketPriceDataSources);
-
-    directFlightBloc =
-        DirectFlightBloc(destinationCountryRepo, monthlyPricesRepo);
+    directFlightBloc = DirectFlightBloc(destinationCountryRepo);
 
     logger.i("Dependencies initialized.");
   }

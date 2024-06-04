@@ -1,9 +1,7 @@
-import 'package:frifri/src/feature/avia_tickets/domain/tranfers/direct_flight_transfer.dart';
-
-import '../entities/monthly_ticket_prices.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
 
 abstract interface class IMonthlyPricesRepo {
-  Future<MonthlyTicketPricesEntity> fetchMonthlyTicketPrices(
-    DirectFlightTransfer transfer,
+  Future<PricesForDates> fetchMonthlyTicketPrices(
+    PricesForDatesQuery transfer,
   );
 }

@@ -1,17 +1,17 @@
-import 'package:frifri/src/feature/avia_tickets/data/data_sources/monthly_prices_data_sources.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/monthly_ticket_prices.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/montly_prices_repo.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/tranfers/direct_flight_transfer.dart';
+import 'package:frifri/src/feature/shared/data/data_sources/prices.dart';
+import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
 
 final class MonthlyPricesRepoImpl implements IMonthlyPricesRepo {
   MonthlyPricesRepoImpl({required this.monthlyTicketPriceDataSources});
 
-  final IMonthlyTicketPriceDataSources monthlyTicketPriceDataSources;
+  final IPricesDataSource monthlyTicketPriceDataSources;
 
   @override
-  Future<MonthlyTicketPricesEntity> fetchMonthlyTicketPrices(
-      DirectFlightTransfer transfer) async {
-    return await monthlyTicketPriceDataSources
-        .fetchMonthlyTicketPrices(transfer);
+  Future<PricesForDates> fetchMonthlyTicketPrices(
+      PricesForDatesQuery transfer) async {
+    return await monthlyTicketPriceDataSources.getPricesForDates(
+      options: transfer,
+    );
   }
 }

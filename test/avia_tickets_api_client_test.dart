@@ -93,6 +93,7 @@ void main() async {
     final result = await pricesDataSource.getPricesForDates(
       options: PricesForDatesQuery(
         origin: "MOW",
+        destination: 'HKT',
         departureAt: "2024-06-20",
       ),
     );
