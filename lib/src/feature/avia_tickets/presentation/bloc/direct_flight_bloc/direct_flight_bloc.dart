@@ -73,6 +73,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
             originIataCode: event.originIataCode,
             destinationIataCode: destination.destination,
             currency: event.currency,
+            locale: event.locale,
           );
           if (cheapestTicket == null) continue;
           tickets.add(cheapestTicket);

@@ -5,5 +5,6 @@ abstract interface class ICheapestDirectOnewayRepo {
     required String originIataCode,
     required String destinationIataCode,
     required String currency,
+    required String locale,
   });
 }

@@ -1,3 +1,4 @@
+import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/autocomplete.dart';
 import 'package:frifri/src/feature/shared/data/dto/autocomplete.dart';
 import 'package:frifri/src/feature/shared/domain/dto/input_dto.dart';
@@ -11,6 +12,13 @@ class AutocompleteRepositoryImpl implements IAutocompleteRepository {
   @override
   Future<List<AutocompleteEntity>> getAutocomplete(
       {required AutocompleteInputDTO autocompleteInputDTO}) async {
+    logger.e("--------------");
+    logger.e("--------------");
+    logger.e("--------------");
+    logger.e("--------------");
+    logger.e("locale: ${autocompleteInputDTO.locale}");
+    logger.e('term: ${autocompleteInputDTO.term}');
+
     return await dataSource.getAutocomplete(
       options: AutocompleteQuery(
         term: autocompleteInputDTO.term,

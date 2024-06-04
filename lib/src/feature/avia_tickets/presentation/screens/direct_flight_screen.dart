@@ -9,6 +9,7 @@ import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../more/domain/entities/airport_entity.dart';
@@ -38,6 +39,8 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
   Widget build(BuildContext context) {
     final currency = context.watch<CurrencySettingsCubit>().state;
     final location = context.watch<AirportSettingsCubit>().state;
+    final locale = context.watch<AppLanguageSettingsCubit>().state;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -79,6 +82,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                       currency: currency.name,
                       originIataCode: location.toIataCode(),
                       destinationIataCodes: allDestinations,
+                      locale: locale,
                     ),
                   );
                 }

@@ -167,4 +167,23 @@ class PriceInfo {
         "show_to_affiliates": showToAffiliates,
         "actual": actual,
       };
+
+  @override
+  String toString() {
+    return 'PriceInfo{'
+        'departDate: $departDate, '
+        'origin: $origin, '
+        'destination: $destination, '
+        'gate: $gate, '
+        'returnDate: $returnDate, '
+        'foundAt: $foundAt, '
+        'tripClass: $tripClass, '
+        'value: $value, '
+        'numberOfChanges: $numberOfChanges, '
+        'duration: $duration, '
+        'distance: $distance, '
+        'showToAffiliates: $showToAffiliates, '
+        'actual: $actual'
+        '}';
+  }
 }

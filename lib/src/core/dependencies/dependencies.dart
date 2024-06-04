@@ -19,6 +19,7 @@ import 'package:frifri/src/feature/shared/data/data_sources/user_location.dart';
 import 'package:frifri/src/feature/shared/data/repository/autocomplete_repository.dart';
 import 'package:frifri/src/feature/shared/data/repository/calendar_prices_repository.dart';
 import 'package:frifri/src/feature/shared/data/repository/search_ticket_repository_impl.dart';
+import 'package:frifri/src/feature/shared/domain/dto/input_dto.dart';
 import 'package:frifri/src/feature/shared/domain/repository/autocomplete_repository.dart';
 import 'package:frifri/src/feature/shared/domain/repository/calendar_prices_repository.dart';
 import 'package:frifri/src/feature/shared/domain/repository/recent_search_repo.dart';
@@ -120,6 +121,7 @@ base class Dependencies {
     autocompleteRepository = AutocompleteRepositoryImpl(
       dataSource: autocompleteDataSource,
     );
+
     searchCityBloc = SearchCityBloc(
       autocompleteRepository,
     );
@@ -165,6 +167,7 @@ base class Dependencies {
 
     cheapestFlightRepo = CheapestDirectOnewayRepoImpl(
       ticketPricesDataSource: pricesDataSource,
+      autocompleteDataSource: autocompleteDataSource,
     );
 
     directFlightBloc = DirectFlightBloc(

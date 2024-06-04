@@ -25,10 +25,12 @@ final class DirectFlight$FetchTickets extends DirectFlightEvent {
     required this.currency,
     required this.originIataCode,
     required this.destinationIataCodes,
+    required this.locale,
   });
 
   final String currency;
   final String originIataCode;
+  final String locale;
   final List<DestinationAirportEntity> destinationIataCodes;
 
   @override
