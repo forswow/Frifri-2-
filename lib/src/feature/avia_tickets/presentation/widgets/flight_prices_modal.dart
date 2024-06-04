@@ -20,13 +20,10 @@ class FlightPricesModal extends StatelessWidget {
     super.key,
     required this.originAirportName,
     required this.destinationAirportName,
-    required this.monthMatrixDayInfo,
   });
 
   final String originAirportName;
   final String destinationAirportName;
-
-  final List<MonthMatrixDayInfo> monthMatrixDayInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +33,12 @@ class FlightPricesModal extends StatelessWidget {
           FlightPricesModalHeader(
             destinationAirportName: destinationAirportName,
             originAirportName: originAirportName,
-            monthMatrixDayInfo: monthMatrixDayInfo,
           ),
           const Divider(
             height: 1,
             thickness: 0.5,
           ),
           FlightPricesModalContent(
-            monthMatrixDayInfo: monthMatrixDayInfo,
             destination: destinationAirportName,
           ),
         ],
@@ -57,12 +52,10 @@ class FlightPricesModalHeader extends StatelessWidget {
     super.key,
     required this.originAirportName,
     required this.destinationAirportName,
-    required this.monthMatrixDayInfo,
   });
 
   final String originAirportName;
   final String destinationAirportName;
-  final List<MonthMatrixDayInfo> monthMatrixDayInfo;
 
   static const _headerTextScaleFactor = 0.27;
 
@@ -136,11 +129,9 @@ class FlightPricesModalHeader extends StatelessWidget {
 class FlightPricesModalContent extends StatefulWidget {
   const FlightPricesModalContent({
     super.key,
-    required this.monthMatrixDayInfo,
     required this.destination,
   });
 
-  final List<MonthMatrixDayInfo> monthMatrixDayInfo;
   final String destination;
 
   @override
@@ -198,41 +189,6 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                     ),
                   ],
                 ),
-                ...widget.monthMatrixDayInfo.map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Row(
-                      children: [
-                        TimeWidget(
-                            date: dateFormatDay(e.departDate, language),
-                            time: ''),
-                        const Spacer(),
-                        TimeWidget(
-                          date: "skldjf",
-                          // date: dateFormatDay(e.returnDate, language),
-                          // date: dateFormatDay(
-                          // DateTime.parse(e.returnDate), language),
-                          time: formatMinutesToHoursAndMinutes(
-                            e.duration,
-                            AppLocalizations.of(context),
-                          ),
-                        ),
-                        const Spacer(),
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            '${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(e.value, currency)}',
-                            style: GoogleFonts.rubik(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xff5B9CEC),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
           ),
@@ -267,10 +223,11 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
-                        widget.monthMatrixDayInfo.first.value,
-                        currency,
-                      )}",
+                      // "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
+                      //   widget.monthMatrixDayInfo.first.value,
+                      //   currency,
+                      // )}",
+                      "Goddamn it's hard",
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

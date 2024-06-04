@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/country_text_widget.dart';
-import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,13 +23,12 @@ class AviaTicketWidget extends StatelessWidget {
   static const _priceTextScaleFactor = 6.5;
   static const _aboutPriceTextScaleFactor = 4.40;
 
-  final MonthMatrix directFligthsEntity;
+  final DirectFlightEntity directFligthsEntity;
   final int index;
 
   @override
   Widget build(BuildContext context) {
     final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-    final data = directFligthsEntity;
     final currency = context.watch<CurrencySettingsCubit>().state;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -47,8 +46,8 @@ class AviaTicketWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               CountryTextWidget(
-                title: data.data.first.origin,
-                subTitle: data.origin,
+                title: directFligthsEntity.departureLocation,
+                subTitle: directFligthsEntity.departureLocationIataCode,
                 crossAxisAlignment: CrossAxisAlignment.start,
               ),
               Expanded(
@@ -64,7 +63,7 @@ class AviaTicketWidget extends StatelessWidget {
                       ),
                       Text(
                         formatMinutesToHoursAndMinutes(
-                          data.data.first.duration,
+                          directFligthsEntity.flightTimeInMinutes,
                           AppLocalizations.of(context),
                         ),
                       ),
@@ -74,9 +73,10 @@ class AviaTicketWidget extends StatelessWidget {
                 ),
               ),
               CountryTextWidget(
-                  title: data.data.first.destination,
-                  subTitle: data.destination,
-                  crossAxisAlignment: CrossAxisAlignment.end)
+                title: directFligthsEntity.placeOfArrival,
+                subTitle: directFligthsEntity.placeOfArrivalIataCode,
+                crossAxisAlignment: CrossAxisAlignment.end,
+              )
             ],
           ),
 
@@ -105,7 +105,10 @@ class AviaTicketWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${formatCurrencyWithSpaces(data.data.first.value, currency)} ',
+                  '${formatCurrencyWithSpaces(
+                    directFligthsEntity.price,
+                    currency,
+                  )} ',
                   style: GoogleFonts.roboto(
                     fontWeight: FontWeight.bold,
                     fontSize: devicePixelRatio * _priceTextScaleFactor,

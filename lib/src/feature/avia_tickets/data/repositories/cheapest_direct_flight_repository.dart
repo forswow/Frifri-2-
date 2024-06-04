@@ -4,18 +4,18 @@ import 'package:frifri/src/feature/shared/data/data_sources/prices.dart';
 import 'package:frifri/src/feature/shared/data/dto/latest_prices.dart';
 import 'package:uuid/uuid.dart';
 
-final class MonthlyPricesRepoImpl implements IMonthlyPricesRepo {
-  MonthlyPricesRepoImpl({required this.monthlyTicketPriceDataSources});
+final class CheapestDirectOnewayRepoImpl implements ICheapestDirectOnewayRepo {
+  CheapestDirectOnewayRepoImpl({required this.ticketPricesDataSource});
 
-  final IPricesDataSource monthlyTicketPriceDataSources;
+  final IPricesDataSource ticketPricesDataSource;
 
   @override
-  Future<DirectFlightEntity> getCheapestDirectOnewayFlight({
+  Future<DirectFlightEntity?> getCheapestDirectOnewayFlight({
     required String originIataCode,
     required String destinationIataCode,
     required String currency,
   }) async {
-    final prices = await monthlyTicketPriceDataSources.getLatestPrices(
+    final prices = await ticketPricesDataSource.getLatestPrices(
         options: LatestPricesQuery(
       origin: originIataCode,
       destination: destinationIataCode,
@@ -25,6 +25,10 @@ final class MonthlyPricesRepoImpl implements IMonthlyPricesRepo {
       limit: 100,
       oneWay: true,
     ));
+
+    if (prices.data.isEmpty) {
+      return null;
+    }
 
     final cheapestTicket = prices.data.first;
 

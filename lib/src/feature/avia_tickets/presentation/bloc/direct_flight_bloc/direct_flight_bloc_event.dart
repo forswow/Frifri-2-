@@ -24,17 +24,17 @@ final class DirectFlight$FetchTickets extends DirectFlightEvent {
   DirectFlight$FetchTickets({
     required this.currency,
     required this.originIataCode,
-    required this.destinationIataCode,
+    required this.destinationIataCodes,
   });
 
   final String currency;
   final String originIataCode;
-  final List<DestinationAirportEntity> destinationIataCode;
+  final List<DestinationAirportEntity> destinationIataCodes;
 
   @override
   List<Object> get props => [
         currency,
         originIataCode,
-        destinationIataCode,
+        destinationIataCodes,
       ];
 }

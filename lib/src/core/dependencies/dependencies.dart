@@ -6,6 +6,7 @@ import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/avia_tickets/data/data_sources/destination_country_data_sources.dart';
+import 'package:frifri/src/feature/avia_tickets/data/repositories/cheapest_direct_flight_repository.dart';
 import 'package:frifri/src/feature/avia_tickets/data/repositories/destination_country_repo_impl.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/cheapest_direct_flight_repository.dart';
@@ -82,7 +83,7 @@ base class Dependencies {
 
   late final IDestinationCountryDataSources destinationCountryDataSources;
 
-  late final IMonthlyPricesRepo monthlyPricesRepo;
+  late final ICheapestDirectOnewayRepo cheapestFlightRepo;
   late final IDestinationCountryRepo destinationCountryRepo;
 
   late final DirectFlightBloc directFlightBloc;
@@ -162,7 +163,14 @@ base class Dependencies {
     destinationCountryRepo = DestinationCountryRepoImpl(
         destinationCountryDataSources: destinationCountryDataSources);
 
-    directFlightBloc = DirectFlightBloc(destinationCountryRepo);
+    cheapestFlightRepo = CheapestDirectOnewayRepoImpl(
+      ticketPricesDataSource: pricesDataSource,
+    );
+
+    directFlightBloc = DirectFlightBloc(
+      destinationCountryRepo,
+      cheapestFlightRepo,
+    );
 
     logger.i("Dependencies initialized.");
   }
