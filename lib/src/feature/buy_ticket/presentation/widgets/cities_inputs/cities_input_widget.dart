@@ -33,6 +33,8 @@ class CitiesInput extends StatelessWidget {
               ),
             ),
             IconButton(
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.zero,
               onPressed: onIconPressed,
               icon: SvgPicture.asset(
                 iconPath,

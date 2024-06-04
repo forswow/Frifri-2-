@@ -270,8 +270,9 @@ class _LocationPickerZone extends StatelessWidget {
             ),
             const Divider(
               color: Colors.grey,
-              thickness: 0.5,
+              thickness: 0.4,
               indent: 20,
+              endIndent: 20,
             ),
             CitiesInput(
               cityName: searchModel.arrivalAt?.name ?? "Укажите город",
