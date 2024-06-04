@@ -1,5 +1,5 @@
-class DestinationCountryEntity {
-  DestinationCountryEntity({
+class DestinationAirportEntity {
+  DestinationAirportEntity({
     required this.id,
     required this.origin,
     required this.destination,
@@ -17,8 +17,8 @@ class DestinationCountryEntity {
     };
   }
 
-  factory DestinationCountryEntity.fromMap(Map<String, dynamic> map) {
-    return DestinationCountryEntity(
+  factory DestinationAirportEntity.fromMap(Map<String, dynamic> map) {
+    return DestinationAirportEntity(
       id: map['id'] as int,
       origin: map['origin'] as String,
       destination: map['destination'] as String,

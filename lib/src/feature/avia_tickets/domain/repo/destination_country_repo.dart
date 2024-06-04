@@ -1,7 +1,7 @@
 import '../entities/destination_country_entity.dart';
 
 abstract interface class IDestinationCountryRepo {
-  Future<List<DestinationCountryEntity>> fetchDestinationCountries(
+  Future<List<DestinationAirportEntity>> fetchDestinationAirports(
     final String table,
   );
 }

@@ -20,7 +20,7 @@ final class DirectFlight$AirportsFetchingInProgress extends DirectFlightState {
 final class DirectFlight$AirportsFetchingSuccess extends DirectFlightState {
   DirectFlight$AirportsFetchingSuccess({required this.destinationIataCodes});
 
-  final List<DestinationCountryEntity> destinationIataCodes;
+  final List<DestinationAirportEntity> destinationIataCodes;
 
   @override
   List<Object> get props => [destinationIataCodes];

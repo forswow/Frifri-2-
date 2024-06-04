@@ -1,23 +1,24 @@
 /// {@template direct_fligths_entity}
 /// DirectFligthsEntity class.
 /// {@endtemplate}
-class DirectFligthsEntity {
+class DirectFlightEntity {
   /// {@macro direct_fligths_entity}
 
-  DirectFligthsEntity(
-      {required this.uuid,
-      required this.departureLocation,
-      required this.placeOfArrival,
-      required this.placeOfArrivalCountryCode,
-      required this.departureLocationCountryCode,
-      required this.flightTime,
-      required this.price});
+  DirectFlightEntity({
+    required this.uuid,
+    required this.departureLocation,
+    required this.placeOfArrival,
+    required this.placeOfArrivalIataCode,
+    required this.departureLocationIataCode,
+    required this.flightTimeInMinutes,
+    required this.price,
+  });
 
   final String uuid;
   final String departureLocation;
   final String placeOfArrival;
-  final String placeOfArrivalCountryCode;
-  final String departureLocationCountryCode;
-  final String flightTime;
-  final String price;
+  final String placeOfArrivalIataCode;
+  final String departureLocationIataCode;
+  final int flightTimeInMinutes;
+  final int price;
 }

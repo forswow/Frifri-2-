@@ -28,7 +28,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
       emit(DirectFlight$AirportsFetchingInProgress());
 
       final airportsIataCodes =
-          await _destinationCountryRepo.fetchDestinationCountries(event.table);
+          await _destinationCountryRepo.fetchDestinationAirports(event.table);
 
       emit(
         DirectFlight$AirportsFetchingSuccess(

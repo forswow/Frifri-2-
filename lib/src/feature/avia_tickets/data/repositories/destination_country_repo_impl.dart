@@ -8,9 +8,9 @@ final class DestinationCountryRepoImpl implements IDestinationCountryRepo {
   final IDestinationCountryDataSources destinationCountryDataSources;
 
   @override
-  Future<List<DestinationCountryEntity>> fetchDestinationCountries(
+  Future<List<DestinationAirportEntity>> fetchDestinationAirports(
     String table,
   ) async {
-    return await destinationCountryDataSources.fetchDestinationCountries(table);
+    return await destinationCountryDataSources.fetchDestinationAirports(table);
   }
 }

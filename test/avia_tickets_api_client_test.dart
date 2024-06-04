@@ -43,10 +43,20 @@ void main() async {
     'Get TicketsInfo',
     () async {
       final result = await pricesDataSource.getLatestPrices(
-          options: LatestPricesQuery(
-        origin: "MOW",
-        destination: "HKT",
-      ));
+        options: LatestPricesQuery(
+          origin: "MOW",
+          destination: "HKT",
+          oneWay: true,
+          sorting: "price",
+          limit: 100,
+          page: 1,
+        ),
+      );
+
+      logger.i("PricesForDates:");
+      for (var ticket in result.data) {
+        logger.i("${ticket.departDate} -> price: ${ticket.value}");
+      }
 
       final ticket = result.data[0];
 
