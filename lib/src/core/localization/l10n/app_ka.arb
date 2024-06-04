@@ -68,5 +68,7 @@
   "mostFrequentQuestions": "ყველაზე ხშირად დასმული კითხვები",
   "flightCancellation": "ფრენების გაუქმება",
   "ticketRegistration": "ბილეთების გაყიდვა",
-  "previouslySearched": "ადრე მოძებნილი"
+  "previouslySearched": "ადრე მოძებნილი",
+  "chooseDepartureDate": "აირჩიეთ გამგზავრების თარიღი",
+  "thereAreNoDirectFlights": "არჩეული ფრენისთვის პირდაპირი გამგზავრება არ მოიძებნა"
 }

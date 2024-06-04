@@ -116,7 +116,7 @@ class _ResultedTicketsList extends StatelessWidget {
               if (directOnlyTickets.isEmpty && searchModel.isDirectFlightOnly) {
                 return Center(
                   child: Text(
-                    "По выбранному рейсу не найдено прямых отправлений",
+                    AppLocalizations.of(context).thereAreNoDirectFlights,
                     style: AppStyles.textStylePoppins.copyWith(
                       fontSize: 16,
                     ),
