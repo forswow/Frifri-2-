@@ -234,14 +234,12 @@ class SearchFlyModalHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 90),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
@@ -268,8 +266,14 @@ class SearchFlyModalHeader extends StatelessWidget {
                                 : const SizedBox(),
                           ],
                         ),
-                        SvgPicture.asset('assets/icons/searchfly-airplane.svg'),
-                        Column(
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: SvgPicture.asset(
+                            'assets/icons/searchfly-airplane.svg'),
+                      ),
+                      Expanded(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -296,8 +300,8 @@ class SearchFlyModalHeader extends StatelessWidget {
                                 : const SizedBox(),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],

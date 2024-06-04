@@ -177,8 +177,9 @@ class _ChipsZone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+    return Container(
+      margin: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+      clipBehavior: Clip.none,
       child: SizedBox(
         height: 40,
         child: HorizontalOptionsSlider(
