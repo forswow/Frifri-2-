@@ -40,15 +40,6 @@ final class DirectFlight$TicketSuccess extends DirectFlightState {
   List<Object> get props => [tickets];
 }
 
-final class DirectFlight$MonthSuccess extends DirectFlightState {
-  DirectFlight$MonthSuccess({required this.monthMatrix});
-
-  final List<MonthMatrix> monthMatrix;
-
-  @override
-  List<Object> get props => [monthMatrix];
-}
-
 final class DirectFlight$Error extends DirectFlightState {
   DirectFlight$Error({required this.message});
 

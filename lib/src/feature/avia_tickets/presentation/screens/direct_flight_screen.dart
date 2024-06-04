@@ -8,7 +8,7 @@ import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
-import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/more/domain/entities/currency_entity.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +37,6 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = context.watch<AppLanguageSettingsCubit>().state;
     final currency = context.watch<CurrencySettingsCubit>().state;
     final location = context.watch<AirportSettingsCubit>().state;
     return Scaffold(
@@ -56,86 +55,61 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
               },
             );
           },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              BlocBuilder<AirportSettingsCubit, AirportEnum>(
-                builder: (context, currentAirport) => RichText(
-                  text: TextSpan(
-                    text: AppLocalizations.of(context).directFligthsFrom,
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                    children: [
-                      TextSpan(
-                        text:
-                            " ${airportToString(currentAirport, context: context)}",
-                        style: GoogleFonts.poppins(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: const Color.fromRGBO(75, 148, 247, 1),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SvgPicture.asset(
-                'assets/icons/arrow 1.svg',
-                height: 23,
-                width: 23,
-              )
-            ],
-          ),
+          child: const DirectFlightScreenAppBarContent(),
         ),
-        actions: const [],
       ),
       body: SafeArea(
         child: Center(
           child: RefreshIndicator(
             key: _refreshIndicatorKey,
-            onRefresh: () async {
-              directFlightBloc.add(
-                FetchTicketPrices(
-                  locale: locale,
-                  currency: currency.name,
-                  origin: location.toIataCode(),
-                ),
-              );
-            },
+            onRefresh: () async {},
             child: BlocConsumer<DirectFlightBloc, DirectFlightState>(
+              // Запрашиваем сразу же аэропорты назначения
               bloc: directFlightBloc
                 ..add(
-                  FetchTicketPrices(
-                    locale: locale,
-                    currency: currency.name,
-                    origin: location.toIataCode(),
+                  DirectFlight$FetchDestinationAirportsIataCodes(
+                    originIataCode: location.toIataCode(),
                   ),
-                ),
-              listener: (context, state) {},
+                ), // ..add(),
+              listener: (context, state) {
+                if (state is DirectFlight$AirportsFetchingSuccess) {
+                  // Теперь можно запрашивать сами билеты
+                  final allDestinations = state.destinationIataCodes;
+                  directFlightBloc.add(
+                    DirectFlight$FetchTickets(
+                      currency: currency.name,
+                      originIataCode: location.toIataCode(),
+                      destinationIataCode: allDestinations,
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return switch (state) {
+                  // В самом начале
                   DirectFlight$Idle() => const Text('idle'),
+                  // Тянем из SupaBase IATA коды назначения
+                  DirectFlight$AirportsFetchingInProgress() => const Text(
+                      'Получаем аэропорты вылета из базы данных',
+                    ),
+                  // Как только стянули, запускаем поиск по этим кодам
+                  DirectFlight$AirportsFetchingSuccess() => const Text(
+                      'Города полученны',
+                    ),
+                  // Пока ищем показываем прогресс
+                  DirectFlight$TicketFetch() => const Text(
+                      'Получаем билеты',
+                    ),
+                  // Получили и коды и билеты, пора показывать
                   DirectFlight$TicketSuccess() => ListView.builder(
                       itemCount: state.tickets.length,
                       itemBuilder: (context, index) {
                         return const Text('s');
-                      }),
-                  DirectFlight$AirportsFetchingInProgress() => const Text(
-                      'Получаем гороода вылета',
+                      },
                     ),
-                  DirectFlight$TicketFetch() => const Text(
-                      'Получаем билеты',
-                    ),
-                  DirectFlight$AirportsFetchingSuccess() =>
-                    const Text('Города полученны'),
+                  // Произошло что-то очень страшное, отвал чипа
                   DirectFlight$Error() => Text(
                       state.message,
-                    ),
-                  DirectFlight$MonthSuccess() => AviaTicketList(
-                      state: state.monthMatrix,
                     ),
                 };
               },
@@ -143,6 +117,48 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class DirectFlightScreenAppBarContent extends StatelessWidget {
+  const DirectFlightScreenAppBarContent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        BlocBuilder<AirportSettingsCubit, AirportEnum>(
+          builder: (context, currentAirport) => RichText(
+            text: TextSpan(
+              text: AppLocalizations.of(context).directFligthsFrom,
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+              children: [
+                TextSpan(
+                  text: " ${airportToString(currentAirport, context: context)}",
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: const Color.fromRGBO(75, 148, 247, 1),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SvgPicture.asset(
+          'assets/icons/arrow 1.svg',
+          height: 23,
+          width: 23,
+        )
+      ],
     );
   }
 }

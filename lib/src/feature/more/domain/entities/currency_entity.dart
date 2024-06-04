@@ -8,8 +8,9 @@ enum CurrencyEnum {
   gel,
 }
 
-String currencyToString(CurrencyEnum airport, {required BuildContext context}) {
-  switch (airport) {
+String currencyToString(CurrencyEnum currency,
+    {required BuildContext context}) {
+  switch (currency) {
     case CurrencyEnum.rub:
       return AppLocalizations.of(context).currencyRub;
     case CurrencyEnum.usd:
@@ -21,7 +22,7 @@ String currencyToString(CurrencyEnum airport, {required BuildContext context}) {
   }
 }
 
-CurrencyEnum getCurrencyFromString(String currencyName) {
+CurrencyEnum currencyFromString(String currencyName) {
   return CurrencyEnum.values.firstWhere(
     (e) => e.toString().split('.').last == currencyName.toLowerCase(),
   );
@@ -38,8 +39,7 @@ String getCurrencySymbol(CurrencyEnum currency) {
     case CurrencyEnum.gel:
       return '₾';
 
-
-    default: return '0';
-
+    default:
+      return '0';
   }
 }

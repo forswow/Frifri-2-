@@ -1,49 +1,40 @@
 import 'package:equatable/equatable.dart';
-import 'package:frifri/src/feature/shared/data/dto/prices_for_dates.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
 
 abstract class DirectFlightEvent extends Equatable {}
 
-/// Ивент который передаёт данные для поиска рейсов
-final class DirectFlight$Fetch extends DirectFlightEvent {
-  DirectFlight$Fetch({
-    required this.transfer,
-  });
-
-  final PricesForDatesQuery transfer;
-
-  @override
-  List<Object> get props => [transfer];
-}
-
 /// Ивент, который запрашивает IATA коды аэропортов
 /// для дальнейшего поиска
-final class DirectFlight$FetchAirportsIataCodes extends DirectFlightEvent {
-  DirectFlight$FetchAirportsIataCodes({
-    required this.table,
-    required this.price,
+final class DirectFlight$FetchDestinationAirportsIataCodes
+    extends DirectFlightEvent {
+  DirectFlight$FetchDestinationAirportsIataCodes({
+    required this.originIataCode,
   });
 
-  final String table;
-  final String price;
+  final String originIataCode;
 
   @override
-  List<Object> get props => [table, price];
+  List<Object> get props => [
+        originIataCode,
+      ];
 }
 
 ///
-final class FetchTicketPrices extends DirectFlightEvent {
-  FetchTicketPrices({
-    required this.locale,
+final class DirectFlight$FetchTickets extends DirectFlightEvent {
+  DirectFlight$FetchTickets({
     required this.currency,
-    required this.origin,
+    required this.originIataCode,
+    required this.destinationIataCode,
   });
 
-  final String locale;
-
   final String currency;
-
-  final String origin;
+  final String originIataCode;
+  final List<DestinationAirportEntity> destinationIataCode;
 
   @override
-  List<Object> get props => [currency, locale];
+  List<Object> get props => [
+        currency,
+        originIataCode,
+        destinationIataCode,
+      ];
 }
