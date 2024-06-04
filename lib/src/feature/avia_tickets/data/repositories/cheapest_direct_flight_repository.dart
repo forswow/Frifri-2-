@@ -39,7 +39,6 @@ final class CheapestDirectOnewayRepoImpl implements ICheapestDirectOnewayRepo {
     }
 
     final cheapestTicket = prices.data.first;
-    logger.i("ticket: ${cheapestTicket.toString()}");
 
     final originCityName = (await autocompleteDataSource.getAutocomplete(
       options: AutocompleteQuery(

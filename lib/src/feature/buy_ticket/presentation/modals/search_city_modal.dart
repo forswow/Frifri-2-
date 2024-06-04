@@ -97,7 +97,6 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                     return BlocBuilder<RecentSearchesCubit,
                         List<AutocompleteEntity>>(
                       builder: (context, state) {
-                        logger.i(state.toString());
                         return SearchCityResult(
                           title: AppLocalizations.of(context).recentSearches,
                           searchResult: state,

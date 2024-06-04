@@ -47,7 +47,6 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
       );
 
       logger.i("Airports fetched successfully:");
-      logger.i(airportsIataCodes.toString());
     } on PostgrestException catch (error) {
       emit(DirectFlight$Error(message: error.message));
     }
