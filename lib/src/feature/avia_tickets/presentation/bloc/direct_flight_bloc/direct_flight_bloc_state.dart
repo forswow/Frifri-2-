@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 
 @immutable
 sealed class DirectFlightState extends Equatable {}
@@ -33,7 +33,7 @@ final class DirectFlight$TicketFetch extends DirectFlightState {
 final class DirectFlight$TicketSuccess extends DirectFlightState {
   DirectFlight$TicketSuccess({required this.tickets});
 
-  final List<DirectFlightEntity> tickets;
+  final List<DirectOnewayTicketsEntity> tickets;
 
   @override
   List<Object> get props => [tickets];

@@ -19,7 +19,14 @@ final class DestinationCountryDataSources
     try {
       final response = await supaBaseClient.from(table).select();
 
-      return response.map((e) => DestinationAirportEntity.fromMap(e)).toList();
+      final seenDestinations = <String>{};
+
+      return response
+          .map(
+            (e) => DestinationAirportEntity.fromMap(e),
+          )
+          .where((e) => seenDestinations.add(e.destination))
+          .toList();
     } on PostgrestException catch (error, stackTrace) {
       Error.throwWithStackTrace(error, stackTrace);
     }

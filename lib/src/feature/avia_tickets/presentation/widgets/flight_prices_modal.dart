@@ -10,7 +10,6 @@ import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 class FlightPricesModal extends StatelessWidget {
@@ -149,7 +148,6 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
 
   @override
   Widget build(BuildContext context) {
-    final currency = context.watch<CurrencySettingsCubit>().state;
     final language = context.watch<AppLanguageSettingsCubit>().state;
     return Expanded(
       child: Column(

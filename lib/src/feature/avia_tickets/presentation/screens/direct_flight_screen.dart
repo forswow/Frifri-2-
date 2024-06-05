@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket_widget.dart';
@@ -176,24 +176,31 @@ class DirectFlightScreenAppBarContent extends StatelessWidget {
 class AviaTicketList extends StatefulWidget {
   const AviaTicketList({super.key, required this.allTickets});
 
-  final List<DirectFlightEntity> allTickets;
+  final List<DirectOnewayTicketsEntity> allTickets;
 
   @override
   State<AviaTicketList> createState() => _AviaTicketListState();
 }
 
 class _AviaTicketListState extends State<AviaTicketList> {
+  late final List<DirectOnewayTicketsEntity> allDirectionsTickets;
+
+  @override
+  void initState() {
+    super.initState();
+    allDirectionsTickets = widget.allTickets;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final state = widget.allTickets;
     return ReorderableListView(
       clipBehavior: Clip.hardEdge,
       proxyDecorator: (widget, index, animation) {
-        final currentTicket = state[index];
+        final currentDirectionTickets = allDirectionsTickets[index];
         return GestureDetector(
           onTap: () {},
           child: AviaTicketWidget(
-            directFligthsEntity: currentTicket,
+            directFligthsEntity: currentDirectionTickets.cheapestTicket,
             index: index,
             key: Key('$index'),
           ),
@@ -210,7 +217,7 @@ class _AviaTicketListState extends State<AviaTicketList> {
         });
       },
       children: <Widget>[
-        for (int index = 0; index < state.length; index += 1)
+        for (int index = 0; index < allDirectionsTickets.length; index += 1)
           GestureDetector(
             key: Key('$index'),
             onTap: () {
@@ -221,15 +228,19 @@ class _AviaTicketListState extends State<AviaTicketList> {
                 builder: (context) {
                   return SafeArea(
                     child: FlightPricesModal(
-                      originAirportName: state[index].departureLocation,
-                      destinationAirportName: state[index].placeOfArrival,
+                      originAirportName: allDirectionsTickets[index]
+                          .cheapestTicket
+                          .departureLocation,
+                      destinationAirportName: allDirectionsTickets[index]
+                          .cheapestTicket
+                          .placeOfArrival,
                     ),
                   );
                 },
               );
             },
             child: AviaTicketWidget(
-              directFligthsEntity: state[index],
+              directFligthsEntity: allDirectionsTickets[index].cheapestTicket,
               key: Key('$index'),
               index: index,
             ),

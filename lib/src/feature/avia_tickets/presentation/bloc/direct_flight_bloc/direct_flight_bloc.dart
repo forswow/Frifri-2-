@@ -2,18 +2,18 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/repo/cheapest_direct_flight_repository.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/direct_oneway_tickets_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:dio/dio.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repo.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repository.dart';
 
 class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   final IDestinationCountryRepo _destinationCountryRepo;
-  final ICheapestDirectOnewayRepo _directOnewayRepo;
+  final IDirectOnewayTicketsRepo _directOnewayRepo;
 
   DirectFlightBloc(
     this._destinationCountryRepo,
@@ -60,7 +60,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   ) async {
     try {
       emit(DirectFlight$TicketFetch());
-      final List<DirectFlightEntity> tickets = [];
+      final List<DirectOnewayTicketsEntity> tickets = [];
 
       // Тут получаем цены на билеты по готовым IATA кодам
       for (final destination in event.destinationIataCodes) {
@@ -68,15 +68,15 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
             "Fetching cheapest ticket for destination: ${destination.destination}");
 
         try {
-          final cheapestTicket =
+          final directTickets =
               await _directOnewayRepo.getCheapestDirectOnewayFlight(
             originIataCode: event.originIataCode,
             destinationIataCode: destination.destination,
             currency: event.currency,
             locale: event.locale,
           );
-          if (cheapestTicket == null) continue;
-          tickets.add(cheapestTicket);
+          if (directTickets == null) continue;
+          tickets.add(directTickets);
         } catch (e, s) {
           logger.e(e);
           logger.e(s);

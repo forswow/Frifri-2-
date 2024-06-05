@@ -1,13 +1,14 @@
 import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/repo/cheapest_direct_flight_repository.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/repo/direct_oneway_tickets_repository.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/autocomplete.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/prices.dart';
 import 'package:frifri/src/feature/shared/data/dto/autocomplete.dart';
 import 'package:frifri/src/feature/shared/data/dto/latest_prices.dart';
 import 'package:uuid/uuid.dart';
 
-final class CheapestDirectOnewayRepoImpl implements ICheapestDirectOnewayRepo {
-  CheapestDirectOnewayRepoImpl({
+final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
+  DirectOnewayTicketsRepoImpl({
     required this.ticketPricesDataSource,
     required this.autocompleteDataSource,
   });
@@ -16,7 +17,7 @@ final class CheapestDirectOnewayRepoImpl implements ICheapestDirectOnewayRepo {
   final IAutocompleteDataSource autocompleteDataSource;
 
   @override
-  Future<DirectFlightEntity?> getCheapestDirectOnewayFlight({
+  Future<DirectOnewayTicketsEntity?> getCheapestDirectOnewayFlight({
     required String originIataCode,
     required String destinationIataCode,
     required String currency,
@@ -33,11 +34,7 @@ final class CheapestDirectOnewayRepoImpl implements ICheapestDirectOnewayRepo {
       oneWay: true,
     ));
 
-    if (prices.data.isEmpty) {
-      return null;
-    }
-
-    final cheapestTicket = prices.data.first;
+    if (prices.data.isEmpty) return null;
 
     final originCityName = (await autocompleteDataSource.getAutocomplete(
       options: AutocompleteQuery(
@@ -59,18 +56,39 @@ final class CheapestDirectOnewayRepoImpl implements ICheapestDirectOnewayRepo {
         .first
         .name;
 
-    return DirectFlightEntity(
-      // TODO: Вынести генератор UUID вместо создания нового?
+    final cheapestTicket = DirectFlightEntity(
       uuid: const Uuid().v4(),
-      // Это тру IATA коды
       departureLocation: originIataCode,
       placeOfArrival: destinationIataCode,
-
-      // Это просто имена (без понятия, почему они перепутаны :<)
       placeOfArrivalIataCode: destinationCityName,
       departureLocationIataCode: originCityName,
-      flightTimeInMinutes: cheapestTicket.duration,
-      price: cheapestTicket.value,
+      flightTimeInMinutes: prices.data.first.duration,
+      price: prices.data.first.value,
     );
+
+    final directTickets = DirectOnewayTicketsEntity(
+      cheapestTicket: cheapestTicket,
+      allTickets: [],
+    );
+
+    for (final ticket in prices.data) {
+      directTickets.allTickets.add(
+        DirectFlightEntity(
+          // TODO: Вынести генератор UUID вместо создания нового?
+          uuid: const Uuid().v4(),
+          // Это тру IATA коды
+          departureLocation: originIataCode,
+          placeOfArrival: destinationIataCode,
+
+          // Это просто имена (без понятия, почему они перепутаны :<)
+          placeOfArrivalIataCode: destinationCityName,
+          departureLocationIataCode: originCityName,
+          flightTimeInMinutes: ticket.duration,
+          price: ticket.value,
+        ),
+      );
+    }
+
+    return directTickets;
   }
 }
