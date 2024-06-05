@@ -36,6 +36,8 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
 
     if (prices.data.isEmpty) return null;
 
+    // TODO: Попробовать найти способ получить названия аэропортов
+    // не через запросы к API
     final originCityName = (await autocompleteDataSource.getAutocomplete(
       options: AutocompleteQuery(
         term: originIataCode,
@@ -92,6 +94,33 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       );
     }
 
+    removeDuplicateDatesWithHigherPrices(directTickets.allTickets);
+
     return directTickets;
   }
+}
+
+void removeDuplicateDatesWithHigherPrices(List<DirectFlightEntity> flights) {
+  // Создаем карту для хранения наименьших цен для каждой даты отправления
+  final Map<DateTime, DirectFlightEntity> minPriceFlights = {};
+
+  for (final flight in flights) {
+    final date = DateTime(
+      flight.departureDate.year,
+      flight.departureDate.month,
+      flight.departureDate.day,
+    );
+
+    if (minPriceFlights[date] != null) {
+      if (flight.price < minPriceFlights[date]!.price) {
+        minPriceFlights[date] = flight;
+      }
+    } else {
+      minPriceFlights[date] = flight;
+    }
+  }
+
+  // Очищаем исходный список и добавляем обратно только рейсы с минимальными ценами
+  flights.clear();
+  flights.addAll(minPriceFlights.values);
 }
