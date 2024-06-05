@@ -193,7 +193,21 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                     padding: const EdgeInsets.only(top: 20),
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).pop(ticket);
+                        goToSearchForm(
+                          from: AirportEntity(
+                            name: oneWayDirectTickets
+                                .cheapestTicket.departureLocation,
+                            code: oneWayDirectTickets
+                                .cheapestTicket.departureLocationIataCode,
+                          ),
+                          to: AirportEntity(
+                            name: oneWayDirectTickets
+                                .cheapestTicket.placeOfArrival,
+                            code: oneWayDirectTickets
+                                .cheapestTicket.placeOfArrivalIataCode,
+                          ),
+                          departureDate: ticket.departureDate,
+                        );
                       },
                       child: Row(
                         children: [
@@ -270,28 +284,20 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                     onPressed: () {
                       // UrlLauncherHelper.launchInWeb(
                       //     'https://frifri.ge/$language/${widget.destination}');
-                      final searchModelForm = SearchModel();
-
-                      searchModelForm.departureAt = AirportEntity(
-                        name: oneWayDirectTickets
-                            .cheapestTicket.departureLocation,
-                        code: oneWayDirectTickets
-                            .cheapestTicket.departureLocationIataCode,
+                      goToSearchForm(
+                        from: AirportEntity(
+                          name: oneWayDirectTickets
+                              .cheapestTicket.departureLocation,
+                          code: oneWayDirectTickets
+                              .cheapestTicket.departureLocationIataCode,
+                        ),
+                        to: AirportEntity(
+                          name:
+                              oneWayDirectTickets.cheapestTicket.placeOfArrival,
+                          code: oneWayDirectTickets
+                              .cheapestTicket.placeOfArrivalIataCode,
+                        ),
                       );
-
-                      searchModelForm.arrivalAt = AirportEntity(
-                        name: oneWayDirectTickets.cheapestTicket.placeOfArrival,
-                        code: oneWayDirectTickets
-                            .cheapestTicket.placeOfArrivalIataCode,
-                      );
-
-                      searchModelForm.isDirectFlightOnly = true;
-
-                      context.pushReplacement(
-                        NavigationManager.search,
-                        extra: searchModelForm,
-                      );
-                      Navigator.pop(context);
                     },
                   ),
                 )
@@ -301,6 +307,25 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
         ],
       ),
     );
+  }
+
+  void goToSearchForm({
+    required AirportEntity from,
+    required AirportEntity to,
+    DateTime? departureDate,
+  }) {
+    final searchModelForm = SearchModel();
+
+    searchModelForm.departureAt = from;
+    searchModelForm.arrivalAt = to;
+    searchModelForm.isDirectFlightOnly = true;
+    searchModelForm.departureDate = departureDate;
+
+    context.pushReplacement(
+      NavigationManager.search,
+      extra: searchModelForm,
+    );
+    Navigator.pop(context);
   }
 }
 
