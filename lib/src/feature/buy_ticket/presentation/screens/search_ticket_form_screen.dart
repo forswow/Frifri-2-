@@ -86,7 +86,9 @@ final _defaultDivider = Divider(
 );
 
 class SearchTicketFormScreen extends StatefulWidget {
-  const SearchTicketFormScreen({super.key});
+  const SearchTicketFormScreen({super.key, this.searchModel});
+
+  final SearchModel? searchModel;
 
   @override
   State<SearchTicketFormScreen> createState() => _SearchTicketFormScreenState();
@@ -96,7 +98,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
   // Начальные значения формы
   // формироваться она будет при submit-е
   // с помощью полей ниже
-  final _searchModel = SearchModel();
+  late final _searchModel = widget.searchModel ?? SearchModel();
 
   @override
   void initState() {
@@ -108,18 +110,21 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
     // обратиться напрямую к источнику данных в UI
     // Нужно разобраться как это сделать лучше всего
     // вероятно через кубит, но сейчас нужно всё срочно сделать.
-    Dependencies.of(context)
-        .userLocationDataSource
-        .getUserLocation(
-          options: UserLocationQuery(locale: locale),
-        )
-        .then((value) {
-      _searchModel.departureAt =
-          AirportEntity(name: value.cityName, code: value.iata);
-    }).catchError((err, stack) {
-      logger.e(err.toString());
-      logger.e(stack.toString());
-    });
+
+    if (_searchModel.departureAt == null) {
+      Dependencies.of(context)
+          .userLocationDataSource
+          .getUserLocation(
+            options: UserLocationQuery(locale: locale),
+          )
+          .then((value) {
+        _searchModel.departureAt =
+            AirportEntity(name: value.cityName, code: value.iata);
+      }).catchError((err, stack) {
+        logger.e(err.toString());
+        logger.e(stack.toString());
+      });
+    }
   }
 
   void onFindTicketsButtonClick(BuildContext context) {

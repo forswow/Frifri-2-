@@ -60,10 +60,10 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
 
     final cheapestTicket = DirectFlightEntity(
       uuid: const Uuid().v4(),
-      departureLocation: originIataCode,
-      placeOfArrival: destinationIataCode,
-      placeOfArrivalIataCode: destinationCityName,
-      departureLocationIataCode: originCityName,
+      departureLocationIataCode: originIataCode,
+      placeOfArrivalIataCode: destinationIataCode,
+      placeOfArrival: destinationCityName,
+      departureLocation: originCityName,
       flightTimeInMinutes: prices.data.first.duration,
       price: prices.data.first.value,
       departureDate: prices.data.first.departDate,
@@ -80,12 +80,12 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
           // TODO: Вынести генератор UUID вместо создания нового?
           uuid: const Uuid().v4(),
           // Это тру IATA коды
-          departureLocation: originIataCode,
-          placeOfArrival: destinationIataCode,
+          departureLocationIataCode: originIataCode,
+          placeOfArrivalIataCode: destinationIataCode,
 
           // Это просто имена (без понятия, почему они перепутаны :<)
-          placeOfArrivalIataCode: destinationCityName,
-          departureLocationIataCode: originCityName,
+          placeOfArrival: destinationCityName,
+          departureLocation: originCityName,
           flightTimeInMinutes: ticket.duration,
           price: ticket.value,
 

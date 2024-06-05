@@ -70,7 +70,9 @@ class NavigationManager {
               GoRoute(
                 path: search,
                 builder: (context, state) {
-                  return const SearchTicketFormScreen();
+                  return SearchTicketFormScreen(
+                    searchModel: state.extra as SearchModel?,
+                  );
                 },
               ),
             ],

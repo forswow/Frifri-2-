@@ -6,20 +6,20 @@ class DirectFlightEntity {
 
   DirectFlightEntity({
     required this.uuid,
-    required this.departureLocation,
-    required this.placeOfArrival,
-    required this.placeOfArrivalIataCode,
     required this.departureLocationIataCode,
+    required this.placeOfArrivalIataCode,
+    required this.placeOfArrival,
+    required this.departureLocation,
     required this.flightTimeInMinutes,
     required this.price,
     required this.departureDate,
   });
 
   final String uuid;
-  final String departureLocation;
-  final String placeOfArrival;
-  final String placeOfArrivalIataCode;
   final String departureLocationIataCode;
+  final String placeOfArrivalIataCode;
+  final String placeOfArrival;
+  final String departureLocation;
   final int flightTimeInMinutes;
   final int price;
 

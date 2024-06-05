@@ -226,10 +226,10 @@ class _AviaTicketListState extends State<AviaTicketList> {
                     child: FlightPricesModal(
                       originAirportName: allDirectionsTickets[index]
                           .cheapestTicket
-                          .departureLocation,
+                          .departureLocationIataCode,
                       destinationAirportName: allDirectionsTickets[index]
                           .cheapestTicket
-                          .placeOfArrival,
+                          .placeOfArrivalIataCode,
                       oneWayTickets: allDirectionsTickets[index],
                     ),
                   );

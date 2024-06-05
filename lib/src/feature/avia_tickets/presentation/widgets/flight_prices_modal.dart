@@ -4,8 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/theme/colors.dart';
+import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -185,33 +189,38 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   ],
                 ),
                 ...oneWayDirectTickets.allTickets.map(
-                  (ticket) => Padding(
+                  (ticket) => Ink(
                     padding: const EdgeInsets.only(top: 20),
-                    child: Row(
-                      children: [
-                        TimeWidget(
-                          date: formatDate(ticket.departureDate),
-                          time: formatMinutesToHoursAndMinutes(
-                            ticket.flightTimeInMinutes,
-                            AppLocalizations.of(context),
-                          ),
-                        ),
-                        const Spacer(),
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
-                              ticket.price,
-                              currency,
-                            )}",
-                            style: AppStyles.textStylePoppins.copyWith(
-                              color: kPriceColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop(ticket);
+                      },
+                      child: Row(
+                        children: [
+                          TimeWidget(
+                            date: formatDate(ticket.departureDate),
+                            time: formatMinutesToHoursAndMinutes(
+                              ticket.flightTimeInMinutes,
+                              AppLocalizations.of(context),
                             ),
                           ),
-                        ),
-                      ],
+                          const Spacer(),
+                          FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
+                                ticket.price,
+                                currency,
+                              )}",
+                              style: AppStyles.textStylePoppins.copyWith(
+                                color: kPriceColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -261,6 +270,26 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                     onPressed: () {
                       // UrlLauncherHelper.launchInWeb(
                       //     'https://frifri.ge/$language/${widget.destination}');
+                      final searchModelForm = SearchModel();
+
+                      searchModelForm.departureAt = AirportEntity(
+                        name: oneWayDirectTickets
+                            .cheapestTicket.departureLocation,
+                        code: oneWayDirectTickets
+                            .cheapestTicket.departureLocationIataCode,
+                      );
+
+                      searchModelForm.arrivalAt = AirportEntity(
+                        name: oneWayDirectTickets.cheapestTicket.placeOfArrival,
+                        code: oneWayDirectTickets
+                            .cheapestTicket.placeOfArrivalIataCode,
+                      );
+
+                      context.replace(
+                        NavigationManager.search,
+                        extra: searchModelForm,
+                      );
+                      Navigator.pop(context);
                     },
                   ),
                 )

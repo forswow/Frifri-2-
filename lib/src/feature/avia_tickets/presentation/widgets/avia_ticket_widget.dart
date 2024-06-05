@@ -46,8 +46,8 @@ class AviaTicketWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               CountryTextWidget(
-                title: directFligthsEntity.departureLocation,
-                subTitle: directFligthsEntity.departureLocationIataCode,
+                title: directFligthsEntity.departureLocationIataCode,
+                subTitle: directFligthsEntity.departureLocation,
                 crossAxisAlignment: CrossAxisAlignment.start,
               ),
               Expanded(
@@ -73,8 +73,8 @@ class AviaTicketWidget extends StatelessWidget {
                 ),
               ),
               CountryTextWidget(
-                title: directFligthsEntity.placeOfArrival,
-                subTitle: directFligthsEntity.placeOfArrivalIataCode,
+                title: directFligthsEntity.placeOfArrivalIataCode,
+                subTitle: directFligthsEntity.placeOfArrival,
                 crossAxisAlignment: CrossAxisAlignment.end,
               )
             ],
