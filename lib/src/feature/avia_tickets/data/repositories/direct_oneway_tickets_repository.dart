@@ -30,11 +30,15 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       sorting: "price",
       page: 1,
       currency: currency,
-      limit: 100,
+      limit: 1000,
       oneWay: true,
+      tripClass: 0,
     ));
 
     if (prices.data.isEmpty) return null;
+
+    final directTicketsOnly =
+        prices.data.where((ticket) => ticket.numberOfChanges == 0).toList();
 
     // TODO: Попробовать найти способ получить названия аэропортов
     // не через запросы к API
@@ -64,9 +68,9 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       placeOfArrivalIataCode: destinationIataCode,
       placeOfArrival: destinationCityName,
       departureLocation: originCityName,
-      flightTimeInMinutes: prices.data.first.duration,
-      price: prices.data.first.value,
-      departureDate: prices.data.first.departDate,
+      flightTimeInMinutes: directTicketsOnly.first.duration,
+      price: directTicketsOnly.first.value,
+      departureDate: directTicketsOnly.first.departDate,
     );
 
     final directTickets = DirectOnewayTicketsEntity(
@@ -74,7 +78,7 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       allTickets: [],
     );
 
-    for (final ticket in prices.data) {
+    for (final ticket in directTicketsOnly) {
       directTickets.allTickets.add(
         DirectFlightEntity(
           // TODO: Вынести генератор UUID вместо создания нового?
