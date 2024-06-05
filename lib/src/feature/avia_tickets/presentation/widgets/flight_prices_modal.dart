@@ -286,6 +286,7 @@ class TimeWidget extends StatelessWidget {
       children: [
         Text(
           date,
+          textAlign: TextAlign.left,
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w600,
             color: Colors.black,
@@ -294,6 +295,7 @@ class TimeWidget extends StatelessWidget {
         ),
         Text(
           time,
+          textAlign: TextAlign.left,
           style: GoogleFonts.roboto(
             fontWeight: FontWeight.w400,
             color: Colors.black,
