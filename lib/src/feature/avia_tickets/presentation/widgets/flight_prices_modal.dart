@@ -1,26 +1,31 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
+import 'package:frifri/src/core/theme/colors.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({
     super.key,
     required this.originAirportName,
     required this.destinationAirportName,
+    required this.oneWayTickets,
   });
 
   final String originAirportName;
   final String destinationAirportName;
+  final DirectOnewayTicketsEntity oneWayTickets;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,7 @@ class FlightPricesModal extends StatelessWidget {
             thickness: 0.5,
           ),
           FlightPricesModalContent(
-            destination: destinationAirportName,
+            oneWayTickets: oneWayTickets,
           ),
         ],
       ),
@@ -126,10 +131,10 @@ class FlightPricesModalHeader extends StatelessWidget {
 class FlightPricesModalContent extends StatefulWidget {
   const FlightPricesModalContent({
     super.key,
-    required this.destination,
+    required this.oneWayTickets,
   });
 
-  final String destination;
+  final DirectOnewayTicketsEntity oneWayTickets;
 
   @override
   State<FlightPricesModalContent> createState() =>
@@ -137,18 +142,20 @@ class FlightPricesModalContent extends StatefulWidget {
 }
 
 class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
+  late final DirectOnewayTicketsEntity oneWayDirectTickets;
+
   @override
   void initState() {
     super.initState();
-
-    // final priceInfoList = widget.monthMatrixDayInfo.sort(
-    //   (a, b) => a.returnDate.compareTo(b.returnDate),
-    // );
+    oneWayDirectTickets = widget.oneWayTickets;
+    oneWayDirectTickets.allTickets.sortBy(
+      (ticket) => ticket.departureDate,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final language = context.watch<AppLanguageSettingsCubit>().state;
+    final currency = context.watch<CurrencySettingsCubit>().state;
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -163,15 +170,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                       AppLocalizations.of(context).when,
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.grey,
-                        fontSize: 12,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      AppLocalizations.of(context).back,
-                      style: AppStyles.textStylePoppins.copyWith(
-                        color: Colors.grey,
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                     const Spacer(),
@@ -180,10 +179,41 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                       textAlign: TextAlign.end,
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.grey,
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                   ],
+                ),
+                ...oneWayDirectTickets.allTickets.map(
+                  (ticket) => Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: [
+                        TimeWidget(
+                          date: formatDate(ticket.departureDate),
+                          time: formatMinutesToHoursAndMinutes(
+                            ticket.flightTimeInMinutes,
+                            AppLocalizations.of(context),
+                          ),
+                        ),
+                        const Spacer(),
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
+                              ticket.price,
+                              currency,
+                            )}",
+                            style: AppStyles.textStylePoppins.copyWith(
+                              color: kPriceColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -219,19 +249,18 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      // "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
-                      //   widget.monthMatrixDayInfo.first.value,
-                      //   currency,
-                      // )}",
-                      "Goddamn it's hard",
+                      "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
+                        oneWayDirectTickets.cheapestTicket.price,
+                        currency,
+                      )}",
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     onPressed: () {
-                      UrlLauncherHelper.launchInWeb(
-                          'https://frifri.ge/$language/${widget.destination}');
+                      // UrlLauncherHelper.launchInWeb(
+                      //     'https://frifri.ge/$language/${widget.destination}');
                     },
                   ),
                 )

@@ -110,11 +110,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                       'Получаем билеты',
                     ),
                   // Получили и коды и билеты, пора показывать
-                  DirectFlight$TicketSuccess() => // ListView.builder(
-                    // itemCount: state.tickets.length,
-                    // itemBuilder: (context, index) {
-                    //   return
-                    // },
+                  DirectFlight$TicketSuccess() =>
                     AviaTicketList(allTickets: state.tickets),
                   //),
                   // Произошло что-то очень страшное, отвал чипа
@@ -234,6 +230,7 @@ class _AviaTicketListState extends State<AviaTicketList> {
                       destinationAirportName: allDirectionsTickets[index]
                           .cheapestTicket
                           .placeOfArrival,
+                      oneWayTickets: allDirectionsTickets[index],
                     ),
                   );
                 },

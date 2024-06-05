@@ -64,6 +64,7 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       departureLocationIataCode: originCityName,
       flightTimeInMinutes: prices.data.first.duration,
       price: prices.data.first.value,
+      departureDate: prices.data.first.departDate,
     );
 
     final directTickets = DirectOnewayTicketsEntity(
@@ -85,6 +86,8 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
           departureLocationIataCode: originCityName,
           flightTimeInMinutes: ticket.duration,
           price: ticket.value,
+
+          departureDate: ticket.departDate,
         ),
       );
     }

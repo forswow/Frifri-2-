@@ -12,6 +12,7 @@ class DirectFlightEntity {
     required this.departureLocationIataCode,
     required this.flightTimeInMinutes,
     required this.price,
+    required this.departureDate,
   });
 
   final String uuid;
@@ -21,4 +22,6 @@ class DirectFlightEntity {
   final String departureLocationIataCode;
   final int flightTimeInMinutes;
   final int price;
+
+  final DateTime departureDate;
 }
