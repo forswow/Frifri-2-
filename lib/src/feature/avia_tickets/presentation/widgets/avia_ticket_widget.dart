@@ -8,6 +8,7 @@ import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/country_text_widget.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:frifri/src/core/extensions/formatters.dart';
@@ -30,6 +31,7 @@ class AviaTicketWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     final currency = context.watch<CurrencySettingsCubit>().state;
+    final locale = context.watch<AppLanguageSettingsCubit>().state;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       clipBehavior: Clip.hardEdge,
@@ -108,6 +110,7 @@ class AviaTicketWidget extends StatelessWidget {
                   '${formatCurrencyWithSpaces(
                     directFligthsEntity.price,
                     currency,
+                    locale,
                   )} ',
                   style: GoogleFonts.roboto(
                     fontWeight: FontWeight.bold,

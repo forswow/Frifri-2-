@@ -12,11 +12,16 @@ String formatMinutesToHoursAndMinutes(
       )}${l.hoursSymbol} ${minutes.toString().padLeft(2, '0')}${l.minutesSymbol}';
 }
 
-String formatCurrencyWithSpaces(int number, CurrencyEnum currency) {
-  NumberFormat numberFormat = NumberFormat('#,##0', 'en_US');
-  final value = numberFormat.format(number).replaceAll(',', ' ');
+String formatCurrencyWithSpaces(
+    int number, CurrencyEnum currency, String locale) {
+  final priceFormatter = NumberFormat.simpleCurrency(
+    decimalDigits: 0,
+    name: currency.name.toUpperCase(),
+    locale: locale.toUpperCase(),
+  );
+  final value = priceFormatter.format(number).replaceAll(',', ' ');
 
-  return '$value ${getCurrencySymbol(currency)}';
+  return value;
 }
 
 String dateFormatDay(DateTime date, String lang) {

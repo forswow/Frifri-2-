@@ -8,6 +8,7 @@ import 'package:frifri/src/feature/application/navigation/navigation_manager.dar
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:go_router/go_router.dart';
 
@@ -160,6 +161,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
   @override
   Widget build(BuildContext context) {
     final currency = context.watch<CurrencySettingsCubit>().state;
+    final locale = context.watch<AppLanguageSettingsCubit>().state;
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -222,10 +224,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                           FittedBox(
                             fit: BoxFit.contain,
                             child: Text(
-                              "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
-                                ticket.price,
-                                currency,
-                              )}",
+                              "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(ticket.price, currency, locale)}",
                               style: AppStyles.textStylePoppins.copyWith(
                                 color: kPriceColor,
                                 fontSize: 16,
@@ -275,6 +274,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                       "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
                         oneWayDirectTickets.cheapestTicket.price,
                         currency,
+                        locale,
                       )}",
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.white,
