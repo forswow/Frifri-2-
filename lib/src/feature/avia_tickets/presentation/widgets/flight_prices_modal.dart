@@ -285,7 +285,9 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                             .cheapestTicket.placeOfArrivalIataCode,
                       );
 
-                      context.replace(
+                      searchModelForm.isDirectFlightOnly = true;
+
+                      context.pushReplacement(
                         NavigationManager.search,
                         extra: searchModelForm,
                       );
