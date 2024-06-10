@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/core/theme/theme.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/screens/test_screen.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,7 +34,7 @@ class App extends StatelessWidget {
             theme: theme,
             // routerConfig: NavigationManager.router,
             routerConfig: NavigationManager.router,
-            // home: const DirectFlightScreen(),
+            // home: const TicketScreen(),
           );
         },
       ),

@@ -7,6 +7,8 @@ import 'package:frifri/src/feature/shared/data/dto/autocomplete.dart';
 import 'package:frifri/src/feature/shared/data/dto/latest_prices.dart';
 import 'package:uuid/uuid.dart';
 
+/// e
+
 final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
   DirectOnewayTicketsRepoImpl({
     required this.ticketPricesDataSource,
@@ -40,6 +42,7 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
     final directTicketsOnly =
         prices.data.where((ticket) => ticket.numberOfChanges == 0).toList();
 
+    if (directTicketsOnly.isEmpty) return null;
     // TODO: Попробовать найти способ получить названия аэропортов
     // не через запросы к API
     final originCityName = (await autocompleteDataSource.getAutocomplete(

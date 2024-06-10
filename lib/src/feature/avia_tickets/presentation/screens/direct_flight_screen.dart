@@ -78,7 +78,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   DirectFlight$FetchDestinationAirportsIataCodes(
                     originIataCode: location.toIataCode(),
                   ),
-                ), // ..add(),
+                ),
               listener: (context, state) {
                 if (state is DirectFlight$AirportsFetchingSuccess) {
                   // Теперь можно запрашивать сами билеты
@@ -110,8 +110,14 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                       'Получаем билеты',
                     ),
                   // Получили и коды и билеты, пора показывать
-                  DirectFlight$TicketSuccess() =>
-                    AviaTicketList(allTickets: state.tickets),
+                  DirectFlight$TicketSuccess() => AviaTicketList(
+                      allTickets: state.tickets,
+                      onReorder:
+                          (String name, List<DirectOnewayTicketsEntity> list) {
+                        directFlightBloc.add(DirectFlight$OnReorder(
+                            directOneWayTicket: list, country: name));
+                      },
+                    ),
                   //),
                   // Произошло что-то очень страшное, отвал чипа
                   DirectFlight$Error() => Text(
@@ -170,9 +176,13 @@ class DirectFlightScreenAppBarContent extends StatelessWidget {
 }
 
 class AviaTicketList extends StatefulWidget {
-  const AviaTicketList({super.key, required this.allTickets});
+  const AviaTicketList(
+      {super.key, required this.allTickets, required this.onReorder});
 
   final List<DirectOnewayTicketsEntity> allTickets;
+
+  final void Function(String name, List<DirectOnewayTicketsEntity> list)
+      onReorder;
 
   @override
   State<AviaTicketList> createState() => _AviaTicketListState();
@@ -189,60 +199,69 @@ class _AviaTicketListState extends State<AviaTicketList> {
 
   @override
   Widget build(BuildContext context) {
-    return ReorderableListView(
-      clipBehavior: Clip.hardEdge,
-      proxyDecorator: (widget, index, animation) {
-        final currentDirectionTickets = allDirectionsTickets[index];
-        return GestureDetector(
-          onTap: () {},
-          child: AviaTicketWidget(
-            directFligthsEntity: currentDirectionTickets.cheapestTicket,
-            index: index,
+    final location = context.watch<AirportSettingsCubit>().state;
+
+    return SafeArea(
+      minimum: const EdgeInsets.only(bottom: 20),
+      child: ReorderableListView(
+        clipBehavior: Clip.hardEdge,
+        proxyDecorator: (widget, index, animation) {
+          final currentDirectionTickets = allDirectionsTickets[index];
+          return GestureDetector(
             key: Key('$index'),
-          ),
-        );
-      },
-      padding: const EdgeInsets.only(left: 24, right: 24),
-      onReorder: (int oldIndex, int newIndex) {
-        setState(() {
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
-          // final MonthMatrix item = state.removeAt(oldIndex);
-          // state.insert(newIndex, item);
-        });
-      },
-      children: <Widget>[
-        for (int index = 0; index < allDirectionsTickets.length; index += 1)
-          GestureDetector(
-            key: Key('$index'),
-            onTap: () {
-              showModalBottomSheet(
-                useRootNavigator: true,
-                context: context,
-                isScrollControlled: true,
-                builder: (context) {
-                  return SafeArea(
-                    child: FlightPricesModal(
-                      originAirportName: allDirectionsTickets[index]
-                          .cheapestTicket
-                          .departureLocationIataCode,
-                      destinationAirportName: allDirectionsTickets[index]
-                          .cheapestTicket
-                          .placeOfArrivalIataCode,
-                      oneWayTickets: allDirectionsTickets[index],
-                    ),
-                  );
-                },
-              );
-            },
+            onTap: () {},
             child: AviaTicketWidget(
-              directFligthsEntity: allDirectionsTickets[index].cheapestTicket,
-              key: Key('$index'),
+              directFligthsEntity: currentDirectionTickets.cheapestTicket,
               index: index,
+              key: Key('$index'),
             ),
-          )
-      ],
+          );
+        },
+        padding: const EdgeInsets.only(left: 24, right: 24),
+        onReorder: (int oldIndex, int newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
+            }
+
+            final item = allDirectionsTickets.removeAt(oldIndex);
+            allDirectionsTickets.insert(newIndex, item);
+
+            widget.onReorder.call(location.toIataCode(), allDirectionsTickets);
+          });
+        },
+        children: <Widget>[
+          for (int index = 0; index < allDirectionsTickets.length; index += 1)
+            GestureDetector(
+              key: Key('$index'),
+              onTap: () {
+                showModalBottomSheet(
+                  useRootNavigator: true,
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return SafeArea(
+                      child: FlightPricesModal(
+                        originAirportName: allDirectionsTickets[index]
+                            .cheapestTicket
+                            .departureLocationIataCode,
+                        destinationAirportName: allDirectionsTickets[index]
+                            .cheapestTicket
+                            .placeOfArrivalIataCode,
+                        oneWayTickets: allDirectionsTickets[index],
+                      ),
+                    );
+                  },
+                );
+              },
+              child: AviaTicketWidget(
+                directFligthsEntity: allDirectionsTickets[index].cheapestTicket,
+                key: Key('$index'),
+                index: index,
+              ),
+            )
+        ],
+      ),
     );
   }
 }
@@ -255,32 +274,5 @@ String getCountry(AirportEnum e) {
       return 'Тбилиси';
     case AirportEnum.batumi:
       return 'Батуми';
-  }
-}
-
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Widget child;
-  final double height;
-
-  const CustomAppBar({
-    super.key,
-    required this.child,
-    this.height = kToolbarHeight,
-  });
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.only(left: 24, right: 24),
-        height: preferredSize.height,
-        color: Theme.of(context).appBarTheme.backgroundColor,
-        alignment: Alignment.center,
-        child: child,
-      ),
-    );
   }
 }

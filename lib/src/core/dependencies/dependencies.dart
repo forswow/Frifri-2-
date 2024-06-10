@@ -33,6 +33,8 @@ import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/se
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../feature/avia_tickets/data/data_sources/database/ticket_record_local_data_sources.dart';
+
 // TODO: Damn, на нужен новый подход для инициализации зависимостей
 // TODO: Damn, на нужен новый подход для инициализации зависимостей
 // TODO: Damn, на нужен новый подход для инициализации зависимостей
@@ -87,6 +89,8 @@ base class Dependencies {
   late final IDestinationCountryRepo destinationCountryRepo;
 
   late final DirectFlightBloc directFlightBloc;
+
+  late final ITicketRecordLocalDataSources iTicketRecordLocalDataSources;
 
   Future<void> initializationDependencies() async {
     await dotenv.load(fileName: '.env');
@@ -169,10 +173,11 @@ base class Dependencies {
       autocompleteDataSource: autocompleteDataSource,
     );
 
-    directFlightBloc = DirectFlightBloc(
-      destinationCountryRepo,
-      cheapestFlightRepo,
-    );
+    iTicketRecordLocalDataSources =
+        TicketRecordLocalDataSources(database: appDatabase);
+
+    directFlightBloc = DirectFlightBloc(destinationCountryRepo,
+        cheapestFlightRepo, iTicketRecordLocalDataSources);
 
     logger.i("Dependencies initialized.");
   }

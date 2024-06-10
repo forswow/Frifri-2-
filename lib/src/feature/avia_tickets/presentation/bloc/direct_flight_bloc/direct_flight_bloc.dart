@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/core/utils/typedefs/sort_typedef.dart';
+import 'package:frifri/src/feature/avia_tickets/data/mappers/ticket_record_mapper.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/ticket_record_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/direct_oneway_tickets_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -11,20 +14,23 @@ import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repository.dart';
 
+import '../../../data/data_sources/database/ticket_record_local_data_sources.dart';
+
 class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
   final IDestinationCountryRepo _destinationCountryRepo;
   final IDirectOnewayTicketsRepo _directOnewayRepo;
 
+  final ITicketRecordLocalDataSources _ticketRecordDataSources;
+
   DirectFlightBloc(
     this._destinationCountryRepo,
     this._directOnewayRepo,
+    this._ticketRecordDataSources,
   ) : super((DirectFlight$Idle())) {
     on<DirectFlight$FetchDestinationAirportsIataCodes>(
-      _fetchDestinationAirportsIataCodes,
-    );
-    on<DirectFlight$FetchTickets>(
-      _fetchTickets,
-    );
+        _fetchDestinationAirportsIataCodes);
+    on<DirectFlight$FetchTickets>(_fetchTickets);
+    on<DirectFlight$OnReorder>(_onReorder);
   }
 
   // Запрашиваем _только_ IATA коды из supabase (коды назначения)
@@ -36,7 +42,17 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
     try {
       logger.i("Fetching airports from Supabase");
       emit(DirectFlight$AirportsFetchingInProgress());
+      final data =
+          await _ticketRecordDataSources.fetchTickets(event.originIataCode);
 
+      final result = data.map((e) => TicketRecordMapper.of(e)).toList();
+      if (data.isNotEmpty) {
+        emit(
+          DirectFlight$AirportsFetchingSuccess(destinationIataCodes: result),
+        );
+
+        return;
+      }
       final airportsIataCodes = await _destinationCountryRepo
           .fetchDestinationAirports(event.originIataCode);
 
@@ -62,6 +78,8 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
       emit(DirectFlight$TicketFetch());
       final List<DirectOnewayTicketsEntity> tickets = [];
 
+      /// FIXME: перенести логику сортировки.
+
       // Тут получаем цены на билеты по готовым IATA кодам
       for (final destination in event.destinationIataCodes) {
         logger.i(
@@ -78,7 +96,7 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
           if (directTickets == null) continue;
           tickets.add(directTickets);
         } catch (e, s) {
-          logger.e(e);
+          logger.e(e, stackTrace: s);
           logger.e(s);
         }
       }
@@ -90,6 +108,19 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
       emit(DirectFlight$Error(message: err.message));
     } on DioException catch (e) {
       emit(DirectFlight$Error(message: e.message!));
+    }
+  }
+
+  FutureOr<void> _onReorder(
+    DirectFlight$OnReorder event,
+    Emitter<DirectFlightState> emit,
+  ) async {
+    try {
+      await _ticketRecordDataSources.deleteTickets(event.country);
+
+      await _ticketRecordDataSources.insertTickets(event.directOneWayTicket);
+    } on Object catch (error, stack) {
+      logger.e('message', error: error, stackTrace: stack);
     }
   }
 }
