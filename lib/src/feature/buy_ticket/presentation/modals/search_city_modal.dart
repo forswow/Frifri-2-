@@ -232,75 +232,71 @@ class SearchFlyModalHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)
-                                  .whereFrom
-                                  .captialize(),
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: mode == SearchCityModalModeEnum.from
-                                    ? Colors.black
-                                    : Colors.grey,
-                              ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context).whereFrom.captialize(),
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: mode == SearchCityModalModeEnum.from
+                                  ? Colors.black
+                                  : Colors.grey,
                             ),
-                            searchModel.departureAt != null
-                                ? Text(
-                                    searchModel.departureAt!.code,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                    ),
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
+                          ),
+                          searchModel.departureAt != null
+                              ? Text(
+                                  searchModel.departureAt!.code,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: SvgPicture.asset(
-                            'assets/icons/searchfly-airplane.svg'),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)
-                                  .whereToFly
-                                  .captialize(),
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: mode == SearchCityModalModeEnum.to
-                                    ? Colors.black
-                                    : Colors.grey,
-                              ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: SvgPicture.asset(
+                          'assets/icons/searchfly-airplane.svg'),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)
+                                .whereToFly
+                                .captialize(),
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: mode == SearchCityModalModeEnum.to
+                                  ? Colors.black
+                                  : Colors.grey,
                             ),
-                            searchModel.arrivalAt != null
-                                ? Text(
-                                    searchModel.arrivalAt!.code,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.blue,
-                                    ),
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
+                          ),
+                          searchModel.arrivalAt != null
+                              ? Text(
+                                  searchModel.arrivalAt!.code,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
