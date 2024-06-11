@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/ticket_record_entity.dart';
 
 import '../../domain/entities/direct_oneway_tickets_entity.dart';

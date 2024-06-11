@@ -1,10 +1,8 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:frifri/src/core/data_base/search_database.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/feature/avia_tickets/data/data_sources/database/ticket_record_local_data_sources.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/ticket_record_entity.dart';
-import 'package:frifri/src/feature/shared/data/dto/autocomplete.dart';
 
 class TicketScreen extends StatefulWidget {
   const TicketScreen({super.key});

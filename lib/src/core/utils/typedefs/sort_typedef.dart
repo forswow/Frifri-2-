@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_country_entity.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/ticket_record_entity.dart';
 
 import '../mappers/destination_mapper.dart';

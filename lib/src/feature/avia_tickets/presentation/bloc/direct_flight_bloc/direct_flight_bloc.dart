@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/core/utils/typedefs/sort_typedef.dart';
 import 'package:frifri/src/feature/avia_tickets/data/mappers/ticket_record_mapper.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
-import 'package:frifri/src/feature/avia_tickets/domain/entities/ticket_record_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/direct_oneway_tickets_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
