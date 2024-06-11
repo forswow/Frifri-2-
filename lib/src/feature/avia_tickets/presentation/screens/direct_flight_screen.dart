@@ -12,8 +12,8 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../more/domain/entities/airport_entity.dart';
-import '../bloc/direct_flight_bloc/direct_flight_bloc.dart';
+import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DirectFlightScreen extends StatefulWidget {

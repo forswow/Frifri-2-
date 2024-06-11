@@ -107,7 +107,7 @@ class AviaTicketWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${formatCurrencyWithSpaces(
+                  '${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
                     directFligthsEntity.price,
                     currency,
                     locale,
