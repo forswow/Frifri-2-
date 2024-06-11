@@ -70,5 +70,9 @@
   "buyATicketFor" : "купить билет за",
   "previouslySearched": "Ранее искали",
   "chooseDepartureDate": "Выберите дату вылета",
-  "thereAreNoDirectFlights": "Прямых вылетов для выбранного рейса не найдено"
+  "thereAreNoDirectFlights": "Прямых вылетов для выбранного рейса не найдено",
+
+  "loadingDirectAirports": "Загружаем аэропорты из базы данных",
+  "gotAirports": "Аэропорты получены",
+  "loadingDirectTickets": "Загружаем билеты по направлениям"
 }

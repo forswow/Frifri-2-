@@ -70,5 +70,9 @@
   "ticketRegistration": "ბილეთების გაყიდვა",
   "previouslySearched": "ადრე მოძებნილი",
   "chooseDepartureDate": "აირჩიეთ გამგზავრების თარიღი",
-  "thereAreNoDirectFlights": "არჩეული ფრენისთვის პირდაპირი გამგზავრება არ მოიძებნა"
+  "thereAreNoDirectFlights": "არჩეული ფრენისთვის პირდაპირი გამგზავრება არ მოიძებნა",
+
+  "loadingDirectAirports": "დანიშნულების აეროპორტების ჩატვირთვა მონაცემთა ბაზიდან",
+  "gotAirports": "აეროპორტები მიიღეს",
+  "loadingDirectTickets": "ავიაბილეთების ჩატვირთვა"
 }

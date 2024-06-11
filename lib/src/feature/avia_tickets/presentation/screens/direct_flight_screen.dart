@@ -98,16 +98,16 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   // В самом начале
                   DirectFlight$Idle() => const Text('idle'),
                   // Тянем из SupaBase IATA коды назначения
-                  DirectFlight$AirportsFetchingInProgress() => const Text(
-                      'Получаем аэропорты вылета из базы данных',
+                  DirectFlight$AirportsFetchingInProgress() => Text(
+                      AppLocalizations.of(context).loadingDirectAirports,
                     ),
                   // Как только стянули, запускаем поиск по этим кодам
-                  DirectFlight$AirportsFetchingSuccess() => const Text(
-                      'Города получены',
+                  DirectFlight$AirportsFetchingSuccess() => Text(
+                      AppLocalizations.of(context).gotAirports,
                     ),
                   // Пока ищем показываем прогресс
-                  DirectFlight$TicketFetch() => const Text(
-                      'Получаем билеты',
+                  DirectFlight$TicketFetch() => Text(
+                      AppLocalizations.of(context).loadingDirectTickets,
                     ),
                   // Получили и коды и билеты, пора показывать
                   DirectFlight$TicketSuccess() => AviaTicketList(

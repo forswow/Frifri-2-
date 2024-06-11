@@ -70,5 +70,9 @@
   "ticketRegistration": "Ticket registration",
   "previouslySearched": "Previously searched",
   "chooseDepartureDate": "Choose departure date",
-  "thereAreNoDirectFlights": "There are no direct flights for the selected route"
+  "thereAreNoDirectFlights": "There are no direct flights for the selected route",
+
+  "loadingDirectAirports": "Loading destination airports from the database",
+  "gotAirports": "Airports received",
+  "loadingDirectTickets": "Loading airline tickets"
 }
