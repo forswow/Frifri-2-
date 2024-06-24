@@ -183,6 +183,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
                         AppLocalizations.of(context).findTickets,
                         style: AppStyles.textStylePoppins.copyWith(
                           color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     );

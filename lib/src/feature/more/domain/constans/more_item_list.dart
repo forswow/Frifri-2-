@@ -19,7 +19,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SettingsModal(),
           );
         },
-        name: AppLocalizations.of(context).settings,
+        name: AppLocalizations.of(context).pushNotification,
         assetPath: 'assets/icons/Settings.svg'),
     MoreItemEntity(
         onPreseed: () {

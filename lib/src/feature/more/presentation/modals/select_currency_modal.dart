@@ -154,6 +154,7 @@ class _SelectCurrencyModalContentState
                 AppLocalizations.of(context).confirm,
                 style: GoogleFonts.inter(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

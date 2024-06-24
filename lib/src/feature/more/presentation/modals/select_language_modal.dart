@@ -129,6 +129,7 @@ class _SelectLanguageModalContentState
                 AppLocalizations.of(context).confirm,
                 style: GoogleFonts.inter(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

@@ -148,6 +148,7 @@ class _SelectAirportModalContentState
                 AppLocalizations.of(context).confirm,
                 style: GoogleFonts.inter(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

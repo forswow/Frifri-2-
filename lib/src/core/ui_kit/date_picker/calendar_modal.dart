@@ -361,7 +361,7 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                       AppLocalizations.of(context).selectDate,
                       style: GoogleFonts.poppins(
                         fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),

@@ -186,6 +186,7 @@ class _PassengersModalContentState extends State<_PassengersModalContent> {
                   AppLocalizations.of(context).confirm,
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

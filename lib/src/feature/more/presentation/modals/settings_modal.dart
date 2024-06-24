@@ -103,6 +103,7 @@ class _SettingsModalContentState extends State<_SettingsModalContent> {
                   AppLocalizations.of(context).confirm,
                   style: GoogleFonts.inter(
                     color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

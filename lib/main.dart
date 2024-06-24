@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/application/i'
-    'nitialization/runner/runner.dart';
+import 'package:frifri/src/feature/application/initialization/runner/runner.dart';
+
+
 void main() {
   runZonedGuarded(
     () async {

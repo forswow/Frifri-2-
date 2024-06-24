@@ -133,8 +133,10 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                 onPressed: _onBookingPressed,
                 child: Text(
                   "${AppLocalizations.of(context).buyATicketFor} $formattedTicketPrice",
-                  style:
-                      AppStyles.textStylePoppins.copyWith(color: Colors.white),
+                  style: AppStyles.textStylePoppins.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             )
