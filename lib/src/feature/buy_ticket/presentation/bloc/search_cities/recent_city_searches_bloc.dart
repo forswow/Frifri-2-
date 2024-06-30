@@ -28,7 +28,7 @@ class RecentSearchesCubit extends Cubit<List<AutocompleteEntity>> {
   Future<void> addRecentSearch(AutocompleteEntity countrySearchEntity) async {
     if (!await recentSearchRepository
         .hasRecentSearch(countrySearchEntity.code)) {
-      recentSearchRepository.addRecentSearch(countrySearchEntity);
+      await recentSearchRepository.addRecentSearch(countrySearchEntity);
       emit(
         List.from(state)..add(countrySearchEntity),
       );

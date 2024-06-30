@@ -52,9 +52,9 @@ class TicketRecordLocalDataSources implements ITicketRecordLocalDataSources {
   @override
   Future<void> deleteTickets(String origin) async {
     try {
-      database.delete(database.ticketDatabase)
-        ..where((tbl) => tbl.origin.equals(origin))
-        ..go();
+      final request = database.delete(database.ticketDatabase)
+        ..where((tbl) => tbl.origin.equals(origin));
+      await request.go();
     } on SqliteException catch (error, stackTrace) {
       Error.throwWithStackTrace(error, stackTrace);
     }

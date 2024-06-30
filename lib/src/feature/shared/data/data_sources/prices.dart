@@ -24,8 +24,8 @@ final class PricesDataSourceImpl implements IPricesDataSource {
       {required PricesForDatesQuery options}) async {
     const String endpoint =
         'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
-    final allOptions = options.toJson();
-    allOptions.removeWhere((key, value) => value == null);
+    final allOptions = options.toJson()
+      ..removeWhere((key, value) => value == null);
     final response =
         await _dioClient.get(endpoint, queryParameters: allOptions);
     final result = response.data;
@@ -37,8 +37,8 @@ final class PricesDataSourceImpl implements IPricesDataSource {
       {required LatestPricesQuery options}) async {
     const String endpoint =
         'http://api.travelpayouts.com/aviasales/v3/get_latest_prices';
-    final allOptions = options.toJson();
-    allOptions.removeWhere((key, value) => value == null);
+    final allOptions = options.toJson()
+      ..removeWhere((key, value) => value == null);
     final response =
         await _dioClient.get(endpoint, queryParameters: allOptions);
     final result = response.data;
@@ -51,9 +51,10 @@ final class PricesDataSourceImpl implements IPricesDataSource {
     required MonthMatrixQuery options,
   }) async {
     try {
-      const String endpoint = 'https://api.travelpayouts.com/v2/prices/month-matrix';
-      final allOptions = options.toJson();
-      allOptions.removeWhere((key, value) => value == null);
+      const String endpoint =
+          'https://api.travelpayouts.com/v2/prices/month-matrix';
+      final allOptions = options.toJson()
+        ..removeWhere((key, value) => value == null);
       final response =
           await _dioClient.get(endpoint, queryParameters: allOptions);
       final result = response.data as Map<String, dynamic>;

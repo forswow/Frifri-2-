@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/more/domain/entities/currency_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';

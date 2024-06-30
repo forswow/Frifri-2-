@@ -207,10 +207,11 @@ void main() async {
     }
 
     for (final element in result.data) {
-      logger.i('----------------');
-      logger.i(element.departDate);
-      logger.i(element.value);
-      logger.i('----------------');
+      logger
+        ..i('----------------')
+        ..i(element.departDate)
+        ..i(element.value)
+        ..i('----------------');
     }
 
     expect(result, isNotNull);

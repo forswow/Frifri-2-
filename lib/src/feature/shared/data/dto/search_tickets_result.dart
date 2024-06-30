@@ -16,14 +16,15 @@ class TicketsSearchResultBySearchId {
             .map((e) => TicketsChunkData.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
-    } catch (e, s) {
-      logger.e(
-        'TicketsSearchResultBySearchId.fromJson error: $e\n$s',
-      );
-      logger.e('--------------------');
-      logger.e(
-        'Response: ${jsonEncode(json)}',
-      );
+    } on Exception catch (e, s) {
+      logger
+        ..e(
+          'TicketsSearchResultBySearchId.fromJson error: $e\n$s',
+        )
+        ..e('--------------------')
+        ..e(
+          'Response: ${jsonEncode(json)}',
+        );
       Error.throwWithStackTrace(e, s);
     }
   }

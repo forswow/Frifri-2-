@@ -10,9 +10,9 @@ base class UrlLauncherHelper {
   static Future<void> launchInWeb(String url) async {
     try {
       if (!await launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView)) {
-        throw Exception('data');
+        throw Exception('data'); // O.o
       }
-    } catch (err, stack) {
+    } on Exception catch (err, stack) {
       debugPrintStack(stackTrace: stack, label: err.toString());
     }
   }

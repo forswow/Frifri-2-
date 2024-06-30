@@ -252,8 +252,9 @@ class _LocationPickerZone extends StatelessWidget {
               },
               onIconPressed: () async {
                 final tmp = searchModel.departureAt;
-                searchModel.departureAt = searchModel.arrivalAt;
-                searchModel.arrivalAt = tmp;
+                searchModel
+                  ..departureAt = searchModel.arrivalAt
+                  ..arrivalAt = tmp;
                 final locale = context.read<AppLanguageSettingsCubit>().state;
                 final currency =
                     context.read<CurrencySettingsCubit>().state.name;

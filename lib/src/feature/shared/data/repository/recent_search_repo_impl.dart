@@ -22,11 +22,11 @@ final class RecentSearchRepo implements IRecentSearchRepo {
 
   @override
   Future<List<RecentSearchData>> fetchRecentSearch() async {
-    return await db.getRecentSearches();
+    return db.getRecentSearches();
   }
 
   @override
   Future<bool> hasRecentSearch(String countryCode) async {
-    return await db.hasRecentSearches(countryCode);
+    return db.hasRecentSearches(countryCode);
   }
 }

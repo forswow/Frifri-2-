@@ -20,7 +20,10 @@ import 'package:intl/intl.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({
-    required this.originAirportName, required this.destinationAirportName, required this.oneWayTickets, super.key,
+    required this.originAirportName,
+    required this.destinationAirportName,
+    required this.oneWayTickets,
+    super.key,
   });
 
   final String originAirportName;
@@ -51,7 +54,9 @@ class FlightPricesModal extends StatelessWidget {
 
 class FlightPricesModalHeader extends StatelessWidget {
   const FlightPricesModalHeader({
-    required this.originAirportName, required this.destinationAirportName, super.key,
+    required this.originAirportName,
+    required this.destinationAirportName,
+    super.key,
   });
 
   final String originAirportName;
@@ -126,7 +131,8 @@ class FlightPricesModalHeader extends StatelessWidget {
 
 class FlightPricesModalContent extends StatefulWidget {
   const FlightPricesModalContent({
-    required this.oneWayTickets, super.key,
+    required this.oneWayTickets,
+    super.key,
   });
 
   final DirectOnewayTicketsEntity oneWayTickets;
@@ -303,12 +309,11 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
     required AirportEntity to,
     DateTime? departureDate,
   }) {
-    final searchModelForm = SearchModel();
-
-    searchModelForm.departureAt = from;
-    searchModelForm.arrivalAt = to;
-    searchModelForm.isDirectFlightOnly = true;
-    searchModelForm.departureDate = departureDate;
+    final searchModelForm = SearchModel()
+      ..departureAt = from
+      ..arrivalAt = to
+      ..isDirectFlightOnly = true
+      ..departureDate = departureDate;
 
     context.pushReplacement(
       NavigationManager.search,

@@ -91,9 +91,10 @@ class DirectFlightBloc extends Bloc<DirectFlightEvent, DirectFlightState> {
           );
           if (directTickets == null) continue;
           tickets.add(directTickets);
-        } catch (e, s) {
-          logger.e(e, stackTrace: s);
-          logger.e(s);
+        } on Exception catch (e, s) {
+          logger
+            ..e(e, stackTrace: s)
+            ..e(s);
         }
       }
 

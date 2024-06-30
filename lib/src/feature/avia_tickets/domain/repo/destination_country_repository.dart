@@ -2,6 +2,6 @@ import 'package:frifri/src/feature/avia_tickets/domain/entities/destination_coun
 
 abstract interface class IDestinationCountryRepo {
   Future<List<DestinationAirportEntity>> fetchDestinationAirports(
-    final String table,
+    String table,
   );
 }

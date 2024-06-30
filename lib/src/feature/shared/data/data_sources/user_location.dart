@@ -14,8 +14,8 @@ class UserLocationDataSourceImpl implements IUserLocationDataSource {
   Future<UserLocation> getUserLocation(
       {required UserLocationQuery options}) async {
     const String endpoint = 'http://www.travelpayouts.com/whereami';
-    final allOptions = options.toJson();
-    allOptions.removeWhere((key, value) => value == null);
+    final allOptions = options.toJson()
+      ..removeWhere((key, value) => value == null);
     final response = await _dio.get(endpoint, queryParameters: allOptions);
     final result = response.data;
     return UserLocation.fromJson(result);

@@ -121,8 +121,9 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
         _searchModel.departureAt =
             AirportEntity(name: value.cityName, code: value.iata);
       }).catchError((err, stack) {
-        logger.e(err.toString());
-        logger.e(stack.toString());
+        logger
+          ..e(err.toString())
+          ..e(stack.toString());
       });
     }
   }
@@ -206,7 +207,8 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
 
 class LocationPickerZone extends StatelessWidget {
   const LocationPickerZone({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -238,7 +240,8 @@ class LocationPickerZone extends StatelessWidget {
 
 class ToLocationPicker extends StatelessWidget {
   const ToLocationPicker({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -319,7 +322,8 @@ class ToLocationPicker extends StatelessWidget {
 
 class FromLocationPicker extends StatelessWidget {
   const FromLocationPicker({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -401,7 +405,8 @@ class FromLocationPicker extends StatelessWidget {
 
 class FlightDatePickerZone extends StatelessWidget {
   const FlightDatePickerZone({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -430,7 +435,8 @@ class FlightDatePickerZone extends StatelessWidget {
 
 class DepartureDatePicker extends StatelessWidget {
   const DepartureDatePicker({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -509,7 +515,8 @@ class DepartureDatePicker extends StatelessWidget {
 
 class ReturnDatePicker extends StatelessWidget {
   const ReturnDatePicker({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -577,7 +584,8 @@ class ReturnDatePicker extends StatelessWidget {
 
 class DirectFlightCheckZone extends StatelessWidget {
   const DirectFlightCheckZone({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -617,7 +625,8 @@ class DirectFlightCheckZone extends StatelessWidget {
 
 class PassengersAndClassPickerZone extends StatelessWidget {
   const PassengersAndClassPickerZone({
-    required this.searchModel, super.key,
+    required this.searchModel,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -763,7 +772,8 @@ class PassengersAndClassPickerZone extends StatelessWidget {
 
 class FormWrapper extends StatelessWidget {
   const FormWrapper({
-    required this.child, super.key,
+    required this.child,
+    super.key,
   });
 
   final Widget child;

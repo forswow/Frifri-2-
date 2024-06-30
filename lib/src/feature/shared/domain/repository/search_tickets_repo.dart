@@ -6,7 +6,7 @@ import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
 abstract interface class ISearchTicketsRepo {
   /// Main request with params.
-  Future<TicketsSearchIdResult> searchTickets(final TicketsSearchQuery options);
+  Future<TicketsSearchIdResult> searchTickets(TicketsSearchQuery options);
 
   /// Get list companies offers.
   Future<List<TicketEntity>> getTicketsBySearchId({

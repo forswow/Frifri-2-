@@ -19,11 +19,11 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => 1;
 
   Future<int> addRecentSearch(RecentSearchData data) async {
-    return await into(recentSearch).insert(data);
+    return into(recentSearch).insert(data);
   }
 
   Future<List<RecentSearchData>> getRecentSearches() async {
-    return await select(recentSearch).get();
+    return select(recentSearch).get();
   }
 
   Future<bool> hasRecentSearches(String countryCode) async {

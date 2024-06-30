@@ -127,10 +127,10 @@ class AviaTicketWidget extends StatelessWidget {
 class DashedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final dashedlinePainter = Paint();
-    dashedlinePainter.strokeWidth = 1.5;
-    dashedlinePainter.style = PaintingStyle.stroke;
-    dashedlinePainter.color = const Color.fromRGBO(165, 168, 176, 1);
+    final dashedlinePainter = Paint()
+      ..strokeWidth = 1.5
+      ..style = PaintingStyle.stroke
+      ..color = const Color.fromRGBO(165, 168, 176, 1);
 
     const double dashWidth = 5;
     const double dashSpace = 5;
@@ -139,8 +139,9 @@ class DashedLinePainter extends CustomPainter {
     final path = Path();
 
     while (startX < endX) {
-      path.moveTo(startX, size.height / 2);
-      path.lineTo(startX + dashWidth, size.height / 2);
+      path
+        ..moveTo(startX, size.height / 2)
+        ..lineTo(startX + dashWidth, size.height / 2);
       startX += dashWidth + dashSpace;
     }
 
@@ -163,9 +164,10 @@ class DashedLinePainter extends CustomPainter {
       ..moveTo(size.width, size.height / 2)
       ..arcTo(secondHalfCircleRect, math.pi / 2, math.pi, false);
 
-    canvas.drawPath(path, dashedlinePainter);
-    canvas.drawPath(firstHalfCirclePath, halfCirclePaint);
-    canvas.drawPath(secondHalfCirclePath, halfCirclePaint);
+    canvas
+      ..drawPath(path, dashedlinePainter)
+      ..drawPath(firstHalfCirclePath, halfCirclePaint)
+      ..drawPath(secondHalfCirclePath, halfCirclePaint);
   }
 
   @override

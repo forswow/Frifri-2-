@@ -78,9 +78,9 @@ class Passengers {
   });
 
   Passengers copyWith({
-    final int? adults,
-    final int? children,
-    final int? infants,
+    int? adults,
+    int? children,
+    int? infants,
   }) {
     return Passengers(
       adults: adults ?? this.adults,
@@ -114,9 +114,9 @@ class Segment {
   final String date;
 
   Segment copyWith({
-    final String? origin,
-    final String? destination,
-    final String? date,
+    String? origin,
+    String? destination,
+    String? date,
   }) {
     return Segment(
       origin: origin ?? this.origin,

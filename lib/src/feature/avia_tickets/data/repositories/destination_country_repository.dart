@@ -11,6 +11,6 @@ final class DestinationCountryRepoImpl implements IDestinationCountryRepo {
   Future<List<DestinationAirportEntity>> fetchDestinationAirports(
     String table,
   ) async {
-    return await destinationCountryDataSources.fetchDestinationAirports(table);
+    return destinationCountryDataSources.fetchDestinationAirports(table);
   }
 }

@@ -128,6 +128,7 @@ void removeDuplicateDatesWithHigherPrices(List<DirectFlightEntity> flights) {
   }
 
   // Очищаем исходный список и добавляем обратно только рейсы с минимальными ценами
-  flights.clear();
-  flights.addAll(minPriceFlights.values);
+  flights
+    ..clear()
+    ..addAll(minPriceFlights.values);
 }

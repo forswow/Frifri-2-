@@ -21,7 +21,9 @@ enum SearchCityModalModeEnum {
 
 class SearchCityModal extends StatelessWidget {
   const SearchCityModal({
-    required this.searchModel, required this.mode, super.key,
+    required this.searchModel,
+    required this.mode,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -135,7 +137,9 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
 
 class SearchCityResult extends StatelessWidget {
   const SearchCityResult({
-    required this.searchResult, required this.title, super.key,
+    required this.searchResult,
+    required this.title,
+    super.key,
   });
 
   final List<AutocompleteEntity> searchResult;
@@ -197,7 +201,9 @@ class SearchCityResult extends StatelessWidget {
 
 class SearchFlyModalHeader extends StatelessWidget {
   const SearchFlyModalHeader({
-    required this.searchModel, required this.mode, super.key,
+    required this.searchModel,
+    required this.mode,
+    super.key,
   });
 
   final SearchModel searchModel;
@@ -208,7 +214,7 @@ class SearchFlyModalHeader extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          padding: EdgeInsets.zero,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Stack(
@@ -243,14 +249,17 @@ class SearchFlyModalHeader extends StatelessWidget {
                                   : Colors.grey,
                             ),
                           ),
-                          if (searchModel.departureAt != null) Text(
-                                  searchModel.departureAt!.code,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.blue,
-                                  ),
-                                ) else const SizedBox(),
+                          if (searchModel.departureAt != null)
+                            Text(
+                              searchModel.departureAt!.code,
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.blue,
+                              ),
+                            )
+                          else
+                            const SizedBox(),
                         ],
                       ),
                     ),
@@ -275,14 +284,17 @@ class SearchFlyModalHeader extends StatelessWidget {
                                   : Colors.grey,
                             ),
                           ),
-                          if (searchModel.arrivalAt != null) Text(
-                                  searchModel.arrivalAt!.code,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.blue,
-                                  ),
-                                ) else const SizedBox(),
+                          if (searchModel.arrivalAt != null)
+                            Text(
+                              searchModel.arrivalAt!.code,
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.blue,
+                              ),
+                            )
+                          else
+                            const SizedBox(),
                         ],
                       ),
                     ),

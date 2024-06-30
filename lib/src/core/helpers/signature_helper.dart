@@ -4,15 +4,17 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 base mixin class Signature {
-  SplayTreeMap<String, dynamic> _convertToSplayTreeMap(Map<String, dynamic> map) {
+  SplayTreeMap<String, dynamic> _convertToSplayTreeMap(
+      Map<String, dynamic> map) {
     final SplayTreeMap<String, dynamic> splayTreeMap = SplayTreeMap();
 
     map.forEach((key, value) {
       if (value is Map) {
-        splayTreeMap[key] = _convertToSplayTreeMap(value as Map<String, dynamic>);
+        splayTreeMap[key] =
+            _convertToSplayTreeMap(value as Map<String, dynamic>);
       } else if (value is List) {
         splayTreeMap[key] = value.map(
-              (e) => _convertToSplayTreeMap(e),
+          (e) => _convertToSplayTreeMap(e),
         );
       } else {
         splayTreeMap[key] = value;
@@ -43,7 +45,8 @@ base mixin class Signature {
   String createSignature(Map<String, dynamic> params, String token) {
     // Step 1: Rearrange parameters alphabetically
     // SplayTreeMap make it automatically sorted
-    final SplayTreeMap<String, dynamic> splayTreeMap = _convertToSplayTreeMap(params);
+    final SplayTreeMap<String, dynamic> splayTreeMap =
+        _convertToSplayTreeMap(params);
 
     // Step 2: Flatten all parameters into a single string
     // separated by columns
@@ -57,7 +60,4 @@ base mixin class Signature {
     final md5Signature = md5.convert(bytes).toString();
     return md5Signature;
   }
-
-
 }
-
