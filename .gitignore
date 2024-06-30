@@ -195,3 +195,4 @@ test/support_assets/*/pubspec.lock
 
 *.env
 *.g.*
+*.freezed.*
