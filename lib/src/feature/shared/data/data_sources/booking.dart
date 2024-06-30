@@ -27,7 +27,7 @@ class BookingDataSourceImpl implements IBookingDataSource {
           'http://api.travelpayouts.com/v1/flight_searches/$searchId/clicks/$termsUrl.json';
 
       final response =
-          await _dio.get(endPoint, queryParameters: {"marker": marker});
+          await _dio.get(endPoint, queryParameters: {'marker': marker});
 
       if (response.statusCode == 200) {
         return BookingTicketEntity.fromJson(response.data);
@@ -35,11 +35,11 @@ class BookingDataSourceImpl implements IBookingDataSource {
 
       throw NetworkException(
         message: '${response.statusCode}',
-        statusCode: "${response.statusCode}",
+        statusCode: '${response.statusCode}',
       );
     } on DioException catch (error, stack) {
-      logger.e("[DIO Error]: ${error.message}");
-      logger.e("[Request Data]: ${error.requestOptions.data}");
+      logger.e('[DIO Error]: ${error.message}');
+      logger.e('[Request Data]: ${error.requestOptions.data}');
       Error.throwWithStackTrace(error, stack);
     } on Object catch (error, stack) {
       Error.throwWithStackTrace(error, stack);

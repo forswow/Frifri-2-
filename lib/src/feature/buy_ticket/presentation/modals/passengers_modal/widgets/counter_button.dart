@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class CounterButton extends StatelessWidget {
   const CounterButton({
-    super.key,
-    required this.child,
-    required this.onPressed,
+    required this.child, required this.onPressed, super.key,
   });
   final Widget child;
   final VoidCallback onPressed;

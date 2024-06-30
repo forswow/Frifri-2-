@@ -16,6 +16,6 @@ class PushNotificationSettingsCubit extends Cubit<bool> {
     super.onChange(change);
 
     prefHelper.setPushEnabled(change.nextState);
-    log("pushEnabled state change: ${change.currentState} => ${change.nextState}");
+    log('pushEnabled state change: ${change.currentState} => ${change.nextState}');
   }
 }

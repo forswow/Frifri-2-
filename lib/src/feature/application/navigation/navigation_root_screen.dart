@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RootScreen extends StatelessWidget {
-  const RootScreen({super.key, required this.navigationShell});
+  const RootScreen({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
 
@@ -138,12 +138,7 @@ class _CustomFloatingActionButton extends StatelessWidget {
 class CustomNavigationBarItem extends StatelessWidget {
   /// {@macro navigation_widget}
   const CustomNavigationBarItem({
-    super.key,
-    required this.title,
-    required this.assetPath,
-    required this.onPressed,
-    required this.activeAssetPath,
-    required this.isActive,
+    required this.title, required this.assetPath, required this.onPressed, required this.activeAssetPath, required this.isActive, super.key,
   });
 
   final String title;

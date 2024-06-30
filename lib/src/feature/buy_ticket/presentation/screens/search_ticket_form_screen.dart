@@ -8,15 +8,15 @@ import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/data/dto/user_location.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/shared/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
-import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -149,7 +149,6 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
               FormWrapper(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     LocationPickerZone(
                       searchModel: _searchModel,
@@ -207,8 +206,7 @@ class _SearchTicketFormScreenState extends State<SearchTicketFormScreen> {
 
 class LocationPickerZone extends StatelessWidget {
   const LocationPickerZone({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -240,8 +238,7 @@ class LocationPickerZone extends StatelessWidget {
 
 class ToLocationPicker extends StatelessWidget {
   const ToLocationPicker({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -267,7 +264,7 @@ class ToLocationPicker extends StatelessWidget {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("Вы выбрали одну и ту же локацию"),
+                  content: Text('Вы выбрали одну и ту же локацию'),
                   duration: Duration(seconds: 2),
                 ),
               );
@@ -292,7 +289,7 @@ class ToLocationPicker extends StatelessWidget {
                 ),
               ),
               Text(
-                " *",
+                ' *',
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.red[900],
                 ),
@@ -304,7 +301,7 @@ class ToLocationPicker extends StatelessWidget {
             listenable: searchModel,
             builder: (context, child) {
               return Text(
-                searchModel.arrivalAt?.name ?? "Выбрать",
+                searchModel.arrivalAt?.name ?? 'Выбрать',
                 style: AppStyles.textStylePoppins.copyWith(
                   fontWeight: FontWeight.w600,
                   color: searchModel.arrivalAt == null
@@ -322,8 +319,7 @@ class ToLocationPicker extends StatelessWidget {
 
 class FromLocationPicker extends StatelessWidget {
   const FromLocationPicker({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -349,7 +345,7 @@ class FromLocationPicker extends StatelessWidget {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("Вы выбрали одну и ту же локацию"),
+                  content: Text('Вы выбрали одну и ту же локацию'),
                   duration: Duration(seconds: 2),
                 ),
               );
@@ -373,7 +369,7 @@ class FromLocationPicker extends StatelessWidget {
                 ),
               ),
               Text(
-                " *",
+                ' *',
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.red[900],
                 ),
@@ -405,8 +401,7 @@ class FromLocationPicker extends StatelessWidget {
 
 class FlightDatePickerZone extends StatelessWidget {
   const FlightDatePickerZone({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -435,8 +430,7 @@ class FlightDatePickerZone extends StatelessWidget {
 
 class DepartureDatePicker extends StatelessWidget {
   const DepartureDatePicker({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -482,7 +476,7 @@ class DepartureDatePicker extends StatelessWidget {
                 ),
               ),
               Text(
-                " *",
+                ' *',
                 style: AppStyles.textStylePoppins.copyWith(
                   color: Colors.red[900],
                 ),
@@ -515,8 +509,7 @@ class DepartureDatePicker extends StatelessWidget {
 
 class ReturnDatePicker extends StatelessWidget {
   const ReturnDatePicker({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -584,8 +577,7 @@ class ReturnDatePicker extends StatelessWidget {
 
 class DirectFlightCheckZone extends StatelessWidget {
   const DirectFlightCheckZone({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -625,8 +617,7 @@ class DirectFlightCheckZone extends StatelessWidget {
 
 class PassengersAndClassPickerZone extends StatelessWidget {
   const PassengersAndClassPickerZone({
-    super.key,
-    required this.searchModel,
+    required this.searchModel, super.key,
   });
 
   final SearchModel searchModel;
@@ -673,7 +664,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          " *",
+                          ' *',
                           style: AppStyles.textStylePoppins.copyWith(
                             color: Colors.red[900],
                             fontSize: 16,
@@ -696,7 +687,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                                 child: Text(
                                   searchModel.passengersAndClass == null
                                       ? AppLocalizations.of(context).choose
-                                      : "${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context).adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context).children}",
+                                      : '${searchModel.passengersAndClass!.passengers.adults} ${AppLocalizations.of(context).adults} ${searchModel.passengersAndClass!.passengers.children} ${AppLocalizations.of(context).children}',
                                   style: AppStyles.textStylePoppins.copyWith(
                                     color:
                                         searchModel.passengersAndClass == null
@@ -726,7 +717,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          " *",
+                          ' *',
                           style: AppStyles.textStylePoppins.copyWith(
                             color: Colors.red[900],
                             fontSize: 16,
@@ -772,8 +763,7 @@ class PassengersAndClassPickerZone extends StatelessWidget {
 
 class FormWrapper extends StatelessWidget {
   const FormWrapper({
-    super.key,
-    required this.child,
+    required this.child, super.key,
   });
 
   final Widget child;

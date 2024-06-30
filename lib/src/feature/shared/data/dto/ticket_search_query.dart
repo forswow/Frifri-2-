@@ -43,13 +43,13 @@ class TicketsSearchQuery {
   }
 
   Map<String, dynamic> toJson() => {
-        "marker": marker,
-        "host": host,
-        "user_ip": userIp,
-        "locale": locale,
-        "trip_class": tripClass,
-        "passengers": passengers!.toJson(),
-        "segments": List<dynamic>.from(segments.map((x) => x.toJson())),
+        'marker': marker,
+        'host': host,
+        'user_ip': userIp,
+        'locale': locale,
+        'trip_class': tripClass,
+        'passengers': passengers!.toJson(),
+        'segments': List<dynamic>.from(segments.map((x) => x.toJson())),
       };
 
   @override
@@ -90,15 +90,15 @@ class Passengers {
   }
 
   factory Passengers.fromJson(Map<String, dynamic> json) => Passengers(
-        adults: json["adults"],
-        children: json["children"],
-        infants: json["infants"],
+        adults: json['adults'],
+        children: json['children'],
+        infants: json['infants'],
       );
 
   Map<String, dynamic> toJson() => {
-        "adults": adults,
-        "children": children,
-        "infants": infants,
+        'adults': adults,
+        'children': children,
+        'infants': infants,
       };
 }
 
@@ -126,14 +126,14 @@ class Segment {
   }
 
   factory Segment.fromJson(Map<String, dynamic> json) => Segment(
-        origin: json["origin"],
-        destination: json["destination"],
-        date: json["date"],
+        origin: json['origin'],
+        destination: json['destination'],
+        date: json['date'],
       );
 
   Map<String, dynamic> toJson() => {
-        "origin": origin,
-        "destination": destination,
-        "date": date,
+        'origin': origin,
+        'destination': destination,
+        'date': date,
       };
 }

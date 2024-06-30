@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frifri/src/feature/more/domain/entities/more_item_entity.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/more/domain/entities/more_item_entity.dart';
 import 'package:frifri/src/feature/more/presentation/modals/confidentiality_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/help_modal.dart';
-import 'package:frifri/src/feature/more/presentation/modals/settings_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_currency_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_language_modal.dart';
+import 'package:frifri/src/feature/more/presentation/modals/settings_modal.dart';
 
 List<MoreItemEntity> moreItemList(BuildContext context) {
   return [

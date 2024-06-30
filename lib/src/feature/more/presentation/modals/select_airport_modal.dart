@@ -16,7 +16,7 @@ const _contentPadding = 22.0;
 const _defaultListDivider = Divider(
   height: 1,
   thickness: 0.5,
-  indent: 44.0,
+  indent: 44,
 );
 
 class SelectAirportModal extends StatelessWidget {

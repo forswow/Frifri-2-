@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-const double _topBorderRadius = 20.0;
+const double _topBorderRadius = 20;
 
 /// Стандартный класс-обёртка для модалок
 /// в него можно передать содержимое модального окна Stateful/less
 class DefaultModalWrapper extends StatelessWidget {
-  const DefaultModalWrapper({super.key, required this.child});
+  const DefaultModalWrapper({required this.child, super.key});
 
   final Widget child;
 

@@ -2,14 +2,12 @@ import 'package:frifri/src/feature/shared/data/data_sources/airline_logo.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/booking.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/search_tickets.dart';
 import 'package:frifri/src/feature/shared/data/dto/search_tickets.dart';
+import 'package:frifri/src/feature/shared/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/booking_ticket_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
-
 import 'package:frifri/src/feature/shared/domain/repository/search_tickets_repo.dart';
 import 'package:intl/intl.dart';
-
-import '../dto/ticket_search_query.dart';
 
 base class SearchTicketRepoImpl implements ISearchTicketsRepo {
   SearchTicketRepoImpl({
@@ -63,14 +61,14 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
         for (final proposal in chunk.proposals) {
           final List<SegmentEntity> ticketSegments = [];
 
-          for (var proposalSegment in proposal.segments.first.flight) {
+          for (final proposalSegment in proposal.segments.first.flight) {
             final segmentDuration = proposalSegment.duration;
 
             ticketSegments.add(
               SegmentEntity(
                 airlineLogo: getAirlineLogoUrl(
                   proposalSegment.operatedByAirlineIataCode,
-                  "200/200",
+                  '200/200',
                 ),
                 airlineName: chunk
                     .airlines[proposalSegment.operatedByAirlineIataCode]!.name,
@@ -115,7 +113,7 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
                 .format(
                   priceInRubles ~/ currencyRate,
                 )
-                .replaceAll(",", " "),
+                .replaceAll(',', ' '),
             price: priceInRubles ~/ currencyRate,
 
             isDirect: proposal.isDirect,

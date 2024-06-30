@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
 import 'package:frifri/src/feature/shared/data/dto/autocomplete.dart';
 
-import '../../domain/entities/country_search_entity.dart';
+import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
 
 abstract interface class IAutocompleteDataSource {
   Future<List<AutocompleteEntity>> getAutocomplete({

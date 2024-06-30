@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/avit_ticket_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/country_text_widget.dart';
@@ -11,15 +12,13 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:frifri/src/core/extensions/formatters.dart';
-
 /// {@template direct_flights_screen}
 /// AviaTicketWidget widget.
 /// {@endtemplate}
 class AviaTicketWidget extends StatelessWidget {
   /// {@macro direct_flights_screen}
   const AviaTicketWidget(
-      {super.key, required this.directFligthsEntity, required this.index});
+      {required this.directFligthsEntity, required this.index, super.key});
 
   static const _priceTextScaleFactor = 6.5;
   static const _aboutPriceTextScaleFactor = 4.40;
@@ -56,8 +55,6 @@ class AviaTicketWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
                         'assets/icons/avia-copy.svg',
@@ -135,10 +132,10 @@ class DashedLinePainter extends CustomPainter {
     dashedlinePainter.style = PaintingStyle.stroke;
     dashedlinePainter.color = const Color.fromRGBO(165, 168, 176, 1);
 
-    double dashWidth = 5;
-    double dashSpace = 5;
+    const double dashWidth = 5;
+    const double dashSpace = 5;
     double startX = 20;
-    double endX = size.width - 20;
+    final double endX = size.width - 20;
     final path = Path();
 
     while (startX < endX) {

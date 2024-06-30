@@ -6,8 +6,7 @@ import 'package:intl/intl.dart';
 
 class SegmentInfoBody extends StatelessWidget {
   const SegmentInfoBody({
-    super.key,
-    required this.segmentEntity,
+    required this.segmentEntity, super.key,
   });
 
   final SegmentEntity segmentEntity;
@@ -50,7 +49,7 @@ class SegmentInfoBody extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  DateFormat("EEE, dd MMM").format(
+                  DateFormat('EEE, dd MMM').format(
                     segmentEntity.departureDate,
                   ),
                   style: AppStyles.textStylePoppins.copyWith(
@@ -73,7 +72,7 @@ class SegmentInfoBody extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  DateFormat("EEE, dd MMM").format(segmentEntity.arrivalDate),
+                  DateFormat('EEE, dd MMM').format(segmentEntity.arrivalDate),
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.black45,
                     fontSize: 12,

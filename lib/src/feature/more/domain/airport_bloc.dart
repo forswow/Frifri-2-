@@ -19,6 +19,6 @@ class AirportSettingsCubit extends Cubit<AirportEnum> {
     super.onChange(change);
 
     prefHelper.setAirport(change.nextState);
-    log("airport state change: ${change.currentState} => ${change.nextState}");
+    log('airport state change: ${change.currentState} => ${change.nextState}');
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_states.dart';
@@ -13,10 +12,11 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/horizo
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_preview_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchTicketsResultScreen extends StatefulWidget {
-  const SearchTicketsResultScreen({super.key, required this.searchModel});
+  const SearchTicketsResultScreen({required this.searchModel, super.key});
 
   final SearchModel searchModel;
 
@@ -56,7 +56,6 @@ class _SearchTicketsResultScreenState extends State<SearchTicketsResultScreen> {
           listenable: _searchModel,
           builder: (context, child) {
             return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const _TicketsSearchResultHeader(),
@@ -99,7 +98,7 @@ class _ResultedTicketsList extends StatelessWidget {
               if (state.tickets.isEmpty) {
                 return Center(
                   child: Text(
-                    "К сожалению билеты по вашему запросу не найдены",
+                    'К сожалению билеты по вашему запросу не найдены',
                     style: AppStyles.textStylePoppins.copyWith(
                       fontSize: 16,
                     ),
@@ -179,7 +178,6 @@ class _ChipsZone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(24, 16, 24, 0),
-      clipBehavior: Clip.none,
       child: SizedBox(
         height: 40,
         child: HorizontalOptionsSlider(
@@ -208,7 +206,7 @@ class _LocationPickerZone extends StatelessWidget {
         child: Column(
           children: <Widget>[
             CitiesInput(
-              cityName: searchModel.departureAt?.name ?? "Укажите город",
+              cityName: searchModel.departureAt?.name ?? 'Укажите город',
               onTitlePressed: () async {
                 final AirportEntity? location = await showModalBottomSheet(
                   context: context,
@@ -229,7 +227,7 @@ class _LocationPickerZone extends StatelessWidget {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text("Вы выбрали одну и ту же локацию"),
+                          content: Text('Вы выбрали одну и ту же локацию'),
                           duration: Duration(seconds: 2),
                         ),
                       );
@@ -253,7 +251,7 @@ class _LocationPickerZone extends StatelessWidget {
                 }
               },
               onIconPressed: () async {
-                var tmp = searchModel.departureAt;
+                final tmp = searchModel.departureAt;
                 searchModel.departureAt = searchModel.arrivalAt;
                 searchModel.arrivalAt = tmp;
                 final locale = context.read<AppLanguageSettingsCubit>().state;
@@ -277,7 +275,7 @@ class _LocationPickerZone extends StatelessWidget {
               endIndent: 20,
             ),
             CitiesInput(
-              cityName: searchModel.arrivalAt?.name ?? "Укажите город",
+              cityName: searchModel.arrivalAt?.name ?? 'Укажите город',
               onTitlePressed: () async {
                 final AirportEntity? location = await showModalBottomSheet(
                   context: context,
@@ -298,7 +296,7 @@ class _LocationPickerZone extends StatelessWidget {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text("Вы выбрали одну и ту же локацию"),
+                          content: Text('Вы выбрали одну и ту же локацию'),
                           duration: Duration(seconds: 2),
                         ),
                       );

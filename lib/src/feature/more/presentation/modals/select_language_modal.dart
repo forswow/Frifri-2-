@@ -69,9 +69,9 @@ class _SelectLanguageModalContentState
             separator: _defaultListDivider,
             children: [
               CustomRadioListTile(
-                value: "ru",
+                value: 'ru',
                 title: const Text(
-                  "Russian",
+                  'Russian',
                 ),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
@@ -82,9 +82,9 @@ class _SelectLanguageModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "en",
+                value: 'en',
                 title: const Text(
-                  "English",
+                  'English',
                 ),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {
@@ -95,9 +95,9 @@ class _SelectLanguageModalContentState
                 },
               ),
               CustomRadioListTile(
-                value: "ka",
+                value: 'ka',
                 title: const Text(
-                  "Georgian",
+                  'Georgian',
                 ),
                 groupValue: selectedLanguage,
                 onChanged: (newValue) {

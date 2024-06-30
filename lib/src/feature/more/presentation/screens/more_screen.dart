@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/more/domain/constans/more_item_list.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// {@template more_screen}
 /// MoreScreen widget.

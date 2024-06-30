@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
-import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/core/utils/datetime_localizations.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
-import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
+import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/core/utils/datetime_localizations.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
   const CalendarModal({
-    super.key,
-    required this.title,
-    required this.initialDate,
-    required this.availableFromDate,
-    required this.isOneWay,
-    required this.originIataCode,
-    required this.destinationIataCode,
-    required this.countOfMonths,
+    required this.title, required this.initialDate, required this.availableFromDate, required this.isOneWay, required this.originIataCode, required this.destinationIataCode, required this.countOfMonths, super.key,
   });
 
   final String title;
@@ -90,7 +83,7 @@ class _CalendarModalState extends State<CalendarModal> {
                   child: Center(
                     child: Text(
                       textAlign: TextAlign.center,
-                      "При поиске произошла ошибка, пожалуйста выберите другую локацию и попробуйте ещё раз",
+                      'При поиске произошла ошибка, пожалуйста выберите другую локацию и попробуйте ещё раз',
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.black,
                         fontSize: 12,
@@ -105,10 +98,9 @@ class _CalendarModalState extends State<CalendarModal> {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Загружаем цены для выбранного направления",
+                          'Загружаем цены для выбранного направления',
                           style: AppStyles.textStylePoppins.copyWith(
                             color: Colors.black,
                             fontSize: 14,
@@ -202,7 +194,7 @@ class _CalendarModalHeaderState extends State<_CalendarModalHeader> {
   void initState() {
     super.initState();
     final locale = context.read<AppLanguageSettingsCubit>().state;
-    weekdays = getLocalizedWeekDays(locale.toString());
+    weekdays = getLocalizedWeekDays(locale);
   }
 
   @override
@@ -312,7 +304,6 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                       selectedDate = newDate;
                     });
                   },
-                  startWeekDay: DateTime.monday,
                   availableFromDate: availableFromDate,
                   calendarData: calendarData,
                 );

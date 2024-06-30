@@ -81,77 +81,77 @@ class TicketsSearchIdResult {
 
   factory TicketsSearchIdResult.fromJson(Map<String, dynamic> json) =>
       TicketsSearchIdResult(
-        searchId: json["search_id"],
+        searchId: json['search_id'],
         segments: List<Segment>.from(
-            json["segments"].map((x) => Segment.fromJson(x))),
-        passengers: Passengers.fromJson(json["passengers"]),
-        currency: json["currency"],
-        locale: json["locale"],
-        cleanMarker: json["clean_marker"],
-        travelpayoutsApiRequest: json["travelpayouts_api_request"],
-        knowEnglish: json["know_english"],
-        currencyRates: Map.from(json["currency_rates"])
+            json['segments'].map((x) => Segment.fromJson(x))),
+        passengers: Passengers.fromJson(json['passengers']),
+        currency: json['currency'],
+        locale: json['locale'],
+        cleanMarker: json['clean_marker'],
+        travelpayoutsApiRequest: json['travelpayouts_api_request'],
+        knowEnglish: json['know_english'],
+        currencyRates: Map.from(json['currency_rates'])
             .map((k, v) => MapEntry<String, double>(k, v?.toDouble())),
-        meta: Meta.fromJson(json["meta"]),
-        tariffMapping: AirlineRules.fromJson(json["tariff_mapping"]),
-        airlineRules: AirlineRules.fromJson(json["airline_rules"]),
-        market: json["market"],
-        marker: json["marker"],
-        openJaw: json["open_jaw"],
-        internal: json["internal"],
-        affiliate: json["affiliate"],
-        tripClass: json["trip_class"],
-        range: json["range"],
-        serverName: json["server_name"],
-        initiatedAt: DateTime.parse(json["initiated_at"]),
-        originCountry: json["origin_country"],
-        destinationCountry: json["destination_country"],
-        metropolyAirports: Map.from(json["metropoly_airports"]).map((k, v) =>
+        meta: Meta.fromJson(json['meta']),
+        tariffMapping: AirlineRules.fromJson(json['tariff_mapping']),
+        airlineRules: AirlineRules.fromJson(json['airline_rules']),
+        market: json['market'],
+        marker: json['marker'],
+        openJaw: json['open_jaw'],
+        internal: json['internal'],
+        affiliate: json['affiliate'],
+        tripClass: json['trip_class'],
+        range: json['range'],
+        serverName: json['server_name'],
+        initiatedAt: DateTime.parse(json['initiated_at']),
+        originCountry: json['origin_country'],
+        destinationCountry: json['destination_country'],
+        metropolyAirports: Map.from(json['metropoly_airports']).map((k, v) =>
             MapEntry<String, MetropolyAirport>(
                 k, MetropolyAirport.fromJson(v))),
-        host: json["host"],
-        startSearchTimestamp: json["start_search_timestamp"]?.toDouble(),
-        searchDepth: json["search_depth"],
-        showAds: json["show_ads"],
-        adsenseQuery: AdsenseQuery.fromJson(json["adsense_query"]),
-        airlineFeatures: AirlineFeatures.fromJson(json["airline_features"]),
-        tags: json["tags"],
+        host: json['host'],
+        startSearchTimestamp: json['start_search_timestamp']?.toDouble(),
+        searchDepth: json['search_depth'],
+        showAds: json['show_ads'],
+        adsenseQuery: AdsenseQuery.fromJson(json['adsense_query']),
+        airlineFeatures: AirlineFeatures.fromJson(json['airline_features']),
+        tags: json['tags'],
       );
 
   Map<String, dynamic> toJson() => {
-        "search_id": searchId,
-        "segments": List<dynamic>.from(segments.map((x) => x.toJson())),
-        "passengers": passengers.toJson(),
-        "currency": currency,
-        "locale": locale,
-        "clean_marker": cleanMarker,
-        "travelpayouts_api_request": travelpayoutsApiRequest,
-        "know_english": knowEnglish,
-        "currency_rates": Map.from(currencyRates)
+        'search_id': searchId,
+        'segments': List<dynamic>.from(segments.map((x) => x.toJson())),
+        'passengers': passengers.toJson(),
+        'currency': currency,
+        'locale': locale,
+        'clean_marker': cleanMarker,
+        'travelpayouts_api_request': travelpayoutsApiRequest,
+        'know_english': knowEnglish,
+        'currency_rates': Map.from(currencyRates)
             .map((k, v) => MapEntry<String, dynamic>(k, v)),
-        "meta": meta.toJson(),
-        "tariff_mapping": tariffMapping.toJson(),
-        "airline_rules": airlineRules.toJson(),
-        "market": market,
-        "marker": marker,
-        "open_jaw": openJaw,
-        "internal": internal,
-        "affiliate": affiliate,
-        "trip_class": tripClass,
-        "range": range,
-        "server_name": serverName,
-        "initiated_at": initiatedAt.toIso8601String(),
-        "origin_country": originCountry,
-        "destination_country": destinationCountry,
-        "metropoly_airports": Map.from(metropolyAirports)
+        'meta': meta.toJson(),
+        'tariff_mapping': tariffMapping.toJson(),
+        'airline_rules': airlineRules.toJson(),
+        'market': market,
+        'marker': marker,
+        'open_jaw': openJaw,
+        'internal': internal,
+        'affiliate': affiliate,
+        'trip_class': tripClass,
+        'range': range,
+        'server_name': serverName,
+        'initiated_at': initiatedAt.toIso8601String(),
+        'origin_country': originCountry,
+        'destination_country': destinationCountry,
+        'metropoly_airports': Map.from(metropolyAirports)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-        "host": host,
-        "start_search_timestamp": startSearchTimestamp,
-        "search_depth": searchDepth,
-        "show_ads": showAds,
-        "adsense_query": adsenseQuery.toJson(),
-        "airline_features": airlineFeatures.toJson(),
-        "tags": tags,
+        'host': host,
+        'start_search_timestamp': startSearchTimestamp,
+        'search_depth': searchDepth,
+        'show_ads': showAds,
+        'adsense_query': adsenseQuery.toJson(),
+        'airline_features': airlineFeatures.toJson(),
+        'tags': tags,
       };
 }
 
@@ -173,21 +173,21 @@ class AdsenseQuery {
   });
 
   factory AdsenseQuery.fromJson(Map<String, dynamic> json) => AdsenseQuery(
-        query: json["query"],
-        adTop: Ad.fromJson(json["ad_top"]),
-        adFooter: Ad.fromJson(json["ad_footer"]),
-        adThird: Ad.fromJson(json["ad_third"]),
-        adTopPageOptions: PageOptions.fromJson(json["ad_top_page_options"]),
-        pageOptions: PageOptions.fromJson(json["page_options"]),
+        query: json['query'],
+        adTop: Ad.fromJson(json['ad_top']),
+        adFooter: Ad.fromJson(json['ad_footer']),
+        adThird: Ad.fromJson(json['ad_third']),
+        adTopPageOptions: PageOptions.fromJson(json['ad_top_page_options']),
+        pageOptions: PageOptions.fromJson(json['page_options']),
       );
 
   Map<String, dynamic> toJson() => {
-        "query": query,
-        "ad_top": adTop.toJson(),
-        "ad_footer": adFooter.toJson(),
-        "ad_third": adThird.toJson(),
-        "ad_top_page_options": adTopPageOptions.toJson(),
-        "page_options": pageOptions.toJson(),
+        'query': query,
+        'ad_top': adTop.toJson(),
+        'ad_footer': adFooter.toJson(),
+        'ad_third': adThird.toJson(),
+        'ad_top_page_options': adTopPageOptions.toJson(),
+        'page_options': pageOptions.toJson(),
       };
 }
 
@@ -223,35 +223,35 @@ class Ad {
   });
 
   factory Ad.fromJson(Map<String, dynamic> json) => Ad(
-        colorBackground: json["colorBackground"],
-        container: json["container"],
-        fontSizeTitle: json["fontSizeTitle"],
-        lines: json["lines"],
-        linkTarget: json["linkTarget"],
-        width: json["width"],
-        number: json["number"],
-        colorDomainLink: json["colorDomainLink"],
-        colorText: json["colorText"],
-        colorTitleLink: json["colorTitleLink"],
-        detailedAttribution: json["detailedAttribution"],
-        longerHeadlines: json["longerHeadlines"],
-        maxTop: json["maxTop"],
+        colorBackground: json['colorBackground'],
+        container: json['container'],
+        fontSizeTitle: json['fontSizeTitle'],
+        lines: json['lines'],
+        linkTarget: json['linkTarget'],
+        width: json['width'],
+        number: json['number'],
+        colorDomainLink: json['colorDomainLink'],
+        colorText: json['colorText'],
+        colorTitleLink: json['colorTitleLink'],
+        detailedAttribution: json['detailedAttribution'],
+        longerHeadlines: json['longerHeadlines'],
+        maxTop: json['maxTop'],
       );
 
   Map<String, dynamic> toJson() => {
-        "colorBackground": colorBackground,
-        "container": container,
-        "fontSizeTitle": fontSizeTitle,
-        "lines": lines,
-        "linkTarget": linkTarget,
-        "width": width,
-        "number": number,
-        "colorDomainLink": colorDomainLink,
-        "colorText": colorText,
-        "colorTitleLink": colorTitleLink,
-        "detailedAttribution": detailedAttribution,
-        "longerHeadlines": longerHeadlines,
-        "maxTop": maxTop,
+        'colorBackground': colorBackground,
+        'container': container,
+        'fontSizeTitle': fontSizeTitle,
+        'lines': lines,
+        'linkTarget': linkTarget,
+        'width': width,
+        'number': number,
+        'colorDomainLink': colorDomainLink,
+        'colorText': colorText,
+        'colorTitleLink': colorTitleLink,
+        'detailedAttribution': detailedAttribution,
+        'longerHeadlines': longerHeadlines,
+        'maxTop': maxTop,
       };
 }
 
@@ -271,19 +271,19 @@ class PageOptions {
   });
 
   factory PageOptions.fromJson(Map<String, dynamic> json) => PageOptions(
-        siteLinks: json["siteLinks"],
-        adPage: json["adPage"],
-        channel: json["channel"],
-        hl: json["hl"],
-        pubId: json["pubID"],
+        siteLinks: json['siteLinks'],
+        adPage: json['adPage'],
+        channel: json['channel'],
+        hl: json['hl'],
+        pubId: json['pubID'],
       );
 
   Map<String, dynamic> toJson() => {
-        "siteLinks": siteLinks,
-        "adPage": adPage,
-        "channel": channel,
-        "hl": hl,
-        "pubID": pubId,
+        'siteLinks': siteLinks,
+        'adPage': adPage,
+        'channel': channel,
+        'hl': hl,
+        'pubID': pubId,
       };
 }
 
@@ -298,13 +298,13 @@ class AirlineFeatures {
 
   factory AirlineFeatures.fromJson(Map<String, dynamic> json) =>
       AirlineFeatures(
-        dd: Dd.fromJson(json["DD"]),
-        su: Su.fromJson(json["SU"]),
+        dd: Dd.fromJson(json['DD']),
+        su: Su.fromJson(json['SU']),
       );
 
   Map<String, dynamic> toJson() => {
-        "DD": dd.toJson(),
-        "SU": su.toJson(),
+        'DD': dd.toJson(),
+        'SU': su.toJson(),
       };
 }
 
@@ -320,15 +320,15 @@ class Dd {
   });
 
   factory Dd.fromJson(Map<String, dynamic> json) => Dd(
-        borts: json["borts"],
-        isFree: json["is_free"],
-        descr: json["descr"],
+        borts: json['borts'],
+        isFree: json['is_free'],
+        descr: json['descr'],
       );
 
   Map<String, dynamic> toJson() => {
-        "borts": borts,
-        "is_free": isFree,
-        "descr": descr,
+        'borts': borts,
+        'is_free': isFree,
+        'descr': descr,
       };
 }
 
@@ -344,15 +344,15 @@ class Su {
   });
 
   factory Su.fromJson(Map<String, dynamic> json) => Su(
-        borts: List<String>.from(json["borts"].map((x) => x)),
-        isFree: json["is_free"],
-        descr: json["descr"],
+        borts: List<String>.from(json['borts'].map((x) => x)),
+        isFree: json['is_free'],
+        descr: json['descr'],
       );
 
   Map<String, dynamic> toJson() => {
-        "borts": List<dynamic>.from(borts.map((x) => x)),
-        "is_free": isFree,
-        "descr": descr,
+        'borts': List<dynamic>.from(borts.map((x) => x)),
+        'is_free': isFree,
+        'descr': descr,
       };
 }
 
@@ -372,11 +372,11 @@ class Meta {
   });
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
-        uuid: json["uuid"],
+        uuid: json['uuid'],
       );
 
   Map<String, dynamic> toJson() => {
-        "uuid": uuid,
+        'uuid': uuid,
       };
 }
 
@@ -393,14 +393,14 @@ class MetropolyAirport {
 
   factory MetropolyAirport.fromJson(Map<String, dynamic> json) =>
       MetropolyAirport(
-        code: json["code"],
-        airports: List<String>.from(json["airports"].map((x) => x)),
-        timezone: json["timezone"],
+        code: json['code'],
+        airports: List<String>.from(json['airports'].map((x) => x)),
+        timezone: json['timezone'],
       );
 
   Map<String, dynamic> toJson() => {
-        "code": code,
-        "airports": List<dynamic>.from(airports.map((x) => x)),
-        "timezone": timezone,
+        'code': code,
+        'airports': List<dynamic>.from(airports.map((x) => x)),
+        'timezone': timezone,
       };
 }

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
+import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
-import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
 class TicketModal extends StatelessWidget {
   const TicketModal({
-    super.key,
-    required this.ticketEntity,
+    required this.ticketEntity, super.key,
   });
 
   final TicketEntity ticketEntity;
@@ -84,7 +83,6 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                   padding: const EdgeInsets.fromLTRB(16, 17, 16, 0),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      width: 1,
                       color: const Color(0xffEDEDEE),
                     ),
                     borderRadius: BorderRadius.circular(12),
@@ -132,7 +130,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
               child: ConfirmationButton(
                 onPressed: _onBookingPressed,
                 child: Text(
-                  "${AppLocalizations.of(context).buyATicketFor} $formattedTicketPrice",
+                  '${AppLocalizations.of(context).buyATicketFor} $formattedTicketPrice',
                   style: AppStyles.textStylePoppins.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -146,7 +144,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
     );
   }
 
-  void _onBookingPressed() async {
+  Future<void> _onBookingPressed() async {
     final bookingUrlResult = await Dependencies.of(context)
         .bookingDataSources
         .getABookingLink(
@@ -178,7 +176,6 @@ class _TicketModalHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 FittedBox(
-                  fit: BoxFit.contain,
                   child: Text(
                     ticketEntity.originAirport.code,
                     style: AppStyles.textStylePoppins
@@ -186,7 +183,6 @@ class _TicketModalHeader extends StatelessWidget {
                   ),
                 ),
                 FittedBox(
-                  fit: BoxFit.contain,
                   child: Text(
                     ticketEntity.originAirport.name,
                     textAlign: TextAlign.right,

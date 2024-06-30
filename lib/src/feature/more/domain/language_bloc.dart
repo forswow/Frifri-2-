@@ -19,6 +19,6 @@ class AppLanguageSettingsCubit extends Cubit<String> {
     super.onChange(change);
 
     prefHelper.setLanguageCode(change.nextState);
-    log("languageCode state change: ${change.currentState} => ${change.nextState}");
+    log('languageCode state change: ${change.currentState} => ${change.nextState}');
   }
 }

@@ -4,10 +4,7 @@ import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 
 class CitiesInput extends StatelessWidget {
   const CitiesInput({
-    super.key,
-    required this.iconPath,
-    required this.cityName,
-    required this.onIconPressed,
+    required this.iconPath, required this.cityName, required this.onIconPressed, super.key,
     this.onTitlePressed,
   });
 

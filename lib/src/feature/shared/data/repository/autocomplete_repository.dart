@@ -12,11 +12,11 @@ class AutocompleteRepositoryImpl implements IAutocompleteRepository {
   @override
   Future<List<AutocompleteEntity>> getAutocomplete(
       {required AutocompleteInputDTO autocompleteInputDTO}) async {
-    logger.e("--------------");
-    logger.e("--------------");
-    logger.e("--------------");
-    logger.e("--------------");
-    logger.e("locale: ${autocompleteInputDTO.locale}");
+    logger.e('--------------');
+    logger.e('--------------');
+    logger.e('--------------');
+    logger.e('--------------');
+    logger.e('locale: ${autocompleteInputDTO.locale}');
     logger.e('term: ${autocompleteInputDTO.term}');
 
     return await dataSource.getAutocomplete(

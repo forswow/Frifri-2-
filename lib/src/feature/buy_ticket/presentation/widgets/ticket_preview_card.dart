@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/ticket_modal.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
 class TicketPreviewCard extends StatefulWidget {
   const TicketPreviewCard({
-    super.key,
-    required this.ticketEntity,
-    required this.isCheapestTicket,
+    required this.ticketEntity, required this.isCheapestTicket, super.key,
   });
 
   final TicketEntity ticketEntity;
@@ -80,7 +78,6 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                   color: Color.fromRGBO(18, 18, 18, 0.08),
                   offset: Offset(0, 16),
                   blurRadius: 32,
-                  spreadRadius: 0,
                 ),
               ],
             ),
@@ -105,7 +102,6 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                       2: FixedColumnWidth(48),
                       3: FixedColumnWidth(24),
                     },
-                    defaultVerticalAlignment: TableCellVerticalAlignment.top,
                     children: [
                       TableRow(
                         children: [
@@ -115,7 +111,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                                 ticketEntity.originAirport.code,
                           ),
                           Text(
-                            "–",
+                            '–',
                             textAlign: TextAlign.center,
                             style: AppStyles.textStylePoppins.copyWith(
                               color: Colors.black,
@@ -147,8 +143,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
             ),
           ),
         ),
-        isCheapestTicket
-            ? Positioned(
+        if (isCheapestTicket) Positioned(
                 left: 16,
                 top: -10,
                 child: Container(
@@ -169,8 +164,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                     ),
                   ),
                 ),
-              )
-            : Container(),
+              ) else Container(),
       ],
     );
   }
@@ -178,9 +172,7 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
 class TicketDurationAndTransfersSection extends StatelessWidget {
   const TicketDurationAndTransfersSection({
-    super.key,
-    required this.time,
-    required this.countOfTransfers,
+    required this.time, required this.countOfTransfers, super.key,
   });
 
   final String time;
@@ -205,7 +197,7 @@ class TicketDurationAndTransfersSection extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            "${AppLocalizations.of(context).countOfLayovers}: ${countOfTransfers - 1}",
+            '${AppLocalizations.of(context).countOfLayovers}: ${countOfTransfers - 1}',
             style: AppStyles.textStylePoppins.copyWith(
               color: Colors.grey,
               fontSize: 12,
@@ -219,9 +211,7 @@ class TicketDurationAndTransfersSection extends StatelessWidget {
 
 class TicketArrivalTimeAndPlace extends StatelessWidget {
   const TicketArrivalTimeAndPlace({
-    super.key,
-    required this.arrivalTime,
-    required this.arrivalAtIataCode,
+    required this.arrivalTime, required this.arrivalAtIataCode, super.key,
   });
 
   final String arrivalTime;
@@ -254,9 +244,7 @@ class TicketArrivalTimeAndPlace extends StatelessWidget {
 
 class TicketDepartureTimeAndPlace extends StatelessWidget {
   const TicketDepartureTimeAndPlace({
-    super.key,
-    required this.departureTime,
-    required this.departureAtIataCode,
+    required this.departureTime, required this.departureAtIataCode, super.key,
   });
 
   final String departureTime;
@@ -289,10 +277,7 @@ class TicketDepartureTimeAndPlace extends StatelessWidget {
 
 class TicketHeader extends StatelessWidget {
   const TicketHeader({
-    super.key,
-    required this.iconPath,
-    required this.companyName,
-    required this.formattedPrice,
+    required this.iconPath, required this.companyName, required this.formattedPrice, super.key,
   });
 
   final String iconPath;
@@ -310,7 +295,6 @@ class TicketHeader extends StatelessWidget {
               width: 35,
               height: 35,
               child: FittedBox(
-                alignment: Alignment.center,
                 fit: BoxFit.fill,
                 child: Image.network(
                   iconPath,

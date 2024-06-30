@@ -5,13 +5,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/extensions/string_extensions.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_airport.component.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum SearchCityModalModeEnum {
@@ -21,9 +21,7 @@ enum SearchCityModalModeEnum {
 
 class SearchCityModal extends StatelessWidget {
   const SearchCityModal({
-    super.key,
-    required this.searchModel,
-    required this.mode,
+    required this.searchModel, required this.mode, super.key,
   });
 
   final SearchModel searchModel;
@@ -90,7 +88,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
           ),
           Expanded(
             child: BlocBuilder<SearchCityBloc, SearchCityState>(
-              builder: (BuildContext context, state) {
+              builder: (context, state) {
                 switch (state) {
                   case Idle():
                     return BlocBuilder<RecentSearchesCubit,
@@ -108,7 +106,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                     );
                   case SearchCompleted():
                     return SearchCityResult(
-                      title: "Результаты поиска",
+                      title: 'Результаты поиска',
                       searchResult: state.countrySearchList,
                     );
                   case SearchFailure():
@@ -137,9 +135,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
 
 class SearchCityResult extends StatelessWidget {
   const SearchCityResult({
-    super.key,
-    required this.searchResult,
-    required this.title,
+    required this.searchResult, required this.title, super.key,
   });
 
   final List<AutocompleteEntity> searchResult;
@@ -201,9 +197,7 @@ class SearchCityResult extends StatelessWidget {
 
 class SearchFlyModalHeader extends StatelessWidget {
   const SearchFlyModalHeader({
-    super.key,
-    required this.searchModel,
-    required this.mode,
+    required this.searchModel, required this.mode, super.key,
   });
 
   final SearchModel searchModel;
@@ -216,7 +210,7 @@ class SearchFlyModalHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20),
             child: Stack(
               children: [
                 Align(
@@ -226,7 +220,7 @@ class SearchFlyModalHeader extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     child: SvgPicture.asset(
-                      "assets/icons/close.svg",
+                      'assets/icons/close.svg',
                       height: 21,
                       alignment: Alignment.centerRight,
                     ),
@@ -249,21 +243,19 @@ class SearchFlyModalHeader extends StatelessWidget {
                                   : Colors.grey,
                             ),
                           ),
-                          searchModel.departureAt != null
-                              ? Text(
+                          if (searchModel.departureAt != null) Text(
                                   searchModel.departureAt!.code,
                                   style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.blue,
                                   ),
-                                )
-                              : const SizedBox(),
+                                ) else const SizedBox(),
                         ],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SvgPicture.asset(
                           'assets/icons/searchfly-airplane.svg'),
                     ),
@@ -283,16 +275,14 @@ class SearchFlyModalHeader extends StatelessWidget {
                                   : Colors.grey,
                             ),
                           ),
-                          searchModel.arrivalAt != null
-                              ? Text(
+                          if (searchModel.arrivalAt != null) Text(
                                   searchModel.arrivalAt!.code,
                                   style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.blue,
                                   ),
-                                )
-                              : const SizedBox(),
+                                ) else const SizedBox(),
                         ],
                       ),
                     ),

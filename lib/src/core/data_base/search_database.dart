@@ -1,13 +1,13 @@
-import 'package:drift/drift.dart';
-
 import 'dart:io';
+
+import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:frifri/src/core/data_base/tables/recent_search.dart';
 import 'package:frifri/src/core/data_base/tables/ticket_database.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
-import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
+import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'search_database.g.dart';
 

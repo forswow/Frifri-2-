@@ -4,10 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AirportComponentCard extends StatelessWidget {
   const AirportComponentCard(
-      {super.key,
-      required this.name,
-      required this.shortName,
-      required this.callback});
+      {required this.name, required this.shortName, required this.callback, super.key});
   final String name;
   final String shortName;
   final VoidCallback callback;
@@ -18,7 +15,6 @@ class AirportComponentCard extends StatelessWidget {
       onTap: callback,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

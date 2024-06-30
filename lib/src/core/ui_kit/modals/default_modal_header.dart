@@ -19,7 +19,7 @@ class DefaultModalHeader extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               child: SvgPicture.asset(
-                "assets/icons/close.svg",
+                'assets/icons/close.svg',
                 height: 21,
                 alignment: Alignment.centerRight,
               ),

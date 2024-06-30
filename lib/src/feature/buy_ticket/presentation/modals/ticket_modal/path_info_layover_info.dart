@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// Заменить
 class SegmentLayoverInfo extends StatelessWidget {
   const SegmentLayoverInfo({
-    super.key,
-    required this.firstSegmentArrivalTimestamp,
-    required this.secondSegmentDepartureTimestamp,
-    required this.cityName,
+    required this.firstSegmentArrivalTimestamp, required this.secondSegmentDepartureTimestamp, required this.cityName, super.key,
   });
 
   //      __ duration __
@@ -34,7 +31,6 @@ class SegmentLayoverInfo extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Flexible(
             flex: 10,
@@ -52,7 +48,7 @@ class SegmentLayoverInfo extends StatelessWidget {
             flex: 2,
             child: SvgPicture.asset(
               height: 34,
-              "assets/icons/walking.svg",
+              'assets/icons/walking.svg',
             ),
           ),
           Flexible(
@@ -80,17 +76,17 @@ class SegmentLayoverInfo extends StatelessWidget {
       int secondSegmentArrivalTimestamp, BuildContext context) {
     final word = AppLocalizations.of(context);
 
-    DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(
+    final DateTime dateTime1 = DateTime.fromMillisecondsSinceEpoch(
         firstSegmentDepartureTimestamp * 1000);
-    DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(
+    final DateTime dateTime2 = DateTime.fromMillisecondsSinceEpoch(
         secondSegmentArrivalTimestamp * 1000);
 
-    Duration difference = dateTime2.difference(dateTime1);
+    final Duration difference = dateTime2.difference(dateTime1);
 
-    int hours = difference.inHours;
-    int minutes = difference.inMinutes.remainder(60);
+    final int hours = difference.inHours;
+    final int minutes = difference.inMinutes.remainder(60);
 
-    String formattedDifference =
+    final String formattedDifference =
         '$hours${word.hoursSymbol}  $minutes${word.minutesSymbol}';
 
     return formattedDifference;

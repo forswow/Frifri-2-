@@ -1,9 +1,13 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/theme/colors.dart';
+import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
+import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
+import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
@@ -11,21 +15,12 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
-import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
-import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:intl/intl.dart';
 
 class FlightPricesModal extends StatelessWidget {
   const FlightPricesModal({
-    super.key,
-    required this.originAirportName,
-    required this.destinationAirportName,
-    required this.oneWayTickets,
+    required this.originAirportName, required this.destinationAirportName, required this.oneWayTickets, super.key,
   });
 
   final String originAirportName;
@@ -56,9 +51,7 @@ class FlightPricesModal extends StatelessWidget {
 
 class FlightPricesModalHeader extends StatelessWidget {
   const FlightPricesModalHeader({
-    super.key,
-    required this.originAirportName,
-    required this.destinationAirportName,
+    required this.originAirportName, required this.destinationAirportName, super.key,
   });
 
   final String originAirportName;
@@ -77,7 +70,6 @@ class FlightPricesModalHeader extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 width:
@@ -97,8 +89,7 @@ class FlightPricesModalHeader extends StatelessWidget {
                   horizontal: 10,
                 ),
                 child: SvgPicture.asset(
-                  "assets/icons/searchfly-airplane.svg",
-                  fit: BoxFit.contain,
+                  'assets/icons/searchfly-airplane.svg',
                   height: 25,
                   width: 25,
                 ),
@@ -124,7 +115,7 @@ class FlightPricesModalHeader extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: SvgPicture.asset("assets/icons/close.svg"),
+              child: SvgPicture.asset('assets/icons/close.svg'),
             ),
           ),
         ],
@@ -135,8 +126,7 @@ class FlightPricesModalHeader extends StatelessWidget {
 
 class FlightPricesModalContent extends StatefulWidget {
   const FlightPricesModalContent({
-    super.key,
-    required this.oneWayTickets,
+    required this.oneWayTickets, super.key,
   });
 
   final DirectOnewayTicketsEntity oneWayTickets;
@@ -222,9 +212,8 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                           ),
                           const Spacer(),
                           FittedBox(
-                            fit: BoxFit.contain,
                             child: Text(
-                              "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(ticket.price, currency, locale)}",
+                              '${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(ticket.price, currency, locale)}',
                               style: AppStyles.textStylePoppins.copyWith(
                                 color: kPriceColor,
                                 fontSize: 16,
@@ -256,7 +245,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset("assets/icons/prices_calendar.svg"),
+                      SvgPicture.asset('assets/icons/prices_calendar.svg'),
                       Text(
                         AppLocalizations.of(context).goToPriceCalendar,
                         style: const TextStyle(
@@ -271,11 +260,11 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
                   height: 48,
                   child: ConfirmationButton(
                     child: Text(
-                      "${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
+                      '${AppLocalizations.of(context).from} ${formatCurrencyWithSpaces(
                         oneWayDirectTickets.cheapestTicket.price,
                         currency,
                         locale,
-                      )}",
+                      )}',
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -330,7 +319,7 @@ class _FlightPricesModalContentState extends State<FlightPricesModalContent> {
 }
 
 class TimeWidget extends StatelessWidget {
-  const TimeWidget({super.key, required this.date, required this.time});
+  const TimeWidget({required this.date, required this.time, super.key});
 
   final String date;
   final String time;

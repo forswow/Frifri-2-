@@ -5,12 +5,20 @@ import 'package:frifri/src/core/data_base/search_database.dart';
 import 'package:frifri/src/core/helpers/global_pref_helper.dart';
 import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/avia_tickets/data/data_sources/database/ticket_record_local_data_sources.dart';
 import 'package:frifri/src/feature/avia_tickets/data/data_sources/destination_country_data_sources.dart';
 import 'package:frifri/src/feature/avia_tickets/data/repositories/destination_country_repository.dart';
 import 'package:frifri/src/feature/avia_tickets/data/repositories/direct_oneway_tickets_repository.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/destination_country_repository.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/repo/direct_oneway_tickets_repository.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
+import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
+import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/language_bloc.dart';
+import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/autocomplete.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/booking.dart';
 import 'package:frifri/src/feature/shared/data/data_sources/prices.dart';
@@ -18,22 +26,13 @@ import 'package:frifri/src/feature/shared/data/data_sources/search_tickets.dart'
 import 'package:frifri/src/feature/shared/data/data_sources/user_location.dart';
 import 'package:frifri/src/feature/shared/data/repository/autocomplete_repository.dart';
 import 'package:frifri/src/feature/shared/data/repository/calendar_prices_repository.dart';
+import 'package:frifri/src/feature/shared/data/repository/recent_search_repo_impl.dart';
 import 'package:frifri/src/feature/shared/data/repository/search_ticket_repository_impl.dart';
 import 'package:frifri/src/feature/shared/domain/repository/autocomplete_repository.dart';
 import 'package:frifri/src/feature/shared/domain/repository/calendar_prices_repository.dart';
 import 'package:frifri/src/feature/shared/domain/repository/recent_search_repo.dart';
 import 'package:frifri/src/feature/shared/domain/repository/search_tickets_repo.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
-import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
-import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
-import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
-import 'package:frifri/src/feature/shared/data/repository/recent_search_repo_impl.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../feature/avia_tickets/data/data_sources/database/ticket_record_local_data_sources.dart';
 
 // TODO: Damn, на нужен новый подход для инициализации зависимостей
 // TODO: Damn, на нужен новый подход для инициализации зависимостей
@@ -93,11 +92,11 @@ base class Dependencies {
   late final ITicketRecordLocalDataSources iTicketRecordLocalDataSources;
 
   Future<void> initializationDependencies() async {
-    await dotenv.load(fileName: '.env');
+    await dotenv.load();
     final String baseUrl = dotenv.get('API_BASE_URL');
     final String apiKey = dotenv.get('API_KEY');
 
-    logger.i("Initializing dependencies...");
+    logger.i('Initializing dependencies...');
 
     // Поднимаем базу данных
     appDatabase = AppDatabase();
@@ -179,7 +178,7 @@ base class Dependencies {
     directFlightBloc = DirectFlightBloc(destinationCountryRepo,
         cheapestFlightRepo, iTicketRecordLocalDataSources);
 
-    logger.i("Dependencies initialized.");
+    logger.i('Dependencies initialized.');
   }
 }
 

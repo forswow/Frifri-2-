@@ -1,8 +1,7 @@
 import 'package:logger/logger.dart';
 
-var logger = Logger(
+Logger logger = Logger(
   printer: SimplePrinter(
-    colors: true,
-    printTime: false,
+    
   ),
 );

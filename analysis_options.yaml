@@ -44,7 +44,6 @@ linter:
     always_put_required_named_parameters_first: true
     always_specify_types: false
     annotate_overrides: true
-    avoid_annotating_with_dynamic: true
     avoid_bool_literals_in_conditional_expressions: true
     avoid_catches_without_on_clauses: true
     avoid_catching_errors: true
@@ -72,7 +71,6 @@ linter:
     avoid_single_cascade_in_expression_statements: true
     avoid_types_on_closure_parameters: true
     avoid_unnecessary_containers: true
-    avoid_unused_constructor_parameters: true
     avoid_void_async: true
     await_only_futures: true
     camel_case_extensions: true
@@ -183,7 +181,6 @@ linter:
     unnecessary_constructor_name: true
     unnecessary_final: false
     unnecessary_getters_setters: true
-    unnecessary_lambdas: true
     unnecessary_library_directive: true
     unnecessary_new: true
     unnecessary_null_aware_assignments: true

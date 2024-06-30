@@ -22,8 +22,8 @@ final class PricesDataSourceImpl implements IPricesDataSource {
   @override
   Future<PricesForDates> getPricesForDates(
       {required PricesForDatesQuery options}) async {
-    String endpoint =
-        "https://api.travelpayouts.com/aviasales/v3/prices_for_dates";
+    const String endpoint =
+        'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
     final allOptions = options.toJson();
     allOptions.removeWhere((key, value) => value == null);
     final response =
@@ -35,8 +35,8 @@ final class PricesDataSourceImpl implements IPricesDataSource {
   @override
   Future<LatestPrices> getLatestPrices(
       {required LatestPricesQuery options}) async {
-    String endpoint =
-        "http://api.travelpayouts.com/aviasales/v3/get_latest_prices";
+    const String endpoint =
+        'http://api.travelpayouts.com/aviasales/v3/get_latest_prices';
     final allOptions = options.toJson();
     allOptions.removeWhere((key, value) => value == null);
     final response =
@@ -51,14 +51,14 @@ final class PricesDataSourceImpl implements IPricesDataSource {
     required MonthMatrixQuery options,
   }) async {
     try {
-      String endpoint = "https://api.travelpayouts.com/v2/prices/month-matrix";
+      const String endpoint = 'https://api.travelpayouts.com/v2/prices/month-matrix';
       final allOptions = options.toJson();
       allOptions.removeWhere((key, value) => value == null);
       final response =
           await _dioClient.get(endpoint, queryParameters: allOptions);
       final result = response.data as Map<String, dynamic>;
 
-      MonthMatrix monthMatrix = MonthMatrix.fromJson(result);
+      final MonthMatrix monthMatrix = MonthMatrix.fromJson(result);
 
       return monthMatrix;
     } on DioException catch (e, s) {

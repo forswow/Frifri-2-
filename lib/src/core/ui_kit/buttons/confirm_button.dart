@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 
 class ConfirmationButton extends StatelessWidget {
-  const ConfirmationButton({this.onPressed, required this.child, super.key});
+  const ConfirmationButton({required this.child, this.onPressed, super.key});
 
   final Function()? onPressed;
   final Widget child;

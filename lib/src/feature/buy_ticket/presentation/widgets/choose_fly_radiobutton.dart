@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RadioButton extends StatefulWidget {
-  const RadioButton({super.key, required this.isActive});
+  const RadioButton({required this.isActive, super.key});
   final bool isActive;
 
   @override

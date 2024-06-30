@@ -4,12 +4,12 @@ import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/components/counter.dart';
+import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
+import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
 import 'package:frifri/src/feature/shared/domain/entities/passengers.dart';
 import 'package:frifri/src/feature/shared/domain/entities/passengers_and_class.dart';
 import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
-import 'package:frifri/src/feature/more/presentation/widgets/custom_radio_list.dart';
-import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/components/counter.dart';
 
 const _checkboxGradientColor = LinearGradient(
   begin: Alignment.topLeft,

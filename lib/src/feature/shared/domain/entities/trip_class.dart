@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum TripClass {
   economy,
@@ -19,9 +19,9 @@ String tripClassToString(TripClass tripClass, {required BuildContext context}) {
 
 String tripClassToDataString(TripClass tripClass) {
   return switch (tripClass) {
-    TripClass.economy => "Y",
-    TripClass.comfort => "Y",
-    TripClass.first => "C",
-    TripClass.business => "C"
+    TripClass.economy => 'Y',
+    TripClass.comfort => 'Y',
+    TripClass.first => 'C',
+    TripClass.business => 'C'
   };
 }

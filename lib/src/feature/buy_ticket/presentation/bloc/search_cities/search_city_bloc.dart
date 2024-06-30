@@ -6,10 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/shared/domain/dto/input_dto.dart';
+import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
+import 'package:frifri/src/feature/shared/domain/repository/autocomplete_repository.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../../../shared/domain/entities/country_search_entity.dart';
-import '../../../../shared/domain/repository/autocomplete_repository.dart';
 
 class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
   final IAutocompleteRepository autocompleteRepo;

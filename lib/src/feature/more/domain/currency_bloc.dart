@@ -19,6 +19,6 @@ class CurrencySettingsCubit extends Cubit<CurrencyEnum> {
     super.onChange(change);
 
     prefHelper.setCurrency(change.nextState);
-    log("Currency state change: ${change.currentState} => ${change.nextState}");
+    log('Currency state change: ${change.currentState} => ${change.nextState}');
   }
 }

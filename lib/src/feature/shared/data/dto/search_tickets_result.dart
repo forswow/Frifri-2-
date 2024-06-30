@@ -18,11 +18,11 @@ class TicketsSearchResultBySearchId {
       );
     } catch (e, s) {
       logger.e(
-        "TicketsSearchResultBySearchId.fromJson error: $e\n$s",
+        'TicketsSearchResultBySearchId.fromJson error: $e\n$s',
       );
-      logger.e("--------------------");
+      logger.e('--------------------');
       logger.e(
-        "Response: ${jsonEncode(json)}",
+        'Response: ${jsonEncode(json)}',
       );
       Error.throwWithStackTrace(e, s);
     }
@@ -299,35 +299,35 @@ class Flight {
 
   factory Flight.fromJson(Map<String, dynamic> json) {
     return Flight(
-      aircraftName: json["aircraft"],
-      arrivalAt: json["arrival"],
-      arrivalDate: json["arrival_date"],
-      arrivalTime: json["arrival_time"],
-      departureAt: json["departure"],
-      departureDate: json["departure_date"],
-      departureTime: json["departure_time"],
-      duration: json["duration"],
-      delay: json["delay"],
-      tripClass: json["trip_class"],
-      operatedByAirlineIataCode: json["operated_by"],
-      departureTimestamp: json["departure_timestamp"],
-      arrivalTimestamp: json["arrival_timestamp"],
+      aircraftName: json['aircraft'],
+      arrivalAt: json['arrival'],
+      arrivalDate: json['arrival_date'],
+      arrivalTime: json['arrival_time'],
+      departureAt: json['departure'],
+      departureDate: json['departure_date'],
+      departureTime: json['departure_time'],
+      duration: json['duration'],
+      delay: json['delay'],
+      tripClass: json['trip_class'],
+      operatedByAirlineIataCode: json['operated_by'],
+      departureTimestamp: json['departure_timestamp'],
+      arrivalTimestamp: json['arrival_timestamp'],
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "aircraft": aircraftName,
-        "arrival": arrivalAt,
-        "arrival_date": arrivalDate,
-        "arrival_time": arrivalTime,
-        "departure": departureAt,
-        "departure_date": departureDate,
-        "departure_time": departureTime,
-        "duration": duration,
-        "delay": delay,
-        "trip_class": tripClass,
-        "operated_by": operatedByAirlineIataCode,
-        "departure_timestamp": departureTimestamp,
-        "arrival_timestamp": arrivalTimestamp,
+        'aircraft': aircraftName,
+        'arrival': arrivalAt,
+        'arrival_date': arrivalDate,
+        'arrival_time': arrivalTime,
+        'departure': departureAt,
+        'departure_date': departureDate,
+        'departure_time': departureTime,
+        'duration': duration,
+        'delay': delay,
+        'trip_class': tripClass,
+        'operated_by': operatedByAirlineIataCode,
+        'departure_timestamp': departureTimestamp,
+        'arrival_timestamp': arrivalTimestamp,
       };
 }

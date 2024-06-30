@@ -27,15 +27,15 @@ class AutocompleteQuery {
 
   factory AutocompleteQuery.fromJson(Map<String, dynamic> json) =>
       AutocompleteQuery(
-        locale: json["locale"],
-        types: List<String>.from(json["types"].map((x) => x)),
-        term: json["term"],
+        locale: json['locale'],
+        types: List<String>.from(json['types'].map((x) => x)),
+        term: json['term'],
       );
 
   Map<String, dynamic> toJson() => {
-        "locale": locale,
-        "types": List<dynamic>.from(types.map((x) => x)),
-        "term": term,
+        'locale': locale,
+        'types': List<dynamic>.from(types.map((x) => x)),
+        'term': term,
       };
 }
 
@@ -85,43 +85,43 @@ class AutocompleteResult {
 
   factory AutocompleteResult.fromJson(Map<String, dynamic> json) =>
       AutocompleteResult(
-        id: json["id"],
-        type: json["type"],
-        code: json["code"],
-        name: json["name"],
-        countryCode: json["country_code"],
-        countryName: json["country_name"],
-        stateCode: json["state_code"],
-        coordinates: Coordinates.fromJson(json["coordinates"]),
-        indexStrings: List<dynamic>.from(json["index_strings"].map((x) => x)),
-        weight: json["weight"],
-        cases: json["cases"] == null ? null : Cases.fromJson(json["cases"]),
-        countryCases: Cases.fromJson(json["country_cases"]),
-        mainAirportName: json["main_airport_name"],
-        cityCode: json["city_code"],
-        cityName: json["city_name"],
-        cityCases: json["city_cases"] == null
+        id: json['id'],
+        type: json['type'],
+        code: json['code'],
+        name: json['name'],
+        countryCode: json['country_code'],
+        countryName: json['country_name'],
+        stateCode: json['state_code'],
+        coordinates: Coordinates.fromJson(json['coordinates']),
+        indexStrings: List<dynamic>.from(json['index_strings'].map((x) => x)),
+        weight: json['weight'],
+        cases: json['cases'] == null ? null : Cases.fromJson(json['cases']),
+        countryCases: Cases.fromJson(json['country_cases']),
+        mainAirportName: json['main_airport_name'],
+        cityCode: json['city_code'],
+        cityName: json['city_name'],
+        cityCases: json['city_cases'] == null
             ? null
-            : Cases.fromJson(json["city_cases"]),
+            : Cases.fromJson(json['city_cases']),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "type": type,
-        "code": code,
-        "name": name,
-        "country_code": countryCode,
-        "country_name": countryName,
-        "state_code": stateCode,
-        "coordinates": coordinates.toJson(),
-        "index_strings": List<dynamic>.from(indexStrings.map((x) => x)),
-        "weight": weight,
-        "cases": cases?.toJson(),
-        "country_cases": countryCases.toJson(),
-        "main_airport_name": mainAirportName,
-        "city_code": cityCode,
-        "city_name": cityName,
-        "city_cases": cityCases?.toJson(),
+        'id': id,
+        'type': type,
+        'code': code,
+        'name': name,
+        'country_code': countryCode,
+        'country_name': countryName,
+        'state_code': stateCode,
+        'coordinates': coordinates.toJson(),
+        'index_strings': List<dynamic>.from(indexStrings.map((x) => x)),
+        'weight': weight,
+        'cases': cases?.toJson(),
+        'country_cases': countryCases.toJson(),
+        'main_airport_name': mainAirportName,
+        'city_code': cityCode,
+        'city_name': cityName,
+        'city_cases': cityCases?.toJson(),
       };
 }
 
@@ -143,21 +143,21 @@ class Cases {
   });
 
   factory Cases.fromJson(Map<String, dynamic> json) => Cases(
-        vi: json["vi"],
-        tv: json["tv"],
-        su: json["su"],
-        ro: json["ro"],
-        pr: json["pr"],
-        da: json["da"],
+        vi: json['vi'],
+        tv: json['tv'],
+        su: json['su'],
+        ro: json['ro'],
+        pr: json['pr'],
+        da: json['da'],
       );
 
   Map<String, dynamic> toJson() => {
-        "vi": vi,
-        "tv": tv,
-        "su": su,
-        "ro": ro,
-        "pr": pr,
-        "da": da,
+        'vi': vi,
+        'tv': tv,
+        'su': su,
+        'ro': ro,
+        'pr': pr,
+        'da': da,
       };
 }
 
@@ -171,12 +171,12 @@ class Coordinates {
   });
 
   factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        lon: json["lon"]?.toDouble(),
-        lat: json["lat"]?.toDouble(),
+        lon: json['lon']?.toDouble(),
+        lat: json['lat']?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "lon": lon,
-        "lat": lat,
+        'lon': lon,
+        'lat': lat,
       };
 }

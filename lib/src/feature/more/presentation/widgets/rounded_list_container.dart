@@ -21,14 +21,13 @@ class RoundedListContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
-          Radius.circular(12.0),
+          Radius.circular(12),
         ),
         border: Border.all(
           color: kBorderPrimaryColor,
-          width: 1,
         ),
       ),
-      margin: const EdgeInsets.all(24.0),
+      margin: const EdgeInsets.all(24),
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: children.length,

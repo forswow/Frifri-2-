@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OptionsChipsCard extends StatelessWidget {
-  const OptionsChipsCard({super.key, required this.child});
+  const OptionsChipsCard({required this.child, super.key});
 
   final Widget child;
 

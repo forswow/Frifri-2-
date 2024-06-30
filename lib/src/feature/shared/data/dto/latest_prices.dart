@@ -43,35 +43,35 @@ class LatestPricesQuery {
 
   factory LatestPricesQuery.fromJson(Map<String, dynamic> json) =>
       LatestPricesQuery(
-        currency: json["currency"],
-        origin: json["origin"],
-        destination: json["destination"],
-        beginningOfPeriod: json["beginning_of_period"],
-        periodType: json["period_type"],
-        groupBy: json["group_by"],
-        oneWay: json["one_way "],
-        page: json["page"],
-        market: json["market"],
-        limit: json["limit"],
-        sorting: json["sorting"],
-        tripDuration: json["trip_duration"],
-        tripClass: json["trip_class"],
+        currency: json['currency'],
+        origin: json['origin'],
+        destination: json['destination'],
+        beginningOfPeriod: json['beginning_of_period'],
+        periodType: json['period_type'],
+        groupBy: json['group_by'],
+        oneWay: json['one_way '],
+        page: json['page'],
+        market: json['market'],
+        limit: json['limit'],
+        sorting: json['sorting'],
+        tripDuration: json['trip_duration'],
+        tripClass: json['trip_class'],
       );
 
   Map<String, dynamic> toJson() => {
-        "currency": currency,
-        "origin": origin,
-        "destination": destination,
-        "beginning_of_period": beginningOfPeriod,
-        "period_type": periodType,
-        "group_by": groupBy,
-        "one_way ": oneWay,
-        "page": page,
-        "market": market,
-        "limit": limit,
-        "sorting": sorting,
-        "trip_duration": tripDuration,
-        "trip_class": tripClass,
+        'currency': currency,
+        'origin': origin,
+        'destination': destination,
+        'beginning_of_period': beginningOfPeriod,
+        'period_type': periodType,
+        'group_by': groupBy,
+        'one_way ': oneWay,
+        'page': page,
+        'market': market,
+        'limit': limit,
+        'sorting': sorting,
+        'trip_duration': tripDuration,
+        'trip_class': tripClass,
       };
 }
 
@@ -93,15 +93,15 @@ class LatestPrices {
 
   factory LatestPrices.fromJson(Map<String, dynamic> json) => LatestPrices(
         data: List<PriceInfo>.from(
-            json["data"].map((x) => PriceInfo.fromJson(x))),
-        currency: json["currency"],
-        success: json["success"],
+            json['data'].map((x) => PriceInfo.fromJson(x))),
+        currency: json['currency'],
+        success: json['success'],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "currency": currency,
-        "success": success,
+        'data': List<dynamic>.from(data.map((x) => x.toJson())),
+        'currency': currency,
+        'success': success,
       };
 }
 
@@ -137,35 +137,35 @@ class PriceInfo {
   });
 
   factory PriceInfo.fromJson(Map<String, dynamic> json) => PriceInfo(
-        departDate: DateTime.parse(json["depart_date"]),
-        origin: json["origin"],
-        destination: json["destination"],
-        gate: json["gate"],
-        returnDate: json["return_date"],
-        foundAt: DateTime.parse(json["found_at"]),
-        tripClass: json["trip_class"],
-        value: json["value"],
-        numberOfChanges: json["number_of_changes"],
-        duration: json["duration"],
-        distance: json["distance"],
-        showToAffiliates: json["show_to_affiliates"],
-        actual: json["actual"],
+        departDate: DateTime.parse(json['depart_date']),
+        origin: json['origin'],
+        destination: json['destination'],
+        gate: json['gate'],
+        returnDate: json['return_date'],
+        foundAt: DateTime.parse(json['found_at']),
+        tripClass: json['trip_class'],
+        value: json['value'],
+        numberOfChanges: json['number_of_changes'],
+        duration: json['duration'],
+        distance: json['distance'],
+        showToAffiliates: json['show_to_affiliates'],
+        actual: json['actual'],
       );
 
   Map<String, dynamic> toJson() => {
-        "depart_date": departDate.toIso8601String(),
-        "origin": origin,
-        "destination": destination,
-        "gate": gate,
-        "return_date": returnDate,
-        "found_at": foundAt.toIso8601String(),
-        "trip_class": tripClass,
-        "value": value,
-        "number_of_changes": numberOfChanges,
-        "duration": duration,
-        "distance": distance,
-        "show_to_affiliates": showToAffiliates,
-        "actual": actual,
+        'depart_date': departDate.toIso8601String(),
+        'origin': origin,
+        'destination': destination,
+        'gate': gate,
+        'return_date': returnDate,
+        'found_at': foundAt.toIso8601String(),
+        'trip_class': tripClass,
+        'value': value,
+        'number_of_changes': numberOfChanges,
+        'duration': duration,
+        'distance': distance,
+        'show_to_affiliates': showToAffiliates,
+        'actual': actual,
       };
 
   @override

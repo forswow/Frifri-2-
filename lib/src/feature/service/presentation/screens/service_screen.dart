@@ -31,7 +31,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
           centerTitle: Theme.of(context).appBarTheme.centerTitle,
           titleSpacing: 0,
           title: Padding(
-            padding: const EdgeInsets.only(left: 24.0),
+            padding: const EdgeInsets.only(left: 24),
             child: Text(
               AppLocalizations.of(context).service,
               style: Theme.of(context).appBarTheme.titleTextStyle,

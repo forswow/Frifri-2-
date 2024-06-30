@@ -29,7 +29,7 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
         options: LatestPricesQuery(
       origin: originIataCode,
       destination: destinationIataCode,
-      sorting: "price",
+      sorting: 'price',
       page: 1,
       currency: currency,
       limit: 1000,
@@ -49,7 +49,7 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       options: AutocompleteQuery(
         term: originIataCode,
         locale: locale,
-        types: ["airport"],
+        types: ['airport'],
       ),
     ))
         .first
@@ -59,7 +59,7 @@ final class DirectOnewayTicketsRepoImpl implements IDirectOnewayTicketsRepo {
       options: AutocompleteQuery(
         term: destinationIataCode,
         locale: locale,
-        types: ["airport"],
+        types: ['airport'],
       ),
     ))
         .first

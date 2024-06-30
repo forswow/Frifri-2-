@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 import 'package:frifri/src/feature/more/presentation/widgets/rounded_list_container.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 const TextStyle _listTileTextStyle = TextStyle(
-  fontSize: 16.0,
+  fontSize: 16,
 );
 
 const _defaultListDivider = Divider(

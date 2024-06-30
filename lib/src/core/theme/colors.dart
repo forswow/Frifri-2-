@@ -31,7 +31,6 @@ const kCardShadow = BoxShadow(
   color: Color.fromRGBO(115, 135, 174, 0.12),
   offset: Offset(0, 4),
   blurRadius: 12,
-  spreadRadius: 0,
 );
 
 // Navigation Bar

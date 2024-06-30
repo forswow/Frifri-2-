@@ -23,24 +23,24 @@ class TicketsDataSourceImpl implements ITicketsDataSource {
   Future<TicketsSearchIdResult> searchTickets(
       {required TicketsSearchQuery options}) async {
     try {
-      String endpoint = "http://api.travelpayouts.com/v1/flight_search";
+      const String endpoint = 'http://api.travelpayouts.com/v1/flight_search';
 
-      final apiKey = dotenv.get("API_KEY");
+      final apiKey = dotenv.get('API_KEY');
 
       final allOptions = options.toJson();
       allOptions.removeWhere((key, value) => value == null);
 
       final signature = Signature().createSignature(allOptions, apiKey);
 
-      allOptions.addAll({"signature": signature});
+      allOptions.addAll({'signature': signature});
 
       final response = await _dio.post(endpoint, data: allOptions);
 
       final result = response.data;
       return TicketsSearchIdResult.fromJson(result);
     } on DioException catch (error, stack) {
-      logger.e("[DIO Error]: ${error.message}");
-      logger.e("[Request Data]: ${error.requestOptions.data}");
+      logger.e('[DIO Error]: ${error.message}');
+      logger.e('[Request Data]: ${error.requestOptions.data}');
       Error.throwWithStackTrace(error, stack);
     } on Object catch (error, stack) {
       Error.throwWithStackTrace(error, stack);
@@ -50,9 +50,9 @@ class TicketsDataSourceImpl implements ITicketsDataSource {
   @override
   Future<TicketsSearchResultBySearchId> getTicketsBySearchId(
       {required String searchId}) async {
-    String endpoint = "http://api.travelpayouts.com/v1/flight_search_results";
+    const String endpoint = 'http://api.travelpayouts.com/v1/flight_search_results';
     final response =
-        await _dio.get(endpoint, queryParameters: {"uuid": searchId});
+        await _dio.get(endpoint, queryParameters: {'uuid': searchId});
     final result = response.data;
     return TicketsSearchResultBySearchId.fromJson(result);
   }

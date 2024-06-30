@@ -5,11 +5,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_mod
 
 class Counter extends StatefulWidget {
   const Counter({
-    super.key,
-    required this.titleText,
-    required this.count,
-    required this.onCountChange,
-    required this.limit,
+    required this.titleText, required this.count, required this.onCountChange, required this.limit, super.key,
   });
 
   final int count;
@@ -52,7 +48,7 @@ class _CounterState extends State<Counter> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -97,8 +93,7 @@ class _CounterState extends State<Counter> {
 
 class CounterTitle extends StatelessWidget {
   const CounterTitle({
-    super.key,
-    required this.titleText,
+    required this.titleText, super.key,
   });
 
   final String titleText;

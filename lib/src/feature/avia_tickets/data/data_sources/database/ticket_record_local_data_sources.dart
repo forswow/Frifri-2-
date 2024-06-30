@@ -4,7 +4,7 @@ import 'package:frifri/src/core/data_base/search_database.dart';
 import 'package:frifri/src/feature/avia_tickets/data/mappers/direct_one_way_mapper.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 
-import '../../../domain/entities/ticket_record_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/domain/entities/ticket_record_entity.dart';
 
 abstract interface class ITicketRecordLocalDataSources {
   Future<List<TicketRecordEntity>> fetchTickets(String originCountry);
@@ -37,7 +37,7 @@ class TicketRecordLocalDataSources implements ITicketRecordLocalDataSources {
   @override
   Future<void> insertTickets(List<DirectOnewayTicketsEntity> ticketList) async {
     try {
-      for (var element in ticketList) {
+      for (final element in ticketList) {
         await database.into(database.ticketDatabase).insert(
               TicketDatabaseData.fromJson(
                 DirectOneWayMapper.of(element).toMap(),

@@ -33,26 +33,26 @@ class MonthMatrixQuery {
 
   factory MonthMatrixQuery.fromJson(Map<String, dynamic> json) =>
       MonthMatrixQuery(
-        currency: json["currency"],
-        origin: json["origin"],
-        destination: json["destination"],
-        month: DateTime.parse(json["month"]),
-        showToAffiliates: json["show_to_affiliates"],
-        market: json["market"],
-        tripDuration: json["trip_duration"],
-        oneWay: json["one_way"],
+        currency: json['currency'],
+        origin: json['origin'],
+        destination: json['destination'],
+        month: DateTime.parse(json['month']),
+        showToAffiliates: json['show_to_affiliates'],
+        market: json['market'],
+        tripDuration: json['trip_duration'],
+        oneWay: json['one_way'],
       );
 
   Map<String, dynamic> toJson() => {
-        "currency": currency,
-        "origin": origin,
-        "destination": destination,
-        "month":
+        'currency': currency,
+        'origin': origin,
+        'destination': destination,
+        'month':
             "${month.year.toString().padLeft(4, '0')}-${month.month.toString().padLeft(2, '0')}-${month.day.toString().padLeft(2, '0')}",
-        "show_to_affiliates": showToAffiliates,
-        "market": market,
-        "trip_duration": tripDuration,
-        "one_way": oneWay,
+        'show_to_affiliates': showToAffiliates,
+        'market': market,
+        'trip_duration': tripDuration,
+        'one_way': oneWay,
       };
 }
 
@@ -79,16 +79,16 @@ class MonthMatrix {
 
   factory MonthMatrix.fromJson(Map<String, dynamic> json) => MonthMatrix(
       data: List<MonthMatrixDayInfo>.from(
-          json["data"].map((x) => MonthMatrixDayInfo.fromJson(x))),
-      currency: json["currency"],
-      success: json["success"],
+          json['data'].map((x) => MonthMatrixDayInfo.fromJson(x))),
+      currency: json['currency'],
+      success: json['success'],
       origin: '',
       destination: '');
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-        "currency": currency,
-        "success": success,
+        'data': List<dynamic>.from(data.map((x) => x.toJson())),
+        'currency': currency,
+        'success': success,
       };
 
   MonthMatrix copyWith({
@@ -141,37 +141,37 @@ class MonthMatrixDayInfo {
 
   factory MonthMatrixDayInfo.fromJson(Map<String, dynamic> json) =>
       MonthMatrixDayInfo(
-        departDate: DateTime.parse(json["depart_date"]),
-        origin: json["origin"],
-        destination: json["destination"],
-        gate: json["gate"],
-        returnDate: json['return_date'] == ""
+        departDate: DateTime.parse(json['depart_date']),
+        origin: json['origin'],
+        destination: json['destination'],
+        gate: json['gate'],
+        returnDate: json['return_date'] == ''
             ? null
-            : DateTime.parse(json["return_date"]),
-        foundAt: DateTime.parse(json["found_at"]),
-        tripClass: json["trip_class"],
-        value: json["value"],
-        numberOfChanges: json["number_of_changes"],
-        duration: json["duration"],
-        distance: json["distance"],
-        showToAffiliates: json["show_to_affiliates"],
-        actual: json["actual"],
+            : DateTime.parse(json['return_date']),
+        foundAt: DateTime.parse(json['found_at']),
+        tripClass: json['trip_class'],
+        value: json['value'],
+        numberOfChanges: json['number_of_changes'],
+        duration: json['duration'],
+        distance: json['distance'],
+        showToAffiliates: json['show_to_affiliates'],
+        actual: json['actual'],
       );
 
   Map<String, dynamic> toJson() => {
-        "depart_date":
+        'depart_date':
             "${departDate.year.toString().padLeft(4, '0')}-${departDate.month.toString().padLeft(2, '0')}-${departDate.day.toString().padLeft(2, '0')}",
-        "origin": origin,
-        "destination": destination,
-        "gate": gate,
-        "return_date": returnDate,
-        "found_at": foundAt.toIso8601String(),
-        "trip_class": tripClass,
-        "value": value,
-        "number_of_changes": numberOfChanges,
-        "duration": duration,
-        "distance": distance,
-        "show_to_affiliates": showToAffiliates,
-        "actual": actual,
+        'origin': origin,
+        'destination': destination,
+        'gate': gate,
+        'return_date': returnDate,
+        'found_at': foundAt.toIso8601String(),
+        'trip_class': tripClass,
+        'value': value,
+        'number_of_changes': numberOfChanges,
+        'duration': duration,
+        'distance': distance,
+        'show_to_affiliates': showToAffiliates,
+        'actual': actual,
       };
 }

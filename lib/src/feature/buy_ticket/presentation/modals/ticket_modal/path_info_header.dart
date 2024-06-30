@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SegmentInfoHeader extends StatelessWidget {
   const SegmentInfoHeader({
-    super.key,
-    required this.segmentEntity,
+    required this.segmentEntity, super.key,
   });
 
   final SegmentEntity segmentEntity;

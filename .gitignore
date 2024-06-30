@@ -194,3 +194,4 @@ test/support_assets/*/pubspec.lock
 !.vscode/settings.json
 
 *.env
+*.g.*

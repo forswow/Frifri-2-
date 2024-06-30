@@ -19,10 +19,7 @@ final countryBottomTextStyle = GoogleFonts.poppins(
 class CountryTextWidget extends StatelessWidget {
   /// {@macro country_text_widget}
   const CountryTextWidget({
-    super.key,
-    required this.title,
-    required this.subTitle,
-    required this.crossAxisAlignment,
+    required this.title, required this.subTitle, required this.crossAxisAlignment, super.key,
   });
 
   final CrossAxisAlignment crossAxisAlignment;

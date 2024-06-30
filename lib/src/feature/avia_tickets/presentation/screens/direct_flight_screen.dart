@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_state.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/avia_ticket_widget.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/more/domain/airport_bloc.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
+import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
-import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DirectFlightScreen extends StatefulWidget {
   const DirectFlightScreen({super.key});
@@ -52,7 +52,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
               context: context,
               isScrollControlled: true,
               useRootNavigator: true,
-              builder: (BuildContext context) {
+              builder: (context) {
                 return const SelectAirportModal();
               },
             );
@@ -113,7 +113,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   DirectFlight$TicketSuccess() => AviaTicketList(
                       allTickets: state.tickets,
                       onReorder:
-                          (String name, List<DirectOnewayTicketsEntity> list) {
+                          (name, list) {
                         directFlightBloc.add(DirectFlight$OnReorder(
                             directOneWayTicket: list, country: name));
                       },
@@ -154,7 +154,7 @@ class DirectFlightScreenAppBarContent extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: " ${airportToString(currentAirport, context: context)}",
+                  text: ' ${airportToString(currentAirport, context: context)}',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -177,7 +177,7 @@ class DirectFlightScreenAppBarContent extends StatelessWidget {
 
 class AviaTicketList extends StatefulWidget {
   const AviaTicketList(
-      {super.key, required this.allTickets, required this.onReorder});
+      {required this.allTickets, required this.onReorder, super.key});
 
   final List<DirectOnewayTicketsEntity> allTickets;
 
@@ -204,7 +204,6 @@ class _AviaTicketListState extends State<AviaTicketList> {
     return SafeArea(
       minimum: const EdgeInsets.only(bottom: 20),
       child: ReorderableListView(
-        clipBehavior: Clip.hardEdge,
         proxyDecorator: (widget, index, animation) {
           final currentDirectionTickets = allDirectionsTickets[index];
           return GestureDetector(
@@ -218,7 +217,7 @@ class _AviaTicketListState extends State<AviaTicketList> {
           );
         },
         padding: const EdgeInsets.only(left: 24, right: 24),
-        onReorder: (int oldIndex, int newIndex) {
+        onReorder: (oldIndex, newIndex) {
           setState(() {
             if (oldIndex < newIndex) {
               newIndex -= 1;

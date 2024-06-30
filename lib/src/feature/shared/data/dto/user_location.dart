@@ -21,13 +21,13 @@ class UserLocationQuery {
 
   factory UserLocationQuery.fromJson(Map<String, dynamic> json) =>
       UserLocationQuery(
-        locale: json["locale"],
-        ip: json["ip"],
+        locale: json['locale'],
+        ip: json['ip'],
       );
 
   Map<String, dynamic> toJson() => {
-        "locale": locale,
-        "ip": ip,
+        'locale': locale,
+        'ip': ip,
       };
 }
 
@@ -50,20 +50,20 @@ class UserLocation {
   });
 
   factory UserLocation.fromJson(Map<String, dynamic> json) => UserLocation(
-        iata: json["iata"],
-        cityName: json["name"],
-        countryName: json["country_name"],
-        coordinates: json["coordinates"],
+        iata: json['iata'],
+        cityName: json['name'],
+        countryName: json['country_name'],
+        coordinates: json['coordinates'],
       );
 
   Map<String, dynamic> toJson() => {
-        "iata": iata,
-        "name": cityName,
-        "country_name": countryName,
-        "coordinates": coordinates,
+        'iata': iata,
+        'name': cityName,
+        'country_name': countryName,
+        'coordinates': coordinates,
       };
 
   @override
   String toString() =>
-      "{iata: $iata, cityName: $cityName, countryName: $countryName, coordinates: $coordinates}";
+      '{iata: $iata, cityName: $cityName, countryName: $countryName, coordinates: $coordinates}';
 }

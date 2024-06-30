@@ -4,13 +4,13 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/utils/logger.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_states.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 import 'package:frifri/src/feature/shared/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/shared/domain/repository/search_tickets_repo.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_states.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
 
 class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
   final ISearchTicketsRepo searchTicketsRepository;
@@ -49,8 +49,8 @@ class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
       // Убеждаемся, что ивент не отменили новым
       if (emit.isDone) return;
 
-      logger.i("SearchTicketsBloc: Sent search request");
-      var newTickets = await searchTicketsRepository.getTicketsBySearchId(
+      logger.i('SearchTicketsBloc: Sent search request');
+      final newTickets = await searchTicketsRepository.getTicketsBySearchId(
         searchId: searchId,
         originAirport: event.searchModelForm.departureAt!,
         destinationAirport: event.searchModelForm.arrivalAt!,
@@ -59,12 +59,12 @@ class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
         currencyRates: currencyRates,
       );
 
-      logger.i("Got tickets: ${newTickets.length}");
+      logger.i('Got tickets: ${newTickets.length}');
 
       sortTicketsByPrice(newTickets);
       emit(SearchComplete(tickets: newTickets));
     } on DioException catch (e, stack) {
-      logger.e("DIO EXCEPTION: ${e.message}");
+      logger.e('DIO EXCEPTION: ${e.message}');
       Error.throwWithStackTrace(e, stack);
     } on Object catch (e, stack) {
       logger.e(e);
@@ -76,14 +76,13 @@ class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
     required SearchModel searchModel,
     required String locale,
   }) {
-    TicketsSearchQuery options = TicketsSearchQuery(
+    final TicketsSearchQuery options = TicketsSearchQuery(
       locale: locale,
       tripClass:
           tripClassToDataString(searchModel.passengersAndClass!.tripClass),
       passengers: Passengers(
         adults: searchModel.passengersAndClass!.passengers.adults,
         children: searchModel.passengersAndClass!.passengers.children,
-        infants: 0,
       ),
       segments: [
         Segment(

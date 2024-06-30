@@ -7,13 +7,7 @@ import 'package:intl/intl.dart';
 
 class CalendarMonth extends StatefulWidget {
   const CalendarMonth({
-    super.key,
-    required this.year,
-    required this.month,
-    required this.selectedDate,
-    required this.onDateSelected,
-    required this.availableFromDate,
-    required this.calendarData,
+    required this.year, required this.month, required this.selectedDate, required this.onDateSelected, required this.availableFromDate, required this.calendarData, super.key,
     this.startWeekDay = DateTime.monday,
   });
 
@@ -71,14 +65,7 @@ class _CalendarMonthState extends State<CalendarMonth> {
 
 class MonthTableView extends StatelessWidget {
   MonthTableView({
-    super.key,
-    required this.calendarData,
-    required this.year,
-    required this.month,
-    required this.selectedDate,
-    required this.onDateSelected,
-    required this.startWeekDay,
-    required this.availableFromDate,
+    required this.calendarData, required this.year, required this.month, required this.selectedDate, required this.onDateSelected, required this.startWeekDay, required this.availableFromDate, super.key,
   });
 
   final DateTime availableFromDate;
@@ -115,9 +102,7 @@ class MonthTableView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       crossAxisCount: 7,
-      childAspectRatio: 1,
       mainAxisSpacing: 10,
-      crossAxisSpacing: 0,
       padding: const EdgeInsets.all(17),
       children: List.generate(
         countOfDays + startsWithDay,
@@ -126,7 +111,7 @@ class MonthTableView extends StatelessWidget {
             return const UnconstrainedBox();
           }
 
-          int day = index - startsWithDay + 1;
+          final int day = index - startsWithDay + 1;
 
           final isSelectedDay = selectedDate.year == year &&
               selectedDate.day == day &&
@@ -161,12 +146,7 @@ class MonthTableView extends StatelessWidget {
 
 class MonthDay extends StatelessWidget {
   const MonthDay({
-    super.key,
-    required this.text,
-    required this.isActive,
-    required this.isSelected,
-    required this.isLowestPrice,
-    required this.day,
+    required this.text, required this.isActive, required this.isSelected, required this.isLowestPrice, required this.day, super.key,
   });
 
   final bool isActive;
@@ -198,7 +178,7 @@ class MonthDay extends StatelessWidget {
                   : const Color.fromRGBO(0, 0, 0, 0.3),
             ),
           ),
-          !isSelected && text != null && isActive ? text! : const SizedBox(),
+          if (!isSelected && text != null && isActive) text! else const SizedBox(),
         ],
       ),
     );
@@ -207,10 +187,7 @@ class MonthDay extends StatelessWidget {
 
 class MonthHeader extends StatefulWidget {
   const MonthHeader({
-    super.key,
-    required this.year,
-    required this.month,
-    required this.onDateSelected,
+    required this.year, required this.month, required this.onDateSelected, super.key,
   });
 
   final int year;
@@ -238,7 +215,7 @@ class _MonthHeaderState extends State<MonthHeader> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${monthName.captialize()} ${widget.year}",
+          '${monthName.captialize()} ${widget.year}',
           style: GoogleFonts.poppins(
             fontSize: 24,
             fontWeight: FontWeight.normal,
@@ -255,7 +232,7 @@ class _MonthHeaderState extends State<MonthHeader> {
     );
   }
 
-  String _getMonthShortName(int year, int month, {String locale = "ru"}) {
-    return DateFormat("MMM", locale).format(DateTime(year, month));
+  String _getMonthShortName(int year, int month, {String locale = 'ru'}) {
+    return DateFormat('MMM', locale).format(DateTime(year, month));
   }
 }

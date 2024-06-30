@@ -5,7 +5,7 @@ import 'package:crypto/crypto.dart';
 
 base mixin class Signature {
   SplayTreeMap<String, dynamic> _convertToSplayTreeMap(Map<String, dynamic> map) {
-    SplayTreeMap<String, dynamic> splayTreeMap = SplayTreeMap();
+    final SplayTreeMap<String, dynamic> splayTreeMap = SplayTreeMap();
 
     map.forEach((key, value) {
       if (value is Map) {
@@ -23,7 +23,7 @@ base mixin class Signature {
   }
 
   String _flattenParameters(SplayTreeMap<String, dynamic> params) {
-    List<String> values = [];
+    final List<String> values = [];
 
     params.forEach((key, value) {
       if (value is Iterable) {
@@ -43,18 +43,18 @@ base mixin class Signature {
   String createSignature(Map<String, dynamic> params, String token) {
     // Step 1: Rearrange parameters alphabetically
     // SplayTreeMap make it automatically sorted
-    SplayTreeMap<String, dynamic> splayTreeMap = _convertToSplayTreeMap(params);
+    final SplayTreeMap<String, dynamic> splayTreeMap = _convertToSplayTreeMap(params);
 
     // Step 2: Flatten all parameters into a single string
     // separated by columns
     String result = _flattenParameters(splayTreeMap);
 
     // Step 3: Add token in the beginning
-    result = "$token:$result";
+    result = '$token:$result';
 
     // Step 4: Hash it with MD5
-    var bytes = utf8.encode(result);
-    var md5Signature = md5.convert(bytes).toString();
+    final bytes = utf8.encode(result);
+    final md5Signature = md5.convert(bytes).toString();
     return md5Signature;
   }
 

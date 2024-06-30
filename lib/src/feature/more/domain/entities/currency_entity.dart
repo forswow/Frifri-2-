@@ -33,7 +33,7 @@ String getCurrencySymbol(CurrencyEnum currency) {
     case CurrencyEnum.rub:
       return '₽';
     case CurrencyEnum.usd:
-      return '\$';
+      return r'$';
     case CurrencyEnum.eur:
       return '€';
     case CurrencyEnum.gel:
