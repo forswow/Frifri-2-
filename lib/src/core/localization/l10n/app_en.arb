@@ -74,5 +74,10 @@
 
   "loadingDirectAirports": "Loading destination airports from the database",
   "gotAirports": "Airports received",
-  "loadingDirectTickets": "Loading airline tickets"
+  "loadingDirectTickets": "Loading airline tickets",
+
+  "city": "City",
+  "arrivalDate": "Arrival date",
+  "departureDate": "Departure date"
+  
 }

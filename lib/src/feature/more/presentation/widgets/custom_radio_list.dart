@@ -9,10 +9,11 @@ class CustomRadioListTile<T> extends StatelessWidget {
   final ValueChanged<T?> onChanged;
   final dynamic fill; // Color or LinearGradient
 
-  const CustomRadioListTile({super.key, 
+  const CustomRadioListTile({
     required this.value,
     required this.groupValue,
     required this.onChanged,
+    super.key,
     this.title,
     this.fill = kPrimaryAppColor,
   });
@@ -46,9 +47,9 @@ class CustomRadioListTile<T> extends StatelessWidget {
 
 class RadioButtonCheck extends StatelessWidget {
   const RadioButtonCheck({
-    super.key,
     required this.isSelected,
     required this.fill,
+    super.key,
   });
 
   final bool isSelected;
@@ -56,8 +57,18 @@ class RadioButtonCheck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? color = fill.runtimeType == Color ? fill : null;
-    LinearGradient? gradient = fill.runtimeType == LinearGradient ? fill : null;
+    final Color? color;
+    if (fill.runtimeType == Color) {
+      color = fill as Color?;
+    } else {
+      color = null;
+    }
+    final LinearGradient? gradient;
+    if (fill.runtimeType == LinearGradient) {
+      gradient = fill as LinearGradient?;
+    } else {
+      gradient = null;
+    }
 
     return Container(
       decoration: BoxDecoration(

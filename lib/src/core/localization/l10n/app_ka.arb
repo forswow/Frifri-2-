@@ -74,5 +74,9 @@
 
   "loadingDirectAirports": "დანიშნულების აეროპორტების ჩატვირთვა მონაცემთა ბაზიდან",
   "gotAirports": "აეროპორტები მიიღეს",
-  "loadingDirectTickets": "ავიაბილეთების ჩატვირთვა"
+  "loadingDirectTickets": "ავიაბილეთების ჩატვირთვა",
+
+  "city": "ქალაქი",
+  "arrivalDate": "მოსვლის თარიღი",
+  "departureDate": "გამოსვლის თარიღი"
 }

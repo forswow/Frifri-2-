@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/direct_flight_screen.dart';
-import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
-import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_result_screen.dart';
+import 'package:frifri/src/feature/hotels/presentation/screens/hotels_screen.dart';
+import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,7 +14,7 @@ class NavigationManager {
   static const String services = '/services';
   static const String more = '/more';
   static const String search = '/search';
-  static const String searchResult = "/search/result";
+  static const String searchResult = '/search/result';
 
   static final GoRouter router = GoRouter(
     navigatorKey: GlobalKey<NavigatorState>(),
@@ -40,7 +41,7 @@ class NavigationManager {
               GoRoute(
                 path: hotels,
                 builder: (context, state) {
-                  return const Scaffold();
+                  return const HotelsScreen();
                 },
               ),
             ],
@@ -83,7 +84,7 @@ class NavigationManager {
                 path: searchResult,
                 builder: (context, state) {
                   return SearchTicketsResultScreen(
-                    searchModel: state.extra as SearchModel,
+                    searchModel: state.extra! as SearchModel,
                   );
                 },
               ),

@@ -24,15 +24,15 @@ class _TicketScreenState extends State<TicketScreen> {
   }
 
   final remoteList = [
-    TicketRecordEntity(origin: 'TBS', destination: "BTM", index: 10),
-    TicketRecordEntity(origin: 'CUT', destination: "ROM", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "CUT", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "MOW", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "HRU", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "TJJ", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "DKK", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "SSS", index: 10),
-    TicketRecordEntity(origin: 'TBS', destination: "FRu", index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'BTM', index: 10),
+    TicketRecordEntity(origin: 'CUT', destination: 'ROM', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'CUT', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'MOW', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'HRU', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'TJJ', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'DKK', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'SSS', index: 10),
+    TicketRecordEntity(origin: 'TBS', destination: 'FRu', index: 10),
   ];
 
   @override
@@ -50,7 +50,7 @@ class _TicketScreenState extends State<TicketScreen> {
 
                 final localList = List.from(list);
 
-                for (var e in localList) {
+                for (final e in localList) {
                   if (!remoteList.contains(e)) {
                     list.remove(e);
                   }
@@ -61,24 +61,20 @@ class _TicketScreenState extends State<TicketScreen> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
-                Stopwatch stop = Stopwatch();
-                stop.start();
+                final stop = Stopwatch()..start();
                 await ticketRecordLocalDataSources.insertTickets([]);
 
                 stop.stop();
-
-                print(stop.elapsedMilliseconds);
               },
               child: const Text('Insert tickets list'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
-                Stopwatch stop = Stopwatch();
-                stop.start();
-                stop.stop();
+                final stop = Stopwatch()
+                  ..start()
+                  ..stop();
                 await ticketRecordLocalDataSources.deleteTickets('TBS');
-                print(stop.elapsedMilliseconds);
               },
               child: const Text('Delete tickets list'),
             ),

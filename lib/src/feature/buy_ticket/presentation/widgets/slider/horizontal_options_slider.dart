@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
-import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
@@ -11,11 +11,12 @@ import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/slider/options_chips_card.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/feature/shared/domain/entities/passengers_and_class.dart';
+import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
 import 'package:intl/intl.dart';
 
 class HorizontalOptionsSlider extends StatelessWidget {
-  const HorizontalOptionsSlider({super.key, required this.searchModel});
+  const HorizontalOptionsSlider({required this.searchModel, super.key});
 
   final SearchModel searchModel;
 
@@ -57,7 +58,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
     );
   }
 
-  void onDateChange(BuildContext context) async {
+  Future<void> onDateChange(BuildContext context) async {
     final newDepartureDate = await showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -76,11 +77,12 @@ class HorizontalOptionsSlider extends StatelessWidget {
 
     if (newDepartureDate == null) return;
 
-    searchModel.departureDate = newDepartureDate;
-    searchModel.returnDate = null;
+    searchModel
+      ..departureDate = newDepartureDate as DateTime?
+      ..returnDate = null;
 
     if (context.mounted) {
-      startTicketsSearch(context);
+      await startTicketsSearch(context);
     }
   }
 
@@ -88,7 +90,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
     searchModel.isDirectFlightOnly = !searchModel.isDirectFlightOnly;
   }
 
-  void onPassengersChange(BuildContext context) async {
+  Future<void> onPassengersChange(BuildContext context) async {
     final passengersData = await showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -98,14 +100,14 @@ class HorizontalOptionsSlider extends StatelessWidget {
 
     if (passengersData == null) return;
 
-    searchModel.passengersAndClass = passengersData;
+    searchModel.passengersAndClass = passengersData as PassengersAndClass?;
 
     if (context.mounted) {
-      startTicketsSearch(context);
+      await startTicketsSearch(context);
     }
   }
 
-  void startTicketsSearch(BuildContext context) async {
+  Future<void> startTicketsSearch(BuildContext context) async {
     final locale = context.read<AppLanguageSettingsCubit>().state;
     final currency = context.read<CurrencySettingsCubit>().state.name;
 
@@ -121,9 +123,9 @@ class HorizontalOptionsSlider extends StatelessWidget {
 
 class PassengersInfoChip extends StatelessWidget {
   const PassengersInfoChip({
-    super.key,
     required this.searchModel,
     required double defaultChipsDefaultTextSize,
+    super.key,
   }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
 
   final SearchModel searchModel;
@@ -145,7 +147,7 @@ class PassengersInfoChip extends StatelessWidget {
                 width: 6,
               ),
               Text(
-                "${searchModel.passengersAndClass!.passengers.adults} ,",
+                '${searchModel.passengersAndClass!.passengers.adults} ,',
                 style: AppStyles.textStylePoppins.copyWith(
                   fontSize: _defaultChipsDefaultTextSize,
                   fontWeight: FontWeight.w600,
@@ -174,9 +176,9 @@ class PassengersInfoChip extends StatelessWidget {
 
 class LayoverInfoChip extends StatelessWidget {
   const LayoverInfoChip({
-    super.key,
     required this.searchModel,
     required double defaultChipsDefaultTextSize,
+    super.key,
   }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
 
   final SearchModel searchModel;
@@ -186,7 +188,6 @@ class LayoverInfoChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return OptionsChipsCard(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Icon(
@@ -214,9 +215,9 @@ class LayoverInfoChip extends StatelessWidget {
 
 class DateChip extends StatelessWidget {
   const DateChip({
-    super.key,
     required this.searchModel,
     required double defaultChipsDefaultTextSize,
+    super.key,
   }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
 
   final SearchModel searchModel;
@@ -225,14 +226,14 @@ class DateChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = context.read<AppLanguageSettingsCubit>().state;
-    logger.i("Current locale: $locale");
+    logger.i('Current locale: $locale');
 
     return OptionsChipsCard(
       child: RichText(
         text: TextSpan(
-          text: DateFormat("dd MMM, ", locale)
+          text: DateFormat('dd MMM, ', locale)
               .format(searchModel.departureDate!)
-              .replaceAll(".", ""),
+              .replaceAll('.', ''),
           style: AppStyles.textStylePoppins.copyWith(
             fontSize: _defaultChipsDefaultTextSize,
             fontWeight: FontWeight.w600,
@@ -240,7 +241,7 @@ class DateChip extends StatelessWidget {
           children: [
             TextSpan(
               text:
-                  DateFormat("EEE", locale).format(searchModel.departureDate!),
+                  DateFormat('EEE', locale).format(searchModel.departureDate!),
               style: AppStyles.textStylePoppins.copyWith(
                 fontSize: _defaultChipsDefaultTextSize,
                 fontWeight: FontWeight.w600,

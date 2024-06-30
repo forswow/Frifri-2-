@@ -74,5 +74,11 @@
 
   "loadingDirectAirports": "Загружаем аэропорты из базы данных",
   "gotAirports": "Аэропорты получены",
-  "loadingDirectTickets": "Загружаем билеты по направлениям"
+  "loadingDirectTickets": "Загружаем билеты по направлениям",
+
+  "city": "Город",
+  "arrivalDate": "Дата заезда",
+  "departureDate": "Дата выезда "
+
+
 }
