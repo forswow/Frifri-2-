@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/localization/extension_alias.dart';
+import 'package:frifri/src/core/ui_kit/decorations/form_list_tile.dart';
 import 'package:frifri/src/core/ui_kit/icons/app_icons.dart';
 import 'package:frifri/src/core/ui_kit/styles/app_text_styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
@@ -47,10 +47,11 @@ class _HotelsSearchForm extends StatelessWidget {
               context: context,
               useRootNavigator: true,
               isScrollControlled: true,
+              useSafeArea: true,
               builder: (context) => const LocationPickerScreen(),
             );
           },
-          child: _FormListTile(
+          child: FormListTile(
             icon: AppIcons.hotelsLocation,
             child: Text(
               context.l10n.city,
@@ -59,7 +60,7 @@ class _HotelsSearchForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _FormListTile(
+        FormListTile(
           icon: AppIcons.hotelsCalendarStart,
           child: Text(
             context.l10n.arrivalDate,
@@ -67,7 +68,7 @@ class _HotelsSearchForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _FormListTile(
+        FormListTile(
           icon: AppIcons.hotelsCalendarEnd,
           child: Text(
             context.l10n.departureDate,
@@ -75,7 +76,7 @@ class _HotelsSearchForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _FormListTile(
+        FormListTile(
           icon: AppIcons.hotelsPeople,
           child: const _PeopleCounterWidget(),
         )
@@ -158,31 +159,6 @@ class _RoundedIconButton extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _FormListTile extends StatelessWidget {
-  final SvgPicture icon;
-  final Widget child;
-
-  const _FormListTile({
-    required this.icon,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      tileColor: Colors.white,
-      leading: icon,
-      title: child,
     );
   }
 }

@@ -20,4 +20,9 @@ abstract class AppIcons {
     'assets/icons/hotels_form_location.svg',
     width: 32,
   );
+
+  static final hotelsTarget = SvgPicture.asset(
+    'assets/icons/hotels_target_location.svg',
+    width: 17,
+  );
 }
