@@ -25,4 +25,9 @@ abstract class AppIcons {
     'assets/icons/hotels_target_location.svg',
     width: 17,
   );
+
+  static final hotelsLocationDark = SvgPicture.asset(
+    'assets/icons/hotels_location_dark.svg',
+    width: 20,
+  );
 }

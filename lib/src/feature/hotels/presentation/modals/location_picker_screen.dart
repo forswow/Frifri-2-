@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frifri/src/core/ui_kit/decorations/form_list_tile.dart';
 import 'package:frifri/src/core/ui_kit/icons/app_icons.dart';
 import 'package:frifri/src/core/ui_kit/styles/app_text_styles.dart';
+import 'package:frifri/src/feature/hotels/presentation/widgets/location_item_tile.dart';
 
 class LocationPickerScreen extends StatelessWidget {
   const LocationPickerScreen({super.key});
@@ -12,37 +13,58 @@ class LocationPickerScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const _LocationPickerScreenHeader(),
-                const SizedBox(height: 24),
-                IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 10,
-                        child: FormListTile(
-                          icon: AppIcons.hotelsLocation,
-                          child: Text(
-                            'Город',
-                            style: AppTextStyles.formTilePaleBody,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      const IntrinsicWidth(
-                        child: _GeoButton(),
-                      ),
-                    ],
-                  ),
+          child: Column(
+            children: [
+              const _LocationPickerScreenHeader(),
+              const SizedBox(height: 24),
+              const _LocationInputField(),
+              const SizedBox(height: 24),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return const LocationItemTile(
+                      title: 'Баку, Кыргызстан',
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 12);
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LocationInputField extends StatelessWidget {
+  const _LocationInputField();
+
+  @override
+  Widget build(BuildContext context) {
+    return IntrinsicHeight(
+      child: Row(
+        children: [
+          Expanded(
+            flex: 10,
+            child: FormListTile(
+              icon: AppIcons.hotelsLocation,
+              child: Text(
+                'Город',
+                style: AppTextStyles.formTilePaleBody,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 6,
+          ),
+          const IntrinsicWidth(
+            child: _GeoButton(),
+          ),
+        ],
       ),
     );
   }
