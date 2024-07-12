@@ -217,14 +217,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      sha256: d57953e10f9f8327ce64a508a355f0b1ec902193f66288e8cb5070e7c47eeb2d
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.6"
   dart_style:
     dependency: transitive
     description:
@@ -339,14 +331,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_screenutil:
-    dependency: "direct main"
-    description:
-      name: flutter_screenutil
-      sha256: "8cf100b8e4973dc570b6415a2090b0bfaa8756ad333db46939efc3e774ee100d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.9.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -493,14 +477,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  jiffy:
-    dependency: "direct main"
-    description:
-      name: jiffy
-      sha256: "3497caaa36d36a29033e66803c9739ce6bccbc7e241ca46070f76ee9e6f6eb0c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.1"
   js:
     dependency: transitive
     description:
@@ -510,7 +486,7 @@ packages:
     source: hosted
     version: "0.7.1"
   json_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
@@ -869,14 +845,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  skeletonizer:
-    dependency: "direct main"
-    description:
-      name: skeletonizer
-      sha256: "50c3fdf3d1bf6182129c03b53bc7ff6dca10ca0b8e71ccdee148b9322caabdba"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2+1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -963,7 +931,7 @@ packages:
     source: hosted
     version: "2.1.2"
   stream_transform:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: stream_transform
       sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"

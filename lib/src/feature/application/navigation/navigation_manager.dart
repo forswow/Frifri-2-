@@ -10,11 +10,16 @@ import 'package:go_router/go_router.dart';
 
 class NavigationManager {
   static const String aviaTickets = '/avia';
-  static const String hotels = '/hotels';
-  static const String services = '/services';
-  static const String more = '/more';
+
   static const String search = '/search';
   static const String searchResult = '/search/result';
+
+  static const String services = '/services';
+
+  static const String more = '/more';
+
+  static const String hotels = '/hotels';
+  static const String hotelsSearchCity = '/hotels/search_city';
 
   static final GoRouter router = GoRouter(
     navigatorKey: GlobalKey<NavigatorState>(),

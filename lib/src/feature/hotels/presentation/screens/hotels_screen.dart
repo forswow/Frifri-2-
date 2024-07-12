@@ -6,6 +6,7 @@ import 'package:frifri/src/core/ui_kit/icons/app_icons.dart';
 import 'package:frifri/src/core/ui_kit/styles/app_text_styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/hotels/bloc/hotels_search_form_cubit.dart';
+import 'package:frifri/src/feature/hotels/presentation/modals/location_picker_screen.dart';
 
 class HotelsScreen extends StatelessWidget {
   const HotelsScreen({super.key});
@@ -40,11 +41,21 @@ class _HotelsSearchForm extends StatelessWidget {
           child: _HotelsScreenHeader(),
         ),
         const SizedBox(height: 24),
-        _FormListTile(
-          icon: AppIcons.hotelsLocation,
-          child: Text(
-            context.l10n.city,
-            style: AppTextStyles.formTilePaleBody,
+        GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const LocationPickerScreen(),
+            );
+          },
+          child: _FormListTile(
+            icon: AppIcons.hotelsLocation,
+            child: Text(
+              context.l10n.city,
+              style: AppTextStyles.formTilePaleBody,
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -66,9 +77,7 @@ class _HotelsSearchForm extends StatelessWidget {
         const SizedBox(height: 8),
         _FormListTile(
           icon: AppIcons.hotelsPeople,
-          child: const Expanded(
-            child: _PeopleCounterWidget(),
-          ),
+          child: const _PeopleCounterWidget(),
         )
       ],
     );

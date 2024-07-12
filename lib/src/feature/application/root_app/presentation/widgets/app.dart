@@ -26,12 +26,9 @@ class App extends StatelessWidget {
             locale: Locale(state),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            // locale:
             debugShowCheckedModeBanner: false,
             theme: theme,
-            // routerConfig: NavigationManager.router,
             routerConfig: NavigationManager.router,
-            // home: const TicketScreen(),
           );
         },
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/core/ui_kit/decorations/decorations.dart';
 import 'package:frifri/src/feature/more/domain/entities/more_item_entity.dart';
 import 'package:frifri/src/feature/more/presentation/modals/confidentiality_modal.dart';
 import 'package:frifri/src/feature/more/presentation/modals/help_modal.dart';
@@ -13,8 +14,9 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
     MoreItemEntity(
         onPreseed: () {
           showModalBottomSheet(
-            useRootNavigator: true,
             context: context,
+            shape: AppDecorations.modalRoundedShape,
+            useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => const SettingsModal(),
           );
@@ -25,6 +27,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            shape: AppDecorations.modalRoundedShape,
             useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => const SelectAirportModal(),
@@ -36,6 +39,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            shape: AppDecorations.modalRoundedShape,
             useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => const SelectLanguageModal(),
@@ -47,6 +51,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            shape: AppDecorations.modalRoundedShape,
             useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => const SelectCurrencyModal(),
@@ -58,6 +63,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            shape: AppDecorations.modalRoundedShape,
             useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => const HelpModal(),
@@ -69,6 +75,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
         onPreseed: () {
           showModalBottomSheet(
             context: context,
+            shape: AppDecorations.modalRoundedShape,
             useRootNavigator: true,
             isScrollControlled: true,
             builder: (context) => const ConfidentialityModal(),

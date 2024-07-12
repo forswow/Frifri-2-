@@ -3,6 +3,7 @@ import 'package:frifri/src/core/theme/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final theme = ThemeData(
+  useMaterial3: false,
   scaffoldBackgroundColor: kPrimaryBackgroundColor,
   appBarTheme: AppBarTheme(
       backgroundColor: kPrimaryBackgroundColor,
