@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/utils/fade_transitions.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/direct_flight_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
@@ -7,6 +8,8 @@ import 'package:frifri/src/feature/hotels/presentation/screens/hotels_screen.dar
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
 import 'package:go_router/go_router.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 class NavigationManager {
   static const String aviaTickets = '/avia';
@@ -20,24 +23,29 @@ class NavigationManager {
 
   static const String hotels = '/hotels';
   static const String hotelsSearchCity = '/hotels/search_city';
-
+  static final shellNavigatorKey = GlobalKey<NavigatorState>();
   static final GoRouter router = GoRouter(
-    navigatorKey: GlobalKey<NavigatorState>(),
+    navigatorKey: navigatorKey,
     initialLocation: aviaTickets,
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return RootScreen(
+            key: state.pageKey,
             navigationShell: navigationShell,
           );
         },
         branches: [
           StatefulShellBranch(
+            navigatorKey: shellNavigatorKey,
             routes: [
               GoRoute(
                 name: aviaTickets,
                 path: aviaTickets,
-                builder: (context, state) => const DirectFlightScreen(),
+                pageBuilder: (context, state) => FadeTransitionPage(
+                  key: state.pageKey,
+                  child: const DirectFlightScreen(),
+                ),
               ),
             ],
           ),
@@ -45,8 +53,11 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: hotels,
-                builder: (context, state) {
-                  return const HotelsScreen();
+                pageBuilder: (context, state) {
+                  return FadeTransitionPage(
+                    key: state.pageKey,
+                    child: const HotelsScreen(),
+                  );
                 },
               ),
             ],
@@ -55,8 +66,11 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: services,
-                builder: (context, state) {
-                  return const ServicesScreen();
+                pageBuilder: (context, state) {
+                  return FadeTransitionPage(
+                    key: state.pageKey,
+                    child: const ServicesScreen(),
+                  );
                 },
               ),
             ],
@@ -65,19 +79,10 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: more,
-                builder: (context, state) {
-                  return const MoreScreen();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: search,
-                builder: (context, state) {
-                  return SearchTicketFormScreen(
-                    searchModel: state.extra as SearchModel?,
+                pageBuilder: (context, state) {
+                  return FadeTransitionPage(
+                    key: state.pageKey,
+                    child: const MoreScreen(),
                   );
                 },
               ),
@@ -86,15 +91,42 @@ class NavigationManager {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: searchResult,
-                builder: (context, state) {
-                  return SearchTicketsResultScreen(
-                    searchModel: state.extra! as SearchModel,
-                  );
-                },
-              ),
+                  path: search,
+                  pageBuilder: (context, state) {
+                    return FadeTransitionPage(
+                      key: state.pageKey,
+                      child: SearchTicketFormScreen(
+                        searchModel: state.extra as SearchModel?,
+                      ),
+                    );
+                  },
+                  routes: [
+                    GoRoute(
+                      path: 'result',
+                      pageBuilder: (context, state) {
+                        return FadeTransitionPage(
+                          key: state.pageKey,
+                          child: SearchTicketsResultScreen(
+                            searchModel: state.extra! as SearchModel,
+                          ),
+                        );
+                      },
+                    ),
+                  ]),
             ],
           ),
+          // StatefulShellBranch(
+          //   routes: [
+          //     GoRoute(
+          //       path: searchResult,
+          //       builder: (context, state) {
+          //         return SearchTicketsResultScreen(
+          //           searchModel: state.extra! as SearchModel,
+          //         );
+          //       },
+          //     ),
+          //   ],
+          // ),
         ],
       )
     ],

@@ -19,8 +19,21 @@ class RootScreen extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: CustomBottomNavigationBar(
         navigationIndex: currentNavigationIndex,
+        onPress: (index) {
+          navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
+          );
+        },
       ),
-      floatingActionButton: const _CustomFloatingActionButton(),
+      floatingActionButton: _CustomFloatingActionButton(
+        onPress: () {
+          navigationShell.goBranch(
+            4,
+            initialLocation: 4 == navigationShell.currentIndex,
+          );
+        },
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -29,11 +42,12 @@ class RootScreen extends StatelessWidget {
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({
     required this.navigationIndex,
+    required this.onPress,
     super.key,
   });
 
   final int navigationIndex;
-
+  final void Function(int) onPress;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,7 +71,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 activeAssetPath: 'assets/icons/home_active.svg',
                 isActive: navigationIndex == 0,
                 onPressed: () {
-                  context.go(NavigationManager.aviaTickets);
+                  // context.go(NavigationManager.aviaTickets);
+                  onPress.call(0);
                 },
               ),
               CustomNavigationBarItem(
@@ -66,7 +81,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 activeAssetPath: 'assets/icons/book_open_active.svg',
                 isActive: navigationIndex == 1,
                 onPressed: () {
-                  context.go(NavigationManager.hotels);
+                  // context.go(NavigationManager.hotels);
+                  onPress.call(1);
                 },
               ),
               const Spacer(),
@@ -76,7 +92,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 activeAssetPath: 'assets/icons/active_fire.svg',
                 isActive: navigationIndex == 2,
                 onPressed: () {
-                  context.go(NavigationManager.services);
+                  // context.go(NavigationManager.services);
+                  onPress.call(2);
                 },
               ),
               CustomNavigationBarItem(
@@ -85,7 +102,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 activeAssetPath: 'assets/icons/active_more.svg',
                 isActive: navigationIndex == 3,
                 onPressed: () {
-                  context.go(NavigationManager.more);
+                  onPress.call(3);
+                  // context.go(NavigationManager.more);
                 },
               ),
             ],
@@ -97,8 +115,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
 }
 
 class _CustomFloatingActionButton extends StatelessWidget {
-  const _CustomFloatingActionButton();
-
+  const _CustomFloatingActionButton({required this.onPress});
+  final VoidCallback onPress;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,7 +135,8 @@ class _CustomFloatingActionButton extends StatelessWidget {
           //   ),
           // );
           // Раскоментить после добавления модального окна
-          context.go(NavigationManager.search);
+          // context.go(NavigationManager.search);
+          onPress.call();
         },
         backgroundColor: kPrimaryAppColor,
         shape: const CircleBorder(),
@@ -138,7 +157,12 @@ class _CustomFloatingActionButton extends StatelessWidget {
 class CustomNavigationBarItem extends StatelessWidget {
   /// {@macro navigation_widget}
   const CustomNavigationBarItem({
-    required this.title, required this.assetPath, required this.onPressed, required this.activeAssetPath, required this.isActive, super.key,
+    required this.title,
+    required this.assetPath,
+    required this.onPressed,
+    required this.activeAssetPath,
+    required this.isActive,
+    super.key,
   });
 
   final String title;

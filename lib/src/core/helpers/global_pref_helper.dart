@@ -19,7 +19,7 @@ base class GlobalPrefHelper {
   static const _pushEnabledKey = 'pushEnabled';
 
   static const _airportDefault = 'tbilisi';
-  static const _currencyDefault = 'USD';
+  static const _currencyDefault = 'RUB';
   static const _langCodeDefault = 'ru';
   static const _pushEnabledDefault = true;
 
