@@ -12,7 +12,6 @@ import 'package:frifri/src/core/utils/datetime_localizations.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
-import 'package:gif/gif.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 

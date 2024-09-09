@@ -8,11 +8,11 @@ enum AirportEnum {
 
   final String iata;
   const AirportEnum(this.iata);
-  String toIataCode() => switch (this) {
-        AirportEnum.kutaisi => 'KUT',
-        AirportEnum.tbilisi => 'TBS',
-        AirportEnum.batumi => 'BUS'
-      };
+  // String get toIataCode => switch (this) {
+  //       AirportEnum.kutaisi => 'KUT',
+  //       AirportEnum.tbilisi => 'TBS',
+  //       AirportEnum.batumi => 'BUS'
+  //     };
 
   String airportToString({required BuildContext context}) {
     final local = AppLocalizations.of(context);

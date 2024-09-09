@@ -13,7 +13,6 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_ai
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
-import 'package:gif/gif.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum SearchCityModalModeEnum {

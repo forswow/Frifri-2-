@@ -15,7 +15,6 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
-import 'package:gif/gif.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DirectFlightScreen extends StatefulWidget {
@@ -69,7 +68,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
             onRefresh: () async {
               directFlightBloc.add(
                 DirectFlight$FetchDestinationAirportsIataCodes(
-                  originIataCode: location.toIataCode(),
+                  originIataCode: location.iata,
                 ),
               );
             },
@@ -78,7 +77,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
               bloc: directFlightBloc
                 ..add(
                   DirectFlight$FetchDestinationAirportsIataCodes(
-                    originIataCode: location.toIataCode(),
+                    originIataCode: location.iata,
                   ),
                 ),
               listener: (context, state) {
@@ -88,7 +87,7 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   directFlightBloc.add(
                     DirectFlight$FetchTickets(
                       currency: currency.name,
-                      originIataCode: location.toIataCode(),
+                      originIataCode: location.iata,
                       destinationIataCodes: allDestinations,
                       locale: locale,
                     ),
@@ -228,7 +227,7 @@ class _AviaTicketListState extends State<AviaTicketList> {
             final item = allDirectionsTickets.removeAt(oldIndex);
             allDirectionsTickets.insert(newIndex, item);
 
-            widget.onReorder.call(location.toIataCode(), allDirectionsTickets);
+            widget.onReorder.call(location.iata, allDirectionsTickets);
           });
         },
         children: <Widget>[
