@@ -134,6 +134,9 @@ class _SelectLanguageModalContentState
               ),
             ),
           ),
+          const SizedBox(
+            height: 16,
+          ),
         ],
       ),
     );

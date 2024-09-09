@@ -159,6 +159,9 @@ class _SelectCurrencyModalContentState
               ),
             ),
           ),
+          const SizedBox(
+            height: 16,
+          ),
         ],
       ),
     );
