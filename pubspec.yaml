@@ -42,6 +42,7 @@ dependencies:
   uuid: ^4.4.0
   freezed: ^2.5.2
   freezed_annotation: ^2.4.1
+  gif: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -67,4 +68,4 @@ flutter:
 
   assets:
     - assets/icons/
-    - .env
+    - assets/gif/

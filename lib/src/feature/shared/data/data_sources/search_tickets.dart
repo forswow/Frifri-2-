@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frifri/src/core/helpers/signature_helper.dart';
+import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/shared/data/dto/search_tickets.dart';
 import 'package:frifri/src/feature/shared/data/dto/search_tickets_result.dart';
@@ -25,7 +26,7 @@ class TicketsDataSourceImpl implements ITicketsDataSource {
     try {
       const String endpoint = 'http://api.travelpayouts.com/v1/flight_search';
 
-      final apiKey = dotenv.get('API_KEY');
+      const apiKey = DioEnv.apiKey;
 
       final allOptions = options.toJson()
         ..removeWhere((key, value) => value == null);

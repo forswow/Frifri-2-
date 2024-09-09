@@ -10,36 +10,23 @@ enum CurrencyEnum {
 
 String currencyToString(CurrencyEnum currency,
     {required BuildContext context}) {
-  switch (currency) {
-    case CurrencyEnum.rub:
-      return AppLocalizations.of(context).currencyRub;
-    case CurrencyEnum.usd:
-      return AppLocalizations.of(context).currencyUsd;
-    case CurrencyEnum.eur:
-      return AppLocalizations.of(context).currencyEur;
-    case CurrencyEnum.gel:
-      return AppLocalizations.of(context).currencyGel;
-  }
+  final local = AppLocalizations.of(context);
+  return switch (currency) {
+    CurrencyEnum.rub => local.currencyRub,
+    CurrencyEnum.usd => local.currencyUsd,
+    CurrencyEnum.eur => local.currencyEur,
+    CurrencyEnum.gel => local.currencyGel
+  };
 }
 
-CurrencyEnum currencyFromString(String currencyName) {
-  return CurrencyEnum.values.firstWhere(
-    (e) => e.toString().split('.').last == currencyName.toLowerCase(),
-  );
-}
+CurrencyEnum currencyFromString(String currencyName) =>
+    CurrencyEnum.values.firstWhere(
+      (e) => e.toString().split('.').last == currencyName.toLowerCase(),
+    );
 
-String getCurrencySymbol(CurrencyEnum currency) {
-  switch (currency) {
-    case CurrencyEnum.rub:
-      return '₽';
-    case CurrencyEnum.usd:
-      return r'$';
-    case CurrencyEnum.eur:
-      return '€';
-    case CurrencyEnum.gel:
-      return '₾';
-
-    default:
-      return '0';
-  }
-}
+String getCurrencySymbol(CurrencyEnum currency) => switch (currency) {
+      CurrencyEnum.rub => '₽',
+      CurrencyEnum.usd => r'$',
+      CurrencyEnum.eur => '€',
+      CurrencyEnum.gel => '₾'
+    };

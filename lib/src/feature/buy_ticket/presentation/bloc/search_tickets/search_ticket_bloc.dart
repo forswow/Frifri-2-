@@ -44,7 +44,7 @@ class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
       final searchId = searchResult.searchId;
 
       // Step 2: get tickets by search id
-      await Future.delayed(const Duration(seconds: 15));
+      await Future.delayed(const Duration(seconds: 1));
 
       // Убеждаемся, что ивент не отменили новым
       if (emit.isDone) return;

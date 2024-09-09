@@ -71,64 +71,25 @@ class _SelectAirportModalContentState
           RoundedListContainer(
             separator: _defaultListDivider,
             children: [
-              CustomRadioListTile(
-                value: AirportEnum.tbilisi,
-                title: Text(
-                  // "Тбилиси",
-                  AppLocalizations.of(context).cityTbilisi,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
-                groupValue: selectedAirport,
-                onChanged: (newValue) {
-                  setState(
-                    () {
-                      selectedAirport = newValue!;
-                      isConfirmButtonEnabled =
-                          selectedAirport != initialAirport;
+              ...AirportEnum.values.map((airport) => CustomRadioListTile(
+                    value: airport,
+                    title: Text(
+                      airport.airportToString(context: context),
+                      style: AppStyles.textStylePoppins.copyWith(
+                        color: Colors.black,
+                      ),
+                    ),
+                    groupValue: selectedAirport,
+                    onChanged: (newValue) {
+                      setState(
+                        () {
+                          selectedAirport = newValue!;
+                          isConfirmButtonEnabled =
+                              selectedAirport != initialAirport;
+                        },
+                      );
                     },
-                  );
-                },
-              ),
-              CustomRadioListTile(
-                value: AirportEnum.kutaisi,
-                title: Text(
-                  AppLocalizations.of(context).cityKutaisi,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
-                groupValue: selectedAirport,
-                onChanged: (newValue) {
-                  setState(
-                    () {
-                      selectedAirport = newValue!;
-                      isConfirmButtonEnabled =
-                          selectedAirport != initialAirport;
-                    },
-                  );
-                },
-              ),
-              CustomRadioListTile(
-                value: AirportEnum.batumi,
-                title: Text(
-                  AppLocalizations.of(context).cityBatumi,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
-                groupValue: selectedAirport,
-                onChanged: (newValue) {
-                  setState(
-                    () {
-                      selectedAirport = newValue!;
-                      isConfirmButtonEnabled =
-                          selectedAirport != initialAirport;
-                    },
-                  );
-                },
-              )
+                  )),
             ],
           ),
           const Spacer(),
@@ -152,6 +113,9 @@ class _SelectAirportModalContentState
                 ),
               ),
             ),
+          ),
+          const SizedBox(
+            height: 16,
           ),
         ],
       ),

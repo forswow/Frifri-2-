@@ -6,17 +6,26 @@ import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_month_widget.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
+import 'package:frifri/src/core/ui_kit/progress/gif_progress.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/datetime_localizations.dart';
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/data/dto/month_matrix.dart';
+import 'package:gif/gif.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class CalendarModal extends StatefulWidget {
   const CalendarModal({
-    required this.title, required this.initialDate, required this.availableFromDate, required this.isOneWay, required this.originIataCode, required this.destinationIataCode, required this.countOfMonths, super.key,
+    required this.title,
+    required this.initialDate,
+    required this.availableFromDate,
+    required this.isOneWay,
+    required this.originIataCode,
+    required this.destinationIataCode,
+    required this.countOfMonths,
+    super.key,
   });
 
   final String title;
@@ -109,7 +118,7 @@ class _CalendarModalState extends State<CalendarModal> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const CircularProgressIndicator(),
+                        const GifProgress(),
                       ],
                     ),
                   ),
@@ -360,7 +369,10 @@ class _CalendarModalContentState extends State<_CalendarModalContent> {
                       Navigator.of(context).pop(selectedDate);
                     },
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
               ],
             ),
           )

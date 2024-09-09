@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/core/ui_kit/progress/gif_progress.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc_events.dart';
@@ -13,6 +14,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/ticket_previe
 import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
+import 'package:gif/gif.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchTicketsResultScreen extends StatefulWidget {
@@ -158,7 +160,7 @@ class _ResultedTicketsList extends StatelessWidget {
 
             case SearchingInProgress():
               return const Center(
-                child: CircularProgressIndicator(),
+                child: GifProgress(),
               );
             case SearchInitial():
               return Container();

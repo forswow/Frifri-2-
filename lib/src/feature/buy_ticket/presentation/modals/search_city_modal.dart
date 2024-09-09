@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/extensions/string_extensions.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
+import 'package:frifri/src/core/ui_kit/progress/gif_progress.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_ai
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/shared/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/country_search_entity.dart';
+import 'package:gif/gif.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum SearchCityModalModeEnum {
@@ -103,9 +105,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                       },
                     );
                   case SearchInProgress():
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: GifProgress());
                   case SearchCompleted():
                     return SearchCityResult(
                       title: 'Результаты поиска',

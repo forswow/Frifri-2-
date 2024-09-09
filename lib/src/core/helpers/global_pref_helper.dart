@@ -19,14 +19,14 @@ base class GlobalPrefHelper {
   static const _pushEnabledKey = 'pushEnabled';
 
   static const _airportDefault = 'tbilisi';
-  static const _currencyDefault = 'USD';
+  static const _currencyDefault = 'RUB';
   static const _langCodeDefault = 'ru';
   static const _pushEnabledDefault = true;
 
   AirportEnum getAirport() {
     final airportName =
         sharedPreferences.getString(_airportKey) ?? _airportDefault;
-    final AirportEnum airport = getAirportFromString(airportName);
+    final AirportEnum airport = AirportEntity.getAirportFromString(airportName);
     return airport;
   }
 

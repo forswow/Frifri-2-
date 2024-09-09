@@ -26,11 +26,9 @@ class NavigationManager {
     initialLocation: aviaTickets,
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return RootScreen(
+        builder: (context, state, navigationShell) => RootScreen(
             navigationShell: navigationShell,
-          );
-        },
+          ),
         branches: [
           StatefulShellBranch(
             routes: [
@@ -45,9 +43,7 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: hotels,
-                builder: (context, state) {
-                  return const HotelsScreen();
-                },
+                builder: (context, state) => const HotelsScreen(),
               ),
             ],
           ),
@@ -55,9 +51,7 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: services,
-                builder: (context, state) {
-                  return const ServicesScreen();
-                },
+                builder: (context, state) => const ServicesScreen(),
               ),
             ],
           ),
@@ -65,9 +59,7 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: more,
-                builder: (context, state) {
-                  return const MoreScreen();
-                },
+                builder: (context, state) => const MoreScreen(),
               ),
             ],
           ),
@@ -75,11 +67,9 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: search,
-                builder: (context, state) {
-                  return SearchTicketFormScreen(
+                builder: (context, state) => SearchTicketFormScreen(
                     searchModel: state.extra as SearchModel?,
-                  );
-                },
+                  ),
               ),
             ],
           ),
@@ -87,11 +77,9 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: searchResult,
-                builder: (context, state) {
-                  return SearchTicketsResultScreen(
+                builder: (context, state) => SearchTicketsResultScreen(
                     searchModel: state.extra! as SearchModel,
-                  );
-                },
+                  ),
               ),
             ],
           ),

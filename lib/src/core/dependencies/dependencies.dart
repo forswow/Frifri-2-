@@ -92,9 +92,9 @@ base class Dependencies {
   late final ITicketRecordLocalDataSources iTicketRecordLocalDataSources;
 
   Future<void> initializationDependencies() async {
-    await dotenv.load();
-    final String baseUrl = dotenv.get('API_BASE_URL');
-    final String apiKey = dotenv.get('API_KEY');
+    // await dotenv.load();
+    // final String baseUrl = dotenv.get('API_BASE_URL');
+    // final String apiKey = dotenv.get('API_KEY');
 
     logger.i('Initializing dependencies...');
 
@@ -115,7 +115,7 @@ base class Dependencies {
     languageCubit = AppLanguageSettingsCubit(prefHelper: globalPrefHelper);
     currencyCubit = CurrencySettingsCubit(prefHelper: globalPrefHelper);
 
-    mainDioClient = getBasicDioClient(baseUrl, apiKey);
+    mainDioClient = getBasicDioClient(DioEnv.baseUrl, DioEnv.apiKey);
 
     autocompleteDataSource = AutocompleteDataSourceImpl(
       dioClient: mainDioClient,

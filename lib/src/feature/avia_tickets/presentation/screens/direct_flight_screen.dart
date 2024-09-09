@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/core/ui_kit/progress/gif_progress.dart';
 import 'package:frifri/src/feature/avia_tickets/domain/entities/direct_oneway_tickets_entity.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/bloc/direct_flight_bloc/direct_flight_bloc_event.dart';
@@ -14,6 +15,7 @@ import 'package:frifri/src/feature/more/domain/currency_bloc.dart';
 import 'package:frifri/src/feature/more/domain/entities/airport_entity.dart';
 import 'package:frifri/src/feature/more/domain/language_bloc.dart';
 import 'package:frifri/src/feature/more/presentation/modals/select_airport_modal.dart';
+import 'package:gif/gif.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DirectFlightScreen extends StatefulWidget {
@@ -98,22 +100,22 @@ class _DirectFlightScreenState extends State<DirectFlightScreen> {
                   // В самом начале
                   DirectFlight$Idle() => const Text('idle'),
                   // Тянем из SupaBase IATA коды назначения
-                  DirectFlight$AirportsFetchingInProgress() => Text(
-                      AppLocalizations.of(context).loadingDirectAirports,
-                    ),
-                  // Как только стянули, запускаем поиск по этим кодам
-                  DirectFlight$AirportsFetchingSuccess() => Text(
-                      AppLocalizations.of(context).gotAirports,
-                    ),
-                  // Пока ищем показываем прогресс
-                  DirectFlight$TicketFetch() => Text(
-                      AppLocalizations.of(context).loadingDirectTickets,
-                    ),
+                  DirectFlight$AirportsFetchingInProgress() ||
+                  DirectFlight$AirportsFetchingSuccess() ||
+                  DirectFlight$TicketFetch() =>
+                    const GifProgress(),
+                  // // Как только стянули, запускаем поиск по этим кодам
+                  // DirectFlight$AirportsFetchingSuccess() => Text(
+                  //     AppLocalizations.of(context).gotAirports,
+                  //   ),
+                  // // Пока ищем показываем прогресс
+                  // DirectFlight$TicketFetch() => Text(
+                  //     AppLocalizations.of(context).loadingDirectTickets,
+                  //   ),
                   // Получили и коды и билеты, пора показывать
                   DirectFlight$TicketSuccess() => AviaTicketList(
                       allTickets: state.tickets,
-                      onReorder:
-                          (name, list) {
+                      onReorder: (name, list) {
                         directFlightBloc.add(DirectFlight$OnReorder(
                             directOneWayTicket: list, country: name));
                       },
@@ -154,7 +156,7 @@ class DirectFlightScreenAppBarContent extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                  text: ' ${airportToString(currentAirport, context: context)}',
+                  text: ' ${currentAirport.airportToString(context: context)}',
                   style: GoogleFonts.poppins(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

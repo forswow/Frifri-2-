@@ -77,6 +77,15 @@ class SearchModel with ChangeNotifier {
     _isDirectFlight = value;
     notifyListeners();
   }
+
+  void swtichAirport() {
+    final tempDeparture = _departureAt;
+
+    _departureAt = _arrivalAt;
+    _arrivalAt = tempDeparture;
+
+    notifyListeners();
+  }
 }
 
 final _defaultDivider = Divider(
@@ -224,15 +233,80 @@ class LocationPickerZone extends StatelessWidget {
               searchModel: searchModel,
             ),
           ),
-          SvgPicture.asset(
-            'assets/icons/searchfly-airplane.svg',
-          ),
+          TransformAiplane(searchModel: searchModel),
           Expanded(
             child: ToLocationPicker(
               searchModel: searchModel,
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TransformAiplane extends StatefulWidget {
+  const TransformAiplane({
+    super.key,
+    required this.searchModel,
+  });
+
+  final SearchModel searchModel;
+
+  @override
+  State<TransformAiplane> createState() => _TransformAiplaneState();
+}
+
+class _TransformAiplaneState extends State<TransformAiplane>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  bool _isRotatedLeft = false;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTap() {
+    widget.searchModel.swtichAirport();
+
+    if (!_isRotatedLeft) {
+      _controller.forward().then((_) {
+        _isRotatedLeft = true;
+      });
+    } else {
+      _controller.reverse().then((_) {
+        _isRotatedLeft = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _onTap,
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return Transform.rotate(
+            angle: _animation.value * 3.14,
+            child: SvgPicture.asset(
+              'assets/icons/searchfly-airplane.svg',
+            ),
+          );
+        },
       ),
     );
   }
