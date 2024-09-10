@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:dio/dio.dart';
@@ -11,6 +12,7 @@ import 'package:frifri/src/feature/shared/data/dto/ticket_search_query.dart';
 import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 import 'package:frifri/src/feature/shared/domain/entities/trip_class.dart';
 import 'package:frifri/src/feature/shared/domain/repository/search_tickets_repo.dart';
+import 'package:get_ip_address/get_ip_address.dart';
 
 class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
   final ISearchTicketsRepo searchTicketsRepository;
@@ -35,13 +37,15 @@ class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
 
     try {
       final searchModel = event.searchModelForm;
-      final query = generateTicketsSearchQueryFromForm(
+
+      final query = await generateTicketsSearchQueryFromForm(
           searchModel: searchModel, locale: event.locale);
 
       // Step 1: get search id
       final searchResult = await searchTicketsRepository.searchTickets(query);
       final currencyRates = searchResult.currencyRates;
       final searchId = searchResult.searchId;
+      logger.i('searchId:$searchId');
 
       // Step 2: get tickets by search id
       await Future.delayed(const Duration(seconds: 1));
@@ -72,12 +76,13 @@ class SearchTicketsBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  TicketsSearchQuery generateTicketsSearchQueryFromForm({
+  Future<TicketsSearchQuery> generateTicketsSearchQueryFromForm({
     required SearchModel searchModel,
     required String locale,
-  }) {
+  }) async {
     final TicketsSearchQuery options = TicketsSearchQuery(
       locale: locale,
+      userIp: (await IpAddress().getIpAddress()).toString(),
       tripClass:
           tripClassToDataString(searchModel.passengersAndClass!.tripClass),
       passengers: Passengers(

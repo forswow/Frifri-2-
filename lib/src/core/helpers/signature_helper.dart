@@ -4,18 +4,19 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 base mixin class Signature {
+  // Convert a Map to a SplayTreeMap
   SplayTreeMap<String, dynamic> _convertToSplayTreeMap(
       Map<String, dynamic> map) {
     final SplayTreeMap<String, dynamic> splayTreeMap = SplayTreeMap();
 
     map.forEach((key, value) {
-      if (value is Map) {
-        splayTreeMap[key] =
-            _convertToSplayTreeMap(value as Map<String, dynamic>);
+      if (value is Map<String, dynamic>) {
+        splayTreeMap[key] = _convertToSplayTreeMap(value);
       } else if (value is List) {
-        splayTreeMap[key] = value.map(
-          (e) => _convertToSplayTreeMap(e),
-        );
+        splayTreeMap[key] = value
+            .map((e) =>
+                e is Map<String, dynamic> ? _convertToSplayTreeMap(e) : e)
+            .toList();
       } else {
         splayTreeMap[key] = value;
       }
@@ -24,35 +25,45 @@ base mixin class Signature {
     return splayTreeMap;
   }
 
+  // Flatten parameters into a single string
   String _flattenParameters(SplayTreeMap<String, dynamic> params) {
-    final List<String> values = [];
+    final StringBuffer buffer = StringBuffer();
 
     params.forEach((key, value) {
       if (value is Iterable) {
-        value.toList().forEach((element) {
-          values.add(_flattenParameters(element));
-        });
+        for (final element in value) {
+          buffer.write(_flattenParameters(element is Map<String, dynamic>
+              ? _convertToSplayTreeMap(element)
+              : element));
+        }
       } else if (value is SplayTreeMap<String, dynamic>) {
-        values.add(_flattenParameters(value));
+        buffer.write(_flattenParameters(value));
       } else {
-        values.add(value.toString());
+        buffer.write(value.toString());
       }
+      buffer.write(':'); // Add separator after each value
     });
 
-    return values.join(':');
+    // Remove the last separator if buffer is not empty
+    if (buffer.isNotEmpty) {
+      buffer.write(buffer
+          .toString()
+          .substring(0, buffer.length - 1)); // Remove the last colon
+    }
+
+    return buffer.toString();
   }
 
+  // Create the signature
   String createSignature(Map<String, dynamic> params, String token) {
-    // Step 1: Rearrange parameters alphabetically
-    // SplayTreeMap make it automatically sorted
+    // Step 1: Convert and sort parameters
     final SplayTreeMap<String, dynamic> splayTreeMap =
         _convertToSplayTreeMap(params);
 
-    // Step 2: Flatten all parameters into a single string
-    // separated by columns
+    // Step 2: Flatten parameters
     String result = _flattenParameters(splayTreeMap);
 
-    // Step 3: Add token in the beginning
+    // Step 3: Add token at the beginning
     result = '$token:$result';
 
     // Step 4: Hash it with MD5

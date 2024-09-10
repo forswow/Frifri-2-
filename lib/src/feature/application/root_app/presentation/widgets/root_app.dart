@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/core/helpers/internet_checker.dart';
 import 'package:frifri/src/feature/application/root_app/presentation/widgets/app.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/recent_city_searches_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
@@ -16,7 +17,8 @@ import 'package:frifri/src/feature/more/domain/settings_bloc.dart';
 class RootApp extends StatelessWidget {
   /// {@macro root_app}
   const RootApp({
-    required this.dependencies, super.key,
+    required this.dependencies,
+    super.key,
   });
 
   final Dependencies dependencies;
@@ -29,6 +31,9 @@ class RootApp extends StatelessWidget {
         builder: (context) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider(
+                create: (_) => InternetCubit(),
+              ),
               BlocProvider<PushNotificationSettingsCubit>.value(
                 value: dependencies.pushNotificationCubit,
               ),

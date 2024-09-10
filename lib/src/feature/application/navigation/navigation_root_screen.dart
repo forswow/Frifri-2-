@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:frifri/src/core/helpers/internet_checker.dart';
+import 'package:frifri/src/core/localization/extension_alias.dart';
 import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({required this.navigationShell, super.key});
@@ -16,7 +20,43 @@ class RootScreen extends StatelessWidget {
     final currentNavigationIndex = navigationShell.currentIndex;
 
     return Scaffold(
-      body: navigationShell,
+      body: BlocBuilder<InternetCubit, InternetConnectionStatus?>(
+        builder: (context, connectionStatus) {
+          if (connectionStatus == InternetConnectionStatus.disconnected) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(child: SvgPicture.asset('assets/icons/no_internet.svg')),
+                const SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  context.l10n.noInternet,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w300,
+                    height: 45 / 30,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  context.l10n.checkConnection,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                    height: 20 / 16,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            );
+          }
+          return navigationShell;
+        },
+      ),
       bottomNavigationBar: CustomBottomNavigationBar(
         navigationIndex: currentNavigationIndex,
       ),

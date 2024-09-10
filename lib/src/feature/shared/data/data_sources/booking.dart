@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frifri/src/core/network/dio_client.dart';
 import 'package:frifri/src/core/network/exceptions/nework_exception.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/shared/domain/entities/booking_ticket_entity.dart';
@@ -21,13 +21,13 @@ class BookingDataSourceImpl implements IBookingDataSource {
     required int termsUrl,
   }) async {
     try {
-      final marker = dotenv.get('API_MARKER');
+      // final marker = dotenv.get('API_MARKER');
 
       final endPoint =
           'http://api.travelpayouts.com/v1/flight_searches/$searchId/clicks/$termsUrl.json';
 
       final response =
-          await _dio.get(endPoint, queryParameters: {'marker': marker});
+          await _dio.get(endPoint, queryParameters: {'marker': DioEnv.marker});
 
       if (response.statusCode == 200) {
         return BookingTicketEntity.fromJson(response.data);

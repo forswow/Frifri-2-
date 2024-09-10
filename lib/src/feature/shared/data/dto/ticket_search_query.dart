@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:frifri/src/core/network/dio_client.dart';
+
 String ticketsSearchQueryToJson(TicketsSearchQuery data) =>
     json.encode(data.toJson());
 
 class TicketsSearchQuery {
   TicketsSearchQuery({
-    this.marker = '406687',
+    this.marker = DioEnv.marker,
     this.host = 'frifri.ge',
     this.userIp = '200.44.76.149',
     this.locale = 'ru',
