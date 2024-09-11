@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,10 +13,12 @@ import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/p
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
 import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TicketModal extends StatelessWidget {
   const TicketModal({
-    required this.ticketEntity, super.key,
+    required this.ticketEntity,
+    super.key,
   });
 
   final TicketEntity ticketEntity;
@@ -151,8 +155,94 @@ class __TicketModalContentState extends State<_TicketModalContent> {
             searchId: ticketEntity.searchId, termsUrl: ticketEntity.termsUrl);
 
     final String url = bookingUrlResult.url;
+    unawaited(showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => FullTicketInfoDialog(
+        ticketEntity: ticketEntity,
+      ),
+    ));
+    await Future.delayed(const Duration(seconds: 2), () async {
+      await UrlLauncherHelper.launchInWeb(url)
+          .whenComplete(() async => Future.delayed(
+                Duration(milliseconds: 200),
+                () => Navigator.of(context).pop(),
+              ));
+    });
+  }
+}
 
-    await UrlLauncherHelper.launchInWeb(url);
+class FullTicketInfoDialog extends StatelessWidget {
+  const FullTicketInfoDialog({
+    required this.ticketEntity,
+    super.key,
+  });
+  final TicketEntity ticketEntity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog.fullscreen(
+      backgroundColor: const Color(0xffF1F3F8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset('assets/icons/Illustration.svg'),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 28),
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Переход для покупки\n',
+                        style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            height: 24 / 16),
+                      ),
+                      TextSpan(
+                        text:
+                            '${ticketEntity.originAirport.name} - ${ticketEntity.destinationAirport.name}\n',
+                        style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            height: 24 / 16),
+                      ),
+                      TextSpan(
+                          text: ticketEntity.formattedPrice,
+                          style: GoogleFonts.poppins(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xff4B94F7),
+                          )),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 76),
+            child: Text(
+              'Проверьте правильность цены и деталей перелета перед бронированием.',
+              style: GoogleFonts.poppins(
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                height: 14 / 10,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

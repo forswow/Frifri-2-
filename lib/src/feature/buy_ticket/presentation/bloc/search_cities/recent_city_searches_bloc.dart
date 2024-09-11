@@ -22,7 +22,7 @@ class RecentSearchesCubit extends Cubit<List<AutocompleteEntity>> {
               name: e.airport),
         )
         .toList();
-    return recentSearches;
+    return recentSearches.reversed.toList();
   }
 
   Future<void> addRecentSearch(AutocompleteEntity countrySearchEntity) async {
