@@ -8,6 +8,7 @@ import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_manager.dart';
+import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_cities/search_city_bloc.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/passengers_modal/passengers_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/search_city_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/widgets/choose_fly_radiobutton.dart';
@@ -332,7 +333,7 @@ class ToLocationPicker extends StatelessWidget {
             searchModel: searchModel,
             mode: SearchCityModalModeEnum.to,
           ),
-        );
+        ).whenComplete(() => context.read<SearchCityBloc>().add(IdleSearchEvent()));
 
         if (location == null) return;
 

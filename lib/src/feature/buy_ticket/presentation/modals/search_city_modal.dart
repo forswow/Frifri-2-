@@ -91,28 +91,20 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
           ),
           Expanded(
             child: BlocBuilder<SearchCityBloc, SearchCityState>(
-              builder: (context, state) {
-                switch (state) {
-                  case Idle():
-                    return BlocBuilder<RecentSearchesCubit,
-                        List<AutocompleteEntity>>(
-                      builder: (context, state) {
-                        return SearchCityResult(
-                          title: AppLocalizations.of(context).recentSearches,
-                          searchResult: state,
-                        );
-                      },
-                    );
-                  case SearchInProgress():
-                    return const Center(child: GifProgress());
-                  case SearchCompleted():
-                    return SearchCityResult(
-                      title: 'Результаты поиска',
-                      searchResult: state.countrySearchList,
-                    );
-                  case SearchFailure():
-                    return Container();
-                }
+              builder: (context, state) => switch (state) {
+                Idle() =>
+                  BlocBuilder<RecentSearchesCubit, List<AutocompleteEntity>>(
+                    builder: (context, state) => SearchCityResult(
+                      title: AppLocalizations.of(context).recentSearches,
+                      searchResult: state,
+                    ),
+                  ),
+                SearchInProgress() => const Center(child: GifProgress()),
+                SearchCompleted() => SearchCityResult(
+                    title: 'Результаты поиска',
+                    searchResult: state.countrySearchList,
+                  ),
+                SearchFailure() => Container()
               },
             ),
           )

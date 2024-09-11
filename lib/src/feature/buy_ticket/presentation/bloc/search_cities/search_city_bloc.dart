@@ -25,6 +25,7 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
           )
           .switchMap(mapper),
     );
+    on<IdleSearchEvent>(_onIdleSearchEvent);
   }
 
   FutureOr<void> _searchCountry(
@@ -51,6 +52,11 @@ class SearchCityBloc extends Bloc<CitySearchEvent, SearchCityState> {
         SearchFailure(message: error.message ?? ''),
       );
     }
+  }
+
+  void _onIdleSearchEvent(
+      IdleSearchEvent event, Emitter<SearchCityState> emit) {
+    emit(Idle());
   }
 }
 
@@ -96,4 +102,9 @@ final class StartCitySearchEvent extends CitySearchEvent {
 
   @override
   List<Object> get props => [text];
+}
+
+final class IdleSearchEvent extends CitySearchEvent {
+  @override
+  List<Object?> get props => [];
 }

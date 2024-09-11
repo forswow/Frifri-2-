@@ -6,7 +6,8 @@ import 'package:intl/intl.dart';
 
 class SegmentInfoBody extends StatelessWidget {
   const SegmentInfoBody({
-    required this.segmentEntity, super.key,
+    required this.segmentEntity,
+    super.key,
   });
 
   final SegmentEntity segmentEntity;
@@ -85,69 +86,71 @@ class SegmentInfoBody extends StatelessWidget {
         const SizedBox(
           width: 16,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: 180,
-                  child: FittedBox(
-                    alignment: Alignment.centerLeft,
-                    fit: BoxFit.scaleDown,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    width: 180,
+                    child: FittedBox(
+                      alignment: Alignment.centerLeft,
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        segmentEntity.departureCityName,
+                        style: AppStyles.textStylePoppins.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 180,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        segmentEntity.departureAirportName,
+                        style: AppStyles.textStylePoppins.copyWith(
+                          color: Colors.black45,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    width: 180,
                     child: Text(
-                      segmentEntity.departureCityName,
+                      segmentEntity.arrivalCityName,
                       style: AppStyles.textStylePoppins.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 180,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
+                  SizedBox(
+                    width: 180,
                     child: Text(
-                      segmentEntity.departureAirportName,
+                      segmentEntity.arrivalAirportName,
                       style: AppStyles.textStylePoppins.copyWith(
                         color: Colors.black45,
                         fontSize: 12,
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: 180,
-                  child: Text(
-                    segmentEntity.arrivalCityName,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 180,
-                  child: Text(
-                    segmentEntity.arrivalAirportName,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      color: Colors.black45,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );

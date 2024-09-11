@@ -22,7 +22,7 @@ class TicketsDataSourceImpl implements ITicketsDataSource {
   @override
   Future<TicketsSearchIdResult> searchTickets(
       {required TicketsSearchQuery options}) async {
-    const String endpoint = 'http://api.travelpayouts.com/v1/flight_search';
+    const String endpoint = 'https://api.travelpayouts.com/v1/flight_search';
 
     const apiKey = DioEnv.apiKey;
 
@@ -32,26 +32,26 @@ class TicketsDataSourceImpl implements ITicketsDataSource {
     final signature = Signature().createSignature(allOptions, apiKey);
 
     allOptions.addAll({'signature': signature});
+    logger.i('all options: $allOptions');
     try {
-      final response = await _dio.post(endpoint,
-          data: allOptions, options: Options(contentType: 'application/json'));
+      final response = await Dio().post(endpoint, data: allOptions);
 
       final result = response.data;
       return TicketsSearchIdResult.fromJson(result);
     } on DioException catch (error, stack) {
-      if (error.response?.statusCode == 307) {
-        // Обработка редиректа
-        final redirectUrl = error.response?.headers['location']?.first;
-        if (redirectUrl != null) {
-          print('Redirecting to: $redirectUrl');
-          // Повторяем запрос на новом URL
-          final redirectResponse = await _dio.post(
-            redirectUrl,
-            data: allOptions,
-          );
-          print('Redirected response data: ${redirectResponse.data}');
-        }
-      }
+      // if (error.response?.statusCode == 307) {
+      //   // Обработка редиректа
+      //   final redirectUrl = error.response?.headers['location']?.first;
+      //   if (redirectUrl != null) {
+      //     print('Redirecting to: $redirectUrl');
+      //     // Повторяем запрос на новом URL
+      //     final redirectResponse = await _dio.post(
+      //       redirectUrl,
+      //       data: allOptions,
+      //     );
+      //     print('Redirected response data: ${redirectResponse.data}');
+      //   }
+      // }
       logger
         ..e('[DIO Error]: ${error.message}')
         ..e('[Request Data]: ${error.requestOptions.data}');

@@ -24,20 +24,21 @@ Dio getBasicDioClient(String baseUrl, String apiKey) {
   // for the api
   final dioClient = Dio(
     BaseOptions(
-      followRedirects: true,
+      // followRedirects: true,
       headers: {
-        'X-Access-Token': apiKey,
+        'X-Access-Token': DioEnv.apiKey,
         'Accept-Encoding': 'gzip',
       },
-      validateStatus: (status) {
-        return status != null;
-        // return status != null && status >= 200 && status < 300;
-      },
-      baseUrl: baseUrl,
+      // validateStatus: (status) {
+      //   return status != null;
+      //   // return status != null && status >= 200 && status < 300;
+      // },
+      // baseUrl: baseUrl,
     ),
-  )..interceptors.addAll([
-      ErrorInterceptor(),
-    ]);
+  );
+  // ..interceptors.addAll([
+  //     ErrorInterceptor(),
+  //   ]);
 
   return dioClient;
 }
