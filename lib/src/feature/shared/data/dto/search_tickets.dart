@@ -14,144 +14,144 @@ String ticketsSearchIdResultToJson(TicketsSearchIdResult data) =>
 
 class TicketsSearchIdResult {
   final String searchId;
-  final List<Segment> segments;
-  final Passengers passengers;
-  final String currency;
-  final String locale;
-  final String cleanMarker;
-  final bool travelpayoutsApiRequest;
-  final bool knowEnglish;
+  // final List<Segment> segments;
+  // final Passengers passengers;
+  // final String currency;
+  // final String locale;
+  // final String cleanMarker;
+  // final bool travelpayoutsApiRequest;
+  // final bool knowEnglish;
   final Map<String, double> currencyRates;
-  final Meta meta;
-  final AirlineRules tariffMapping;
-  final AirlineRules airlineRules;
-  final String market;
-  final String marker;
-  final bool openJaw;
-  final bool internal;
-  final bool affiliate;
-  final String tripClass;
-  final bool range;
-  final String serverName;
-  final DateTime initiatedAt;
-  final String originCountry;
-  final String destinationCountry;
-  final Map<String, MetropolyAirport> metropolyAirports;
-  final String host;
-  final double startSearchTimestamp;
-  final int searchDepth;
-  final bool showAds;
-  final AdsenseQuery adsenseQuery;
-  final AirlineFeatures airlineFeatures;
-  final dynamic tags;
+  // final Meta meta;
+  // final AirlineRules tariffMapping;
+  // final AirlineRules airlineRules;
+  // final String market;
+  // final String marker;
+  // final bool openJaw;
+  // final bool internal;
+  // final bool affiliate;
+  // final String tripClass;
+  // final bool range;
+  // final String serverName;
+  // final DateTime initiatedAt;
+  // final String originCountry;
+  // final String destinationCountry;
+  // final Map<String, MetropolyAirport> metropolyAirports;
+  // final String host;
+  // final double startSearchTimestamp;
+  // final int searchDepth;
+  // final bool showAds;
+  // final AdsenseQuery adsenseQuery;
+  // final AirlineFeatures airlineFeatures;
+  // final dynamic tags;
 
   TicketsSearchIdResult({
     required this.searchId,
-    required this.segments,
-    required this.passengers,
-    required this.currency,
-    required this.locale,
-    required this.cleanMarker,
-    required this.travelpayoutsApiRequest,
-    required this.knowEnglish,
+    // required this.segments,
+    // required this.passengers,
+    // required this.currency,
+    // required this.locale,
+    // required this.cleanMarker,
+    // required this.travelpayoutsApiRequest,
+    // required this.knowEnglish,
     required this.currencyRates,
-    required this.meta,
-    required this.tariffMapping,
-    required this.airlineRules,
-    required this.market,
-    required this.marker,
-    required this.openJaw,
-    required this.internal,
-    required this.affiliate,
-    required this.tripClass,
-    required this.range,
-    required this.serverName,
-    required this.initiatedAt,
-    required this.originCountry,
-    required this.destinationCountry,
-    required this.metropolyAirports,
-    required this.host,
-    required this.startSearchTimestamp,
-    required this.searchDepth,
-    required this.showAds,
-    required this.adsenseQuery,
-    required this.airlineFeatures,
-    required this.tags,
+    // required this.meta,
+    // required this.tariffMapping,
+    // required this.airlineRules,
+    // required this.market,
+    // required this.marker,
+    // required this.openJaw,
+    // required this.internal,
+    // required this.affiliate,
+    // required this.tripClass,
+    // required this.range,
+    // required this.serverName,
+    // required this.initiatedAt,
+    // required this.originCountry,
+    // required this.destinationCountry,
+    // required this.metropolyAirports,
+    // required this.host,
+    // required this.startSearchTimestamp,
+    // required this.searchDepth,
+    // required this.showAds,
+    // required this.adsenseQuery,
+    // required this.airlineFeatures,
+    // required this.tags,
   });
 
   factory TicketsSearchIdResult.fromJson(Map<String, dynamic> json) =>
       TicketsSearchIdResult(
         searchId: json['search_id'],
-        segments: List<Segment>.from(
-            json['segments'].map((x) => Segment.fromJson(x))),
-        passengers: Passengers.fromJson(json['passengers']),
-        currency: json['currency'],
-        locale: json['locale'],
-        cleanMarker: json['clean_marker'],
-        travelpayoutsApiRequest: json['travelpayouts_api_request'],
-        knowEnglish: json['know_english'],
+        // segments: List<Segment>.from(
+        //     json['segments'].map((x) => Segment.fromJson(x))),
+        // passengers: Passengers.fromJson(json['passengers']),
+        // currency: json['currency'],
+        // locale: json['locale'],
+        // cleanMarker: json['clean_marker'],
+        // travelpayoutsApiRequest: json['travelpayouts_api_request'],
+        // knowEnglish: json['know_english'],
         currencyRates: Map.from(json['currency_rates'])
             .map((k, v) => MapEntry<String, double>(k, v?.toDouble())),
-        meta: Meta.fromJson(json['meta']),
-        tariffMapping: AirlineRules.fromJson(json['tariff_mapping']),
-        airlineRules: AirlineRules.fromJson(json['airline_rules']),
-        market: json['market'],
-        marker: json['marker'],
-        openJaw: json['open_jaw'],
-        internal: json['internal'],
-        affiliate: json['affiliate'],
-        tripClass: json['trip_class'],
-        range: json['range'],
-        serverName: json['server_name'],
-        initiatedAt: DateTime.parse(json['initiated_at']),
-        originCountry: json['origin_country'],
-        destinationCountry: json['destination_country'],
-        metropolyAirports: Map.from(json['metropoly_airports']).map((k, v) =>
-            MapEntry<String, MetropolyAirport>(
-                k, MetropolyAirport.fromJson(v))),
-        host: json['host'],
-        startSearchTimestamp: json['start_search_timestamp']?.toDouble(),
-        searchDepth: json['search_depth'],
-        showAds: json['show_ads'],
-        adsenseQuery: AdsenseQuery.fromJson(json['adsense_query']),
-        airlineFeatures: AirlineFeatures.fromJson(json['airline_features']),
-        tags: json['tags'],
+        // meta: Meta.fromJson(json['meta']),
+        // tariffMapping: AirlineRules.fromJson(json['tariff_mapping']),
+        // airlineRules: AirlineRules.fromJson(json['airline_rules']),
+        // market: json['market'],
+        // marker: json['marker'],
+        // openJaw: json['open_jaw'],
+        // internal: json['internal'],
+        // affiliate: json['affiliate'],
+        // tripClass: json['trip_class'],
+        // range: json['range'],
+        // serverName: json['server_name'],
+        // initiatedAt: DateTime.parse(json['initiated_at']),
+        // originCountry: json['origin_country'],
+        // destinationCountry: json['destination_country'],
+        // metropolyAirports: Map.from(json['metropoly_airports']).map((k, v) =>
+        //     MapEntry<String, MetropolyAirport>(
+        //         k, MetropolyAirport.fromJson(v))),
+        // host: json['host'],
+        // startSearchTimestamp: json['start_search_timestamp']?.toDouble(),
+        // searchDepth: json['search_depth'],
+        // showAds: json['show_ads'],
+        // adsenseQuery: AdsenseQuery.fromJson(json['adsense_query']),
+        // airlineFeatures: AirlineFeatures.fromJson(json['airline_features']),
+        // tags: json['tags'],
       );
 
   Map<String, dynamic> toJson() => {
         'search_id': searchId,
-        'segments': List<dynamic>.from(segments.map((x) => x.toJson())),
-        'passengers': passengers.toJson(),
-        'currency': currency,
-        'locale': locale,
-        'clean_marker': cleanMarker,
-        'travelpayouts_api_request': travelpayoutsApiRequest,
-        'know_english': knowEnglish,
+        // 'segments': List<dynamic>.from(segments.map((x) => x.toJson())),
+        // 'passengers': passengers.toJson(),
+        // 'currency': currency,
+        // 'locale': locale,
+        // 'clean_marker': cleanMarker,
+        // 'travelpayouts_api_request': travelpayoutsApiRequest,
+        // 'know_english': knowEnglish,
         'currency_rates': Map.from(currencyRates)
             .map((k, v) => MapEntry<String, dynamic>(k, v)),
-        'meta': meta.toJson(),
-        'tariff_mapping': tariffMapping.toJson(),
-        'airline_rules': airlineRules.toJson(),
-        'market': market,
-        'marker': marker,
-        'open_jaw': openJaw,
-        'internal': internal,
-        'affiliate': affiliate,
-        'trip_class': tripClass,
-        'range': range,
-        'server_name': serverName,
-        'initiated_at': initiatedAt.toIso8601String(),
-        'origin_country': originCountry,
-        'destination_country': destinationCountry,
-        'metropoly_airports': Map.from(metropolyAirports)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
-        'host': host,
-        'start_search_timestamp': startSearchTimestamp,
-        'search_depth': searchDepth,
-        'show_ads': showAds,
-        'adsense_query': adsenseQuery.toJson(),
-        'airline_features': airlineFeatures.toJson(),
-        'tags': tags,
+        // 'meta': meta.toJson(),
+        // 'tariff_mapping': tariffMapping.toJson(),
+        // 'airline_rules': airlineRules.toJson(),
+        // 'market': market,
+        // 'marker': marker,
+        // 'open_jaw': openJaw,
+        // 'internal': internal,
+        // 'affiliate': affiliate,
+        // 'trip_class': tripClass,
+        // 'range': range,
+        // 'server_name': serverName,
+        // 'initiated_at': initiatedAt.toIso8601String(),
+        // 'origin_country': originCountry,
+        // 'destination_country': destinationCountry,
+        // 'metropoly_airports': Map.from(metropolyAirports)
+        //     .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+        // 'host': host,
+        // 'start_search_timestamp': startSearchTimestamp,
+        // 'search_depth': searchDepth,
+        // 'show_ads': showAds,
+        // 'adsense_query': adsenseQuery.toJson(),
+        // 'airline_features': airlineFeatures.toJson(),
+        // 'tags': tags,
       };
 }
 

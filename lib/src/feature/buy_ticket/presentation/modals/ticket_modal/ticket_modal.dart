@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
+import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
@@ -106,7 +108,8 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                           const SizedBox(
                             height: 20,
                           ),
-                          if (index <= allSegments.length - 2) ...[
+                          if (index <= allSegments.length - 2 &&
+                              !ticketEntity.isDirect) ...[
                             SegmentLayoverInfo(
                               cityName:
                                   allSegments[index + 1].departureAirportName,
@@ -257,69 +260,115 @@ class _TicketModalHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(46, 64, 46, 0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                FittedBox(
-                  child: Text(
-                    ticketEntity.originAirport.code,
-                    style: AppStyles.textStylePoppins
-                        .copyWith(fontSize: 22, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                FittedBox(
-                  child: Text(
-                    ticketEntity.originAirport.name,
-                    textAlign: TextAlign.right,
-                    style: AppStyles.textStylePoppins,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              SvgPicture.asset(
-                'assets/icons/avia-copy.svg',
-                width: 150,
+      child: Column(
+        children: [
+          ...ticketEntity.segmentsList.mapIndexed((index, segment) {
+            if (!ticketEntity.isDirect && index != 0) {
+              return const SizedBox.shrink();
+            }
+            return Padding(
+              padding: EdgeInsets.only(top: index != 0 ? 4 : 0),
+              child: _TicketModalSubHeader(
+                segment: segment,
+                originCode:
+                    ticketEntity.originAirport.name == segment.departureCityName
+                        ? ticketEntity.originAirport.code
+                        : ticketEntity.destinationAirport.code,
+                destinationCode: ticketEntity.destinationAirport.name ==
+                        segment.departureCityName
+                    ? ticketEntity.originAirport.code
+                    : ticketEntity.destinationAirport.code,
+                isDirect: ticketEntity.isDirect
+                    ? (ticketEntity.isDirect && index == 0)
+                    : !ticketEntity.isDirect,
               ),
-              Text(
-                formatMinutesToHoursAndMinutes(
-                  ticketEntity.durationInMinutes,
-                  AppLocalizations.of(context),
+            );
+          })
+        ],
+      ),
+    );
+  }
+}
+
+class _TicketModalSubHeader extends StatelessWidget {
+  const _TicketModalSubHeader({
+    required this.segment,
+    required this.isDirect,
+    required this.originCode,
+    required this.destinationCode,
+  });
+
+  final SegmentEntity segment;
+  final bool isDirect;
+  final String originCode;
+  final String destinationCode;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              FittedBox(
+                child: Text(
+                  originCode,
+                  style: AppStyles.textStylePoppins
+                      .copyWith(fontSize: 22, fontWeight: FontWeight.w600),
                 ),
-                style: AppStyles.textStylePoppins.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              )
-            ],
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  ticketEntity.destinationAirport.code,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  ticketEntity.destinationAirport.name,
+              ),
+              FittedBox(
+                child: Text(
+                  segment.departureCityName,
                   textAlign: TextAlign.right,
                   style: AppStyles.textStylePoppins,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Column(
+          children: <Widget>[
+            Transform.rotate(
+              angle: !isDirect ? 3.14 : 0,
+              child: SvgPicture.asset(
+                'assets/icons/avia-copy.svg',
+                width: 150,
+              ),
+            ),
+            Text(
+              formatMinutesToHoursAndMinutes(
+                segment.durationInMinutes,
+                AppLocalizations.of(context),
+              ),
+              style: AppStyles.textStylePoppins.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            )
+          ],
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                destinationCode,
+                style: AppStyles.textStylePoppins.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                segment.arrivalCityName,
+                textAlign: TextAlign.right,
+                style: AppStyles.textStylePoppins,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

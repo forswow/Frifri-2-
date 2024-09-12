@@ -7,7 +7,9 @@ import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
 class TicketPreviewCard extends StatefulWidget {
   const TicketPreviewCard({
-    required this.ticketEntity, required this.isCheapestTicket, super.key,
+    required this.ticketEntity,
+    required this.isCheapestTicket,
+    super.key,
   });
 
   final TicketEntity ticketEntity;
@@ -49,7 +51,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
     departureTime = ticketEntity.segmentsList.first.departureTime;
 
     arrivalTime = ticketEntity.segmentsList.last.arrivalTime;
-    countOfTransfers = ticketEntity.segmentsList.length;
+    countOfTransfers =
+        ticketEntity.isDirect ? 1 : ticketEntity.segmentsList.length;
   }
 
   @override
@@ -143,28 +146,31 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
             ),
           ),
         ),
-        if (isCheapestTicket) Positioned(
-                left: 16,
-                top: -10,
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 149,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF27AE60),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context).theCheapest,
-                    textAlign: TextAlign.center,
-                    style: AppStyles.textStylePoppins.copyWith(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+        if (isCheapestTicket)
+          Positioned(
+            left: 16,
+            top: -10,
+            child: Container(
+              alignment: Alignment.center,
+              width: 149,
+              height: 24,
+              decoration: BoxDecoration(
+                color: const Color(0xFF27AE60),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: Text(
+                AppLocalizations.of(context).theCheapest,
+                textAlign: TextAlign.center,
+                style: AppStyles.textStylePoppins.copyWith(
+                  fontSize: 14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
                 ),
-              ) else Container(),
+              ),
+            ),
+          )
+        else
+          Container(),
       ],
     );
   }
@@ -172,7 +178,9 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
 class TicketDurationAndTransfersSection extends StatelessWidget {
   const TicketDurationAndTransfersSection({
-    required this.time, required this.countOfTransfers, super.key,
+    required this.time,
+    required this.countOfTransfers,
+    super.key,
   });
 
   final String time;
@@ -211,7 +219,9 @@ class TicketDurationAndTransfersSection extends StatelessWidget {
 
 class TicketArrivalTimeAndPlace extends StatelessWidget {
   const TicketArrivalTimeAndPlace({
-    required this.arrivalTime, required this.arrivalAtIataCode, super.key,
+    required this.arrivalTime,
+    required this.arrivalAtIataCode,
+    super.key,
   });
 
   final String arrivalTime;
@@ -244,7 +254,9 @@ class TicketArrivalTimeAndPlace extends StatelessWidget {
 
 class TicketDepartureTimeAndPlace extends StatelessWidget {
   const TicketDepartureTimeAndPlace({
-    required this.departureTime, required this.departureAtIataCode, super.key,
+    required this.departureTime,
+    required this.departureAtIataCode,
+    super.key,
   });
 
   final String departureTime;
@@ -277,7 +289,10 @@ class TicketDepartureTimeAndPlace extends StatelessWidget {
 
 class TicketHeader extends StatelessWidget {
   const TicketHeader({
-    required this.iconPath, required this.companyName, required this.formattedPrice, super.key,
+    required this.iconPath,
+    required this.companyName,
+    required this.formattedPrice,
+    super.key,
   });
 
   final String iconPath;

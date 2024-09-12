@@ -61,34 +61,33 @@ base class SearchTicketRepoImpl implements ISearchTicketsRepo {
         for (final proposal in chunk.proposals) {
           final List<SegmentEntity> ticketSegments = [];
 
-          for (final proposalSegment in proposal.segments.first.flight) {
-            final segmentDuration = proposalSegment.duration;
+          for (final proposalSegment in proposal.segments) {
+            for (final segment in proposalSegment.flight) {
+              final segmentDuration = segment.duration;
 
-            ticketSegments.add(
-              SegmentEntity(
-                airlineLogo: getAirlineLogoUrl(
-                  proposalSegment.operatedByAirlineIataCode,
-                  '200/200',
+              ticketSegments.add(
+                SegmentEntity(
+                  airlineLogo: getAirlineLogoUrl(
+                    segment.operatedByAirlineIataCode,
+                    '200/200',
+                  ),
+                  airlineName:
+                      chunk.airlines[segment.operatedByAirlineIataCode]!.name,
+                  arrivalAirportName: chunk.airports[segment.arrivalAt]!.name,
+                  arrivalCityName: chunk.airports[segment.arrivalAt]!.city,
+                  departureAirportName:
+                      chunk.airports[segment.departureAt]!.name,
+                  departureCityName: chunk.airports[segment.departureAt]!.city,
+                  departureDate: DateTime.parse(segment.departureDate),
+                  departureTime: segment.departureTime,
+                  arrivalDate: DateTime.parse(segment.arrivalDate),
+                  arrivalTime: segment.arrivalTime,
+                  arrivalTimestamp: segment.arrivalTimestamp,
+                  departureTimestamp: segment.departureTimestamp,
+                  durationInMinutes: segmentDuration,
                 ),
-                airlineName: chunk
-                    .airlines[proposalSegment.operatedByAirlineIataCode]!.name,
-                arrivalAirportName:
-                    chunk.airports[proposalSegment.arrivalAt]!.name,
-                arrivalCityName:
-                    chunk.airports[proposalSegment.arrivalAt]!.city,
-                departureAirportName:
-                    chunk.airports[proposalSegment.departureAt]!.name,
-                departureCityName:
-                    chunk.airports[proposalSegment.departureAt]!.city,
-                departureDate: DateTime.parse(proposalSegment.departureDate),
-                departureTime: proposalSegment.departureTime,
-                arrivalDate: DateTime.parse(proposalSegment.arrivalDate),
-                arrivalTime: proposalSegment.arrivalTime,
-                arrivalTimestamp: proposalSegment.arrivalTimestamp,
-                departureTimestamp: proposalSegment.departureTimestamp,
-                durationInMinutes: segmentDuration,
-              ),
-            );
+              );
+            }
           }
 
           final priceInRubles = proposal.terms.priceInRubles;
