@@ -80,8 +80,9 @@
     "arrivalDate": "Дата заезда",
     "departureDate": "Дата выезда ",
 
-    "noInternet": "'Нет интернета :(",
-    "checkConnection": "Проверьте интернет соединение"
+    "noInternet": "Нет интернета :(",
+    "checkConnection": "Проверьте интернет соединение",
+    "inDevelopment": "В разработке"
 
 
 }

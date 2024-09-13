@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/localization/extension_alias.dart';
 import 'package:frifri/src/feature/application/navigation/navigation_root_screen.dart';
 import 'package:frifri/src/feature/avia_tickets/presentation/screens/direct_flight_screen.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/screens/search_ticket_form_screen.dart';
@@ -7,6 +8,7 @@ import 'package:frifri/src/feature/hotels/presentation/screens/hotels_screen.dar
 import 'package:frifri/src/feature/more/presentation/screens/more_screen.dart';
 import 'package:frifri/src/feature/service/presentation/screens/service_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NavigationManager {
   static const String aviaTickets = '/avia';
@@ -27,8 +29,8 @@ class NavigationManager {
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) => RootScreen(
-            navigationShell: navigationShell,
-          ),
+          navigationShell: navigationShell,
+        ),
         branches: [
           StatefulShellBranch(
             routes: [
@@ -43,7 +45,7 @@ class NavigationManager {
             routes: [
               GoRoute(
                 path: hotels,
-                builder: (context, state) => const HotelsScreen(),
+                builder: (context, state) => const InDevelopment(),
               ),
             ],
           ),
@@ -68,18 +70,18 @@ class NavigationManager {
               GoRoute(
                 path: search,
                 builder: (context, state) => SearchTicketFormScreen(
-                    searchModel: state.extra as SearchModel?,
-                  ),
+                  searchModel: state.extra as SearchModel?,
+                ),
               ),
             ],
-          ),
+          ), 
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: searchResult,
                 builder: (context, state) => SearchTicketsResultScreen(
-                    searchModel: state.extra! as SearchModel,
-                  ),
+                  searchModel: state.extra! as SearchModel,
+                ),
               ),
             ],
           ),
@@ -87,4 +89,26 @@ class NavigationManager {
       )
     ],
   );
+}
+
+class InDevelopment extends StatelessWidget {
+  const InDevelopment({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xffF1F3F8),
+      body: SafeArea(
+        child: Center(
+          child: Text(
+            context.l10n.inDevelopment,
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

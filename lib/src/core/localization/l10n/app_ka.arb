@@ -80,6 +80,7 @@
     "arrivalDate": "მოსვლის თარიღი",
     "departureDate": "გამოსვლის თარიღი",
 
-    "noInternet": "'Нет интернета :(",
-    "checkConnection": "Проверьте интернет соединение"
+    "noInternet": "ინტერნეტი არაა :(",
+    "checkConnection": "შეამოწმეთ თქვენი ინტერნეტ კავშირი",
+    "inDevelopment": "განვითარებაში"
 }
