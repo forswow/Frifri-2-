@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
+import 'package:frifri/src/core/ui_kit/styles/app_text_styles.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/core/utils/logger.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
@@ -32,7 +33,41 @@ class HorizontalOptionsSlider extends StatelessWidget {
             onDateChange(context);
           },
           child: DateChip(
-            searchModel: searchModel,
+            time: searchModel.departureDate,
+            defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
+          ),
+        ),
+        GestureDetector(
+          onTap: () async {
+            // onDateChange(context);
+
+            final DateTime leastAvailableDate;
+            leastAvailableDate = searchModel.departureDate ?? DateTime.now();
+
+            final DateTime? returnDate = await showModalBottomSheet(
+              context: context,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => CalendarModal(
+                title: AppLocalizations.of(context).back,
+                initialDate: leastAvailableDate,
+                availableFromDate: leastAvailableDate,
+                isOneWay: false,
+                originIataCode: searchModel.departureAt?.code,
+                destinationIataCode: searchModel.arrivalAt?.code,
+                countOfMonths: 12,
+              ),
+            );
+
+            if (returnDate == null) return;
+
+            searchModel.returnDate = returnDate;
+            if (context.mounted) {
+              await startTicketsSearch(context);
+            }
+          },
+          child: DateChip(
+            time: searchModel.returnDate,
             defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
           ),
         ),
@@ -77,9 +112,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
 
     if (newDepartureDate == null) return;
 
-    searchModel
-      ..departureDate = newDepartureDate as DateTime?
-      ..returnDate = null;
+    searchModel.departureDate = newDepartureDate as DateTime;
 
     if (context.mounted) {
       await startTicketsSearch(context);
@@ -215,42 +248,47 @@ class LayoverInfoChip extends StatelessWidget {
 
 class DateChip extends StatelessWidget {
   const DateChip({
-    required this.searchModel,
+    required this.time,
     required double defaultChipsDefaultTextSize,
     super.key,
   }) : _defaultChipsDefaultTextSize = defaultChipsDefaultTextSize;
 
-  final SearchModel searchModel;
+  final DateTime? time;
   final double _defaultChipsDefaultTextSize;
 
   @override
   Widget build(BuildContext context) {
     final locale = context.read<AppLanguageSettingsCubit>().state;
-    logger.i('Current locale: $locale');
 
     return OptionsChipsCard(
-      child: RichText(
-        text: TextSpan(
-          text: DateFormat('dd MMM, ', locale)
-              .format(searchModel.departureDate!)
-              .replaceAll('.', ''),
-          style: AppStyles.textStylePoppins.copyWith(
-            fontSize: _defaultChipsDefaultTextSize,
-            fontWeight: FontWeight.w600,
-          ),
-          children: [
-            TextSpan(
-              text:
-                  DateFormat('EEE', locale).format(searchModel.departureDate!),
+      child: time != null
+          ? RichText(
+              text: TextSpan(
+                text: DateFormat('dd MMM, ', locale)
+                    .format(time!)
+                    .replaceAll('.', ''),
+                style: AppStyles.textStylePoppins.copyWith(
+                  fontSize: _defaultChipsDefaultTextSize,
+                  fontWeight: FontWeight.w600,
+                ),
+                children: [
+                  TextSpan(
+                    text: DateFormat('EEE', locale).format(time!),
+                    style: AppStyles.textStylePoppins.copyWith(
+                      fontSize: _defaultChipsDefaultTextSize,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Text(
+              '+ ${AppLocalizations.of(context).back}',
               style: AppStyles.textStylePoppins.copyWith(
-                fontSize: _defaultChipsDefaultTextSize,
                 fontWeight: FontWeight.w600,
-                color: Colors.grey,
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }

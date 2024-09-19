@@ -110,17 +110,48 @@ class __TicketModalContentState extends State<_TicketModalContent> {
                           ),
                           if (index <= allSegments.length - 2 &&
                               !ticketEntity.isDirect) ...[
-                            SegmentLayoverInfo(
-                              cityName:
-                                  allSegments[index + 1].departureAirportName,
-                              firstSegmentArrivalTimestamp:
-                                  allSegments[index].arrivalTimestamp,
-                              secondSegmentDepartureTimestamp:
-                                  allSegments[index + 1].departureTimestamp,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
+                            if (allSegments[index + 1].departureCityName ==
+                                ticketEntity.destinationAirport.name) ...[
+                              Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(27, 14, 22, 12),
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xF8F8F8F8),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(6)),
+                                  ),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          flex: 10,
+                                          child: Text(
+                                            AppLocalizations.of(context).back,
+                                            textAlign: TextAlign.center,
+                                            style: AppStyles.textStylePoppins
+                                                .copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: const Color.fromRGBO(
+                                                  0, 0, 0, 0.6),
+                                            ),
+                                          ),
+                                        ),
+                                      ]))
+                            ] else ...[
+                              SegmentLayoverInfo(
+                                cityName:
+                                    allSegments[index + 1].departureAirportName,
+                                firstSegmentArrivalTimestamp:
+                                    allSegments[index].arrivalTimestamp,
+                                secondSegmentDepartureTimestamp:
+                                    allSegments[index + 1].departureTimestamp,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ]
                           ]
                         ],
                       ),

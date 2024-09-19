@@ -45,7 +45,9 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
     companyName = ticketEntity.segmentsList.first.airlineName;
     iconPath = ticketEntity.segmentsList.first.airlineLogo;
     formattedPrice = ticketEntity.formattedPrice;
-    durationInMinutes = ticketEntity.durationInMinutes;
+    durationInMinutes = ticketEntity.isDirect
+        ? ticketEntity.segmentsList.first.durationInMinutes
+        : ticketEntity.durationInMinutes;
     departureAtIataCode = ticketEntity.originAirport.code;
     arrivalAtIataCode = ticketEntity.destinationAirport.code;
     departureTime = ticketEntity.segmentsList.first.departureTime;
