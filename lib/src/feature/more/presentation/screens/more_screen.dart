@@ -1,102 +1,134 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:frifri/src/core/theme/colors.dart';
 import 'package:frifri/src/feature/more/domain/constans/more_item_list.dart';
+import 'package:frifri/src/feature/more/domain/entities/more_item_entity.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// {@template more_screen}
 /// MoreScreen widget.
 /// {@endtemplate}
-class MoreScreen extends StatefulWidget {
+class MoreScreen extends StatelessWidget {
   /// {@macro more_screen}
   const MoreScreen({super.key});
 
   @override
-  State<MoreScreen> createState() => _MoreScreenState();
+  Widget build(BuildContext context) {
+    return WrapTileListView(
+      title: AppLocalizations.of(context).more,
+      items: moreItemList(context),
+    );
+  }
 }
 
-class _MoreScreenState extends State<MoreScreen> {
-  static const _moreMenuTextScaleFactor = 0.036;
-  static const _moreMenuIconScaleFactor = 0.034;
-  static const _arrowIconScaleFactor = 0.026;
-  static const _generalPadding = 24.0;
-  static const _dividerHeightScaleFactor = 0.0125;
-
+class WrapTileListView extends StatelessWidget {
+  const WrapTileListView({
+    required this.title,
+    required this.items,
+    super.key,
+  });
+  final String title;
+  final List<SettingsEntity> items;
   @override
   Widget build(BuildContext context) {
-    // 24 - 14 = 10
-    const tilePadding = _generalPadding - 14.0;
-    // 24 - 10 = 14
-    const tileContentPadding = _generalPadding - tilePadding;
-    // Суммарно = 24
-
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).appBarTheme.backgroundColor,
+      value: const SystemUiOverlayStyle(
+        systemNavigationBarColor: Color(0xffF1F3F8),
       ),
       child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: AppBar(
-          titleSpacing: 0,
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 24),
-            child: Text(
-              AppLocalizations.of(context).more,
-              style: GoogleFonts.poppins(
-                  fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-          ),
-        ),
-        body: ListView.separated(
-          // Padding + contentPadding = 24 пикселя по дизайну
-          // это нужно чтобы эффект тапа не казался уродливым (прижатым к иконкам)
-          padding: const EdgeInsets.only(
-              left: tileContentPadding, right: tileContentPadding, top: 20),
-          itemBuilder: (context, index) {
-            final moreItemEntity = moreItemList(context)[index];
-            return ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: tileContentPadding,
-              ),
-              onTap: moreItemEntity.onPreseed,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              horizontalTitleGap: 9.17,
-              leading: SvgPicture.asset(
-                moreItemEntity.assetPath,
-                height: MediaQuery.sizeOf(context).height *
-                    _moreMenuIconScaleFactor,
-                width:
-                    MediaQuery.sizeOf(context).width * _moreMenuIconScaleFactor,
-              ),
-              title: Text(
-                moreItemEntity.name,
-                style: GoogleFonts.poppins(
-                  fontSize: MediaQuery.sizeOf(context).width *
-                      _moreMenuTextScaleFactor,
-                  fontWeight: FontWeight.w700,
+        backgroundColor: const Color(0xffF1F3F8),
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 24,
+                  top: 16,
+                ),
+                child: Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                      fontSize: 20, fontWeight: FontWeight.w600),
                 ),
               ),
-              trailing: SvgPicture.asset(
-                'assets/icons/arrow_right.svg',
-                height:
-                    MediaQuery.sizeOf(context).height * _arrowIconScaleFactor,
-                width: MediaQuery.sizeOf(context).width * _arrowIconScaleFactor,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 39),
+                  child: Wrap(
+                    runSpacing: 24,
+                    spacing: 24,
+                    children: items.map((item) {
+                      return GestureDetector(
+                        onTap: item.onPressed,
+                        child: GridTile(
+                          child: Container(
+                            width: 124,
+                            height: 96,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff5B9CEC)
+                                          .withOpacity(.12),
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: ClipOval(
+                                      child: BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 4, sigmaY: 4),
+                                        child: SvgPicture.asset(
+                                          item.assetPath,
+                                          height: 24,
+                                          width: 24,
+                                          colorFilter: const ColorFilter.mode(
+                                            Color(0xff5B9CEC),
+                                            BlendMode.srcIn,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: Text(
+                                    item.name,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      height: 16 / 14,
+                                      color: const Color(0xff23262F),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
-            );
-          },
-          separatorBuilder: (context, index) {
-            return Divider(
-              height:
-                  MediaQuery.sizeOf(context).height * _dividerHeightScaleFactor,
-              color: kDividerPrimaryColor,
-            );
-          },
-          itemCount: moreItemList(context).length,
+            ],
+          ),
         ),
       ),
     );

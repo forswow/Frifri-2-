@@ -10,9 +10,10 @@ import 'package:frifri/src/feature/more/presentation/modals/select_language_moda
 import 'package:frifri/src/feature/more/presentation/modals/settings_modal.dart';
 
 List<MoreItemEntity> moreItemList(BuildContext context) {
+  final local = AppLocalizations.of(context);
   return [
     MoreItemEntity(
-        onPreseed: () {
+        onPressed: () {
           showModalBottomSheet(
             context: context,
             shape: AppDecorations.modalRoundedShape,
@@ -21,10 +22,10 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SettingsModal(),
           );
         },
-        name: AppLocalizations.of(context).pushNotification,
+        name: local.settings,
         assetPath: 'assets/icons/Settings.svg'),
     MoreItemEntity(
-        onPreseed: () {
+        onPressed: () {
           showModalBottomSheet(
             context: context,
             shape: AppDecorations.modalRoundedShape,
@@ -33,10 +34,10 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SelectAirportModal(),
           );
         },
-        name: AppLocalizations.of(context).departureAirport,
+        name: local.departureAirport,
         assetPath: 'assets/icons/plane-fly.svg'),
     MoreItemEntity(
-        onPreseed: () {
+        onPressed: () {
           showModalBottomSheet(
             context: context,
             shape: AppDecorations.modalRoundedShape,
@@ -45,10 +46,10 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SelectLanguageModal(),
           );
         },
-        name: AppLocalizations.of(context).language,
+        name: local.language,
         assetPath: 'assets/icons/Frame 624659.svg'),
     MoreItemEntity(
-        onPreseed: () {
+        onPressed: () {
           showModalBottomSheet(
             context: context,
             shape: AppDecorations.modalRoundedShape,
@@ -57,10 +58,10 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const SelectCurrencyModal(),
           );
         },
-        name: AppLocalizations.of(context).currency,
+        name: local.currency,
         assetPath: 'assets/icons/usd-circle.svg'),
     MoreItemEntity(
-        onPreseed: () {
+        onPressed: () {
           showModalBottomSheet(
             context: context,
             shape: AppDecorations.modalRoundedShape,
@@ -69,10 +70,10 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const HelpModal(),
           );
         },
-        name: AppLocalizations.of(context).help,
+        name: local.help,
         assetPath: 'assets/icons/help.svg'),
     MoreItemEntity(
-        onPreseed: () {
+        onPressed: () {
           showModalBottomSheet(
             context: context,
             shape: AppDecorations.modalRoundedShape,
@@ -81,7 +82,7 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
             builder: (context) => const ConfidentialityModal(),
           );
         },
-        name: AppLocalizations.of(context).confidentiality,
+        name: local.companyPolicy,
         assetPath: 'assets/icons/circle-info.svg'),
   ];
 }
