@@ -14,145 +14,152 @@ class SegmentInfoBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            SvgPicture.asset(
-              'assets/icons/circle-icon.svg',
-              width: 18,
-            ),
-            Container(
-              width: 2,
-              height: 50,
-              color: const Color(0xFFE4E9F3),
-            ),
-            SvgPicture.asset(
-              'assets/icons/circle-icon.svg',
-              width: 18,
-            )
-          ],
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  segmentEntity.departureTime,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  DateFormat('EEE, dd MMM').format(
-                    segmentEntity.departureDate,
-                  ),
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black45,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  segmentEntity.arrivalTime,
-                  style: AppStyles.textStylePoppins.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  DateFormat('EEE, dd MMM').format(segmentEntity.arrivalDate),
-                  style: AppStyles.textStylePoppins.copyWith(
-                    color: Colors.black45,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return SizedBox(
+      height: 80,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              SvgPicture.asset(
+                'assets/icons/circle-icon.svg',
+                width: 12,
+              ),
+              Expanded(
+                child: Container(
+                  width: 2,
+                  color: const Color(0xFFE4E9F3),
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/icons/circle-icon.svg',
+                width: 12,
+              )
+            ],
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   SizedBox(
-                    width: 180,
-                    child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        segmentEntity.departureCityName,
-                        style: AppStyles.textStylePoppins.copyWith(
-                          fontWeight: FontWeight.w600,
+                    height: 32,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            segmentEntity.departureTime,
+                            style: AppStyles.textStylePoppins.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
+                        Flexible(
+                          child: Text(
+                            DateFormat('EEE, dd MMM').format(
+                              segmentEntity.departureDate,
+                            ),
+                            style: AppStyles.textStylePoppins.copyWith(
+                              color: Colors.black45,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
-                    width: 180,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        segmentEntity.departureAirportName,
-                        style: AppStyles.textStylePoppins.copyWith(
-                          color: Colors.black45,
-                          fontSize: 12,
+                    height: 32,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Flexible(
+                          child: Text(
+                            segmentEntity.arrivalTime,
+                            style: AppStyles.textStylePoppins.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
+                        Flexible(
+                          child: Text(
+                            DateFormat('EEE, dd MMM')
+                                .format(segmentEntity.arrivalDate),
+                            style: AppStyles.textStylePoppins.copyWith(
+                              color: Colors.black45,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
-                height: 16,
+                width: 16,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   SizedBox(
-                    width: 180,
-                    child: Text(
-                      segmentEntity.arrivalCityName,
-                      style: AppStyles.textStylePoppins.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    height: 32,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          segmentEntity.departureCityName,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          segmentEntity.departureAirportName,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.black45,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
-                    width: 180,
-                    child: Text(
-                      segmentEntity.arrivalAirportName,
-                      style: AppStyles.textStylePoppins.copyWith(
-                        color: Colors.black45,
-                        fontSize: 12,
-                      ),
+                    height: 32,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          segmentEntity.arrivalCityName,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          segmentEntity.arrivalAirportName,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.black45,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ],
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 }

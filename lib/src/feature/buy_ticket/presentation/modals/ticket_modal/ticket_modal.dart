@@ -168,7 +168,7 @@ class __TicketModalContentState extends State<_TicketModalContent> {
     await Future.delayed(const Duration(seconds: 2), () async {
       await UrlLauncherHelper.launchInWeb(url)
           .whenComplete(() async => Future.delayed(
-                Duration(milliseconds: 200),
+                const Duration(milliseconds: 200),
                 () => Navigator.of(context).pop(),
               ));
     });
@@ -305,7 +305,7 @@ class _TicketModalSubHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      //  crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
@@ -330,6 +330,7 @@ class _TicketModalSubHeader extends StatelessWidget {
           ),
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Transform.rotate(
               angle: !isDirect ? 3.14 : 0,
@@ -338,6 +339,12 @@ class _TicketModalSubHeader extends StatelessWidget {
                 width: 150,
               ),
             ),
+            if (!isDirect)
+              const SizedBox(
+                height: 4,
+              )
+            else
+              const SizedBox.shrink(),
             Text(
               formatMinutesToHoursAndMinutes(
                 segment.durationInMinutes,
