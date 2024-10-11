@@ -83,5 +83,6 @@
 
     "noInternet": "ინტერნეტი არაა :(",
     "checkConnection": "შეამოწმეთ თქვენი ინტერნეტ კავშირი",
-    "inDevelopment": "განვითარებაში"
+    "inDevelopment": "განვითარებაში",
+    "noTransfers": "არ არის გადარიცხვები"
 }
