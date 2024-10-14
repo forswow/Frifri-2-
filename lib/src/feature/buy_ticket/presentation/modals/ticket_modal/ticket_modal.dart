@@ -10,7 +10,6 @@ import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_body.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_header.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/path_info_layover_info.dart';
@@ -193,10 +192,11 @@ class __TicketModalContentState extends State<_TicketModalContent> {
       context: context,
       barrierDismissible: false,
       builder: (context) => FullTicketInfoDialog(
+        url: url,
         ticketEntity: ticketEntity,
       ),
     ));
-    await Future.delayed(const Duration(seconds: 2), () async {
+    await Future.delayed(const Duration(seconds: 5), () async {
       await UrlLauncherHelper.launchInWeb(url)
           .whenComplete(() async => Future.delayed(
                 const Duration(milliseconds: 200),
@@ -206,12 +206,38 @@ class __TicketModalContentState extends State<_TicketModalContent> {
   }
 }
 
+String _formatDomain(String url) {
+  // Удаляем протокол (http:// или https://)
+  String domain = url.replaceFirst(RegExp(r'^(https?://)?(www\.)?'), '');
+
+  // Извлекаем доменное имя до первого слэша или вопросительного знака
+  domain = domain.split(RegExp(r'[/\?]')).first;
+  //domain = parts.first; // Получаем только доменное имя
+
+  // Заменяем дефисы на пробелы
+  domain = domain.replaceAll('-', ' ');
+
+  // Приводим к нужному формату: первая буква каждого слова заглавная
+  final List<String> domainParts = domain.split('.');
+  final String formattedDomain = domainParts
+      .map((part) => part
+          .split(' ')
+          .map(
+              (word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
+          .join(' '))
+      .join('.');
+
+  return formattedDomain;
+}
+
 class FullTicketInfoDialog extends StatelessWidget {
   const FullTicketInfoDialog({
     required this.ticketEntity,
+    required this.url,
     super.key,
   });
   final TicketEntity ticketEntity;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -241,12 +267,13 @@ class FullTicketInfoDialog extends StatelessWidget {
                             height: 24 / 16),
                       ),
                       TextSpan(
-                        text:
-                            '${ticketEntity.originAirport.name} - ${ticketEntity.destinationAirport.name}\n',
+                        text: '${_formatDomain(url)}\n\n',
+                        // '${ticketEntity.originAirport.name} - ${ticketEntity.destinationAirport.name}\n',
                         style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            height: 24 / 16),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          height: 24 / 16,
+                        ),
                       ),
                       TextSpan(
                           text: ticketEntity.formattedPrice,
@@ -269,7 +296,7 @@ class FullTicketInfoDialog extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
-                height: 14 / 10,
+                height: 20 / 10,
               ),
               textAlign: TextAlign.center,
             ),
@@ -291,48 +318,143 @@ class _TicketModalHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(46, 64, 46, 0),
-      child: Column(
-        children: [
-          ...ticketEntity.segmentsList.mapIndexed((index, segment) {
-            if (!ticketEntity.isDirect && index != 0) {
-              return const SizedBox.shrink();
-            }
-            return Padding(
-              padding: EdgeInsets.only(top: index != 0 ? 4 : 0),
-              child: _TicketModalSubHeader(
-                segment: segment,
-                originCode:
-                    ticketEntity.originAirport.name == segment.departureCityName
-                        ? ticketEntity.originAirport.code
-                        : ticketEntity.destinationAirport.code,
-                destinationCode: ticketEntity.destinationAirport.name ==
-                        segment.departureCityName
-                    ? ticketEntity.originAirport.code
-                    : ticketEntity.destinationAirport.code,
-                isDirect: ticketEntity.isDirect
-                    ? (ticketEntity.isDirect && index == 0)
-                    : !ticketEntity.isDirect,
-              ),
-            );
-          })
-        ],
-      ),
+      child: Column(children: _buildFragment(ticketEntity)),
     );
   }
 }
 
+List<Widget> _buildFragment(TicketEntity ticketEntity) {
+  if (ticketEntity.isDirect) {
+    return ticketEntity.segmentsList
+        .mapIndexed(
+          (index, segment) => _buildTicket(
+              originCode:
+                  ticketEntity.originAirport.name == segment.departureCityName
+                      ? ticketEntity.originAirport.code
+                      : ticketEntity.destinationAirport.code,
+              departureCityName: segment.departureCityName,
+              destinationCode: ticketEntity.destinationAirport.name ==
+                      segment.arrivalCityName
+                  ? ticketEntity.destinationAirport.code
+                  : ticketEntity.originAirport.code,
+              arrivalCityName: segment.arrivalCityName,
+              durationInMinutes: _getdurationInMinutes(ticketEntity),
+              isDirect: ticketEntity.isDirect
+                  ? (ticketEntity.isDirect && index == 0)
+                  : !ticketEntity.isDirect,
+              top: index != 0 ? 34 : 0),
+        )
+        .toList();
+  } else {
+    int firstDurationInMinutes = 0;
+    int lastDurationInMinutes = 0;
+    String firstOriginCode = '';
+    String firstDestinationCode = '';
+    String lastOriginCode = '';
+    String lastDestinationCode = '';
+    String currentArrivalCity = '';
+    int exitIndex = 0;
+
+    for (int i = 0; i < ticketEntity.segmentsList.length; i++) {
+      final segment = ticketEntity.segmentsList[i];
+      currentArrivalCity = segment.departureCityName;
+
+      if (currentArrivalCity != ticketEntity.destinationAirport.name) {
+        firstDurationInMinutes += segment.durationInMinutes;
+        firstOriginCode = ticketEntity.originAirport.code;
+
+        firstDestinationCode = ticketEntity.destinationAirport.code;
+        exitIndex = i;
+      } else {
+        break;
+      }
+    }
+
+    for (int i = exitIndex + 1; i < ticketEntity.segmentsList.length; i++) {
+      final segment = ticketEntity.segmentsList[i];
+      lastOriginCode = ticketEntity.originAirport.code;
+
+      lastDestinationCode = ticketEntity.destinationAirport.code;
+
+      lastDurationInMinutes += segment.durationInMinutes;
+    }
+    return [
+      _buildTicket(
+        durationInMinutes: firstDurationInMinutes,
+        departureCityName: ticketEntity.originAirport.name,
+        arrivalCityName: ticketEntity.destinationAirport.name,
+        originCode: firstOriginCode,
+        destinationCode: firstDestinationCode,
+        isDirect: true,
+        top: 0,
+      ),
+      if (lastOriginCode.isNotEmpty)
+        _buildTicket(
+          durationInMinutes: lastDurationInMinutes,
+          departureCityName: ticketEntity.originAirport.name,
+          arrivalCityName: ticketEntity.destinationAirport.name,
+          originCode: lastOriginCode,
+          destinationCode: lastDestinationCode,
+          isDirect: false,
+          top: 34,
+        ),
+    ];
+  }
+}
+
+Widget _buildTicket({
+  required String departureCityName,
+  required String arrivalCityName,
+  required String originCode,
+  required String destinationCode,
+  required bool isDirect,
+  required int durationInMinutes,
+  required double top,
+}) =>
+    Padding(
+      padding: EdgeInsets.only(top: top),
+      child: _TicketModalSubHeader(
+        originCode: originCode,
+        destinationCode: destinationCode,
+        isDirect: isDirect,
+        departureCityName: departureCityName,
+        durationInMinutes: durationInMinutes,
+        arrivalCityName: arrivalCityName,
+      ),
+    );
+
+int _getdurationInMinutes(TicketEntity ticketEntity) {
+  int durationInMinutes = 0;
+  for (int i = 0; i < ticketEntity.segmentsList.length; i++) {
+    final segment = ticketEntity.segmentsList[i];
+
+    final currentArrivalCity = segment.departureCityName;
+
+    if (currentArrivalCity != ticketEntity.destinationAirport.name) {
+      durationInMinutes += segment.durationInMinutes;
+    } else {
+      break;
+    }
+  }
+  return durationInMinutes;
+}
+
 class _TicketModalSubHeader extends StatelessWidget {
   const _TicketModalSubHeader({
-    required this.segment,
     required this.isDirect,
     required this.originCode,
     required this.destinationCode,
+    required this.departureCityName,
+    required this.durationInMinutes,
+    required this.arrivalCityName,
   });
 
-  final SegmentEntity segment;
   final bool isDirect;
   final String originCode;
   final String destinationCode;
+  final String departureCityName;
+  final int durationInMinutes;
+  final String arrivalCityName;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -352,7 +474,7 @@ class _TicketModalSubHeader extends StatelessWidget {
               ),
               FittedBox(
                 child: Text(
-                  segment.departureCityName,
+                  departureCityName,
                   textAlign: TextAlign.right,
                   style: AppStyles.textStylePoppins,
                 ),
@@ -364,10 +486,13 @@ class _TicketModalSubHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Transform.rotate(
-              angle: !isDirect ? 3.14 : 0,
+              angle: 0,
               child: SvgPicture.asset(
-                'assets/icons/avia-copy.svg',
+                !isDirect
+                    ? 'assets/icons/avia-reverse.svg'
+                    : 'assets/icons/avia-copy.svg',
                 width: 150,
+                height: 32,
               ),
             ),
             if (!isDirect)
@@ -378,7 +503,7 @@ class _TicketModalSubHeader extends StatelessWidget {
               const SizedBox.shrink(),
             Text(
               formatMinutesToHoursAndMinutes(
-                segment.durationInMinutes,
+                durationInMinutes,
                 AppLocalizations.of(context),
               ),
               style: AppStyles.textStylePoppins.copyWith(
@@ -399,7 +524,7 @@ class _TicketModalSubHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                segment.arrivalCityName,
+                arrivalCityName,
                 textAlign: TextAlign.right,
                 style: AppStyles.textStylePoppins,
               ),

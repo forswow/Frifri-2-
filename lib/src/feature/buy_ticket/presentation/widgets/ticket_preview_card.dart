@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
-import 'package:frifri/src/feature/avia_tickets/presentation/widgets/flight_prices_modal.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/modals/ticket_modal/ticket_modal.dart';
 import 'package:frifri/src/feature/shared/domain/entities/ticket_entity.dart';
 
@@ -105,7 +102,6 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
 
       for (int i = exitIndex + 1; i < ticketEntity.segmentsList.length; i++) {
         final segment = ticketEntity.segmentsList[i];
-        currentArrivalCity = segment.arrivalCityName;
 
         lastDepartureTime =
             ticketEntity.segmentsList[exitIndex + 1].departureTime;
@@ -122,14 +118,15 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
           arrivalTime: firstArrivalTime,
           departureTime: firstDepartureTime,
         ),
-        _buildTicket(
-          arrivalTime: lastArrivalTime,
-          departureAtIataCode: ticketEntity.destinationAirport.code,
-          arrivalAtIataCode: ticketEntity.originAirport.code,
-          countOfTransfers: lastTransfers,
-          durationInMinutes: lastDurationInMinutes,
-          departureTime: lastDepartureTime,
-        ),
+        if (lastDepartureTime.isNotEmpty)
+          _buildTicket(
+            arrivalTime: lastArrivalTime,
+            departureAtIataCode: ticketEntity.destinationAirport.code,
+            arrivalAtIataCode: ticketEntity.originAirport.code,
+            countOfTransfers: lastTransfers,
+            durationInMinutes: lastDurationInMinutes,
+            departureTime: lastDepartureTime,
+          ),
       ];
     }
   }
@@ -142,43 +139,52 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
     required int countOfTransfers,
     required int durationInMinutes,
   }) =>
-      Table(columnWidths: const <int, TableColumnWidth>{
-        0: FixedColumnWidth(45),
-        1: FixedColumnWidth(30),
-        2: FixedColumnWidth(45),
-        3: FixedColumnWidth(24),
-      }, children: [
-        TableRow(
-          children: [
-            TicketDepartureTimeAndPlace(
-                departureTime: departureTime,
-                departureAtIataCode: departureAtIataCode),
-            Text(
-              '–',
-              textAlign: TextAlign.center,
-              style: AppStyles.textStylePoppins.copyWith(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              TicketDepartureTimeAndPlace(
+                  departureTime: departureTime,
+                  departureAtIataCode: departureAtIataCode),
+              SizedBox(
+                width: 27,
+                height: 42,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    '–',
+                    textAlign: TextAlign.center,
+                    style: AppStyles.textStylePoppins.copyWith(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            TicketArrivalTimeAndPlace(
-              arrivalTime: arrivalTime,
-              arrivalAtIataCode: arrivalAtIataCode,
-            ),
-            const SizedBox(
-              width: 1,
-            ),
-            TicketDurationAndTransfersSection(
-              time: formatMinutesToHoursAndMinutes(
-                durationInMinutes,
-                AppLocalizations.of(context),
+              TicketArrivalTimeAndPlace(
+                arrivalTime: arrivalTime,
+                arrivalAtIataCode: arrivalAtIataCode,
               ),
-              countOfTransfers: countOfTransfers,
-            ),
-          ],
-        ),
-      ]);
+            ],
+          ),
+          Row(
+            children: [
+              // const SizedBox(
+              //   width: 12,
+              // ),
+              TicketDurationAndTransfersSection(
+                time: formatMinutesToHoursAndMinutes(
+                  durationInMinutes,
+                  AppLocalizations.of(context),
+                ),
+                countOfTransfers: countOfTransfers,
+              ),
+            ],
+          ),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => Stack(
@@ -225,46 +231,46 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                       if (ticketEntity.segmentsList.length > 1) ...[
                         ..._buildFragment(),
                       ] else ...[
-                        Table(columnWidths: const <int, TableColumnWidth>{
-                          0: FixedColumnWidth(40),
-                          1: FixedColumnWidth(30),
-                          2: FixedColumnWidth(50),
-                          3: FixedColumnWidth(96),
-                        }, children: [
-                          TableRow(
-                            children: [
-                              TicketDepartureTimeAndPlace(
-                                departureTime: ticketEntity.departureTime,
-                                departureAtIataCode:
-                                    ticketEntity.originAirport.code,
-                              ),
-                              Text(
-                                '–',
-                                textAlign: TextAlign.center,
-                                style: AppStyles.textStylePoppins.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            TicketDepartureTimeAndPlace(
+                              departureTime: ticketEntity.departureTime,
+                              departureAtIataCode:
+                                  ticketEntity.originAirport.code,
+                            ),
+                            SizedBox(
+                              width: 27,
+                              height: 42,
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Text(
+                                  '–',
+                                  textAlign: TextAlign.center,
+                                  style: AppStyles.textStylePoppins.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                              TicketArrivalTimeAndPlace(
-                                arrivalTime: ticketEntity.arrivalTime,
-                                arrivalAtIataCode:
-                                    ticketEntity.destinationAirport.code,
+                            ),
+                            TicketArrivalTimeAndPlace(
+                              arrivalTime: ticketEntity.arrivalTime,
+                              arrivalAtIataCode:
+                                  ticketEntity.destinationAirport.code,
+                            ),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            TicketDurationAndTransfersSection(
+                              time: formatMinutesToHoursAndMinutes(
+                                durationInMinutes,
+                                AppLocalizations.of(context),
                               ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              TicketDurationAndTransfersSection(
-                                time: formatMinutesToHoursAndMinutes(
-                                  durationInMinutes,
-                                  AppLocalizations.of(context),
-                                ),
-                                countOfTransfers: countOfTransfers,
-                              ),
-                            ],
-                          ),
-                        ]),
+                              countOfTransfers: countOfTransfers,
+                            ),
+                          ],
+                        )
                       ],
                     ]),
               ),
@@ -392,6 +398,7 @@ class TicketDepartureTimeAndPlace extends StatelessWidget {
         children: [
           Text(
             departureTime,
+            maxLines: 1,
             style: AppStyles.textStylePoppins.copyWith(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -400,6 +407,7 @@ class TicketDepartureTimeAndPlace extends StatelessWidget {
           ),
           Text(
             departureAtIataCode,
+            maxLines: 1,
             style: AppStyles.textStylePoppins.copyWith(
               fontSize: 12,
               color: Colors.grey,

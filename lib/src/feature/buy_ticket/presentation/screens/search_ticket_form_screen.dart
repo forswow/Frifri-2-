@@ -333,7 +333,8 @@ class ToLocationPicker extends StatelessWidget {
             searchModel: searchModel,
             mode: SearchCityModalModeEnum.to,
           ),
-        ).whenComplete(() => context.read<SearchCityBloc>().add(IdleSearchEvent()));
+        ).whenComplete(
+            () => context.read<SearchCityBloc>().add(IdleSearchEvent()));
 
         if (location == null) return;
 
@@ -527,7 +528,7 @@ class DepartureDatePicker extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) => CalendarModal(
             title: AppLocalizations.of(context).when,
-            initialDate: DateTime.now(),
+            initialDate: searchModel.departureDate ?? DateTime.now(),
             availableFromDate: DateTime.now(),
             isOneWay: true,
             originIataCode: searchModel.departureAt?.code,
@@ -610,7 +611,7 @@ class ReturnDatePicker extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) => CalendarModal(
             title: AppLocalizations.of(context).back,
-            initialDate: leastAvailableDate,
+            initialDate: searchModel.returnDate ?? DateTime.now(),
             availableFromDate: leastAvailableDate,
             isOneWay: false,
             originIataCode: searchModel.departureAt?.code,
