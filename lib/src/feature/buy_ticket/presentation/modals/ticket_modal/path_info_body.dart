@@ -118,35 +118,6 @@ class SegmentInfoBody extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          segmentEntity.arrivalCityName,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppStyles.textStylePoppins.copyWith(
-                            fontWeight: FontWeight.w600,
-                            height: 1,
-                          ),
-                        ),
-                        Text(
-                          segmentEntity.arrivalAirportName,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppStyles.textStylePoppins.copyWith(
-                            color: Colors.black45,
-                            fontSize: 12,
-                            height: 1,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 34,
-                    width: 176,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
                           segmentEntity.departureCityName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -163,6 +134,35 @@ class SegmentInfoBody extends StatelessWidget {
                             color: Colors.black45,
                             height: 1,
                             fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 34,
+                    width: 176,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          segmentEntity.arrivalCityName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            fontWeight: FontWeight.w600,
+                            height: 1,
+                          ),
+                        ),
+                        Text(
+                          segmentEntity.arrivalAirportName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyles.textStylePoppins.copyWith(
+                            color: Colors.black45,
+                            fontSize: 12,
+                            height: 1,
                           ),
                         ),
                       ],

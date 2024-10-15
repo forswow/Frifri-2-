@@ -192,18 +192,17 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                useRootNavigator: true,
-                isScrollControlled: true,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                builder: (context) => TicketModal(
-                  ticketEntity: ticketEntity,
-                ),
-              );
-            },
+            onTap: () => showModalBottomSheet(
+              context: context,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              builder: (context) => TicketModal(
+                ticketEntity: ticketEntity,
+              ),
+            ),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
