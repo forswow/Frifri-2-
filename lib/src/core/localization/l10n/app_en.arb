@@ -84,6 +84,7 @@
     "noInternet": "No internet :(",
     "checkConnection": "Check your internet connection",
     "inDevelopment": "In development",
-    "noTransfers": "No transfers"
+    "noTransfers": "No transfers",
+    "notification": "Notification"
 
 }

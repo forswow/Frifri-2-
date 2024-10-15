@@ -7,13 +7,11 @@ class GifProgress extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Gif(
-      image: const AssetImage('assets/gif/plane2.gif'),
-      width: 100,
-      height: 100,
-      fps: 8,
-      autostart: Autostart.loop,
-    );
-  }
+  Widget build(BuildContext context) => Gif(
+        image: const AssetImage('assets/gif/plane2.gif'),
+        width: 176,
+        height: 176,
+        fps: 8,
+        autostart: Autostart.loop,
+      );
 }

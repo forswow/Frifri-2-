@@ -23,22 +23,20 @@ class FaqModal extends StatelessWidget {
   final ScrollController scrollController;
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultModalWrapper(
-      child: Column(
-        children: [
-          const DefaultModalHeader(
-            centerText: 'Самые частые вопросы',
-          ),
-          const Divider(
-            height: 1,
-            thickness: 0.5,
-          ),
-          _FaqModalContent(scrollController: scrollController),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => DefaultModalWrapper(
+        child: Column(
+          children: [
+            const DefaultModalHeader(
+              centerText: 'Самые частые вопросы',
+            ),
+            const Divider(
+              height: 1,
+              thickness: 0.5,
+            ),
+            _FaqModalContent(scrollController: scrollController),
+          ],
+        ),
+      );
 }
 
 class _FaqModalContent extends StatelessWidget {
@@ -47,30 +45,28 @@ class _FaqModalContent extends StatelessWidget {
   final ScrollController scrollController;
 
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        controller: scrollController,
-        children: const [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 24,
+  Widget build(BuildContext context) => Expanded(
+        child: ListView(
+          controller: scrollController,
+          children: const [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 24,
+              ),
+              child: FaqHowToReturnATicket(),
             ),
-            child: FaqHowToReturnATicket(),
-          ),
-          _defaultListDivider,
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 20,
-              horizontal: 24,
+            _defaultListDivider,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 24,
+              ),
+              child: FaqTicketDidntShowUp(),
             ),
-            child: FaqTicketDidntShowUp(),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }
 
 class FaqHowToReturnATicket extends StatelessWidget {
@@ -79,21 +75,20 @@ class FaqHowToReturnATicket extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Как вернуть авиабилет?',
-          style: _headerTextStyle,
-          textAlign: TextAlign.left,
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Text(
-          textAlign: TextAlign.justify,
-          '''
+  Widget build(BuildContext context) => const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Как вернуть авиабилет?',
+            style: _headerTextStyle,
+            textAlign: TextAlign.left,
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            textAlign: TextAlign.justify,
+            '''
 Чтобы выяснить, получится ли сдать билет, вам нужно обратиться напрямую к его продавцу. Вот как это сделать. 
             
 1. Найти свой билет и посмотреть в нём, какая компания его продала вам и какие у неё указаны контакты. 
@@ -101,12 +96,11 @@ class FaqHowToReturnATicket extends StatelessWidget {
             
 Условия и возможность зависят от его тарифа. 
             Сами бы подсказали вам условия возврата, но мы только ищем билеты и сравниваем цены, а для покупки вы переходите на сайты наших партнёров — авиакомпаний и агентств.''',
-          style: _bodyTextStyle,
-        ),
-        // ------- Как вернуть билет (END)
-      ],
-    );
-  }
+            style: _bodyTextStyle,
+          ),
+          // ------- Как вернуть билет (END)
+        ],
+      );
 }
 
 class FaqTicketDidntShowUp extends StatelessWidget {
@@ -115,28 +109,26 @@ class FaqTicketDidntShowUp extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // ------- Не пришёл билет - что делать? (START)
-        Text(
-          'Не пришёл билет - что делать?',
-          style: _headerTextStyle,
-        ),
-        SizedBox(
-          height: 12,
-        ),
-        Text(
-          '''
+  Widget build(BuildContext context) => const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ------- Не пришёл билет - что делать? (START)
+          Text(
+            'Не пришёл билет - что делать?',
+            style: _headerTextStyle,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Text(
+            '''
 Проверьте, пожалуйста, папку «Спам» в своём почтовом ящике — часто потерянные письма оказываются именно там. 
     
 Если там билета нет, то нужно обратиться к его продавцу, попросить проверить адрес почты и отправить билет повторно. Для этого проверьте смс о списании денег — в нём будет указано наименование компании, где вы совершали покупку. Если не сможете разобраться, вернитесь в приложении на шаг назад и пришлите нам скриншот о списании на почту или в социальные сети из раздела «Нужна помощь?» — мы подскажем. 
     
 Сами бы прислали вам маршрутную квитанцию, но мы только ищем билеты и сравниваем цены, а для покупки вы переходите на сайты наших партнёров — авиакомпаний и агентств.''',
-          style: _bodyTextStyle,
-        ),
-      ],
-    );
-  }
+            style: _bodyTextStyle,
+          ),
+        ],
+      );
 }

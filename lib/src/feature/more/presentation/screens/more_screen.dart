@@ -16,12 +16,10 @@ class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return WrapTileListView(
-      title: AppLocalizations.of(context).more,
-      items: moreItemList(context),
-    );
-  }
+  Widget build(BuildContext context) => WrapTileListView(
+        title: AppLocalizations.of(context).more,
+        items: moreItemList(context),
+      );
 }
 
 class WrapTileListView extends StatelessWidget {
@@ -57,11 +55,21 @@ class WrapTileListView extends StatelessWidget {
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 39),
-                  child: Wrap(
-                    runSpacing: 24,
-                    spacing: 24,
-                    children: items.map((item) {
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 39, horizontal: 36),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 124 / 96,
+                      mainAxisSpacing: 24,
+                      crossAxisSpacing: 24,
+                    ),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      final item = items[index];
                       return GestureDetector(
                         onTap: item.onPressed,
                         child: GridTile(
@@ -79,9 +87,10 @@ class WrapTileListView extends StatelessWidget {
                                   width: 32,
                                   height: 32,
                                   decoration: BoxDecoration(
-                                      color: const Color(0xff5B9CEC)
-                                          .withOpacity(.12),
-                                      borderRadius: BorderRadius.circular(100)),
+                                    color: const Color(0xff5B9CEC)
+                                        .withOpacity(.12),
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(4),
                                     child: ClipOval(
@@ -101,9 +110,7 @@ class WrapTileListView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
+                                const SizedBox(height: 8),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16),
@@ -123,10 +130,10 @@ class WrapTileListView extends StatelessWidget {
                           ),
                         ),
                       );
-                    }).toList(),
+                    },
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

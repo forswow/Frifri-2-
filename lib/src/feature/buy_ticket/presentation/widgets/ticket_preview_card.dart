@@ -197,6 +197,8 @@ class _TicketPreviewCardState extends State<TicketPreviewCard> {
                 context: context,
                 useRootNavigator: true,
                 isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
                 builder: (context) => TicketModal(
                   ticketEntity: ticketEntity,
                 ),

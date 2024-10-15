@@ -6,8 +6,7 @@ class OptionsChipsCard extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -19,5 +18,4 @@ class OptionsChipsCard extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10),
       child: child,
     );
-  }
 }

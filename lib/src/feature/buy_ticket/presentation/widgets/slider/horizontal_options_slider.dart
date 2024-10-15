@@ -29,9 +29,7 @@ class HorizontalOptionsSlider extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       children: [
         GestureDetector(
-          onTap: () {
-            onDateChange(context);
-          },
+          onTap: () => onDateChange(context),
           child: DateChip(
             time: searchModel.departureDate,
             defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
@@ -72,18 +70,14 @@ class HorizontalOptionsSlider extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {
-            onLayoverChange(context);
-          },
+          onTap: () => onLayoverChange(context),
           child: LayoverInfoChip(
             searchModel: searchModel,
             defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,
           ),
         ),
         GestureDetector(
-          onTap: () {
-            onPassengersChange(context);
-          },
+          onTap: () => onPassengersChange(context),
           child: PassengersInfoChip(
             searchModel: searchModel,
             defaultChipsDefaultTextSize: _defaultChipsDefaultTextSize,

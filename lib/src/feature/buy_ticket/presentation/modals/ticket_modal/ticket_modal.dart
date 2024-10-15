@@ -294,9 +294,9 @@ class FullTicketInfoDialog extends StatelessWidget {
             child: Text(
               'Проверьте правильность цены и деталей перелета перед бронированием.',
               style: GoogleFonts.poppins(
-                fontSize: 10,
+                fontSize: 14,
                 fontWeight: FontWeight.w400,
-                height: 20 / 10,
+                height: 20 / 14,
               ),
               textAlign: TextAlign.center,
             ),
@@ -316,9 +316,29 @@ class _TicketModalHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(46, 64, 46, 0),
-      child: Column(children: _buildFragment(ticketEntity)),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: SvgPicture.asset(
+                'assets/icons/close.svg',
+                height: 24,
+                alignment: Alignment.centerRight,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(46, 28, 46, 0),
+          child: Column(children: _buildFragment(ticketEntity)),
+        ),
+      ],
     );
   }
 }

@@ -11,10 +11,8 @@ class ServicesScreen extends StatelessWidget {
   const ServicesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return WrapTileListView(
-      title: AppLocalizations.of(context).service,
-      items: serviceList(context),
-    );
-  }
+  Widget build(BuildContext context) => WrapTileListView(
+        title: AppLocalizations.of(context).service,
+        items: serviceList(context),
+      );
 }

@@ -13,75 +13,63 @@ List<MoreItemEntity> moreItemList(BuildContext context) {
   final local = AppLocalizations.of(context);
   return [
     MoreItemEntity(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            shape: AppDecorations.modalRoundedShape,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const SettingsModal(),
-          );
-        },
-        name: local.settings,
+        onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: AppDecorations.modalRoundedShape,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const SettingsModal(),
+            ),
+        name: local.notification,
         assetPath: 'assets/icons/Settings.svg'),
     MoreItemEntity(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            shape: AppDecorations.modalRoundedShape,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const SelectAirportModal(),
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: AppDecorations.modalRoundedShape,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const SelectAirportModal(),
+            ),
         name: local.departureAirport,
         assetPath: 'assets/icons/plane-fly.svg'),
     MoreItemEntity(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            shape: AppDecorations.modalRoundedShape,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const SelectLanguageModal(),
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: AppDecorations.modalRoundedShape,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const SelectLanguageModal(),
+            ),
         name: local.language,
         assetPath: 'assets/icons/Frame 624659.svg'),
     MoreItemEntity(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            shape: AppDecorations.modalRoundedShape,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const SelectCurrencyModal(),
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: AppDecorations.modalRoundedShape,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const SelectCurrencyModal(),
+            ),
         name: local.currency,
         assetPath: 'assets/icons/usd-circle.svg'),
     MoreItemEntity(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            shape: AppDecorations.modalRoundedShape,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const HelpModal(),
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: AppDecorations.modalRoundedShape,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const HelpModal(),
+            ),
         name: local.help,
         assetPath: 'assets/icons/help.svg'),
     MoreItemEntity(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            shape: AppDecorations.modalRoundedShape,
-            useRootNavigator: true,
-            isScrollControlled: true,
-            builder: (context) => const ConfidentialityModal(),
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+              context: context,
+              shape: AppDecorations.modalRoundedShape,
+              useRootNavigator: true,
+              isScrollControlled: true,
+              builder: (context) => const ConfidentialityModal(),
+            ),
         name: local.companyPolicy,
         assetPath: 'assets/icons/circle-info.svg'),
   ];

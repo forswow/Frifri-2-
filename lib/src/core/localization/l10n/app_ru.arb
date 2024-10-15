@@ -84,7 +84,8 @@
     "noInternet": "Нет интернета :(",
     "checkConnection": "Проверьте интернет соединение",
     "inDevelopment": "В разработке",
-    "noTransfers": "Без пересадок"
+    "noTransfers": "Без пересадок",
+    "notification": "Уведомления"
 
 
 }
