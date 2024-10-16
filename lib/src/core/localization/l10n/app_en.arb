@@ -85,6 +85,17 @@
     "checkConnection": "Check your internet connection",
     "inDevelopment": "In development",
     "noTransfers": "No transfers",
-    "notification": "Notification"
+    "notification": "Notification",
+    "checkBooking": "Please check the correct price and flight details before booking.",
+    "goToPurchase": "Go to purchase",
+    "searchResults": "Search results",
+    "selectedSameLocation": "You have selected the same location",
+    "noTicketsFound": "Unfortunately, no tickets were found for your request.",
+    "enterCity": "Please enter a city",
+    "faq_how_to_return_ticket": "To find out if you can return your ticket, you need to contact the seller directly. Here’s how to do it:\n\n1. Find your ticket and check which company sold it to you and what contact details they have.\n2. Contact that ticket agency, provide your details, and they will explain whether the ticket can be returned and how much it will cost.\n\nThe conditions and possibilities depend on its fare. We would tell you the return conditions ourselves, but we only search for tickets and compare prices; for purchasing, you go to our partners’ websites — airlines and agencies.",
+    "howReturnTicket": "How to return an air ticket?",
+    "faq_ticket_didnt_show_up": "Please check your \"Spam\" folder in your email inbox — often lost emails end up there.\n\nIf the ticket is not there, you need to contact the seller and ask them to check the email address and resend the ticket. For this purpose, check the SMS about the payment — it will indicate the name of the company where you made the purchase. If you cannot figure it out, go back a step in the app and send us a screenshot of the payment via email or social media from the \"Need Help?\" section — we will assist you.\n\nWe would send you a receipt ourselves, but we only search for tickets and compare prices; for purchasing, you go to our partners’ websites — airlines and agencies.",
+    "ticket_not_arrived_title": "The ticket didn’t arrive - what to do?",
+    "frequent_questions_title": "Frequently Asked Questions"
 
 }

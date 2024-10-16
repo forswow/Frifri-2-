@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frifri/src/core/localization/extension_alias.dart';
 import 'package:frifri/src/core/ui_kit/progress/gif_progress.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
 import 'package:frifri/src/feature/buy_ticket/presentation/bloc/search_tickets/search_ticket_bloc.dart';
@@ -99,7 +100,7 @@ class _ResultedTicketsList extends StatelessWidget {
               if (state.tickets.isEmpty) {
                 return Center(
                   child: Text(
-                    'К сожалению билеты по вашему запросу не найдены',
+                    context.l10n.noTicketsFound,
                     style: AppStyles.textStylePoppins.copyWith(
                       fontSize: 16,
                     ),
@@ -207,7 +208,7 @@ class _LocationPickerZone extends StatelessWidget {
         child: Column(
           children: <Widget>[
             CitiesInput(
-              cityName: searchModel.departureAt?.name ?? 'Укажите город',
+              cityName: searchModel.departureAt?.name ?? context.l10n.enterCity,
               onTitlePressed: () async {
                 final AirportEntity? location = await showModalBottomSheet(
                   context: context,
@@ -227,9 +228,9 @@ class _LocationPickerZone extends StatelessWidget {
                   if (location.code == searchModel.arrivalAt!.code) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Вы выбрали одну и ту же локацию'),
-                          duration: Duration(seconds: 2),
+                        SnackBar(
+                          content: Text(context.l10n.selectedSameLocation),
+                          duration: const Duration(seconds: 2),
                         ),
                       );
                     }
@@ -277,7 +278,7 @@ class _LocationPickerZone extends StatelessWidget {
               endIndent: 20,
             ),
             CitiesInput(
-              cityName: searchModel.arrivalAt?.name ?? 'Укажите город',
+              cityName: searchModel.arrivalAt?.name ?? context.l10n.enterCity,
               onTitlePressed: () async {
                 final AirportEntity? location = await showModalBottomSheet(
                   context: context,
@@ -297,9 +298,9 @@ class _LocationPickerZone extends StatelessWidget {
                   if (location.code == searchModel.departureAt!.code) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Вы выбрали одну и ту же локацию'),
-                          duration: Duration(seconds: 2),
+                        SnackBar(
+                          content: Text(context.l10n.selectedSameLocation),
+                          duration: const Duration(seconds: 2),
                         ),
                       );
                     }

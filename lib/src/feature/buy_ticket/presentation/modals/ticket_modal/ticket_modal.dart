@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
 import 'package:frifri/src/core/extensions/formatters.dart';
 import 'package:frifri/src/core/helpers/url_launcher_helper.dart';
+import 'package:frifri/src/core/localization/extension_alias.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
@@ -241,6 +242,7 @@ class FullTicketInfoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = context.l10n;
     return Dialog.fullscreen(
       backgroundColor: const Color(0xffF1F3F8),
       child: Column(
@@ -260,7 +262,7 @@ class FullTicketInfoDialog extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Переход для покупки\n',
+                        text: '${local.goToPurchase}\n',
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -292,7 +294,7 @@ class FullTicketInfoDialog extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 76),
             child: Text(
-              'Проверьте правильность цены и деталей перелета перед бронированием.',
+              local.checkBooking,
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,

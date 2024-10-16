@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:frifri/src/core/dependencies/dependencies.dart';
+import 'package:frifri/src/core/localization/extension_alias.dart';
 import 'package:frifri/src/core/ui_kit/buttons/confirm_button.dart';
 import 'package:frifri/src/core/ui_kit/date_picker/calendar_modal.dart';
 import 'package:frifri/src/core/ui_kit/styles/styles.dart';
@@ -342,8 +343,8 @@ class ToLocationPicker extends StatelessWidget {
           if (location.code == searchModel.departureAt!.code) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Вы выбрали одну и ту же локацию'),
+                SnackBar(
+                  content: Text(context.l10n.selectedSameLocation),
                   duration: Duration(seconds: 2),
                 ),
               );
@@ -380,7 +381,7 @@ class ToLocationPicker extends StatelessWidget {
             listenable: searchModel,
             builder: (context, child) {
               return Text(
-                searchModel.arrivalAt?.name ?? 'Выбрать',
+                searchModel.arrivalAt?.name ?? context.l10n.choose,
                 style: AppStyles.textStylePoppins.copyWith(
                   fontWeight: FontWeight.w600,
                   color: searchModel.arrivalAt == null
@@ -424,8 +425,8 @@ class FromLocationPicker extends StatelessWidget {
           if (location.code == searchModel.arrivalAt!.code) {
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Вы выбрали одну и ту же локацию'),
+                 SnackBar(
+                  content: Text(context.l10n.selectedSameLocation),
                   duration: Duration(seconds: 2),
                 ),
               );

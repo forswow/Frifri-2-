@@ -101,7 +101,7 @@ class _SearchCityModalContentState extends State<_SearchCityModalContent> {
                   ),
                 SearchInProgress() => const Center(child: GifProgress()),
                 SearchCompleted() => SearchCityResult(
-                    title: 'Результаты поиска',
+                    title: AppLocalizations.of(context).searchResults,
                     searchResult: state.countrySearchList,
                   ),
                 SearchFailure() => Container()
@@ -154,7 +154,7 @@ class SearchCityResult extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) {
+            (_, index) {
               final String name = searchResult[index].name;
               final String code = searchResult[index].code;
 

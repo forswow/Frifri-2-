@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frifri/src/core/localization/extension_alias.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal.dart';
 import 'package:frifri/src/core/ui_kit/modals/default_modal_header.dart';
 
@@ -26,8 +27,8 @@ class FaqModal extends StatelessWidget {
   Widget build(BuildContext context) => DefaultModalWrapper(
         child: Column(
           children: [
-            const DefaultModalHeader(
-              centerText: 'Самые частые вопросы',
+            DefaultModalHeader(
+              centerText: context.l10n.frequent_questions_title,
             ),
             const Divider(
               height: 1,
@@ -75,27 +76,20 @@ class FaqHowToReturnATicket extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => const Column(
+  Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Как вернуть авиабилет?',
+            context.l10n.howReturnTicket,
             style: _headerTextStyle,
             textAlign: TextAlign.left,
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
             textAlign: TextAlign.justify,
-            '''
-Чтобы выяснить, получится ли сдать билет, вам нужно обратиться напрямую к его продавцу. Вот как это сделать. 
-            
-1. Найти свой билет и посмотреть в нём, какая компания его продала вам и какие у неё указаны контакты. 
-2. Связаться с этим билетным агентством, назвать свои данные, и они объяснят, можно ли вернуть билет и сколько это будет стоить. 
-            
-Условия и возможность зависят от его тарифа. 
-            Сами бы подсказали вам условия возврата, но мы только ищем билеты и сравниваем цены, а для покупки вы переходите на сайты наших партнёров — авиакомпаний и агентств.''',
+            context.l10n.faq_how_to_return_ticket,
             style: _bodyTextStyle,
           ),
           // ------- Как вернуть билет (END)
@@ -109,24 +103,19 @@ class FaqTicketDidntShowUp extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => const Column(
+  Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ------- Не пришёл билет - что делать? (START)
           Text(
-            'Не пришёл билет - что делать?',
+            context.l10n.ticket_not_arrived_title,
             style: _headerTextStyle,
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Text(
-            '''
-Проверьте, пожалуйста, папку «Спам» в своём почтовом ящике — часто потерянные письма оказываются именно там. 
-    
-Если там билета нет, то нужно обратиться к его продавцу, попросить проверить адрес почты и отправить билет повторно. Для этого проверьте смс о списании денег — в нём будет указано наименование компании, где вы совершали покупку. Если не сможете разобраться, вернитесь в приложении на шаг назад и пришлите нам скриншот о списании на почту или в социальные сети из раздела «Нужна помощь?» — мы подскажем. 
-    
-Сами бы прислали вам маршрутную квитанцию, но мы только ищем билеты и сравниваем цены, а для покупки вы переходите на сайты наших партнёров — авиакомпаний и агентств.''',
+            context.l10n.faq_ticket_didnt_show_up,
             style: _bodyTextStyle,
           ),
         ],
